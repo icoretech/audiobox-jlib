@@ -26,7 +26,7 @@ public interface BaseDataStore {
   public static final String ARGUMENT_ERROR = "'key' parameter is mandatory.";
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>save (in memory or persisting somewhere) the given {@link java.lang.Object}</li>
    * <li>return true if the saving succeed, false otherwise</li>
@@ -38,11 +38,11 @@ public interface BaseDataStore {
    * @return true if save succeed
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public boolean save(String key, Object value) throws IllegalArgumentException;
+  public boolean save(String key, Object value);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>save (in memory or persisting somewhere) the given {@link java.lang.String}</li>
    * <li>return true if the saving succeed, false otherwise</li>
@@ -54,11 +54,11 @@ public interface BaseDataStore {
    * @return true if save succeed
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public boolean save(String key, String value) throws IllegalArgumentException;
+  public boolean save(String key, String value);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>save (in memory or persisting somewhere) the given {@link java.lang.Long}</li>
    * <li>return true if the saving succeed, false otherwise</li>
@@ -70,11 +70,11 @@ public interface BaseDataStore {
    * @return true if save succeed
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public boolean save(String key, Long value) throws IllegalArgumentException;
+  public boolean save(String key, Long value);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>save (in memory or persisting somewhere) the given {@link java.lang.Double}</li>
    * <li>return true if the saving succeed, false otherwise</li>
@@ -86,11 +86,11 @@ public interface BaseDataStore {
    * @return true if save succeed
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public boolean save(String key, Double value) throws IllegalArgumentException;
+  public boolean save(String key, Double value);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>save (in memory or persisting somewhere) the given {@link java.lang.Boolean}</li>
    * <li>return true if the saving succeed, false otherwise</li>
@@ -102,11 +102,11 @@ public interface BaseDataStore {
    * @return true if save succeed
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public boolean save(String key, Boolean value) throws IllegalArgumentException;
+  public boolean save(String key, Boolean value);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>return the {@link java.lang.Object} specified by the <code>key</code> or null.</li>
    * <li>throw an {@link java.lang.IllegalArgumentException} if the <code>key</code> is not provided.</li>
@@ -116,11 +116,11 @@ public interface BaseDataStore {
    * @return the {@link java.lang.Object} specified by the <code>key</code> or null if not found.
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public Object get(String key) throws IllegalArgumentException;
+  public Object get(String key);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>return the {@link java.lang.String} specified by the <code>key</code> or null.</li>
    * <li>throw an {@link java.lang.IllegalArgumentException} if the <code>key</code> is not provided.</li>
@@ -130,11 +130,11 @@ public interface BaseDataStore {
    * @return the {@link java.lang.String} specified by the <code>key</code> or null if not found.
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public String getString(String key) throws IllegalArgumentException;
+  public String getString(String key);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>return the {@link java.lang.Long} specified by the <code>key</code> or null.</li>
    * <li>throw an {@link java.lang.IllegalArgumentException} if the <code>key</code> is not provided.</li>
@@ -144,11 +144,11 @@ public interface BaseDataStore {
    * @return the {@link java.lang.Long} specified by the <code>key</code> or null if not found.
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public Long getLong(String key) throws IllegalArgumentException;
+  public Long getLong(String key);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>return the {@link java.lang.Double} specified by the <code>key</code> or null.</li>
    * <li>throw an {@link java.lang.IllegalArgumentException} if the <code>key</code> is not provided.</li>
@@ -158,11 +158,11 @@ public interface BaseDataStore {
    * @return the {@link java.lang.Double} specified by the <code>key</code> or null if not found.
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public Double getDouble(String key) throws IllegalArgumentException;
+  public Double getDouble(String key);
 
 
   /**
-   * Implementation of this method must:
+   * This method:
    * <ul>
    * <li>return the {@link java.lang.Boolean} specified by the <code>key</code> or null.</li>
    * <li>throw an {@link java.lang.IllegalArgumentException} if the <code>key</code> is not provided.</li>
@@ -172,7 +172,7 @@ public interface BaseDataStore {
    * @return the {@link java.lang.Boolean} specified by the <code>key</code> or null if not found.
    * @throws java.lang.IllegalArgumentException if <code>key</code> is not provided.
    */
-  public Boolean getBoolean(String key) throws IllegalArgumentException;
+  public Boolean getBoolean(String key);
 
 
 }

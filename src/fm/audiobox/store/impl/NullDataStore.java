@@ -17,68 +17,81 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * NullDataStore is exactly what the name suggests.
+ * <p/>
  * It saves nothing and gets null when requested.
- * It's the most basic BaseDataStore Implementation used mainly for testing purpose
- * or where saving data is not important.
+ * <p/>
+ * It's the most basic {@link fm.audiobox.store.interfaces.BaseDataStore}
+ * implementation used mainly for testing purpose
+ * or when saving data is not important.
  */
 public class NullDataStore implements BaseDataStore {
 
 
   @Override
-  public boolean save(String key, Object value) throws IllegalArgumentException {
+  public boolean save(String key, Object value) {
     validateKey(key);
     return true;
   }
 
   @Override
-  public boolean save(String key, String value) throws IllegalArgumentException {
+  public boolean save(String key, String value) {
     validateKey(key);
     return true;
   }
 
   @Override
-  public boolean save(String key, Long value) throws IllegalArgumentException {
+  public boolean save(String key, Long value) {
     validateKey(key);
     return true;
   }
 
   @Override
-  public boolean save(String key, Double value) throws IllegalArgumentException {
+  public boolean save(String key, Double value) {
     validateKey(key);
     return true;
   }
 
   @Override
-  public boolean save(String key, Boolean value) throws IllegalArgumentException {
+  public boolean save(String key, Boolean value) {
     validateKey(key);
     return true;
   }
 
   @Override
-  public Object get(String key) throws IllegalArgumentException {
+  public Object get(String key) {
+    validateKey(key);
     return null;
   }
 
   @Override
-  public String getString(String key) throws IllegalArgumentException {
+  public String getString(String key) {
+    validateKey(key);
     return null;
   }
 
   @Override
-  public Long getLong(String key) throws IllegalArgumentException {
+  public Long getLong(String key) {
+    validateKey(key);
     return null;
   }
 
   @Override
-  public Double getDouble(String key) throws IllegalArgumentException {
+  public Double getDouble(String key) {
+    validateKey(key);
     return null;
   }
 
   @Override
-  public Boolean getBoolean(String key) throws IllegalArgumentException {
+  public Boolean getBoolean(String key) {
+    validateKey(key);
     return null;
   }
 
+  /**
+   * Checks if provided <code>key</code> is valid.
+   *
+   * @throws java.lang.IllegalArgumentException if <code>key</code> is not valid.
+   */
   private void validateKey(String key) {
     if (StringUtils.isBlank(key)) {
       throw new IllegalArgumentException(ARGUMENT_ERROR);
