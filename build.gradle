@@ -1,0 +1,58 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group = 'fm.audiobox'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+idea {
+
+    //if you want parts of paths in resulting files (*.iml, etc.) to be replaced by variables (Files)
+    //pathVariables GRADLE_HOME: file('~/cool-software/gradle')
+
+    module {
+        //if for some reason you want to add an extra sourceDirs
+        sourceDirs += file('src')
+
+        //and some extra test source dirs
+        testSourceDirs += file('tests')
+
+        //and some extra dirs that should be excluded by IDEA
+        //excludeDirs += file('some-extra-exclude-dir')
+
+        //if you don't like the name Gradle has chosen
+        //name = 'some-better-name'
+
+        //if you prefer different output folders
+        //inheritOutputDirs = false
+        //outputDir = file('muchBetterOutputDir')
+        //testOutputDir = file('muchBetterTestOutputDir')
+
+        //if you prefer different SDK than that inherited from IDEA project
+        jdkName = '1.7'
+
+        //if 'content root' (as IDEA calls it) of the module is different
+        //contentRoot = file('my-module-content-root')
+
+        //if you love browsing Javadoc
+        downloadJavadoc = true
+
+        //and hate reading sources :)
+        downloadSources = false
+    }
+}
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    compile     'org.slf4j:slf4j-api:1.7.2+'
+    compile     'com.google.http-client:google-http-client:+'
+    compile     'com.google.oauth-client:google-oauth-client:+'
+    compile     'commons-validator:commons-validator:+'
+    compile     'org.apache.commons:commons-lang3:+'
+    testCompile 'junit:junit:4.11+'
+}

@@ -1,0 +1,41 @@
+# Backup files
+*~
+*.bak
+
+# OS files
+.DS_Store
+.directory
+.gradle
+*.session
+
+# IDE files
+.loadpath
+.idea
+.metadata
+*/.settings
+*/.classpath
+target
+.classpath
+.project
+.settings
+.wtpmodules
+/bin
+
+# Build files
+*.class
+*.out
+*/build/
+*/bin
+manifest.mf
+*/nbproject/
+*/build.xml
+**/target
+
+# Project spcifics
+audiobox.fm-core/src/docbkx
+
+# Credentials
+# audiobox.fm-core/src/test/java/fm/audiobox/core/test/mocks/fixtures/fixtures.properties
+# audiobox.fm-sync/src/test/java/fm/audiobox/sync/test/mocks/fixtures/fixtures.properties
+audiobox.fm-sync/src/test/resources/fm/audiobox/sync/test/mocks/fixtures/fixtures.properties
+audiobox.fm-core/src/test/resources/fm/audiobox/core/test/mocks/fixtures/fixtures.properties
