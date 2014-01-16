@@ -17,9 +17,13 @@ package fm.audiobox.store.interfaces;
  * to save and get back generic data.
  * <p/>
  * <p/>
+ *
  * Created by keytwo on 16/01/14.
  */
 public interface BaseDataStore {
+
+  /** Default argument error message */
+  public static final String ARGUMENT_ERROR = "'key' parameter is mandatory.";
 
   /**
    * Implementation of this method must:
