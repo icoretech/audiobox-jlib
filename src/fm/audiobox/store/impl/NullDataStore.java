@@ -33,11 +33,13 @@ public class NullDataStore implements BaseDataStore {
     return true;
   }
 
+
   @Override
   public boolean save(String key, String value) {
     validateKey(key);
     return true;
   }
+
 
   @Override
   public boolean save(String key, Long value) {
@@ -45,11 +47,13 @@ public class NullDataStore implements BaseDataStore {
     return true;
   }
 
+
   @Override
   public boolean save(String key, Double value) {
     validateKey(key);
     return true;
   }
+
 
   @Override
   public boolean save(String key, Boolean value) {
@@ -57,11 +61,20 @@ public class NullDataStore implements BaseDataStore {
     return true;
   }
 
+
+  @Override
+  public boolean remove(String key) {
+    validateKey(key);
+    return true;
+  }
+
+
   @Override
   public Object get(String key) {
     validateKey(key);
     return null;
   }
+
 
   @Override
   public String getString(String key) {
@@ -69,11 +82,13 @@ public class NullDataStore implements BaseDataStore {
     return null;
   }
 
+
   @Override
   public Long getLong(String key) {
     validateKey(key);
     return null;
   }
+
 
   @Override
   public Double getDouble(String key) {
@@ -81,11 +96,13 @@ public class NullDataStore implements BaseDataStore {
     return null;
   }
 
+
   @Override
   public Boolean getBoolean(String key) {
     validateKey(key);
     return null;
   }
+
 
   /**
    * Checks if provided <code>key</code> is valid.

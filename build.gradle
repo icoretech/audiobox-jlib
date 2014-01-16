@@ -50,9 +50,11 @@ repositories {
 
 dependencies {
     compile     'org.slf4j:slf4j-api:1.7.2+'
+    compile     'ch.qos.logback:logback-classic:1.+'
     compile     'com.google.http-client:google-http-client:+'
     compile     'com.google.oauth-client:google-oauth-client:+'
     compile     'commons-validator:commons-validator:+'
     compile     'org.apache.commons:commons-lang3:+'
     testCompile 'junit:junit:4.11+'
+    testCompile "org.mockito:mockito-core:1.9.5"
 }
