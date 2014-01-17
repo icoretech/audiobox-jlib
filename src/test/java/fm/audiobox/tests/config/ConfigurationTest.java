@@ -15,33 +15,59 @@ package fm.audiobox.tests.config;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.tests.AudioBoxTest;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
+import java.io.File;
 import java.io.IOException;
+
+import static junit.framework.Assert.fail;
 
 /**
  * Created by keytwo on 17/01/14.
  */
 public class ConfigurationTest extends AudioBoxTest {
 
-  @Test
-  public void testConfiguration() throws ConfigurationException {
-    Configuration config = new Configuration(Configuration.Env.staging);
-    config.build();
-    config.setApiKey("3ebef5f53a6d7f01fb052ca89ef17a37");
-    config.setApiSecret("da75257c0070a8405e029a48b2e05bd1");
-    config.setHttpTransport(new NetHttpTransport());
-    config.setJsonFactory(new JacksonFactory());
+  private Client c;
 
-    logger.debug("Token URL: " + config.getEnvTokenUrl());
+  private static final File DATA_STORE_DIR = new File(System.getProperty("user.home"), ".audiobox/abx");
 
-    Client c = new Client(config);
+
+  @Before
+  public void setUp() {
+    super.setUp();
+
     try {
-      TokenResponse r = c.authorize("valerio@icorete.ch", "?!M3rill");
+      Configuration config = new Configuration(Configuration.Env.staging);
+      config.setDataStoreFactory(new FileDataStoreFactory(DATA_STORE_DIR));
+
+      config.setApiKey(fixtures.getString("authentication.client_id"));
+      config.setApiSecret(fixtures.getString("authentication.client_secret"));
+      config.setHttpTransport(new NetHttpTransport());
+      config.setJsonFactory(new JacksonFactory());
+
+      logger.debug("Token URL: " + config.getEnvTokenUrl());
+
+      c = new Client(config);
+    } catch (IOException e) {
+      fail(e.getMessage());
+    } catch (ConfigurationException e) {
+      fail(e.getMessage());
+    }
+  }
+
+
+  @Test
+  @Ignore
+  public void testAuthorization() throws ConfigurationException {
+    try {
+      TokenResponse r = c.authorize(fixtures.getString("authentication.email"), fixtures.getString("authentication.password"));
       logger.debug(r.getAccessToken());
     } catch (IOException e) {
       e.printStackTrace();

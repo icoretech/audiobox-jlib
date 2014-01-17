@@ -11,6 +11,8 @@
 
 package fm.audiobox.tests;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,6 +34,8 @@ public class AudioBoxTest {
   private String className;
 
   private boolean printTimingLog = false;
+
+  public Config fixtures = ConfigFactory.load("fixtures");;
 
   @Rule
   public TestName name = new TestName();

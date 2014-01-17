@@ -1,0 +1,6 @@
+authentication {
+  client_id = "123abc"
+  client_secret = "cba321"
+  email = "email@example.com"
+  password = "password"
+}

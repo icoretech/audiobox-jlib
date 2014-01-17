@@ -13,33 +13,28 @@
 package fm.audiobox.core.config;
 
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.StoredCredential;
+import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.util.store.DataStore;
 import com.google.api.client.util.store.DataStoreFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.typesafe.config.Config;
-import com.typesafe.config.ConfigException;
 import com.typesafe.config.ConfigFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by keytwo on 17/01/14.
  */
 public class Configuration {
 
-  private static final File DATA_STORE_DIR = new File(System.getProperty("user.home"), ".audiobox/abx");
-
   private String apiKey;
 
   private String apiSecret;
-
-  private DataStoreFactory dataStore;
 
   private Credential credential;
 
@@ -53,103 +48,120 @@ public class Configuration {
 
   private boolean ready = false;
 
-  public enum Env { production, staging, development }
-
   private Config config;
+
+  private GenericUrl tokenUrl;
+
+  private DataStoreFactory db;
+
+  public enum Env {production, staging, development}
+
 
   public Configuration(Env environment) {
     this.environment = environment;
     this.config = ConfigFactory.load("lib");
   }
 
-  public void build() throws ConfigurationException {
 
-    try {
-      setDataStore(new FileDataStoreFactory(DATA_STORE_DIR));
-    } catch (IOException e) {
-      logger.error("Unable to set data store: " + e.getMessage());
-    }
-
+  public void setDataStoreFactory(DataStoreFactory dataStoreFactory) {
+    this.db = dataStoreFactory;
   }
+
+
+  public DataStoreFactory getDataStoreFactory() {
+    return db;
+  }
+
 
   public Config getEnvironmentConfiguration(Env environment) {
     return config.getConfig("abx." + environment.name());
   }
+
 
   public String getEnvBaseUrl() {
 
     Config envConf = getEnvironmentConfiguration(getEnvironment());
 
     String protocol = envConf.getString("api.protocol");
-    String host     = envConf.getString("api.host");
-    String port     = envConf.getString("api.port");
+    String host = envConf.getString("api.host");
+    String port = envConf.getString("api.port");
 
     return protocol + "://" + host + ":" + port;
   }
 
-  public String getEnvTokenUrl() {
-    return getEnvBaseUrl() + getEnvironmentConfiguration(getEnvironment()).getString("api.oauth.tokenPath");
+
+  public GenericUrl getEnvTokenUrl() {
+    if (tokenUrl == null) {
+      tokenUrl = new GenericUrl( getEnvBaseUrl() + getEnvironmentConfiguration(getEnvironment()).getString("api.oauth.tokenPath") );
+    }
+    return tokenUrl;
   }
+
 
   public boolean isReady() {
     return ready;
   }
 
+
   public String getApiKey() {
     return apiKey;
   }
+
 
   public void setApiKey(String apiKey) {
     this.apiKey = apiKey;
   }
 
+
   public String getApiSecret() {
     return apiSecret;
   }
+
 
   public void setApiSecret(String apiSecret) {
     this.apiSecret = apiSecret;
   }
 
-  public DataStoreFactory getDataStore() {
-    return dataStore;
-  }
-
-  public void setDataStore(DataStoreFactory dataStore) {
-    this.dataStore = dataStore;
-  }
 
   public Credential getCredential() {
     return credential;
   }
 
+
   public void setCredential(Credential credential) {
     this.credential = credential;
   }
+
 
   public Env getEnvironment() {
     return environment;
   }
 
+
   public void setEnvironment(Env environment) {
     this.environment = environment;
   }
+
 
   public HttpTransport getHttpTransport() {
     return httpTransport;
   }
 
+
   public void setHttpTransport(HttpTransport httpTransport) {
     this.httpTransport = httpTransport;
   }
+
 
   public JsonFactory getJsonFactory() {
     return jsonFactory;
   }
 
+
   public void setJsonFactory(JsonFactory jsonFactory) {
     this.jsonFactory = jsonFactory;
   }
+
 
   public void checkConfiguration() throws ConfigurationException {
 
@@ -163,7 +175,7 @@ public class Configuration {
       throw new ConfigurationException("Client ID is missing, please provide one and try again.");
     }
 
-    if (getDataStore() == null) {
+    if (getDataStoreFactory() == null) {
       throw new ConfigurationException("Data store cannot be null, .");
     }
 
