@@ -15,7 +15,6 @@ package fm.audiobox.core;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
 import com.google.api.client.auth.oauth2.PasswordTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.http.GenericUrl;
 import fm.audiobox.core.config.Configuration;
 
@@ -39,14 +38,10 @@ public class Client {
   }
 
 
-  public TokenResponse authorize(String username, String password) {
+  public TokenResponse authorize(String username, String password) throws IOException {
     PasswordTokenRequest ptr = new PasswordTokenRequest(getConf().getHttpTransport(), getConf().getJsonFactory(), new GenericUrl(conf.getEnvTokenUrl()), username, password);
     ptr.setClientAuthentication(new ClientParametersAuthentication(conf.getApiKey(), conf.getApiSecret()));
-    try {
-      TokenResponse response = ptr.execute();
-    } catch (PasswordTokenRequest e) {
-
-    }
+    TokenResponse response = ptr.execute();
     return response;
   }
 
