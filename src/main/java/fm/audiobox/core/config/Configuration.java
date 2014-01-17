@@ -17,6 +17,9 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
+import com.typesafe.config.ConfigFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,8 +55,11 @@ public class Configuration {
 
   public enum Env { production, staging, development }
 
+  private Config config;
+
   public Configuration(Env environment) {
     this.environment = environment;
+    this.config = ConfigFactory.load("lib");
   }
 
   public void build() throws ConfigurationException {
@@ -64,6 +70,25 @@ public class Configuration {
       logger.error("Unable to set data store: " + e.getMessage());
     }
 
+  }
+
+  public Config getEnvironmentConfiguration(Env environment) {
+    return config.getConfig("abx." + environment.name());
+  }
+
+  public String getEnvBaseUrl() {
+
+    Config envConf = getEnvironmentConfiguration(getEnvironment());
+
+    String protocol = envConf.getString("api.protocol");
+    String host     = envConf.getString("api.host");
+    String port     = envConf.getString("api.port");
+
+    return protocol + "://" + host + ":" + port;
+  }
+
+  public String getEnvTokenUrl() {
+    return getEnvBaseUrl() + getEnvironmentConfiguration(getEnvironment()).getString("api.oauth.tokenPath");
   }
 
   public boolean isReady() {
@@ -127,6 +152,9 @@ public class Configuration {
   }
 
   public void checkConfiguration() throws ConfigurationException {
+
+    config.checkValid(ConfigFactory.defaultReference(), "abx");
+
     if (StringUtils.isBlank(getApiKey())) {
       throw new ConfigurationException("API Key (secret) is missing, please provide one and try again.");
     }
@@ -136,7 +164,7 @@ public class Configuration {
     }
 
     if (getDataStore() == null) {
-      throw new ConfigurationException("Data store cannot be null.");
+      throw new ConfigurationException("Data store cannot be null, .");
     }
 
     if (getEnvironment() == null) {

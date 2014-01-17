@@ -12,22 +12,20 @@
 
 package fm.audiobox.core;
 
-import com.google.api.client.auth.oauth2.ClientCredentialsTokenRequest;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.auth.oauth2.PasswordTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.http.BasicAuthentication;
+import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.http.GenericUrl;
 import fm.audiobox.core.config.Configuration;
 
 import javax.naming.ConfigurationException;
+import java.io.IOException;
 
 /**
  * Created by keytwo on 17/01/14.
  */
 public class Client {
-
-  private static final String TOKEN_SERVER_URL = "";
-  private static final String AUTHORIZATION_SERVER_URL = "";
-  private static final String[] SCOPE = {"all"};
 
   private Configuration conf;
 
@@ -41,12 +39,14 @@ public class Client {
   }
 
 
-  /** Authorizes the installed application to access user's protected data. */
-  private TokenResponse authorize() throws Exception {
-    // set up authorization code flow
-    ClientCredentialsTokenRequest flow = new ClientCredentialsTokenRequest(getConf().getHttpTransport(), getConf().getJsonFactory(), new GenericUrl(TOKEN_SERVER_URL));
-    flow.setClientAuthentication(new BasicAuthentication("", ""));
-    TokenResponse response = flow.execute();
+  public TokenResponse authorize(String username, String password) {
+    PasswordTokenRequest ptr = new PasswordTokenRequest(getConf().getHttpTransport(), getConf().getJsonFactory(), new GenericUrl(conf.getEnvTokenUrl()), username, password);
+    ptr.setClientAuthentication(new ClientParametersAuthentication(conf.getApiKey(), conf.getApiSecret()));
+    try {
+      TokenResponse response = ptr.execute();
+    } catch (PasswordTokenRequest e) {
+
+    }
     return response;
   }
 
