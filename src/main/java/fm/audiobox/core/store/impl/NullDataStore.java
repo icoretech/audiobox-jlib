@@ -10,9 +10,9 @@
  * @license iCoreTech, Inc. Private License
  */
 
-package fm.audiobox.store.impl;
+package fm.audiobox.core.store.impl;
 
-import fm.audiobox.store.interfaces.BaseDataStore;
+import fm.audiobox.core.store.interfaces.BaseDataStore;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
  * <p/>
  * It saves nothing and gets null when requested.
  * <p/>
- * It's the most basic {@link fm.audiobox.store.interfaces.BaseDataStore}
+ * It's the most basic {@link fm.audiobox.core.store.interfaces.BaseDataStore}
  * implementation used mainly for testing purpose
  * or when saving data is not important.
  */

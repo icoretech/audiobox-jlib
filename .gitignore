@@ -25,6 +25,7 @@ target
 *.class
 *.out
 build
+out
 */bin
 manifest.mf
 */nbproject/

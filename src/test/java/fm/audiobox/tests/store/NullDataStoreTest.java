@@ -12,7 +12,7 @@
 package fm.audiobox.tests.store;
 
 
-import fm.audiobox.store.impl.NullDataStore;
+import fm.audiobox.core.store.impl.NullDataStore;
 import fm.audiobox.tests.AudioBoxTest;
 import org.junit.Test;
 

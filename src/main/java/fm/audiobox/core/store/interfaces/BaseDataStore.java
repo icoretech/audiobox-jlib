@@ -10,7 +10,7 @@
  * @license iCoreTech, Inc. Private License
  */
 
-package fm.audiobox.store.interfaces;
+package fm.audiobox.core.store.interfaces;
 
 /**
  * Implementation of this interface should provide a general way
