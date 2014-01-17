@@ -14,23 +14,16 @@ package fm.audiobox.tests.store;
 
 import fm.audiobox.store.impl.NullDataStore;
 import fm.audiobox.tests.AudioBoxTest;
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class NullDataStoreTest extends AudioBoxTest {
 
-  private NullDataStore nds;
+  private NullDataStore nds = new NullDataStore();
 
   private static final String TEST_KEY = "test_key";
-
-
-  @Before
-  public void setUp() {
-    super.setUp();
-    nds = new NullDataStore();
-  }
 
 
 
@@ -169,30 +162,30 @@ public class NullDataStoreTest extends AudioBoxTest {
 
   @Test
   public void testOnGettingObject() {
-    assertNull(nds.get(TEST_KEY));
+    assertNull("getting Object from NullDataStore should result in null", nds.get(TEST_KEY));
   }
 
 
   @Test
   public void testOnGettingString() {
-    assertNull(nds.getString(TEST_KEY));
+    assertNull("getting String from NullDataStore should result in null", nds.getString(TEST_KEY));
   }
 
 
   @Test
   public void testOnGettingLong() {
-    assertNull(nds.getLong(TEST_KEY));
+    assertNull("getting Long from NullDataStore should result in null", nds.getLong(TEST_KEY));
   }
 
 
   @Test
   public void testOnGettingDouble() {
-    assertNull(nds.getDouble(TEST_KEY));
+    assertNull("getting Double from NullDataStore should result in null", nds.getDouble(TEST_KEY));
   }
 
 
   @Test
   public void testSuccessOnGettingBoolean() {
-    assertNull(nds.getBoolean(TEST_KEY));
+    assertNull("getting Boolean from NullDataStore should result in null", nds.getBoolean(TEST_KEY));
   }
 }
