@@ -18,6 +18,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStore;
 import com.google.api.client.util.store.FileDataStoreFactory;
+import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.models.User;
@@ -25,6 +26,7 @@ import fm.audiobox.tests.AudioBoxTest;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
@@ -41,12 +43,19 @@ public class ConfigurationTest extends AudioBoxTest {
 
   private static final File DATA_STORE_DIR = new File(System.getProperty("user.home"), ".audiobox/abx");
 
+  private static final File CACHE_DIR = new File(System.getProperty("user.home"), ".audiobox/http");
+
 
   @Before
   public void setUp() {
     super.setUp();
 
     try {
+
+      final long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
+      final File httpCacheDir = CACHE_DIR;
+      HttpResponseCache.install(httpCacheDir, httpCacheSize);
+
       Configuration config = new Configuration(Configuration.Env.staging);
       config.setDataStoreFactory(new FileDataStoreFactory(DATA_STORE_DIR));
 

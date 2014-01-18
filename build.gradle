@@ -43,4 +43,8 @@ dependencies {
 
     // Test logging
     testCompile 'ch.qos.logback:logback-classic:1.+'
+    testCompile 'org.slf4j:jul-to-slf4j:1.7.+'
+
+    // Cache
+    testCompile  'com.integralblue:httpresponsecache:1.3+'
 }

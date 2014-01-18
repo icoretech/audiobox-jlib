@@ -19,6 +19,7 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 /**
  * Generic test case class.
@@ -41,6 +42,12 @@ public class AudioBoxTest {
 
   @Before
   public void setUp() {
+    // Remove existing handlers attached to j.u.l root logger
+    SLF4JBridgeHandler.removeHandlersForRootLogger();
+
+    // add SLF4JBridgeHandler to j.u.l's root logger
+    SLF4JBridgeHandler.install();
+
     printTimingLog = true;
     time_start = System.currentTimeMillis();
     logger.debug("*** Tests started: " + name.getMethodName());
