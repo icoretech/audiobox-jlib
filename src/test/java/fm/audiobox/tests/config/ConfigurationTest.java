@@ -12,11 +12,9 @@
 
 package fm.audiobox.tests.config;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStore;
 import com.google.api.client.util.store.FileDataStoreFactory;
@@ -31,9 +29,8 @@ import org.junit.Test;
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 /**
  * Created by keytwo on 17/01/14.

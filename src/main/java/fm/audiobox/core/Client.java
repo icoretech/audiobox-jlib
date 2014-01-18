@@ -71,34 +71,6 @@ public class Client {
   }
 
 
-  public Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) throws IOException {
-    return new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
-        .setTransport(getConf().getHttpTransport())
-        .setJsonFactory(getConf().getJsonFactory())
-        .setTokenServerUrl(getConf().getEnvTokenUrl())
-        .setClientAuthentication(new BasicAuthentication(getConf().getApiKey(), getConf().getApiSecret()))
-        .addRefreshListener(new DataStoreCredentialRefreshListener(ACCOUNT_TOKENS, getConf().getDataStoreFactory()))
-        .build()
-        .setFromTokenResponse(tokenResponse);
-  }
-
-  public Credential createCredentialWithRefreshToken() throws IOException {
-    return createCredentialWithRefreshToken(getStoredCredential());
-  }
-
-  public Credential createCredentialWithRefreshToken(StoredCredential storedCredential) throws IOException {
-    return new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
-        .setTransport(getConf().getHttpTransport())
-        .setJsonFactory(getConf().getJsonFactory())
-        .setTokenServerUrl(getConf().getEnvTokenUrl())
-        .setClientAuthentication(new BasicAuthentication(getConf().getApiKey(), getConf().getApiSecret()))
-        .addRefreshListener(new DataStoreCredentialRefreshListener(ACCOUNT_TOKENS, getConf().getDataStoreFactory()))
-        .build()
-        .setAccessToken(storedCredential.getAccessToken())
-        .setExpiresInSeconds(storedCredential.getExpirationTimeMilliseconds())
-        .setRefreshToken(storedCredential.getRefreshToken());
-  }
-
   public User getUser() {
     try {
       HttpRequestFactory rf = getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
@@ -121,6 +93,41 @@ public class Client {
     }
     return null;
   }
+
+
+  /* ================ */
+  /*  Private methods */
+  /* ================ */
+
+
+  private Credential buildNotSignedCredential() throws IOException {
+    return new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
+        .setTransport(getConf().getHttpTransport())
+        .setJsonFactory(getConf().getJsonFactory())
+        .setTokenServerUrl(getConf().getEnvTokenUrl())
+        .setClientAuthentication(new BasicAuthentication(getConf().getApiKey(), getConf().getApiSecret()))
+        .addRefreshListener(new DataStoreCredentialRefreshListener(ACCOUNT_TOKENS, getConf().getDataStoreFactory()))
+        .build();
+  }
+
+
+  private Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) throws IOException {
+    return buildNotSignedCredential().setFromTokenResponse(tokenResponse);
+  }
+
+
+  private Credential createCredentialWithRefreshToken(StoredCredential storedCredential) throws IOException {
+    return buildNotSignedCredential()
+        .setAccessToken(storedCredential.getAccessToken())
+        .setExpiresInSeconds(storedCredential.getExpirationTimeMilliseconds())
+        .setRefreshToken(storedCredential.getRefreshToken());
+  }
+
+
+  private Credential createCredentialWithRefreshToken() throws IOException {
+    return createCredentialWithRefreshToken(getStoredCredential());
+  }
+
 
   private StoredCredential getStoredCredential() {
     StoredCredential s = null;
