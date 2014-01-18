@@ -20,142 +20,162 @@ import com.google.api.client.util.Key;
 public class Stats {
 
   @Key
-  private long dataServedThisMonth;
+  private long data_served_overall;
 
   @Key
-  private long dataServedOverall;
+  private long data_served_this_month;
 
   @Key
-  private long cloudDataStoredOverall;
+  private long box_data_stored_overall;
 
   @Key
-  private long cloudDataStoredThisMonth;
+  private long cloud_data_stored_overall;
 
   @Key
-  private long localDataStoredOverall;
+  private long local_data_stored_overall;
 
   @Key
-  private long localDataStoredThisMonth;
+  private long box_data_stored_this_month;
 
   @Key
-  private long dropboxDataStoredOverall;
+  private long gdrive_data_stored_overall;
 
   @Key
-  private long dropboxDataStoredThisMonth;
+  private long ubuntu_data_stored_overall;
 
   @Key
-  private long gdriveDataStoredThisMonth;
+  private long dropbox_data_stored_overall;
 
   @Key
-  private long gdriveDataStoredOverall;
+  private long youtube_data_stored_overall;
 
   @Key
-  private long skydriveDataStoredThisMonth;
+  private long cloud_data_stored_this_month;
 
   @Key
-  private long skydriveDataStoredOverall;
+  private long local_data_stored_this_month;
 
   @Key
-  private long boxDataStoredThisMonth;
+  private long skydrive_data_stored_overall;
 
   @Key
-  private long boxDataStoredOverall;
+  private long gdrive_data_stored_this_month;
 
   @Key
-  private long soundcloudDataStoredThisMonth;
+  private long ubuntu_data_stored_this_month;
 
   @Key
-  private long soundcloudDataStoredOverall;
+  private long dropbox_data_stored_this_month;
 
   @Key
-  private long ubuntuDataStoredThisMonth;
+  private long soundcloud_data_stored_overall;
 
   @Key
-  private long ubuntuDataStoredOverall;
+  private long youtube_data_stored_this_month;
 
   @Key
-  private long youtubeDataStoredThisMonth;
+  private long skydrive_data_stored_this_month;
 
   @Key
-  private long youtubeDataStoredOverall;
+  private long soundcloud_data_stored_this_month;
 
-  public long getDataServedThisMonth() {
-    return dataServedThisMonth;
+
+  public long getData_served_overall() {
+    return data_served_overall;
   }
 
-  public long getDataServedOverall() {
-    return dataServedOverall;
+
+  public long getData_served_this_month() {
+    return data_served_this_month;
   }
 
-  public long getCloudDataStoredOverall() {
-    return cloudDataStoredOverall;
+
+  public long getBox_data_stored_overall() {
+    return box_data_stored_overall;
   }
 
-  public long getCloudDataStoredThisMonth() {
-    return cloudDataStoredThisMonth;
+
+  public long getCloud_data_stored_overall() {
+    return cloud_data_stored_overall;
   }
 
-  public long getLocalDataStoredOverall() {
-    return localDataStoredOverall;
+
+  public long getLocal_data_stored_overall() {
+    return local_data_stored_overall;
   }
 
-  public long getLocalDataStoredThisMonth() {
-    return localDataStoredThisMonth;
+
+  public long getBox_data_stored_this_month() {
+    return box_data_stored_this_month;
   }
 
-  public long getDropboxDataStoredOverall() {
-    return dropboxDataStoredOverall;
+
+  public long getGdrive_data_stored_overall() {
+    return gdrive_data_stored_overall;
   }
 
-  public long getDropboxDataStoredThisMonth() {
-    return dropboxDataStoredThisMonth;
+
+  public long getUbuntu_data_stored_overall() {
+    return ubuntu_data_stored_overall;
   }
 
-  public long getGdriveDataStoredThisMonth() {
-    return gdriveDataStoredThisMonth;
+
+  public long getDropbox_data_stored_overall() {
+    return dropbox_data_stored_overall;
   }
 
-  public long getGdriveDataStoredOverall() {
-    return gdriveDataStoredOverall;
+
+  public long getYoutube_data_stored_overall() {
+    return youtube_data_stored_overall;
   }
 
-  public long getSkydriveDataStoredThisMonth() {
-    return skydriveDataStoredThisMonth;
+
+  public long getCloud_data_stored_this_month() {
+    return cloud_data_stored_this_month;
   }
 
-  public long getSkydriveDataStoredOverall() {
-    return skydriveDataStoredOverall;
+
+  public long getLocal_data_stored_this_month() {
+    return local_data_stored_this_month;
   }
 
-  public long getBoxDataStoredThisMonth() {
-    return boxDataStoredThisMonth;
+
+  public long getSkydrive_data_stored_overall() {
+    return skydrive_data_stored_overall;
   }
 
-  public long getBoxDataStoredOverall() {
-    return boxDataStoredOverall;
+
+  public long getGdrive_data_stored_this_month() {
+    return gdrive_data_stored_this_month;
   }
 
-  public long getSoundcloudDataStoredThisMonth() {
-    return soundcloudDataStoredThisMonth;
+
+  public long getUbuntu_data_stored_this_month() {
+    return ubuntu_data_stored_this_month;
   }
 
-  public long getSoundcloudDataStoredOverall() {
-    return soundcloudDataStoredOverall;
+
+  public long getDropbox_data_stored_this_month() {
+    return dropbox_data_stored_this_month;
   }
 
-  public long getUbuntuDataStoredThisMonth() {
-    return ubuntuDataStoredThisMonth;
+
+  public long getSoundcloud_data_stored_overall() {
+    return soundcloud_data_stored_overall;
   }
 
-  public long getUbuntuDataStoredOverall() {
-    return ubuntuDataStoredOverall;
+
+  public long getYoutube_data_stored_this_month() {
+    return youtube_data_stored_this_month;
   }
 
-  public long getYoutubeDataStoredThisMonth() {
-    return youtubeDataStoredThisMonth;
+
+  public long getSkydrive_data_stored_this_month() {
+    return skydrive_data_stored_this_month;
   }
 
-  public long getYoutubeDataStoredOverall() {
-    return youtubeDataStoredOverall;
+
+  public long getSoundcloud_data_stored_this_month() {
+    return soundcloud_data_stored_this_month;
   }
 }

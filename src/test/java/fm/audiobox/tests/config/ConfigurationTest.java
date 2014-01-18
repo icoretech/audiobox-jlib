@@ -12,12 +12,17 @@
 
 package fm.audiobox.tests.config;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.DataStore;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.models.User;
 import fm.audiobox.tests.AudioBoxTest;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -26,8 +31,9 @@ import org.junit.Test;
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
-import static junit.framework.Assert.fail;
+import static junit.framework.Assert.*;
 
 /**
  * Created by keytwo on 17/01/14.
@@ -50,7 +56,8 @@ public class ConfigurationTest extends AudioBoxTest {
       config.setApiKey(fixtures.getString("authentication.client_id"));
       config.setApiSecret(fixtures.getString("authentication.client_secret"));
       config.setHttpTransport(new NetHttpTransport());
-      config.setJsonFactory(new JacksonFactory());
+      JacksonFactory jf = new JacksonFactory();
+      config.setJsonFactory(jf);
 
       logger.debug("Token URL: " + config.getEnvTokenUrl());
 
@@ -72,5 +79,13 @@ public class ConfigurationTest extends AudioBoxTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @Test
+  public void testStoredCredential() throws IOException {
+    DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore(c.getConf().getDataStoreFactory());
+    assertFalse(udb.isEmpty());
+    User u = c.getUser();
+    assertNotNull(u);
   }
 }

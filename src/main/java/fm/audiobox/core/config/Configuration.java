@@ -12,12 +12,9 @@
 
 package fm.audiobox.core.config;
 
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.util.store.DataStore;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -36,17 +33,11 @@ public class Configuration {
 
   private String apiSecret;
 
-  private Credential credential;
-
   private Env environment;
 
   private HttpTransport httpTransport;
 
   private JsonFactory jsonFactory;
-
-  private Logger logger = LoggerFactory.getLogger(Configuration.class);
-
-  private boolean ready = false;
 
   private Config config;
 
@@ -92,14 +83,9 @@ public class Configuration {
 
   public GenericUrl getEnvTokenUrl() {
     if (tokenUrl == null) {
-      tokenUrl = new GenericUrl( getEnvBaseUrl() + getEnvironmentConfiguration(getEnvironment()).getString("api.oauth.tokenPath") );
+      tokenUrl = new GenericUrl(getEnvBaseUrl() + getEnvironmentConfiguration(getEnvironment()).getString("api.oauth.tokenPath"));
     }
     return tokenUrl;
-  }
-
-
-  public boolean isReady() {
-    return ready;
   }
 
 
@@ -123,23 +109,8 @@ public class Configuration {
   }
 
 
-  public Credential getCredential() {
-    return credential;
-  }
-
-
-  public void setCredential(Credential credential) {
-    this.credential = credential;
-  }
-
-
   public Env getEnvironment() {
     return environment;
-  }
-
-
-  public void setEnvironment(Env environment) {
-    this.environment = environment;
   }
 
 

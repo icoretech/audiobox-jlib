@@ -12,70 +12,69 @@
 
 package fm.audiobox.core.models;
 
-import com.google.api.client.json.GenericJson;
 import com.google.api.client.util.Key;
 
 /**
  * Created by keytwo on 17/01/14.
  */
-public class User extends GenericJson {
+public class User {
 
   @Key
   private long id;
 
   @Key
-  private String createdAt;
+  private String created_at;
 
   @Key
-  private String updatedAt;
+  private String updated_at;
 
   @Key
-  private String realName;
+  private String real_name;
 
   @Key
   private String email;
 
   @Key
-  private String authToken;
+  private String auth_token;
 
   @Key
-  private long mediaFilesCount;
+  private long media_files_count;
 
   @Key
-  private long playlistsCount;
+  private long playlists_count;
 
   @Key
-  private long totalPlayCount;
+  private long total_play_count;
 
   @Key
   private String country;
 
   @Key
-  private String timeZone;
+  private String time_zone;
 
   @Key
-  private String acceptedExtensions;
+  private String accepted_extensions;
 
   @Key
-  private String acceptedFormats;
+  private String accepted_formats;
 
   @Key
-  private String cometChannel;
+  private String comet_channel;
 
   @Key
-  private String subscriptionState;
+  private String subscription_state;
 
   @Key
   private String plan;
 
   @Key
-  private String offlinePlaylist;
+  private String offline_playlist;
 
   @Key
   private Permissions permissions;
 
   @Key
-  private ExternalTokens externalTokens;
+  private ExternalTokens external_tokens;
 
   @Key
   private Stats stats;
@@ -88,81 +87,101 @@ public class User extends GenericJson {
     return id;
   }
 
+
   public String getCreatedAt() {
-    return createdAt;
+    return created_at;
   }
+
 
   public String getUpdatedAt() {
-    return updatedAt;
+    return updated_at;
   }
 
+
   public String getRealName() {
-    return realName;
+    return real_name;
   }
+
 
   public String getEmail() {
     return email;
   }
 
+
   public String getAuthToken() {
-    return authToken;
+    return auth_token;
   }
+
 
   public long getMediaFilesCount() {
-    return mediaFilesCount;
+    return media_files_count;
   }
+
 
   public long getPlaylistsCount() {
-    return playlistsCount;
+    return playlists_count;
   }
 
+
   public long getTotalPlayCount() {
-    return totalPlayCount;
+    return total_play_count;
   }
+
 
   public String getCountry() {
     return country;
   }
 
+
   public String getTimeZone() {
-    return timeZone;
+    return time_zone;
   }
+
 
   public String getAcceptedExtensions() {
-    return acceptedExtensions;
+    return accepted_extensions;
   }
+
 
   public String getAcceptedFormats() {
-    return acceptedFormats;
+    return accepted_formats;
   }
+
 
   public String getCometChannel() {
-    return cometChannel;
+    return comet_channel;
   }
 
+
   public String getSubscriptionState() {
-    return subscriptionState;
+    return subscription_state;
   }
+
 
   public String getPlan() {
     return plan;
   }
 
+
   public String getOfflinePlaylist() {
-    return offlinePlaylist;
+    return offline_playlist;
   }
+
 
   public Permissions getPermissions() {
     return permissions;
   }
 
+
   public ExternalTokens getExternalTokens() {
-    return externalTokens;
+    return external_tokens;
   }
+
 
   public Stats getStats() {
     return stats;
   }
+
 
   public Preferences getPreferences() {
     return preferences;

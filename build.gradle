@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     // Logging
-    compile     'org.slf4j:slf4j-api:1.7.2+'
+    compile     'org.slf4j:slf4j-api:1.7.+'
 
     // Configuration
     compile     group: 'com.typesafe', name: 'config', version: '1.2.+'

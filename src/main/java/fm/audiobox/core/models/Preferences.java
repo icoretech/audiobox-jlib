@@ -35,16 +35,16 @@ public class Preferences {
   private boolean prebuffer;
 
   @Key
-  private boolean jsDemuxer;
+  private boolean js_demuxer;
 
   @Key
-  private String topBarBg;
+  private String top_bar_bg;
 
   @Key
-  private String volumeLevel;
+  private String volume_level;
 
   @Key
-  private boolean acceptEmails;
+  private boolean accept_emails;
 
   public String getColor() {
     return color;
@@ -67,18 +67,18 @@ public class Preferences {
   }
 
   public boolean isJsDemuxerEnabled() {
-    return jsDemuxer;
+    return js_demuxer;
   }
 
   public String getTopBarBg() {
-    return topBarBg;
+    return top_bar_bg;
   }
 
   public String getVolumeLevel() {
-    return volumeLevel;
+    return volume_level;
   }
 
   public boolean doesAcceptsEmails() {
-    return acceptEmails;
+    return accept_emails;
   }
 }
