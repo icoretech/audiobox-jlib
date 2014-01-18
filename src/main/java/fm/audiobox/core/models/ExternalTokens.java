@@ -53,46 +53,111 @@ public class ExternalTokens {
   private boolean twitter;
 
 
+  /**
+   * Is dropbox enabled.
+   *
+   * @return the boolean
+   */
   public boolean isDropboxEnabled() {
     return dropbox;
   }
 
+
+  /**
+   * Is gdrive enabled.
+   *
+   * @return the boolean
+   */
   public boolean isGdriveEnabled() {
     return gdrive;
   }
 
+
+  /**
+   * Is skydrive enabled.
+   *
+   * @return the boolean
+   */
   public boolean isSkydriveEnabled() {
     return skydrive;
   }
 
+
+  /**
+   * Is ubuntu enabled.
+   *
+   * @return the boolean
+   */
   public boolean isUbuntuEnabled() {
     return ubuntu;
   }
 
+
+  /**
+   * Is soundcloud enabled.
+   *
+   * @return the boolean
+   */
   public boolean isSoundcloudEnabled() {
     return soundcloud;
   }
 
+
+  /**
+   * Is youtube enabled.
+   *
+   * @return the boolean
+   */
   public boolean isYoutubeEnabled() {
     return youtube;
   }
 
+
+  /**
+   * Is box enabled.
+   *
+   * @return the boolean
+   */
   public boolean isBoxEnabled() {
     return box;
   }
 
+
+  /**
+   * Is lastfm enabled.
+   *
+   * @return the boolean
+   */
   public boolean isLastfmEnabled() {
     return lastfm;
   }
 
+
+  /**
+   * Is twitchtv enabled.
+   *
+   * @return the boolean
+   */
   public boolean isTwitchtvEnabled() {
     return twitchtv;
   }
 
+
+  /**
+   * Is facebook enabled.
+   *
+   * @return the boolean
+   */
   public boolean isFacebookEnabled() {
     return facebook;
   }
 
+
+  /**
+   * Is twitter enabled.
+   *
+   * @return the boolean
+   */
   public boolean isTwitterEnabled() {
     return twitter;
   }

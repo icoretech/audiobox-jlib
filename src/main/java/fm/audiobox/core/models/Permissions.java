@@ -67,66 +67,162 @@ public class Permissions {
   @Key
   private boolean songkick;
 
+
+  /**
+   * Has player.
+   *
+   * @return the boolean
+   */
   public boolean hasPlayer() {
     return player;
   }
 
+
+  /**
+   * Has local.
+   *
+   * @return the boolean
+   */
   public boolean hasLocal() {
     return local;
   }
 
+
+  /**
+   * Has cloud.
+   *
+   * @return the boolean
+   */
   public boolean hasCloud() {
     return cloud;
   }
 
+
+  /**
+   * Has dropbox.
+   *
+   * @return the boolean
+   */
   public boolean hasDropbox() {
     return dropbox;
   }
 
+
+  /**
+   * Has gdrive.
+   *
+   * @return the boolean
+   */
   public boolean hasGdrive() {
     return gdrive;
   }
 
+
+  /**
+   * Has skydrive.
+   *
+   * @return the boolean
+   */
   public boolean hasSkydrive() {
     return skydrive;
   }
 
+
+  /**
+   * Has ubuntu.
+   *
+   * @return the boolean
+   */
   public boolean hasUbuntu() {
     return ubuntu;
   }
 
+
+  /**
+   * Has soundcloud.
+   *
+   * @return the boolean
+   */
   public boolean hasSoundcloud() {
     return soundcloud;
   }
 
+
+  /**
+   * Has youtube.
+   *
+   * @return the boolean
+   */
   public boolean hasYoutube() {
     return youtube;
   }
 
+
+  /**
+   * Has box.
+   *
+   * @return the boolean
+   */
   public boolean hasBox() {
     return box;
   }
 
+
+  /**
+   * Has lastfm.
+   *
+   * @return the boolean
+   */
   public boolean hasLastfm() {
     return lastfm;
   }
 
+
+  /**
+   * Has twitchtv.
+   *
+   * @return the boolean
+   */
   public boolean hasTwitchtv() {
     return twitchtv;
   }
 
+
+  /**
+   * Has facebook.
+   *
+   * @return the boolean
+   */
   public boolean hasFacebook() {
     return facebook;
   }
 
+
+  /**
+   * Has twitter.
+   *
+   * @return the boolean
+   */
   public boolean hasTwitter() {
     return twitter;
   }
 
+
+  /**
+   * Has musixmatch.
+   *
+   * @return the boolean
+   */
   public boolean hasMusixmatch() {
     return musixmatch;
   }
 
+
+  /**
+   * Has songkick.
+   *
+   * @return the boolean
+   */
   public boolean hasSongkick() {
     return songkick;
   }

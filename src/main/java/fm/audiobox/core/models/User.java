@@ -83,106 +83,211 @@ public class User {
   private Preferences preferences;
 
 
+  /**
+   * Gets id.
+   *
+   * @return the id
+   */
   public long getId() {
     return id;
   }
 
 
+  /**
+   * Gets created at.
+   *
+   * @return the created at
+   */
   public String getCreatedAt() {
     return created_at;
   }
 
 
+  /**
+   * Gets updated at.
+   *
+   * @return the updated at
+   */
   public String getUpdatedAt() {
     return updated_at;
   }
 
 
+  /**
+   * Gets real name.
+   *
+   * @return the real name
+   */
   public String getRealName() {
     return real_name;
   }
 
 
+  /**
+   * Gets email.
+   *
+   * @return the email
+   */
   public String getEmail() {
     return email;
   }
 
 
+  /**
+   * Gets auth token.
+   *
+   * @return the auth token
+   */
   public String getAuthToken() {
     return auth_token;
   }
 
 
+  /**
+   * Gets media files count.
+   *
+   * @return the media files count
+   */
   public long getMediaFilesCount() {
     return media_files_count;
   }
 
 
+  /**
+   * Gets playlists count.
+   *
+   * @return the playlists count
+   */
   public long getPlaylistsCount() {
     return playlists_count;
   }
 
 
+  /**
+   * Gets total play count.
+   *
+   * @return the total play count
+   */
   public long getTotalPlayCount() {
     return total_play_count;
   }
 
 
+  /**
+   * Gets country.
+   *
+   * @return the country
+   */
   public String getCountry() {
     return country;
   }
 
 
+  /**
+   * Gets time zone.
+   *
+   * @return the time zone
+   */
   public String getTimeZone() {
     return time_zone;
   }
 
 
+  /**
+   * Gets accepted extensions.
+   *
+   * @return the accepted extensions
+   */
   public String getAcceptedExtensions() {
     return accepted_extensions;
   }
 
 
+  /**
+   * Gets accepted formats.
+   *
+   * @return the accepted formats
+   */
   public String getAcceptedFormats() {
     return accepted_formats;
   }
 
 
+  /**
+   * Gets comet channel.
+   *
+   * @return the comet channel
+   */
   public String getCometChannel() {
     return comet_channel;
   }
 
 
+  /**
+   * Gets subscription state.
+   *
+   * @return the subscription state
+   */
   public String getSubscriptionState() {
     return subscription_state;
   }
 
 
+  /**
+   * Gets plan.
+   *
+   * @return the plan
+   */
   public String getPlan() {
     return plan;
   }
 
 
+  /**
+   * Gets offline playlist.
+   *
+   * @return the offline playlist
+   */
   public String getOfflinePlaylist() {
     return offline_playlist;
   }
 
 
+  /**
+   * Gets permissions.
+   *
+   * @return the permissions
+   */
   public Permissions getPermissions() {
     return permissions;
   }
 
 
+  /**
+   * Gets external tokens.
+   *
+   * @return the external tokens
+   */
   public ExternalTokens getExternalTokens() {
     return external_tokens;
   }
 
 
+  /**
+   * Gets stats.
+   *
+   * @return the stats
+   */
   public Stats getStats() {
     return stats;
   }
 
 
+  /**
+   * Gets preferences.
+   *
+   * @return the preferences
+   */
   public Preferences getPreferences() {
     return preferences;
   }

@@ -39,6 +39,13 @@ public class Client {
   private static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 
 
+  /**
+   * Instantiates a new Client.
+   *
+   * @param conf the conf
+   * @throws ConfigurationException the configuration exception
+   * @throws IOException the iO exception
+   */
   public Client(Configuration conf) throws ConfigurationException, IOException {
     conf.checkConfiguration();
     this.conf = conf;
@@ -46,11 +53,24 @@ public class Client {
   }
 
 
+  /**
+   * Gets conf.
+   *
+   * @return the conf
+   */
   public Configuration getConf() {
     return conf;
   }
 
 
+  /**
+   * Authorize token response.
+   *
+   * @param username the username
+   * @param password the password
+   * @return the token response
+   * @throws IOException the iO exception
+   */
   public TokenResponse authorize(String username, String password) throws IOException {
 
     PasswordTokenRequest ptr = new PasswordTokenRequest(
@@ -71,6 +91,11 @@ public class Client {
   }
 
 
+  /**
+   * Gets user.
+   *
+   * @return the user
+   */
   public User getUser() {
     try {
       HttpRequestFactory rf = getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
@@ -100,6 +125,12 @@ public class Client {
   /* ================ */
 
 
+  /**
+   * Build not signed credential.
+   *
+   * @return the credential
+   * @throws IOException the iO exception
+   */
   private Credential buildNotSignedCredential() throws IOException {
     return new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
         .setTransport(getConf().getHttpTransport())
@@ -111,11 +142,25 @@ public class Client {
   }
 
 
+  /**
+   * Create credential with refresh token.
+   *
+   * @param tokenResponse the token response
+   * @return the credential
+   * @throws IOException the iO exception
+   */
   private Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) throws IOException {
     return buildNotSignedCredential().setFromTokenResponse(tokenResponse);
   }
 
 
+  /**
+   * Create credential with refresh token.
+   *
+   * @param storedCredential the stored credential
+   * @return the credential
+   * @throws IOException the iO exception
+   */
   private Credential createCredentialWithRefreshToken(StoredCredential storedCredential) throws IOException {
     return buildNotSignedCredential()
         .setAccessToken(storedCredential.getAccessToken())
@@ -124,11 +169,22 @@ public class Client {
   }
 
 
+  /**
+   * Create credential with refresh token.
+   *
+   * @return the credential
+   * @throws IOException the iO exception
+   */
   private Credential createCredentialWithRefreshToken() throws IOException {
     return createCredentialWithRefreshToken(getStoredCredential());
   }
 
 
+  /**
+   * Gets stored credential.
+   *
+   * @return the stored credential
+   */
   private StoredCredential getStoredCredential() {
     StoredCredential s = null;
     try {

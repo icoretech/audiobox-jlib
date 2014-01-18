@@ -46,38 +46,92 @@ public class Preferences {
   @Key
   private boolean accept_emails;
 
+
+  /**
+   * Gets color.
+   *
+   * @return the color
+   */
   public String getColor() {
     return color;
   }
 
+
+  /**
+   * Is repeat enabled.
+   *
+   * @return the boolean
+   */
   public boolean isRepeatEnabled() {
     return repeat;
   }
 
+
+  /**
+   * Is shuffle enabled.
+   *
+   * @return the boolean
+   */
   public boolean isShuffleEnabled() {
     return shuffle;
   }
 
+
+  /**
+   * Is autoplay enabled.
+   *
+   * @return the boolean
+   */
   public boolean isAutoplayEnabled() {
     return autoplay;
   }
 
+
+  /**
+   * Is prebuffer enabled.
+   *
+   * @return the boolean
+   */
   public boolean isPrebufferEnabled() {
     return prebuffer;
   }
 
+
+  /**
+   * Is js demuxer enabled.
+   *
+   * @return the boolean
+   */
   public boolean isJsDemuxerEnabled() {
     return js_demuxer;
   }
 
+
+  /**
+   * Gets top bar bg.
+   *
+   * @return the top bar bg
+   */
   public String getTopBarBg() {
     return top_bar_bg;
   }
 
+
+  /**
+   * Gets volume level.
+   *
+   * @return the volume level
+   */
   public String getVolumeLevel() {
     return volume_level;
   }
 
+
+  /**
+   * Does accepts emails.
+   *
+   * @return the boolean
+   */
   public boolean doesAcceptsEmails() {
     return accept_emails;
   }

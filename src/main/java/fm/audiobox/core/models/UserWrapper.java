@@ -24,11 +24,21 @@ public class UserWrapper {
   private User user;
 
 
+  /**
+   * Gets path.
+   *
+   * @return the path
+   */
   public static String getPath() {
     return path;
   }
 
 
+  /**
+   * Gets user.
+   *
+   * @return the user
+   */
   public User getUser() {
     return user;
   }
