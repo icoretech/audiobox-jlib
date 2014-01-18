@@ -1,0 +1,25 @@
+<!--
+  ~ ==
+  ~ Copyright (c) 2009-2014 iCoreTech, Inc.
+  ~ This file is part of the audiobox-jlib project.
+  ~ ==
+  ~
+  ~ @author keytwo
+  ~ @copyright Copyright (c) 2009-2014 iCoreTech, Inc.
+  ~ @license iCoreTech, Inc. Private License
+  -->
+
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

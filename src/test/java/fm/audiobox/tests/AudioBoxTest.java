@@ -27,11 +27,9 @@ import org.slf4j.LoggerFactory;
  */
 public class AudioBoxTest {
 
-  protected Logger logger = LoggerFactory.getLogger("ABT");
+  protected Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
   private long time_start = 0;
-
-  private String className;
 
   private boolean printTimingLog = false;
 
@@ -44,9 +42,8 @@ public class AudioBoxTest {
   @Before
   public void setUp() {
     printTimingLog = true;
-    className = this.getClass().getSimpleName();
     time_start = System.currentTimeMillis();
-    logger.debug("*** [ " + className + "] Tests started: " + name.getMethodName());
+    logger.debug("*** Tests started: " + name.getMethodName());
   }
 
 
@@ -55,7 +52,7 @@ public class AudioBoxTest {
     long millis_taken = System.currentTimeMillis() - time_start;
     double seconds_taken = (double) millis_taken / 1000D;
     if (printTimingLog) {
-      logger.debug("*** [ " + className + " ] Test completed in " + seconds_taken + " seconds");
+      logger.debug("*** Test completed in " + seconds_taken + " seconds");
     }
   }
 

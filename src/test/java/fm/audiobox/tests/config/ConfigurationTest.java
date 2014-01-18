@@ -68,7 +68,6 @@ public class ConfigurationTest extends AudioBoxTest {
 
 
   @Test
-  @Ignore
   public void testAuthorization() throws ConfigurationException {
     try {
       TokenResponse r = c.authorize(fixtures.getString("authentication.email"), fixtures.getString("authentication.password"));

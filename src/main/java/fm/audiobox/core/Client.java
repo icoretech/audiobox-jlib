@@ -32,7 +32,7 @@ public class Client {
 
   private Configuration conf;
 
-  private Logger logger = LoggerFactory.getLogger(Client.class);
+  private Logger logger = LoggerFactory.getLogger(Client.class.getSimpleName());
 
   private DataStore<StoredCredential> userDb;
 
