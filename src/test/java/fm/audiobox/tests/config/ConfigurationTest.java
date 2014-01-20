@@ -12,27 +12,18 @@
 
 package fm.audiobox.tests.config;
 
-import com.google.api.client.auth.oauth2.StoredCredential;
-import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.DataStore;
 import com.google.api.client.util.store.FileDataStoreFactory;
-import com.integralblue.httpresponsecache.HttpResponseCache;
-import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
-import fm.audiobox.core.models.User;
 import fm.audiobox.tests.AudioBoxTest;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.slf4j.bridge.SLF4JBridgeHandler;
+
+import static org.junit.Assert.*;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by keytwo on 17/01/14.
@@ -43,12 +34,79 @@ public class ConfigurationTest extends AudioBoxTest {
 
   @Before
   public void setUp() {
+    super.setUp();
     c = new Configuration(Configuration.Env.development);
   }
 
-  @Test(expected = ConfigurationException.class)
+
+  @Test
   public void testShouldRiseConfigurationExceptionOnMissingApiKey() throws ConfigurationException {
-    c.checkConfiguration();
+    try {
+      c.checkConfiguration();
+    } catch (ConfigurationException e) {
+      assertEquals("API Key (secret) is missing, please provide one.", e.getMessage());
+      return;
+    }
+    fail("Exception message was not the one expected");
+  }
+
+  @Test
+  public void testShouldRiseConfigurationExceptionOnMissingClientId() throws ConfigurationException {
+    try {
+      c.setApiKey(fixtures.getString("authentication.client_secret"));
+      c.checkConfiguration();
+    } catch (ConfigurationException e) {
+      assertEquals("Client ID is missing, please provide one.", e.getMessage());
+      return;
+    }
+    fail("Exception message was not the one expected");
+  }
+
+  @Test
+  public void testShouldRiseConfigurationExceptionOnMissingDataStore() throws ConfigurationException {
+    try {
+      c.setApiKey(fixtures.getString("authentication.client_id"));
+      c.setApiSecret(fixtures.getString("authentication.client_secret"));
+      c.checkConfiguration();
+    } catch (ConfigurationException e) {
+      assertEquals("Data store must be set.", e.getMessage());
+      return;
+    }
+    fail("Exception message was not the one expected");
+  }
+
+
+  @Test
+  public void testShouldRiseConfigurationExceptionOnMissingHttpTransport() throws ConfigurationException {
+    try {
+      c.setApiKey(fixtures.getString("authentication.client_id"));
+      c.setApiSecret(fixtures.getString("authentication.client_secret"));
+      c.setDataStoreFactory(new FileDataStoreFactory(new File(System.getProperty("user.home"), ".audiobox/abx")));
+      c.checkConfiguration();
+    } catch (ConfigurationException e) {
+      assertEquals("Http transport type must be set", e.getMessage());
+      return;
+    } catch (IOException e) {
+      fail(e.getMessage());
+    }
+    fail("Exception message was not the one expected");
+  }
+
+  @Test
+  public void testShouldRiseConfigurationExceptionOnMissingJsonFactory() throws ConfigurationException {
+    try {
+      c.setApiKey(fixtures.getString("authentication.client_id"));
+      c.setApiSecret(fixtures.getString("authentication.client_secret"));
+      c.setDataStoreFactory(new FileDataStoreFactory(new File(System.getProperty("user.home"), ".audiobox/abx")));
+      c.setHttpTransport(new NetHttpTransport());
+      c.checkConfiguration();
+    } catch (ConfigurationException e) {
+      assertEquals("JSON factory must be set", e.getMessage());
+      return;
+    } catch (IOException e) {
+      fail(e.getMessage());
+    }
+    fail("Exception message was not the one expected");
   }
 
 }

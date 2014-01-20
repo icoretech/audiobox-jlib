@@ -142,19 +142,15 @@ public class Configuration {
     config.checkValid(ConfigFactory.defaultReference(), "abx");
 
     if (StringUtils.isBlank(getApiKey())) {
-      throw new ConfigurationException("API Key (secret) is missing, please provide one and try again.");
+      throw new ConfigurationException("API Key (secret) is missing, please provide one.");
     }
 
     if (StringUtils.isBlank(getApiSecret())) {
-      throw new ConfigurationException("Client ID is missing, please provide one and try again.");
+      throw new ConfigurationException("Client ID is missing, please provide one.");
     }
 
     if (getDataStoreFactory() == null) {
-      throw new ConfigurationException("Data store cannot be null, .");
-    }
-
-    if (getEnvironment() == null) {
-      throw new ConfigurationException("Environment must be set");
+      throw new ConfigurationException("Data store must be set.");
     }
 
     if (getHttpTransport() == null) {
