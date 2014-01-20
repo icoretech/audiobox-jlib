@@ -39,58 +39,16 @@ import static org.junit.Assert.*;
  */
 public class ConfigurationTest extends AudioBoxTest {
 
-  private Client c;
-
-  private static final File DATA_STORE_DIR = new File(System.getProperty("user.home"), ".audiobox/abx");
-
-  private static final File CACHE_DIR = new File(System.getProperty("user.home"), ".audiobox/http");
-
+  private Configuration c;
 
   @Before
   public void setUp() {
-    super.setUp();
-
-    try {
-
-      final long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
-      final File httpCacheDir = CACHE_DIR;
-      HttpResponseCache.install(httpCacheDir, httpCacheSize);
-
-      Configuration config = new Configuration(Configuration.Env.staging);
-      config.setDataStoreFactory(new FileDataStoreFactory(DATA_STORE_DIR));
-
-      config.setApiKey(fixtures.getString("authentication.client_id"));
-      config.setApiSecret(fixtures.getString("authentication.client_secret"));
-      config.setHttpTransport(new NetHttpTransport());
-      JacksonFactory jf = new JacksonFactory();
-      config.setJsonFactory(jf);
-
-      logger.debug("Token URL: " + config.getEnvTokenUrl());
-
-      c = new Client(config);
-    } catch (IOException e) {
-      fail(e.getMessage());
-    } catch (ConfigurationException e) {
-      fail(e.getMessage());
-    }
+    c = new Configuration(Configuration.Env.development);
   }
 
-
-  @Test
-  public void testAuthorization() throws ConfigurationException {
-    try {
-      TokenResponse r = c.authorize(fixtures.getString("authentication.email"), fixtures.getString("authentication.password"));
-      logger.debug(r.getAccessToken());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  @Test(expected = ConfigurationException.class)
+  public void testShouldRiseConfigurationExceptionOnMissingApiKey() throws ConfigurationException {
+    c.checkConfiguration();
   }
 
-  @Test
-  public void testStoredCredential() throws IOException {
-    DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore(c.getConf().getDataStoreFactory());
-    assertFalse(udb.isEmpty());
-    User u = c.getUser();
-    assertNotNull(u);
-  }
 }

@@ -30,11 +30,12 @@ public class AudioBoxTest {
 
   protected Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
+  protected Config fixtures = ConfigFactory.load("fixtures");
+
   private long time_start = 0;
 
   private boolean printTimingLog = false;
 
-  public Config fixtures = ConfigFactory.load("fixtures");;
 
   @Rule
   public TestName name = new TestName();

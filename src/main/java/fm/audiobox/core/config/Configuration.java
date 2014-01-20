@@ -47,6 +47,11 @@ public class Configuration {
 
 
   public Configuration(Env environment) {
+
+    if (environment == null) {
+      throw new IllegalArgumentException("Environment cannot be null");
+    }
+
     this.environment = environment;
     this.config = ConfigFactory.load("lib");
   }

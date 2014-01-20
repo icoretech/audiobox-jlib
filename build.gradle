@@ -17,7 +17,6 @@ idea {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -29,8 +28,8 @@ dependencies {
     compile     group: 'com.typesafe', name: 'config', version: '1.2.+'
 
     // Http
-    compile     'com.google.http-client:google-http-client:1.17.+'
-    compile     'com.google.oauth-client:google-oauth-client:1.17.+'
+    compile     'com.google.http-client:google-http-client:1.17.0-rc'
+    compile     'com.google.oauth-client:google-oauth-client:1.17.0-rc'
 
     // Common utils
     compile     'commons-validator:commons-validator:+'
