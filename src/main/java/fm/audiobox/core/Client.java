@@ -14,16 +14,22 @@ package fm.audiobox.core;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
-import fm.audiobox.core.models.User;
-import fm.audiobox.core.models.UserWrapper;
+import fm.audiobox.core.models.*;
+import org.apache.http.*;
+import org.apache.http.protocol.HttpContext;
+import org.apache.http.protocol.HttpRequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by keytwo on 17/01/14.
@@ -38,6 +44,7 @@ public class Client {
 
   private static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 
+  private DataStoreCredentialRefreshListener refreshListener;
 
   /**
    * Instantiates a new Client.
@@ -50,6 +57,7 @@ public class Client {
     conf.checkConfiguration();
     this.conf = conf;
     this.userDb = StoredCredential.getDefaultDataStore(conf.getDataStoreFactory());
+    this.refreshListener = new DataStoreCredentialRefreshListener(ACCOUNT_TOKENS, getConf().getDataStoreFactory());
   }
 
 
@@ -119,6 +127,36 @@ public class Client {
     return null;
   }
 
+  public List<Playlist> getPlaylists() {
+    try {
+      HttpRequestHandler hrh = new HttpRequestHandler() {
+        @Override
+        public void handle(org.apache.http.HttpRequest httpRequest, org.apache.http.HttpResponse httpResponse, HttpContext httpContext) throws HttpException, IOException {
+
+        }
+      };
+
+      HttpRequestFactory rf = getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
+        @Override
+        public void initialize(HttpRequest request) throws IOException {
+          Credential c = createCredentialWithRefreshToken();
+          c.initialize(request);
+          request.setParser(new JsonObjectParser(getConf().getJsonFactory()));
+        }
+      });
+
+      String url = getConf().getEnvBaseUrl() + Playlists.getPath();
+      HttpRequest request = rf.buildGetRequest(new GenericUrl(url));
+      Playlists playlists = request.execute().parseAs(Playlists.class);
+
+      return playlists.getPlaylists();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
 
   /* ================ */
   /*  Private methods */
@@ -137,7 +175,7 @@ public class Client {
         .setJsonFactory(getConf().getJsonFactory())
         .setTokenServerUrl(getConf().getEnvTokenUrl())
         .setClientAuthentication(new BasicAuthentication(getConf().getApiKey(), getConf().getApiSecret()))
-        .addRefreshListener(new DataStoreCredentialRefreshListener(ACCOUNT_TOKENS, getConf().getDataStoreFactory()))
+        .addRefreshListener(this.refreshListener)
         .build();
   }
 

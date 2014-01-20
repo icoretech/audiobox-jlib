@@ -12,7 +12,7 @@ idea {
         downloadJavadoc = true
 
         //and hate reading sources :)
-        downloadSources = false
+        downloadSources = true
     }
 }
 

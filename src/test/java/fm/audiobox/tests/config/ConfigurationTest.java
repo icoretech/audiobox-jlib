@@ -114,7 +114,7 @@ public class ConfigurationTest extends AudioBoxTest {
   }
 
   @Test
-  public void testAudioBoxUrlShouldBeStaginginStaging() {
+  public void testAudioBoxUrlShouldBeStagingInStaging() {
     Configuration c = new Configuration(Configuration.Env.staging);
     assertSame(c.getEnvironment(), Configuration.Env.staging);
     assertEquals("https://staging.audiobox.fm:443", c.getEnvBaseUrl());

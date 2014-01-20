@@ -21,17 +21,18 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.User;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Created by keytwo on 20/01/14.
@@ -64,8 +65,6 @@ public class ClientTest extends AudioBoxTest {
       JacksonFactory jf = new JacksonFactory();
       config.setJsonFactory(jf);
 
-      logger.debug("Token URL: " + config.getEnvTokenUrl());
-
       c = new Client(config);
     } catch (IOException e) {
       fail(e.getMessage());
@@ -75,6 +74,7 @@ public class ClientTest extends AudioBoxTest {
   }
 
   @Test
+  @Ignore
   public void testAuthorization() throws ConfigurationException {
     try {
       TokenResponse r = c.authorize(fixtures.getString("authentication.email"), fixtures.getString("authentication.password"));
@@ -85,10 +85,18 @@ public class ClientTest extends AudioBoxTest {
   }
 
   @Test
+  @Ignore
   public void testStoredCredential() throws IOException {
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore(c.getConf().getDataStoreFactory());
     assertFalse(udb.isEmpty());
     User u = c.getUser();
     assertNotNull(u);
+  }
+
+  @Test
+  public void testPlaylists() throws IOException {
+    List<Playlist> list = c.getPlaylists();
+    assertNotNull( list );
+    assertFalse(list.isEmpty());
   }
 }
