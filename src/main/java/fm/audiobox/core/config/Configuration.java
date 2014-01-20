@@ -39,6 +39,8 @@ public class Configuration {
 
   private Config config;
 
+  private Config envConfig;
+
   private GenericUrl tokenUrl;
 
   private DataStoreFactory db;
@@ -57,6 +59,26 @@ public class Configuration {
   }
 
 
+  public void setApiKey(String apiKey) {
+    this.apiKey = apiKey;
+  }
+
+
+  public void setApiSecret(String apiSecret) {
+    this.apiSecret = apiSecret;
+  }
+
+
+  public void setHttpTransport(HttpTransport httpTransport) {
+    this.httpTransport = httpTransport;
+  }
+
+
+  public void setJsonFactory(JsonFactory jsonFactory) {
+    this.jsonFactory = jsonFactory;
+  }
+
+
   public void setDataStoreFactory(DataStoreFactory dataStoreFactory) {
     this.db = dataStoreFactory;
   }
@@ -68,7 +90,10 @@ public class Configuration {
 
 
   public Config getEnvironmentConfiguration(Env environment) {
-    return config.getConfig("abx." + environment.name());
+    if (envConfig == null) {
+      envConfig = config.getConfig("abx." + environment.name());
+    }
+    return envConfig;
   }
 
 
@@ -97,18 +122,8 @@ public class Configuration {
   }
 
 
-  public void setApiKey(String apiKey) {
-    this.apiKey = apiKey;
-  }
-
-
   public String getApiSecret() {
     return apiSecret;
-  }
-
-
-  public void setApiSecret(String apiSecret) {
-    this.apiSecret = apiSecret;
   }
 
 
@@ -122,18 +137,8 @@ public class Configuration {
   }
 
 
-  public void setHttpTransport(HttpTransport httpTransport) {
-    this.httpTransport = httpTransport;
-  }
-
-
   public JsonFactory getJsonFactory() {
     return jsonFactory;
-  }
-
-
-  public void setJsonFactory(JsonFactory jsonFactory) {
-    this.jsonFactory = jsonFactory;
   }
 
 

@@ -30,17 +30,10 @@ import java.io.IOException;
  */
 public class ConfigurationTest extends AudioBoxTest {
 
-  private Configuration c;
-
-  @Before
-  public void setUp() {
-    super.setUp();
-    c = new Configuration(Configuration.Env.development);
-  }
-
 
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingApiKey() throws ConfigurationException {
+    Configuration c = new Configuration(Configuration.Env.development);
     try {
       c.checkConfiguration();
     } catch (ConfigurationException e) {
@@ -52,6 +45,7 @@ public class ConfigurationTest extends AudioBoxTest {
 
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingClientId() throws ConfigurationException {
+    Configuration c = new Configuration(Configuration.Env.development);
     try {
       c.setApiKey(fixtures.getString("authentication.client_secret"));
       c.checkConfiguration();
@@ -64,6 +58,7 @@ public class ConfigurationTest extends AudioBoxTest {
 
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingDataStore() throws ConfigurationException {
+    Configuration c = new Configuration(Configuration.Env.development);
     try {
       c.setApiKey(fixtures.getString("authentication.client_id"));
       c.setApiSecret(fixtures.getString("authentication.client_secret"));
@@ -78,6 +73,7 @@ public class ConfigurationTest extends AudioBoxTest {
 
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingHttpTransport() throws ConfigurationException {
+    Configuration c = new Configuration(Configuration.Env.development);
     try {
       c.setApiKey(fixtures.getString("authentication.client_id"));
       c.setApiSecret(fixtures.getString("authentication.client_secret"));
@@ -94,6 +90,7 @@ public class ConfigurationTest extends AudioBoxTest {
 
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingJsonFactory() throws ConfigurationException {
+    Configuration c = new Configuration(Configuration.Env.development);
     try {
       c.setApiKey(fixtures.getString("authentication.client_id"));
       c.setApiSecret(fixtures.getString("authentication.client_secret"));
@@ -107,6 +104,27 @@ public class ConfigurationTest extends AudioBoxTest {
       fail(e.getMessage());
     }
     fail("Exception message was not the one expected");
+  }
+
+  @Test
+  public void testAudioBoxUrlShouldBeProdInProd() {
+    Configuration c = new Configuration(Configuration.Env.production);
+    assertSame(c.getEnvironment(), Configuration.Env.production);
+    assertEquals("https://audiobox.fm:443", c.getEnvBaseUrl());
+  }
+
+  @Test
+  public void testAudioBoxUrlShouldBeStaginginStaging() {
+    Configuration c = new Configuration(Configuration.Env.staging);
+    assertSame(c.getEnvironment(), Configuration.Env.staging);
+    assertEquals("https://staging.audiobox.fm:443", c.getEnvBaseUrl());
+  }
+
+  @Test
+  public void testAudioBoxUrlShouldBeDevInDev() {
+    Configuration c = new Configuration(Configuration.Env.development);
+    assertSame(c.getEnvironment(), Configuration.Env.development);
+    assertEquals("http://dev.audiobox.fm:5000", c.getEnvBaseUrl());
   }
 
 }
