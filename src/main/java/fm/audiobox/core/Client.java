@@ -14,16 +14,11 @@ package fm.audiobox.core;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.models.*;
-import org.apache.http.*;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.protocol.HttpRequestHandler;
+import fm.audiobox.core.utils.ModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,12 +41,13 @@ public class Client {
 
   private DataStoreCredentialRefreshListener refreshListener;
 
+
   /**
    * Instantiates a new Client.
    *
    * @param conf the conf
    * @throws ConfigurationException the configuration exception
-   * @throws IOException the iO exception
+   * @throws ConfigurationException the configuration exception
    */
   public Client(Configuration conf) throws ConfigurationException, IOException {
     conf.checkConfiguration();
@@ -106,54 +102,52 @@ public class Client {
    */
   public User getUser() {
     try {
-      HttpRequestFactory rf = getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
-        @Override
-        public void initialize(HttpRequest request) throws IOException {
-          Credential c = createCredentialWithRefreshToken();
-          c.initialize(request);
-          request.setParser(new JsonObjectParser(getConf().getJsonFactory()));
-        }
-      });
-
-      String url = getConf().getEnvBaseUrl() + UserWrapper.getPath();
-      HttpRequest request = rf.buildGetRequest(new GenericUrl(url));
-      UserWrapper userWrapper = request.execute().parseAs(UserWrapper.class);
-
-      return userWrapper.getUser();
-
+      HttpResponse rsp = perform(Playlists.getPath());
+      if (rsp != null) {
+        return rsp.parseAs(UserWrapper.class).getUser();
+      }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.error("Unable to parse user: " + e.getMessage());
     }
     return null;
   }
 
+
+  /**
+   * Gets playlists.
+   *
+   * @return the playlists
+   */
   public List<Playlist> getPlaylists() {
     try {
-      HttpRequestHandler hrh = new HttpRequestHandler() {
-        @Override
-        public void handle(org.apache.http.HttpRequest httpRequest, org.apache.http.HttpResponse httpResponse, HttpContext httpContext) throws HttpException, IOException {
-
-        }
-      };
-
-      HttpRequestFactory rf = getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
-        @Override
-        public void initialize(HttpRequest request) throws IOException {
-          Credential c = createCredentialWithRefreshToken();
-          c.initialize(request);
-          request.setParser(new JsonObjectParser(getConf().getJsonFactory()));
-        }
-      });
-
-      String url = getConf().getEnvBaseUrl() + Playlists.getPath();
-      HttpRequest request = rf.buildGetRequest(new GenericUrl(url));
-      Playlists playlists = request.execute().parseAs(Playlists.class);
-
-      return playlists.getPlaylists();
-
+      HttpResponse rsp = perform(Playlists.getPath());
+      if (rsp != null) {
+        return rsp.parseAs(Playlists.class).getPlaylists();
+      }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.error("Unable to parse playlists: " + e.getMessage());
     }
+
+    return null;
+  }
+
+
+  /**
+   * Gets the specified playlist.
+   *
+   * @param token the token of the playlist to get.
+   * @return the playlist
+   */
+  public Playlist getPlaylist(String token) {
+    try {
+      HttpResponse rsp = perform(ModelUtil.interpolate(Playlist.getPath(), token));
+      if (rsp != null) {
+        return rsp.parseAs(PlaylistWrapper.class).getPlaylist();
+      }
+    } catch (IOException e) {
+      logger.error("Unable to parse playlists: " + e.getMessage());
+    }
+
     return null;
   }
 
@@ -161,6 +155,34 @@ public class Client {
   /* ================ */
   /*  Private methods */
   /* ================ */
+
+
+  /**
+   * Perform signed http requests and returns the response.
+   *
+   * @param url the url to make the request against
+   * @return the http response, may be null if any error occurs during the request.
+   */
+  private HttpResponse perform(String url) {
+    try {
+
+      HttpRequestFactory rf = getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
+        @Override
+        public void initialize(HttpRequest request) throws IOException {
+          Credential c = createCredentialWithRefreshToken();
+          c.initialize(request);
+          request.setParser(new JsonObjectParser(getConf().getJsonFactory()));
+        }
+      });
+
+      HttpRequest request = rf.buildGetRequest(new GenericUrl(getConf().getEnvBaseUrl() + url));
+      return request.execute();
+
+    } catch (IOException e) {
+      logger.error("Unable to perform request due to IO Exception: " + e.getMessage());
+    }
+    return null;
+  }
 
 
   /**

@@ -73,6 +73,12 @@ public class ClientTest extends AudioBoxTest {
     }
   }
 
+
+  /**
+   * Test authorization.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
   @Test
   @Ignore
   public void testAuthorization() throws ConfigurationException {
@@ -84,6 +90,12 @@ public class ClientTest extends AudioBoxTest {
     }
   }
 
+
+  /**
+   * Test stored credential.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   @Ignore
   public void testStoredCredential() throws IOException {
@@ -93,10 +105,40 @@ public class ClientTest extends AudioBoxTest {
     assertNotNull(u);
   }
 
+
+  /**
+   * Test playlists.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
+  @Ignore
   public void testPlaylists() throws IOException {
     List<Playlist> list = c.getPlaylists();
     assertNotNull( list );
     assertFalse(list.isEmpty());
+  }
+
+
+  /**
+   * Test playlist should be null if token is invalid.
+   */
+  @Test
+  @Ignore
+  public void testPlaylistShouldBeNullIfTokenIsInvalid() {
+    assertNull(c.getPlaylist("asd"));
+  }
+
+  /**
+   * Test playlist should be null if token is invalid.
+   */
+  @Test
+  public void testPlaylistShouldNotBeNullIfTokenIsValid() {
+    List<Playlist> list = c.getPlaylists();
+    Playlist p1 = list.get(0);
+    assertNotNull(p1);
+
+    Playlist p2 = c.getPlaylist(p1.getToken());
+    assertEquals(p2, p1);
   }
 }

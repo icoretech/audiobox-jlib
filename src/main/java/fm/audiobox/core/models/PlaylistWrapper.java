@@ -14,34 +14,20 @@ package fm.audiobox.core.models;
 import com.google.api.client.util.Key;
 
 /**
- * Created by keytwo on 18/01/14.
+ * Created by keytwo on 20/01/14.
  */
-public class UserWrapper {
-
-  private static final String PATH = "/api/v1/user.json";
+public class PlaylistWrapper {
 
   @Key
-  private User user;
+  private Playlist playlist;
 
 
   /**
-   * Gets path.
+   * Gets playlist.
    *
-   * @return the path
+   * @return the playlist
    */
-  public static String getPath() {
-    return PATH;
+  public Playlist getPlaylist() {
+    return playlist;
   }
-
-
-  /**
-   * Gets user.
-   *
-   * @return the user
-   */
-  public User getUser() {
-    return user;
-  }
-
-
 }

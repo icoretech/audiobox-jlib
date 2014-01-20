@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Playlists {
 
-  private static String path = "/api/v1/playlists.json";
+  private static final String PATH = "/api/v1/playlists.json";
 
   @Key("playlists")
   private List<Playlist> playlists;
@@ -33,7 +33,7 @@ public class Playlists {
    * @return the path
    */
   public static String getPath() {
-    return path;
+    return PATH;
   }
 
 
@@ -45,6 +45,7 @@ public class Playlists {
   public List<Playlist> getPlaylists() {
     return playlists;
   }
+
 
 }
 

@@ -31,6 +31,11 @@ import java.io.IOException;
 public class ConfigurationTest extends AudioBoxTest {
 
 
+  /**
+   * Test should rise configuration exception on missing api key.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingApiKey() throws ConfigurationException {
     Configuration c = new Configuration(Configuration.Env.development);
@@ -43,6 +48,12 @@ public class ConfigurationTest extends AudioBoxTest {
     fail("Exception message was not the one expected");
   }
 
+
+  /**
+   * Test should rise configuration exception on missing client id.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingClientId() throws ConfigurationException {
     Configuration c = new Configuration(Configuration.Env.development);
@@ -56,6 +67,12 @@ public class ConfigurationTest extends AudioBoxTest {
     fail("Exception message was not the one expected");
   }
 
+
+  /**
+   * Test should rise configuration exception on missing data store.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingDataStore() throws ConfigurationException {
     Configuration c = new Configuration(Configuration.Env.development);
@@ -71,6 +88,11 @@ public class ConfigurationTest extends AudioBoxTest {
   }
 
 
+  /**
+   * Test should rise configuration exception on missing http transport.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingHttpTransport() throws ConfigurationException {
     Configuration c = new Configuration(Configuration.Env.development);
@@ -88,6 +110,12 @@ public class ConfigurationTest extends AudioBoxTest {
     fail("Exception message was not the one expected");
   }
 
+
+  /**
+   * Test should rise configuration exception on missing json factory.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
   @Test
   public void testShouldRiseConfigurationExceptionOnMissingJsonFactory() throws ConfigurationException {
     Configuration c = new Configuration(Configuration.Env.development);
@@ -106,6 +134,10 @@ public class ConfigurationTest extends AudioBoxTest {
     fail("Exception message was not the one expected");
   }
 
+
+  /**
+   * Test audio box url should be prod in prod.
+   */
   @Test
   public void testAudioBoxUrlShouldBeProdInProd() {
     Configuration c = new Configuration(Configuration.Env.production);
@@ -113,6 +145,10 @@ public class ConfigurationTest extends AudioBoxTest {
     assertEquals("https://audiobox.fm:443", c.getEnvBaseUrl());
   }
 
+
+  /**
+   * Test audio box url should be staging in staging.
+   */
   @Test
   public void testAudioBoxUrlShouldBeStagingInStaging() {
     Configuration c = new Configuration(Configuration.Env.staging);
@@ -120,6 +156,10 @@ public class ConfigurationTest extends AudioBoxTest {
     assertEquals("https://staging.audiobox.fm:443", c.getEnvBaseUrl());
   }
 
+
+  /**
+   * Test audio box url should be dev in dev.
+   */
   @Test
   public void testAudioBoxUrlShouldBeDevInDev() {
     Configuration c = new Configuration(Configuration.Env.development);
