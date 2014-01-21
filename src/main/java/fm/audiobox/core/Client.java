@@ -28,9 +28,60 @@ import org.slf4j.LoggerFactory;
 import javax.naming.ConfigurationException;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
+ * == User:
+ * <ul>
+ * <li>GET /api/v1/user.json</li>
+ * </ul>
+ * <p/>
+ * == Playlists:
+ * <ul>
+ * <li>GET /api/v1/playlists.json</li>
+ * <li>GET /api/v1/playlists/:token.json</li>
+ * <li>POST /api/v1/playlists.json</li>
+ * <li>PUT /api/v1/playlists/:token.json</li>
+ * <li>DELETE /api/v1/playlists/:token.json</li>
+ * <li>PUT /api/v1/playlists/:token/visible.json</li>
+ * <li>PUT /api/v1/playlists/:token/sync.json</li>
+ * <li>PUT /api/v1/playlists/sync_all.json</li>
+ * </ul>
+ * <p/>
+ * == MediaFiles:
+ * <ul>
+ * <li>POST /api/v1/upload</li>
+ * <li>OPTIONS /api/v1/upload</li>
+ * <li>GET /api/v1/stream/:token</li>
+ * <li>GET /api/v1/download/:token</li>
+ * <li>GET /api/v1/media_files/:token.json</li>
+ * <li>GET /api/v1/playlists/:playlist_token/media_files.json?set=type,token,artist,genre,title,loved,share_token,release_year,len_str,[...]&amp;since=</li>
+ * <li>GET /api/v1/playlists/:token/media_files/albums.json</li>
+ * <li>GET /api/v1/playlists/:token/media_files/genres.json</li>
+ * <li>GET /api/v1/playlists/:token/media_files/artists.json</li>
+ * <li>GET /api/v1/playlists/:playlist_token/media_files/fingerprints.json</li>
+ * <li>POST /api/v1/playlists/:playlist_token/media_files/add.json?tokens[]=</li>
+ * <li>DELETE /api/v1/playlists/:playlist_token/media_files/remove.json?tokens[]=</li>
+ * <li>PUT /api/v1/media_files/:token.json</li>
+ * <li>PUT /api/v1/media_files/multiupdate.json?tokens[]=</li>
+ * <li>DELETE /api/v1/media_files/:token.json</li>
+ * <li>DELETE /api/v1/media_files/multidestroy.json?tokens[]=</li>
+ * </ul>
+ * <p/>
+ * == Special Actions
+ * <ul>
+ * <li>POST /api/v1/media_files/:token/scrobble.json</li>
+ * <li>GET /api/v1/media_files/:token/lyrics.json</li>
+ * <li>POST /api/v1/media_files/:token/love.json</li>
+ * <li>POST /api/v1/media_files/:token/unlove.json</li>
+ * <li>POST /api/v1/media_files/:token/toggle_love.json</li>
+ * </ul>
+ * <p/>
+ * == Notifications
+ * <ul>
+ * <li>GET /api/v1/notifications.json</li>
+ * <li>DELETE /api/v1/notifications/:id.json</li>
+ * </ul>
+ * <p/>
  * Created by keytwo on 17/01/14.
  */
 public class Client {
