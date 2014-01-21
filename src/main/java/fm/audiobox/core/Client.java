@@ -196,7 +196,7 @@ public class Client {
    */
   public HttpResponse doPUT(String path, HttpContent data) {
     try {
-      return getRequestFactory().buildPostRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
+      return getRequestFactory().buildPutRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
     } catch (IOException e) {
       logger.error("Unable to perform PUT due to IO Exception: " + e.getMessage());
     }
