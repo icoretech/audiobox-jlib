@@ -11,15 +11,24 @@
 
 package fm.audiobox.tests.models;
 
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
+import com.integralblue.httpresponsecache.HttpResponseCache;
+import fm.audiobox.core.Client;
+import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.SyncException;
 import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.utils.HttpStatus;
-import fm.audiobox.tests.ClientTest;
+import fm.audiobox.tests.AudioBoxTest;
+import fm.audiobox.tests.mocks.AudioBoxMockHttpTransport;
 import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import javax.naming.ConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,7 +37,34 @@ import static org.junit.Assert.*;
 /**
  * Created by keytwo on 21/01/14.
  */
-public class PlaylistTest extends ClientTest {
+public class PlaylistTest extends AudioBoxTest {
+
+  @Before
+  public void setUp() {
+    super.setUp();
+
+    try {
+
+      final long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
+      final File httpCacheDir = CACHE_DIR;
+      HttpResponseCache.install( httpCacheDir, httpCacheSize );
+
+      Configuration config = new Configuration( Configuration.Env.staging );
+      config.setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) );
+
+      config.setApiKey( fixtures.getString( "authentication.client_id" ) );
+      config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
+      config.setHttpTransport( new AudioBoxMockHttpTransport() );
+      JacksonFactory jf = new JacksonFactory();
+      config.setJsonFactory( jf );
+
+      c = new Client( config );
+    } catch ( IOException e ) {
+      fail( e.getMessage() );
+    } catch ( ConfigurationException e ) {
+      fail( e.getMessage() );
+    }
+  }
 
 
   /**
@@ -37,7 +73,6 @@ public class PlaylistTest extends ClientTest {
    * @throws java.io.IOException the iO exception
    */
   @Test
-  @Ignore
   public void testPlaylists() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
     List<Playlist> list = c.getPlaylists();
@@ -50,7 +85,6 @@ public class PlaylistTest extends ClientTest {
    * Test playlist should be null if token is invalid.
    */
   @Test
-  @Ignore
   public void testPlaylistShouldBeNullIfTokenIsInvalid() {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "asd" ) );
     assertNull( c.getPlaylist( "asd" ) );
@@ -61,7 +95,6 @@ public class PlaylistTest extends ClientTest {
    * Test playlist should be null if token is invalid.
    */
   @Test
-  @Ignore
   public void testPlaylistShouldNotBeNullIfTokenIsValid() {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
     List<Playlist> list = c.getPlaylists();
@@ -109,52 +142,48 @@ public class PlaylistTest extends ClientTest {
   }
 
 
+  /**
+   * Test playlist sync.
+   */
   @Test
   public void testPlaylistSync() {
-    List<Playlist> list = c.getPlaylists();
 
-    Playlist local = new Playlist();
-    Playlist cloud = new Playlist();
-    Playlist dropbox = new Playlist();
-    Playlist skydrive = new Playlist();
-    Playlist box = new Playlist();
-    Playlist gdrive = new Playlist();
-    Playlist youtube = new Playlist();
-    Playlist soundcloud = new Playlist();
-    Playlist ubuntu = new Playlist();
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_local" ) );
+    Playlist local = c.getPlaylist( "000_local" );
 
-    for ( Playlist p : list ) {
-      switch ( p.getSystemName() ) {
-        case "local":
-          local = p;
-          break;
-        case "cloud":
-          cloud = p;
-          break;
-        case "dropbox":
-          dropbox = p;
-          break;
-        case "skydrive":
-          skydrive = p;
-          break;
-        case "box":
-          box = p;
-          break;
-        case "gdrive":
-          gdrive = p;
-          break;
-        case "youtube":
-          youtube = p;
-          break;
-        case "soundcloud":
-          soundcloud = p;
-          break;
-        case "ubuntu":
-          ubuntu = p;
-          break;
-      }
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_cloud" ) );
+    Playlist cloud = c.getPlaylist( "000_cloud" );
 
-    }
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
+    Playlist dropbox = c.getPlaylist( "000_dropbox" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_skydrive" ) );
+    Playlist skydrive = c.getPlaylist( "000_skydrive" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_box" ) );
+    Playlist box = c.getPlaylist( "000_box" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_gdrive" ) );
+    Playlist gdrive = c.getPlaylist( "000_gdrive" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_youtube" ) );
+    Playlist youtube = c.getPlaylist( "000_youtube" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_soundcloud" ) );
+    Playlist soundcloud = c.getPlaylist( "000_soundcloud" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_ubuntu" ) );
+    Playlist ubuntu = c.getPlaylist( "000_ubuntu" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_smart" ) );
+    Playlist smart = c.getPlaylist( "000_smart" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_custom" ) );
+    Playlist custom = c.getPlaylist( "000_custom" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_offline" ) );
+    Playlist offline = c.getPlaylist( "000_offline" );
+
 
     try {
       local.sync( c );
