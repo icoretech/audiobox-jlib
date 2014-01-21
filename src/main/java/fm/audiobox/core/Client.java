@@ -15,7 +15,11 @@ package fm.audiobox.core;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.http.json.JsonHttpContent;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.JsonGenerator;
 import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.json.JsonParser;
+import com.google.api.client.util.ObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.ErrorsWrapper;
@@ -26,7 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -246,8 +251,12 @@ public class Client {
    * @return the http response, may be null if any error occurs during the request.
    */
   public HttpResponse doPUT(String path, HttpContent data) {
+    return doPUT(path, data, null);
+  }
+  
+  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) {
     try {
-      return getRequestFactory().buildPutRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
+      return getRequestFactory(parser).buildPutRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
     } catch (IOException e) {
       logger.error("Unable to perform PUT due to IO Exception: " + e.getMessage());
     }
@@ -263,8 +272,12 @@ public class Client {
    * @return the http response
    */
   public HttpResponse doDELETE(String path) {
+    return doDELETE(path, null);
+  }
+
+  public HttpResponse doDELETE(String path, JsonObjectParser parser) {
     try {
-      HttpResponse response = getRequestFactory().buildDeleteRequest(new GenericUrl(getConf().getEnvBaseUrl() + path)).execute();
+      HttpResponse response = getRequestFactory(parser).buildDeleteRequest(new GenericUrl(getConf().getEnvBaseUrl() + path)).execute();
       if (response.isSuccessStatusCode()) {
         return response;
       }
@@ -282,6 +295,7 @@ public class Client {
   /* ================ */
 
 
+
   /**
    * Perform signed http requests and returns the response.
    *
@@ -290,8 +304,13 @@ public class Client {
    * @return the http response, may be null if any error occurs during the request.
    */
   private HttpResponse doGET(String path) {
+    return doGET(path, null);
+  }
+
+
+  private HttpResponse doGET(String path, JsonObjectParser parser) {
     try {
-      return getRequestFactory().buildGetRequest(new GenericUrl(getConf().getEnvBaseUrl() + path)).execute();
+      return getRequestFactory(parser).buildGetRequest(new GenericUrl(getConf().getEnvBaseUrl() + path)).execute();
     } catch (IOException e) {
       logger.error("Unable to perform GET due to IO Exception: " + e.getMessage());
     }
@@ -308,8 +327,12 @@ public class Client {
    * @return the http response, may be null if any error occurs during the request.
    */
   private HttpResponse doPOST(String path, HttpContent data) {
+    return doPOST(path, data, null);
+  }
+
+  private HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) {
     try {
-      HttpResponse response = getRequestFactory().buildPostRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
+      HttpResponse response = getRequestFactory(parser).buildPostRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
       if (response.getStatusCode() == 422) {
         throw new ValidationException(response.parseAs(ErrorsWrapper.class).getErrors(), response.getStatusCode());
       }
@@ -321,19 +344,18 @@ public class Client {
     return null;
   }
 
-
   /**
    * Gets request factory.
    *
    * @return the request factory
    */
-  private HttpRequestFactory getRequestFactory() {
+  private HttpRequestFactory getRequestFactory(final JsonObjectParser parser) {
     return getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
       @Override
       public void initialize(HttpRequest request) throws IOException {
         Credential c = createCredentialWithRefreshToken();
         c.initialize(request);
-        request.setParser(jsonObjectParser);
+        request.setParser(parser == null ? jsonObjectParser : parser);
         request.setThrowExceptionOnExecuteError(false);
       }
     });
