@@ -16,14 +16,13 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.tests.AudioBoxTest;
-import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by keytwo on 17/01/14.

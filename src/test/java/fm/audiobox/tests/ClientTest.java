@@ -21,18 +21,13 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
-import fm.audiobox.core.exceptions.ValidationException;
-import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.User;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 

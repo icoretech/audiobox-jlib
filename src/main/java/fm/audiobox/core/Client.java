@@ -16,11 +16,7 @@ package fm.audiobox.core;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.http.json.JsonHttpContent;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.JsonGenerator;
 import com.google.api.client.json.JsonObjectParser;
-import com.google.api.client.json.JsonParser;
-import com.google.api.client.util.ObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.ErrorsWrapper;
@@ -31,8 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -128,6 +123,7 @@ public class Client {
    * Instantiates a new Client.
    *
    * @param conf the conf
+   *
    * @throws ConfigurationException the configuration exception
    * @throws ConfigurationException the configuration exception
    */
@@ -155,7 +151,9 @@ public class Client {
    *
    * @param username the username
    * @param password the password
+   *
    * @return the token response
+   *
    * @throws IOException the iO exception
    */
   public TokenResponse authorize(String username, String password) throws IOException {
@@ -219,6 +217,7 @@ public class Client {
    * Gets the specified playlist.
    *
    * @param token the token of the playlist to get.
+   *
    * @return the playlist
    */
   public Playlist getPlaylist(String token) {
@@ -239,7 +238,9 @@ public class Client {
    * Create new playlist.
    *
    * @param name the name
+   *
    * @return the playlist
+   *
    * @throws ValidationException if an error occurs while trying to save the playlist
    */
   public Playlist createNewPlaylist(String name) throws ValidationException {
@@ -261,6 +262,7 @@ public class Client {
    *
    * @param path the url to make the request against
    * @param data the data to send with the post request
+   *
    * @return the http response, may be null if any error occurs during the request.
    */
   public HttpResponse doPUT(String path, HttpContent data) {
@@ -271,9 +273,10 @@ public class Client {
   /**
    * Perform signed PUT requests and returns the response.
    *
-   * @param path the path
-   * @param data the data
+   * @param path   the path
+   * @param data   the data
    * @param parser the parser
+   *
    * @return the http response
    */
   public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) {
@@ -290,6 +293,7 @@ public class Client {
    * Performs a DELETE request to the given path.
    *
    * @param path the url
+   *
    * @return the http response
    */
   public HttpResponse doDELETE(String path) {
@@ -300,8 +304,9 @@ public class Client {
   /**
    * Performs a DELETE request to the given path.
    *
-   * @param path the path
+   * @param path   the path
    * @param parser the parser
+   *
    * @return the http response
    */
   public HttpResponse doDELETE(String path, JsonObjectParser parser) {
@@ -328,6 +333,7 @@ public class Client {
    * Perform signed GET requests and returns the response.
    *
    * @param path the url to make the request against
+   *
    * @return the http response, may be null if any error occurs during the request.
    */
   private HttpResponse doGET(String path) {
@@ -338,8 +344,9 @@ public class Client {
   /**
    * Perform signed GET requests and returns the response.
    *
-   * @param path the path
+   * @param path   the path
    * @param parser the parser
+   *
    * @return the http response
    */
   private HttpResponse doGET(String path, JsonObjectParser parser) {
@@ -357,6 +364,7 @@ public class Client {
    *
    * @param path the url to make the request against
    * @param data the data to send with the post request
+   *
    * @return the http response, may be null if any error occurs during the request.
    */
   private HttpResponse doPOST(String path, HttpContent data) {
@@ -367,9 +375,10 @@ public class Client {
   /**
    * Perform signed POST requests and returns the response.
    *
-   * @param path the path
-   * @param data the data
+   * @param path   the path
+   * @param data   the data
    * @param parser the parser
+   *
    * @return the http response
    */
   private HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) {
@@ -391,6 +400,7 @@ public class Client {
    * Gets request factory.
    *
    * @param parser the parser
+   *
    * @return the request factory
    */
   private HttpRequestFactory getRequestFactory(final JsonObjectParser parser) {
@@ -411,6 +421,7 @@ public class Client {
    * Build not signed credential.
    *
    * @return the credential
+   *
    * @throws IOException the iO exception
    */
   private Credential buildNotSignedCredential() throws IOException {
@@ -427,8 +438,22 @@ public class Client {
   /**
    * Create credential with refresh token.
    *
-   * @param tokenResponse the token response
    * @return the credential
+   *
+   * @throws IOException the iO exception
+   */
+  private Credential createCredentialWithRefreshToken() throws IOException {
+    return createCredentialWithRefreshToken(getStoredCredential());
+  }
+
+
+  /**
+   * Create credential with refresh token.
+   *
+   * @param tokenResponse the token response
+   *
+   * @return the credential
+   *
    * @throws IOException the iO exception
    */
   private Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) throws IOException {
@@ -440,7 +465,9 @@ public class Client {
    * Create credential with refresh token.
    *
    * @param storedCredential the stored credential
+   *
    * @return the credential
+   *
    * @throws IOException the iO exception
    */
   private Credential createCredentialWithRefreshToken(StoredCredential storedCredential) throws IOException {
@@ -448,17 +475,6 @@ public class Client {
         .setAccessToken(storedCredential.getAccessToken())
         .setExpiresInSeconds(storedCredential.getExpirationTimeMilliseconds())
         .setRefreshToken(storedCredential.getRefreshToken());
-  }
-
-
-  /**
-   * Create credential with refresh token.
-   *
-   * @return the credential
-   * @throws IOException the iO exception
-   */
-  private Credential createCredentialWithRefreshToken() throws IOException {
-    return createCredentialWithRefreshToken(getStoredCredential());
   }
 
 
@@ -472,9 +488,8 @@ public class Client {
     try {
       s = userDb.get(ACCOUNT_TOKENS);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.error("Unable to find stored account: " + e.getMessage());
     }
-
     return s;
   }
 

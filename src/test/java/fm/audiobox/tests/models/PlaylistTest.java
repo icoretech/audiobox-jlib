@@ -68,7 +68,7 @@ public class PlaylistTest extends ClientTest {
 
 
   @Test
-  public void testPlaylistCreation() {
+  public void testPlaylistCreationAndDeletion() {
     try {
       Playlist p = c.createNewPlaylist("My test playlist");
       assertFalse(p.isVisible());
@@ -80,16 +80,20 @@ public class PlaylistTest extends ClientTest {
       Playlist p2 = c.getPlaylist(p.getToken());
       assertTrue(p2.isVisible());
 
-    } catch (ValidationException e) {
+      assertTrue(p2.delete(c));
+
+    } catch ( ValidationException e) {
+      // Cleanup code (in case of any failure)
+
       List<Playlist> list = c.getPlaylists();
       for (Playlist p : list) {
         if ("My test playlist".equals(p.getName())) {
-          p.delete(c);
+          assertTrue(p.delete(c));
           break;
         }
       }
-      testPlaylistCreation();
-
+      // Retry
+      testPlaylistCreationAndDeletion();
     }
 
 
