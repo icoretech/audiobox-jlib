@@ -26,6 +26,8 @@ public class Playlist {
 
   private static final String PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + ".json";
 
+  private static final String SYNC_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/sync.json";
+
   @Key
   private String token;
 
@@ -102,6 +104,19 @@ public class Playlist {
    */
   public boolean delete(Client client) {
     HttpResponse rsp = client.doDELETE(ModelUtil.interpolate(getPath(), getToken()));
+    return rsp.getStatusCode() == HttpStatusCodes.STATUS_CODE_NO_CONTENT;
+  }
+
+
+  /**
+   * Remotely synchronize the playlist with third party systems.
+   *
+   * @param client the client
+   *
+   * @return the boolean
+   */
+  public boolean sync(Client client) {
+    HttpResponse rsp = client.doPUT(getSyncPath(), new JsonHttpContent(client.getConf().getJsonFactory(), this));
     return rsp.getStatusCode() == HttpStatusCodes.STATUS_CODE_NO_CONTENT;
   }
 
@@ -309,6 +324,22 @@ public class Playlist {
       hashCode = hashCode * 37 + this.updated_at.hashCode();
 
     return hashCode;
+  }
+
+
+
+  /* ================ */
+  /*  Private methods */
+  /* ================ */
+
+
+  /**
+   * Gets sync path.
+   *
+   * @return the sync path
+   */
+  private String getSyncPath() {
+    return ModelUtil.interpolate(SYNC_PATH, getToken());
   }
 
 
