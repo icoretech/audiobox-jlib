@@ -12,7 +12,11 @@
 
 package fm.audiobox.core.models;
 
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpStatusCodes;
+import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
+import fm.audiobox.core.Client;
 import fm.audiobox.core.utils.ModelUtil;
 
 /**
@@ -60,6 +64,49 @@ public class Playlist {
 
 
   /**
+   * Instantiates a new Playlist.
+   */
+  public Playlist() {
+  }
+
+
+  /**
+   * Instantiates a new Playlist.
+   *
+   * @param name the name of the playlist
+   */
+  public Playlist(String name) {
+    this.name = name;
+  }
+
+
+  /**
+   * Remotely saves the playlist.
+   *
+   * @param client the client
+   *
+   * @return the boolean
+   */
+  public boolean save(Client client) {
+    HttpResponse rsp = client.doPUT(ModelUtil.interpolate(getPath(), getToken()), new JsonHttpContent(client.getConf().getJsonFactory(), this));
+    return rsp.getStatusCode() == HttpStatusCodes.STATUS_CODE_NO_CONTENT;
+  }
+
+
+  /**
+   * Remotely destroys the playlist.
+   *
+   * @param client the client
+   *
+   * @return the boolean
+   */
+  public boolean delete(Client client) {
+    HttpResponse rsp = client.doDELETE(ModelUtil.interpolate(getPath(), getToken()));
+    return rsp.getStatusCode() == HttpStatusCodes.STATUS_CODE_NO_CONTENT;
+  }
+
+
+  /**
    * Gets path.
    *
    * @return the path
@@ -86,6 +133,16 @@ public class Playlist {
    */
   public String getName() {
     return this.name;
+  }
+
+
+  /**
+   * Sets name.
+   *
+   * @param name the name
+   */
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -130,11 +187,22 @@ public class Playlist {
 
 
   /**
+   * Sets position.
+   *
+   * @param position the position
+   */
+  public void setPosition(long position) {
+    this.position = position;
+  }
+
+
+  /**
    * Gets offline.
    *
    * @return the offline
    */
-  public boolean getOffline() {
+  @Deprecated
+  public boolean isOffline() {
     return this.offline;
   }
 
@@ -144,8 +212,18 @@ public class Playlist {
    *
    * @return the embeddable
    */
-  public boolean getEmbeddable() {
+  public boolean isEmbeddable() {
     return this.embeddable;
+  }
+
+
+  /**
+   * Sets embeddable.
+   *
+   * @param embeddable the embeddable
+   */
+  public void setEmbeddable(boolean embeddable) {
+    this.embeddable = embeddable;
   }
 
 
@@ -154,8 +232,18 @@ public class Playlist {
    *
    * @return the visible
    */
-  public boolean getVisible() {
+  public boolean isVisible() {
     return this.visible;
+  }
+
+
+  /**
+   * Sets visible.
+   *
+   * @param visible the visible
+   */
+  public void setVisible(boolean visible) {
+    this.visible = visible;
   }
 
 

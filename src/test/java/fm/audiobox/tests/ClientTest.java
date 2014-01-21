@@ -21,6 +21,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.User;
 import org.junit.Before;
@@ -31,6 +32,7 @@ import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -39,11 +41,11 @@ import static org.junit.Assert.*;
  */
 public class ClientTest extends AudioBoxTest {
 
-  private Client c;
-
   private static final File DATA_STORE_DIR = new File(System.getProperty("user.home"), ".audiobox/abx");
 
   private static final File CACHE_DIR = new File(System.getProperty("user.home"), ".audiobox/http");
+
+  protected Client c;
 
 
   @Before
@@ -80,7 +82,6 @@ public class ClientTest extends AudioBoxTest {
    * @throws ConfigurationException the configuration exception
    */
   @Test
-  @Ignore
   public void testAuthorization() throws ConfigurationException {
     try {
       TokenResponse r = c.authorize(fixtures.getString("authentication.email"), fixtures.getString("authentication.password"));
@@ -97,7 +98,6 @@ public class ClientTest extends AudioBoxTest {
    * @throws IOException the iO exception
    */
   @Test
-  @Ignore
   public void testStoredCredential() throws IOException {
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore(c.getConf().getDataStoreFactory());
     assertFalse(udb.isEmpty());
@@ -106,39 +106,4 @@ public class ClientTest extends AudioBoxTest {
   }
 
 
-  /**
-   * Test playlists.
-   *
-   * @throws IOException the iO exception
-   */
-  @Test
-  @Ignore
-  public void testPlaylists() throws IOException {
-    List<Playlist> list = c.getPlaylists();
-    assertNotNull( list );
-    assertFalse(list.isEmpty());
-  }
-
-
-  /**
-   * Test playlist should be null if token is invalid.
-   */
-  @Test
-  @Ignore
-  public void testPlaylistShouldBeNullIfTokenIsInvalid() {
-    assertNull(c.getPlaylist("asd"));
-  }
-
-  /**
-   * Test playlist should be null if token is invalid.
-   */
-  @Test
-  public void testPlaylistShouldNotBeNullIfTokenIsValid() {
-    List<Playlist> list = c.getPlaylists();
-    Playlist p1 = list.get(0);
-    assertNotNull(p1);
-
-    Playlist p2 = c.getPlaylist(p1.getToken());
-    assertEquals(p2, p1);
-  }
 }

@@ -14,9 +14,12 @@ package fm.audiobox.core;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
+import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.exceptions.ErrorsWrapper;
+import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.ModelUtil;
 import org.slf4j.Logger;
@@ -25,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.naming.ConfigurationException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by keytwo on 17/01/14.
@@ -41,11 +45,14 @@ public class Client {
 
   private DataStoreCredentialRefreshListener refreshListener;
 
+  private JsonObjectParser jsonObjectParser;
+
 
   /**
    * Instantiates a new Client.
    *
    * @param conf the conf
+   *
    * @throws ConfigurationException the configuration exception
    * @throws ConfigurationException the configuration exception
    */
@@ -54,6 +61,7 @@ public class Client {
     this.conf = conf;
     this.userDb = StoredCredential.getDefaultDataStore(conf.getDataStoreFactory());
     this.refreshListener = new DataStoreCredentialRefreshListener(ACCOUNT_TOKENS, getConf().getDataStoreFactory());
+    this.jsonObjectParser = new JsonObjectParser(getConf().getJsonFactory());
   }
 
 
@@ -72,7 +80,9 @@ public class Client {
    *
    * @param username the username
    * @param password the password
+   *
    * @return the token response
+   *
    * @throws IOException the iO exception
    */
   public TokenResponse authorize(String username, String password) throws IOException {
@@ -102,8 +112,8 @@ public class Client {
    */
   public User getUser() {
     try {
-      HttpResponse rsp = perform(Playlists.getPath());
-      if (rsp != null) {
+      HttpResponse rsp = doGET(Playlists.getPath());
+      if (rsp.isSuccessStatusCode()) {
         return rsp.parseAs(UserWrapper.class).getUser();
       }
     } catch (IOException e) {
@@ -120,8 +130,8 @@ public class Client {
    */
   public List<Playlist> getPlaylists() {
     try {
-      HttpResponse rsp = perform(Playlists.getPath());
-      if (rsp != null) {
+      HttpResponse rsp = doGET(Playlists.getPath());
+      if (rsp.isSuccessStatusCode()) {
         return rsp.parseAs(Playlists.class).getPlaylists();
       }
     } catch (IOException e) {
@@ -136,12 +146,13 @@ public class Client {
    * Gets the specified playlist.
    *
    * @param token the token of the playlist to get.
+   *
    * @return the playlist
    */
   public Playlist getPlaylist(String token) {
     try {
-      HttpResponse rsp = perform(ModelUtil.interpolate(Playlist.getPath(), token));
-      if (rsp != null) {
+      HttpResponse rsp = doGET(ModelUtil.interpolate(Playlist.getPath(), token));
+      if (rsp.isSuccessStatusCode()) {
         return rsp.parseAs(PlaylistWrapper.class).getPlaylist();
       }
     } catch (IOException e) {
@@ -152,32 +163,22 @@ public class Client {
   }
 
 
-  /* ================ */
-  /*  Private methods */
-  /* ================ */
-
-
   /**
-   * Perform signed http requests and returns the response.
+   * Create new playlist.
    *
-   * @param url the url to make the request against
-   * @return the http response, may be null if any error occurs during the request.
+   * @param name the name
+   *
+   * @return the playlist
+   *
+   * @throws ValidationException if an error occurs while trying to save the playlist
    */
-  private HttpResponse perform(String url) {
+  public Playlist createNewPlaylist(String name) throws ValidationException {
     try {
-
-      HttpRequestFactory rf = getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
-        @Override
-        public void initialize(HttpRequest request) throws IOException {
-          Credential c = createCredentialWithRefreshToken();
-          c.initialize(request);
-          request.setParser(new JsonObjectParser(getConf().getJsonFactory()));
-        }
-      });
-
-      HttpRequest request = rf.buildGetRequest(new GenericUrl(getConf().getEnvBaseUrl() + url));
-      return request.execute();
-
+      Playlist p = new Playlist(name);
+      HttpResponse rsp = doPOST(Playlists.getPath(), new JsonHttpContent(getConf().getJsonFactory(), p));
+      if (rsp.isSuccessStatusCode()) {
+        return rsp.parseAs(PlaylistWrapper.class).getPlaylist();
+      }
     } catch (IOException e) {
       logger.error("Unable to perform request due to IO Exception: " + e.getMessage());
     }
@@ -186,9 +187,113 @@ public class Client {
 
 
   /**
+   * Perform signed http requests and returns the response.
+   *
+   * @param path the url to make the request against
+   * @param data the data to send with the post request
+   *
+   * @return the http response, may be null if any error occurs during the request.
+   */
+  public HttpResponse doPUT(String path, HttpContent data) {
+    try {
+      return getRequestFactory().buildPostRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
+    } catch (IOException e) {
+      logger.error("Unable to perform PUT due to IO Exception: " + e.getMessage());
+    }
+    return null;
+  }
+
+
+  /**
+   * Performs a DELETE request to the given path.
+   *
+   * @param path the url
+   *
+   * @return the http response
+   */
+  public HttpResponse doDELETE(String path) {
+    try {
+      HttpResponse response = getRequestFactory().buildDeleteRequest(new GenericUrl(getConf().getEnvBaseUrl() + path)).execute();
+      if (response.isSuccessStatusCode()) {
+        return response;
+      }
+    } catch (IOException e) {
+      logger.error("Unable to perform DELETE due to IO Exception: " + e.getMessage());
+    }
+    return null;
+  }
+
+
+
+
+  /* ================ */
+  /*  Private methods */
+  /* ================ */
+
+
+  /**
+   * Perform signed http requests and returns the response.
+   *
+   * @param path the url to make the request against
+   *
+   * @return the http response, may be null if any error occurs during the request.
+   */
+  private HttpResponse doGET(String path) {
+    try {
+      return getRequestFactory().buildGetRequest(new GenericUrl(getConf().getEnvBaseUrl() + path)).execute();
+    } catch (IOException e) {
+      logger.error("Unable to perform GET due to IO Exception: " + e.getMessage());
+    }
+    return null;
+  }
+
+
+  /**
+   * Perform signed http requests and returns the response.
+   *
+   * @param path the url to make the request against
+   * @param data the data to send with the post request
+   *
+   * @return the http response, may be null if any error occurs during the request.
+   */
+  private HttpResponse doPOST(String path, HttpContent data) {
+    try {
+      HttpResponse response = getRequestFactory().buildPostRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
+      if (response.getStatusCode() == 422) {
+        throw new ValidationException(response.parseAs(ErrorsWrapper.class).getErrors(), response.getStatusCode());
+      }
+      return response;
+
+    } catch (IOException e) {
+      logger.error("Unable to perform POST due to IO Exception: " + e.getMessage());
+    }
+    return null;
+  }
+
+
+  /**
+   * Gets request factory.
+   *
+   * @return the request factory
+   */
+  private HttpRequestFactory getRequestFactory() {
+    return getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
+      @Override
+      public void initialize(HttpRequest request) throws IOException {
+        Credential c = createCredentialWithRefreshToken();
+        c.initialize(request);
+        request.setParser(jsonObjectParser);
+        request.setThrowExceptionOnExecuteError(false);
+      }
+    });
+  }
+
+
+  /**
    * Build not signed credential.
    *
    * @return the credential
+   *
    * @throws IOException the iO exception
    */
   private Credential buildNotSignedCredential() throws IOException {
@@ -206,7 +311,9 @@ public class Client {
    * Create credential with refresh token.
    *
    * @param tokenResponse the token response
+   *
    * @return the credential
+   *
    * @throws IOException the iO exception
    */
   private Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) throws IOException {
@@ -218,7 +325,9 @@ public class Client {
    * Create credential with refresh token.
    *
    * @param storedCredential the stored credential
+   *
    * @return the credential
+   *
    * @throws IOException the iO exception
    */
   private Credential createCredentialWithRefreshToken(StoredCredential storedCredential) throws IOException {
@@ -233,6 +342,7 @@ public class Client {
    * Create credential with refresh token.
    *
    * @return the credential
+   *
    * @throws IOException the iO exception
    */
   private Credential createCredentialWithRefreshToken() throws IOException {
