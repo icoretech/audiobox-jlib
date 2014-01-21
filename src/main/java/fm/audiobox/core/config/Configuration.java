@@ -12,6 +12,7 @@
 
 package fm.audiobox.core.config;
 
+
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -21,6 +22,7 @@ import com.typesafe.config.ConfigFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.naming.ConfigurationException;
+
 
 /**
  * Created by keytwo on 17/01/14.
@@ -45,9 +47,19 @@ public class Configuration {
 
   private DataStoreFactory db;
 
-  public enum Env {production, staging, development}
+  /**
+   * The enum Env.
+   */
+  public enum Env {
+    production, staging, development
+  }
 
 
+  /**
+   * Instantiates a new Configuration.
+   *
+   * @param environment the environment
+   */
   public Configuration(Env environment) {
 
     if (environment == null) {
@@ -59,36 +71,72 @@ public class Configuration {
   }
 
 
+  /**
+   * Sets api key.
+   *
+   * @param apiKey the api key
+   */
   public void setApiKey(String apiKey) {
     this.apiKey = apiKey;
   }
 
 
+  /**
+   * Sets api secret.
+   *
+   * @param apiSecret the api secret
+   */
   public void setApiSecret(String apiSecret) {
     this.apiSecret = apiSecret;
   }
 
 
+  /**
+   * Sets http transport.
+   *
+   * @param httpTransport the http transport
+   */
   public void setHttpTransport(HttpTransport httpTransport) {
     this.httpTransport = httpTransport;
   }
 
 
+  /**
+   * Sets json factory.
+   *
+   * @param jsonFactory the json factory
+   */
   public void setJsonFactory(JsonFactory jsonFactory) {
     this.jsonFactory = jsonFactory;
   }
 
 
+  /**
+   * Sets data store factory.
+   *
+   * @param dataStoreFactory the data store factory
+   */
   public void setDataStoreFactory(DataStoreFactory dataStoreFactory) {
     this.db = dataStoreFactory;
   }
 
 
+  /**
+   * Gets data store factory.
+   *
+   * @return the data store factory
+   */
   public DataStoreFactory getDataStoreFactory() {
     return db;
   }
 
 
+  /**
+   * Gets environment configuration.
+   *
+   * @param environment the environment
+   * @return the environment configuration
+   */
   public Config getEnvironmentConfiguration(Env environment) {
     if (envConfig == null) {
       envConfig = config.getConfig("abx." + environment.name());
@@ -97,6 +145,11 @@ public class Configuration {
   }
 
 
+  /**
+   * Gets env base url.
+   *
+   * @return the env base url
+   */
   public String getEnvBaseUrl() {
 
     Config envConf = getEnvironmentConfiguration(getEnvironment());
@@ -109,6 +162,11 @@ public class Configuration {
   }
 
 
+  /**
+   * Gets env token url.
+   *
+   * @return the env token url
+   */
   public GenericUrl getEnvTokenUrl() {
     if (tokenUrl == null) {
       tokenUrl = new GenericUrl(getEnvBaseUrl() + getEnvironmentConfiguration(getEnvironment()).getString("api.oauth.tokenPath"));
@@ -117,31 +175,61 @@ public class Configuration {
   }
 
 
+  /**
+   * Gets api key.
+   *
+   * @return the api key
+   */
   public String getApiKey() {
     return apiKey;
   }
 
 
+  /**
+   * Gets api secret.
+   *
+   * @return the api secret
+   */
   public String getApiSecret() {
     return apiSecret;
   }
 
 
+  /**
+   * Gets environment.
+   *
+   * @return the environment
+   */
   public Env getEnvironment() {
     return environment;
   }
 
 
+  /**
+   * Gets http transport.
+   *
+   * @return the http transport
+   */
   public HttpTransport getHttpTransport() {
     return httpTransport;
   }
 
 
+  /**
+   * Gets json factory.
+   *
+   * @return the json factory
+   */
   public JsonFactory getJsonFactory() {
     return jsonFactory;
   }
 
 
+  /**
+   * Check configuration.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
   public void checkConfiguration() throws ConfigurationException {
 
     config.checkValid(ConfigFactory.defaultReference(), "abx");
