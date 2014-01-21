@@ -22,6 +22,7 @@ import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.ErrorsWrapper;
 import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.models.*;
+import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -183,7 +184,7 @@ public class Client {
    */
   public User getUser() {
     try {
-      HttpResponse rsp = doGET(Playlists.getPath());
+      HttpResponse rsp = doGET(UserWrapper.getPath());
       if (rsp.isSuccessStatusCode()) {
         return rsp.parseAs(UserWrapper.class).getUser();
       }
@@ -384,7 +385,7 @@ public class Client {
   private HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) {
     try {
       HttpResponse response = getRequestFactory(parser).buildPostRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
-      if (response.getStatusCode() == 422) {
+      if (response.getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY) {
         throw new ValidationException(response.parseAs(ErrorsWrapper.class).getErrors(), response.getStatusCode());
       }
       return response;

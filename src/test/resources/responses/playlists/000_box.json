@@ -1,0 +1,17 @@
+{
+"playlist":{
+ "token":"000_box",
+ "name":"Box",
+ "system_name":"box",
+ "type":"BoxPlaylist",
+ "media_files_count":1,
+ "position":5,
+ "offline":false,
+ "embeddable":false,
+ "visible":true,
+ "last_accessed":false,
+ "updated_at":"2013-08-31T14:49:26.485Z",
+ "syncable":true,
+ "search_params":null
+}
+}

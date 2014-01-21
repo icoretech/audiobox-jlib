@@ -1,0 +1,17 @@
+{
+"playlist":{
+"token":"000_youtube",
+"name":"YouTube",
+"system_name":"youtube",
+"type":"YoutubePlaylist",
+"media_files_count":15,
+"position":7,
+"offline":false,
+"embeddable":false,
+"visible":true,
+"last_accessed":false,
+"updated_at":"2013-08-31T14:11:26.940Z",
+"syncable":true,
+"search_params":null
+}
+}

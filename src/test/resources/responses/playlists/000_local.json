@@ -1,0 +1,17 @@
+{
+   "playlist":{
+      "token":"000_local",
+      "name":"AudioBox Desktop",
+      "system_name":"local",
+      "type":"LocalPlaylist",
+      "media_files_count":0,
+      "position":1,
+      "offline":false,
+      "embeddable":false,
+      "visible":true,
+      "last_accessed":false,
+      "updated_at":"2013-08-29T18:25:53.517Z",
+      "syncable":false,
+      "search_params":null
+   }
+}

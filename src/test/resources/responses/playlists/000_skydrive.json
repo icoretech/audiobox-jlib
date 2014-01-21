@@ -1,0 +1,17 @@
+{
+"playlist":{
+"token":"000_skydrive",
+"name":"SkyDrive",
+"system_name":"skydrive",
+"type":"SkydrivePlaylist",
+"media_files_count":13,
+"position":4,
+"offline":false,
+"embeddable":false,
+"visible":true,
+"last_accessed":false,
+"updated_at":"2013-09-22T14:41:16.846Z",
+"syncable":true,
+"search_params":null
+}
+}

@@ -17,6 +17,8 @@ import com.google.api.client.http.HttpStatusCodes;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
+import fm.audiobox.core.exceptions.SyncException;
+import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 
 /**
@@ -91,7 +93,7 @@ public class Playlist {
    */
   public boolean save(Client client) {
     HttpResponse rsp = client.doPUT(ModelUtil.interpolate(getPath(), getToken()), new JsonHttpContent(client.getConf().getJsonFactory(), this));
-    return rsp.getStatusCode() == HttpStatusCodes.STATUS_CODE_NO_CONTENT;
+    return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
   }
 
 
@@ -104,7 +106,7 @@ public class Playlist {
    */
   public boolean delete(Client client) {
     HttpResponse rsp = client.doDELETE(ModelUtil.interpolate(getPath(), getToken()));
-    return rsp.getStatusCode() == HttpStatusCodes.STATUS_CODE_NO_CONTENT;
+    return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
   }
 
 
@@ -115,9 +117,17 @@ public class Playlist {
    *
    * @return the boolean
    */
-  public boolean sync(Client client) {
+  public boolean sync(Client client) throws SyncException {
+
+    if (!this.isSyncable()) // Well...
+      throw new SyncException( HttpStatus.SC_UNPROCESSABLE_ENTITY );
+
     HttpResponse rsp = client.doPUT(getSyncPath(), new JsonHttpContent(client.getConf().getJsonFactory(), this));
-    return rsp.getStatusCode() == HttpStatusCodes.STATUS_CODE_NO_CONTENT;
+    if (rsp.getStatusCode() != HttpStatus.SC_NO_CONTENT) {
+      throw new SyncException( rsp.getStatusCode() );
+    }
+
+    return true;
   }
 
 
@@ -287,7 +297,7 @@ public class Playlist {
    *
    * @return the syncable
    */
-  public boolean getSyncable() {
+  public boolean isSyncable() {
     return this.syncable;
   }
 

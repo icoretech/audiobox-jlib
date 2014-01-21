@@ -1,0 +1,17 @@
+{
+"playlist":{
+ "token":"000_cloud",
+ "name":"AudioBox Cloud",
+ "system_name":"cloud",
+ "type":"CloudPlaylist",
+ "media_files_count":0,
+ "position":2,
+ "offline":false,
+ "embeddable":false,
+ "visible":true,
+ "last_accessed":false,
+ "updated_at":"2014-01-16T13:39:31.240Z",
+ "syncable":false,
+ "search_params":null
+}
+}

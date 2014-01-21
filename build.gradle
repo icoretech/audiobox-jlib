@@ -57,4 +57,7 @@ dependencies {
 
     // Cache
     testCompile  'com.integralblue:httpresponsecache:1.3+'
+
+    // Utils
+    testCompile  'org.apache.commons:commons-io:1.3+'
 }

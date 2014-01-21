@@ -31,7 +31,7 @@ public class ValidationException extends RuntimeException {
    * @param errors the error
    */
   public ValidationException(Errors errors) {
-    this(ValidationException.errorsToString(errors), errors);
+    this( ValidationException.errorsToString( errors ), errors );
   }
 
 
@@ -39,10 +39,10 @@ public class ValidationException extends RuntimeException {
    * Instantiates a new Validation exception.
    *
    * @param message the message
-   * @param errors the errors
+   * @param errors  the errors
    */
   public ValidationException(String message, Errors errors) {
-    super(message);
+    super( message );
     this.errors = errors;
   }
 
@@ -50,11 +50,11 @@ public class ValidationException extends RuntimeException {
   /**
    * Instantiates a new Validation exception.
    *
-   * @param errors the errors
+   * @param errors     the errors
    * @param statusCode the status code
    */
   public ValidationException(Errors errors, int statusCode) {
-    this(errors);
+    this( errors );
     this.statusCode = statusCode;
   }
 
@@ -62,6 +62,16 @@ public class ValidationException extends RuntimeException {
   @Override
   public String getMessage() {
     return super.getMessage();
+  }
+
+
+  /**
+   * Gets error code.
+   *
+   * @return the error code
+   */
+  public int getErrorCode() {
+    return statusCode;
   }
 
 
@@ -79,11 +89,12 @@ public class ValidationException extends RuntimeException {
    * Errors to string.
    *
    * @param errors the errors
+   *
    * @return the string
    */
   public static String errorsToString(Errors errors) {
     String msg = "";
-    for (Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet()) {
+    for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
       msg = error.getKey() + ": " + error.getValue();
       break;
     }

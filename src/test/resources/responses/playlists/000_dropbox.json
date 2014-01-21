@@ -1,0 +1,17 @@
+{
+"playlist": {
+"token":"000_dropbox",
+"name":"Dropbox",
+"system_name":"dropbox",
+"type":"DropboxPlaylist",
+"media_files_count":12,
+"position":3,
+"offline":false,
+"embeddable":false,
+"visible":true,
+"last_accessed":false,
+"updated_at":"2014-01-16T13:39:38.823Z",
+"syncable":true,
+"search_params":null
+}
+}

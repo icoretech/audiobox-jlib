@@ -1,0 +1,17 @@
+{
+"playlist": {
+"token":"000_soundcloud",
+"name":"SoundCloud",
+"system_name":"soundcloud",
+"type":"SoundcloudPlaylist",
+"media_files_count":0,
+"position":8,
+"offline":false,
+"embeddable":false,
+"visible":true,
+"last_accessed":false,
+"updated_at":"2013-08-29T18:25:53.613Z",
+"syncable":true,
+"search_params":null
+}
+}

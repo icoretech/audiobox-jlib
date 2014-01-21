@@ -1,0 +1,17 @@
+{
+"playlist": {
+"token":"000_gdrive",
+"name":"Google Drive",
+"system_name":"gdrive",
+"type":"GdrivePlaylist",
+"media_files_count":19,
+"position":6,
+"offline":false,
+"embeddable":false,
+"visible":true,
+"last_accessed":false,
+"updated_at":"2013-08-31T14:11:25.271Z",
+"syncable":true,
+"search_params":null
+}
+}

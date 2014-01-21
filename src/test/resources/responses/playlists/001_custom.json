@@ -1,0 +1,17 @@
+{
+"playlist":{
+"token":"001_custom",
+"name":"My test playlist",
+"system_name":"custom",
+"type":"CustomPlaylist",
+"media_files_count":0,
+"position":11,
+"offline":false,
+"embeddable":false,
+"visible":true,
+"last_accessed":true,
+"updated_at":"2014-01-21T00:19:12.787Z",
+"syncable":false,
+"search_params":null
+}
+}
