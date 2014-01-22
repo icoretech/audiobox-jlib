@@ -19,13 +19,16 @@ import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.exceptions.AuthorizationException;
 import fm.audiobox.core.exceptions.ErrorsWrapper;
+import fm.audiobox.core.exceptions.RemoteMessageException;
 import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.org.mozilla.javascript.internal.json.JsonParser;
 
 import javax.naming.ConfigurationException;
 import java.io.IOException;
@@ -97,7 +100,7 @@ public class Client {
   /**
    * The Logger.
    */
-  private Logger logger = LoggerFactory.getLogger(Client.class.getSimpleName());
+  private Logger logger = LoggerFactory.getLogger( Client.class.getSimpleName() );
 
   /**
    * The User db.
@@ -124,16 +127,15 @@ public class Client {
    * Instantiates a new Client.
    *
    * @param conf the conf
-   *
    * @throws ConfigurationException the configuration exception
    * @throws ConfigurationException the configuration exception
    */
   public Client(Configuration conf) throws ConfigurationException, IOException {
     conf.checkConfiguration();
     this.conf = conf;
-    this.userDb = StoredCredential.getDefaultDataStore(conf.getDataStoreFactory());
-    this.refreshListener = new DataStoreCredentialRefreshListener(ACCOUNT_TOKENS, getConf().getDataStoreFactory());
-    this.jsonObjectParser = new JsonObjectParser(getConf().getJsonFactory());
+    this.userDb = StoredCredential.getDefaultDataStore( conf.getDataStoreFactory() );
+    this.refreshListener = new DataStoreCredentialRefreshListener( ACCOUNT_TOKENS, getConf().getDataStoreFactory() );
+    this.jsonObjectParser = new JsonObjectParser( getConf().getJsonFactory() );
   }
 
 
@@ -152,28 +154,30 @@ public class Client {
    *
    * @param username the username
    * @param password the password
-   *
    * @return the token response
-   *
+   * @throws IOException the iO exception
    * @throws IOException the iO exception
    */
-  public TokenResponse authorize(String username, String password) throws IOException {
+  public TokenResponse authorize(String username, String password) throws IOException, AuthorizationException {
+    try {
+      PasswordTokenRequest ptr = new PasswordTokenRequest(
+          getConf().getHttpTransport(),
+          getConf().getJsonFactory(),
+          getConf().getEnvTokenUrl(),
+          username,
+          password );
 
-    PasswordTokenRequest ptr = new PasswordTokenRequest(
-        getConf().getHttpTransport(),
-        getConf().getJsonFactory(),
-        getConf().getEnvTokenUrl(),
-        username,
-        password);
+      ptr.setClientAuthentication( new BasicAuthentication( getConf().getApiKey(), getConf().getApiSecret() ) );
 
-    ptr.setClientAuthentication(new BasicAuthentication(getConf().getApiKey(), getConf().getApiSecret()));
-    TokenResponse response = ptr.execute();
+      TokenResponse response = ptr.execute();
 
-    StoredCredential sc = new StoredCredential(createCredentialWithRefreshToken(response));
-    userDb.set(ACCOUNT_TOKENS, sc);
-    logger.info("Saved credentials: " + sc.toString());
-
-    return response;
+      StoredCredential sc = new StoredCredential( createCredentialWithRefreshToken( response ) );
+      userDb.set( ACCOUNT_TOKENS, sc );
+      logger.info( "Saved credentials: " + sc.toString() );
+      return response;
+    } catch ( TokenResponseException e ) {
+      throw new AuthorizationException( e );
+    }
   }
 
 
@@ -184,12 +188,12 @@ public class Client {
    */
   public User getUser() {
     try {
-      HttpResponse rsp = doGET(UserWrapper.getPath());
-      if (rsp.isSuccessStatusCode()) {
-        return rsp.parseAs(UserWrapper.class).getUser();
+      HttpResponse rsp = doGET( UserWrapper.getPath() );
+      if ( rsp.isSuccessStatusCode() ) {
+        return rsp.parseAs( UserWrapper.class ).getUser();
       }
-    } catch (IOException e) {
-      logger.error("Unable to parse user: " + e.getMessage());
+    } catch ( IOException e ) {
+      logger.error( "Unable to parse user: " + e.getMessage() );
     }
     return null;
   }
@@ -202,12 +206,12 @@ public class Client {
    */
   public List<Playlist> getPlaylists() {
     try {
-      HttpResponse rsp = doGET(Playlists.getPath());
-      if (rsp.isSuccessStatusCode()) {
-        return rsp.parseAs(Playlists.class).getPlaylists();
+      HttpResponse rsp = doGET( Playlists.getPath() );
+      if ( rsp.isSuccessStatusCode() ) {
+        return rsp.parseAs( Playlists.class ).getPlaylists();
       }
-    } catch (IOException e) {
-      logger.error("Unable to parse playlists: " + e.getMessage());
+    } catch ( IOException e ) {
+      logger.error( "Unable to parse playlists: " + e.getMessage() );
     }
 
     return null;
@@ -218,17 +222,16 @@ public class Client {
    * Gets the specified playlist.
    *
    * @param token the token of the playlist to get.
-   *
    * @return the playlist
    */
   public Playlist getPlaylist(String token) {
     try {
-      HttpResponse rsp = doGET(ModelUtil.interpolate(Playlist.getPath(), token));
-      if (rsp.isSuccessStatusCode()) {
-        return rsp.parseAs(PlaylistWrapper.class).getPlaylist();
+      HttpResponse rsp = doGET( ModelUtil.interpolate( Playlist.getPath(), token ) );
+      if ( rsp.isSuccessStatusCode() ) {
+        return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
       }
-    } catch (IOException e) {
-      logger.error("Unable to parse playlists: " + e.getMessage());
+    } catch ( IOException e ) {
+      logger.error( "Unable to parse playlists: " + e.getMessage() );
     }
 
     return null;
@@ -239,20 +242,18 @@ public class Client {
    * Create new playlist.
    *
    * @param name the name
-   *
    * @return the playlist
-   *
    * @throws ValidationException if an error occurs while trying to save the playlist
    */
-  public Playlist createNewPlaylist(String name) throws ValidationException {
+  public Playlist createNewPlaylist(String name) throws RemoteMessageException {
     try {
-      Playlist p = new Playlist(name);
-      HttpResponse rsp = doPOST(Playlists.getPath(), new JsonHttpContent(getConf().getJsonFactory(), p));
-      if (rsp.isSuccessStatusCode()) {
-        return rsp.parseAs(PlaylistWrapper.class).getPlaylist();
+      Playlist p = new Playlist( name );
+      HttpResponse rsp = doPOST( Playlists.getPath(), new JsonHttpContent( getConf().getJsonFactory(), p ) );
+      if ( rsp.isSuccessStatusCode() ) {
+        return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
       }
-    } catch (IOException e) {
-      logger.error("Unable to perform request due to IO Exception: " + e.getMessage());
+    } catch ( IOException e ) {
+      logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
     }
     return null;
   }
@@ -263,11 +264,11 @@ public class Client {
    *
    * @param path the url to make the request against
    * @param data the data to send with the post request
-   *
    * @return the http response, may be null if any error occurs during the request.
+   * @throws RemoteMessageException the remote message exception
    */
-  public HttpResponse doPUT(String path, HttpContent data) {
-    return doPUT(path, data, null);
+  public HttpResponse doPUT(String path, HttpContent data) throws RemoteMessageException {
+    return doPUT( path, data, null );
   }
 
 
@@ -277,14 +278,20 @@ public class Client {
    * @param path   the path
    * @param data   the data
    * @param parser the parser
-   *
    * @return the http response
+   * @throws RemoteMessageException the remote message exception
    */
-  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) {
+  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws RemoteMessageException {
     try {
-      return getRequestFactory(parser).buildPutRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
-    } catch (IOException e) {
-      logger.error("Unable to perform PUT due to IO Exception: " + e.getMessage());
+      HttpResponse response = getRequestFactory( parser ).buildPutRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
+      if ( response.getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY ) {
+        throw new ValidationException( response.parseAs( ErrorsWrapper.class ).getErrors(), response.getStatusCode() );
+      }
+      return response;
+    } catch ( TokenResponseException e ) {
+      throw new AuthorizationException( e );
+    } catch ( IOException e ) {
+      logger.error( "Unable to perform PUT due to IO Exception: " + e.getMessage() );
     }
     return null;
   }
@@ -294,11 +301,11 @@ public class Client {
    * Performs a DELETE request to the given path.
    *
    * @param path the url
-   *
    * @return the http response
+   * @throws RemoteMessageException the remote message exception
    */
-  public HttpResponse doDELETE(String path) {
-    return doDELETE(path, null);
+  public HttpResponse doDELETE(String path) throws RemoteMessageException {
+    return doDELETE( path, null );
   }
 
 
@@ -307,17 +314,19 @@ public class Client {
    *
    * @param path   the path
    * @param parser the parser
-   *
    * @return the http response
+   * @throws RemoteMessageException the remote message exception
    */
-  public HttpResponse doDELETE(String path, JsonObjectParser parser) {
+  public HttpResponse doDELETE(String path, JsonObjectParser parser) throws RemoteMessageException {
     try {
-      HttpResponse response = getRequestFactory(parser).buildDeleteRequest(new GenericUrl(getConf().getEnvBaseUrl() + path)).execute();
-      if (response.isSuccessStatusCode()) {
+      HttpResponse response = getRequestFactory( parser ).buildDeleteRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
+      if ( response.isSuccessStatusCode() ) {
         return response;
       }
-    } catch (IOException e) {
-      logger.error("Unable to perform DELETE due to IO Exception: " + e.getMessage());
+    } catch ( TokenResponseException e ) {
+      throw new AuthorizationException( e );
+    } catch ( IOException e ) {
+      logger.error( "Unable to perform DELETE due to IO Exception: " + e.getMessage() );
     }
     return null;
   }
@@ -334,11 +343,11 @@ public class Client {
    * Perform signed GET requests and returns the response.
    *
    * @param path the url to make the request against
-   *
    * @return the http response, may be null if any error occurs during the request.
+   * @throws RemoteMessageException the remote message exception
    */
-  private HttpResponse doGET(String path) {
-    return doGET(path, null);
+  private HttpResponse doGET(String path) throws RemoteMessageException {
+    return doGET( path, null );
   }
 
 
@@ -347,14 +356,16 @@ public class Client {
    *
    * @param path   the path
    * @param parser the parser
-   *
    * @return the http response
+   * @throws RemoteMessageException the remote message exception
    */
-  private HttpResponse doGET(String path, JsonObjectParser parser) {
+  private HttpResponse doGET(String path, JsonObjectParser parser) throws RemoteMessageException {
     try {
-      return getRequestFactory(parser).buildGetRequest(new GenericUrl(getConf().getEnvBaseUrl() + path)).execute();
-    } catch (IOException e) {
-      logger.error("Unable to perform GET due to IO Exception: " + e.getMessage());
+      return getRequestFactory( parser ).buildGetRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
+    } catch ( TokenResponseException e ) {
+      throw new AuthorizationException( e );
+    } catch ( IOException e ) {
+      logger.error( "Unable to perform GET due to IO Exception: " + e.getMessage() );
     }
     return null;
   }
@@ -365,11 +376,11 @@ public class Client {
    *
    * @param path the url to make the request against
    * @param data the data to send with the post request
-   *
    * @return the http response, may be null if any error occurs during the request.
+   * @throws RemoteMessageException the remote message exception
    */
-  private HttpResponse doPOST(String path, HttpContent data) {
-    return doPOST(path, data, null);
+  private HttpResponse doPOST(String path, HttpContent data) throws RemoteMessageException {
+    return doPOST( path, data, null );
   }
 
 
@@ -379,19 +390,20 @@ public class Client {
    * @param path   the path
    * @param data   the data
    * @param parser the parser
-   *
    * @return the http response
+   * @throws RemoteMessageException the remote message exception
    */
-  private HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) {
+  private HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws RemoteMessageException {
     try {
-      HttpResponse response = getRequestFactory(parser).buildPostRequest(new GenericUrl(getConf().getEnvBaseUrl() + path), data).execute();
-      if (response.getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY) {
-        throw new ValidationException(response.parseAs(ErrorsWrapper.class).getErrors(), response.getStatusCode());
+      HttpResponse response = getRequestFactory( parser ).buildPostRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
+      if ( response.getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY ) {
+        throw new ValidationException( response.parseAs( ErrorsWrapper.class ).getErrors(), response.getStatusCode() );
       }
       return response;
-
-    } catch (IOException e) {
-      logger.error("Unable to perform POST due to IO Exception: " + e.getMessage());
+    } catch ( TokenResponseException e ) {
+      throw new AuthorizationException( e );
+    } catch ( IOException e ) {
+      logger.error( "Unable to perform POST due to IO Exception: " + e.getMessage() );
     }
     return null;
   }
@@ -401,20 +413,19 @@ public class Client {
    * Gets request factory.
    *
    * @param parser the parser
-   *
    * @return the request factory
    */
   private HttpRequestFactory getRequestFactory(final JsonObjectParser parser) {
-    return getConf().getHttpTransport().createRequestFactory(new HttpRequestInitializer() {
+    return getConf().getHttpTransport().createRequestFactory( new HttpRequestInitializer() {
 
       @Override
       public void initialize(HttpRequest request) throws IOException {
         Credential c = createCredentialWithRefreshToken();
-        c.initialize(request);
-        request.setParser(parser == null ? jsonObjectParser : parser);
-        request.setThrowExceptionOnExecuteError(false);
+        c.initialize( request );
+        request.setParser( parser == null ? jsonObjectParser : parser );
+        request.setThrowExceptionOnExecuteError( false );
       }
-    });
+    } );
   }
 
 
@@ -422,16 +433,15 @@ public class Client {
    * Build not signed credential.
    *
    * @return the credential
-   *
    * @throws IOException the iO exception
    */
   private Credential buildNotSignedCredential() throws IOException {
-    return new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
-        .setTransport(getConf().getHttpTransport())
-        .setJsonFactory(getConf().getJsonFactory())
-        .setTokenServerUrl(getConf().getEnvTokenUrl())
-        .setClientAuthentication(new BasicAuthentication(getConf().getApiKey(), getConf().getApiSecret()))
-        .addRefreshListener(this.refreshListener)
+    return new Credential.Builder( BearerToken.authorizationHeaderAccessMethod() )
+        .setTransport( getConf().getHttpTransport() )
+        .setJsonFactory( getConf().getJsonFactory() )
+        .setTokenServerUrl( getConf().getEnvTokenUrl() )
+        .setClientAuthentication( new BasicAuthentication( getConf().getApiKey(), getConf().getApiSecret() ) )
+        .addRefreshListener( this.refreshListener )
         .build();
   }
 
@@ -440,11 +450,10 @@ public class Client {
    * Create credential with refresh token.
    *
    * @return the credential
-   *
    * @throws IOException the iO exception
    */
   private Credential createCredentialWithRefreshToken() throws IOException {
-    return createCredentialWithRefreshToken(getStoredCredential());
+    return createCredentialWithRefreshToken( getStoredCredential() );
   }
 
 
@@ -452,13 +461,11 @@ public class Client {
    * Create credential with refresh token.
    *
    * @param tokenResponse the token response
-   *
    * @return the credential
-   *
    * @throws IOException the iO exception
    */
   private Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) throws IOException {
-    return buildNotSignedCredential().setFromTokenResponse(tokenResponse);
+    return buildNotSignedCredential().setFromTokenResponse( tokenResponse );
   }
 
 
@@ -466,16 +473,14 @@ public class Client {
    * Create credential with refresh token.
    *
    * @param storedCredential the stored credential
-   *
    * @return the credential
-   *
    * @throws IOException the iO exception
    */
   private Credential createCredentialWithRefreshToken(StoredCredential storedCredential) throws IOException {
     return buildNotSignedCredential()
-        .setAccessToken(storedCredential.getAccessToken())
-        .setExpiresInSeconds(storedCredential.getExpirationTimeMilliseconds())
-        .setRefreshToken(storedCredential.getRefreshToken());
+        .setAccessToken( storedCredential.getAccessToken() )
+        .setExpiresInSeconds( storedCredential.getExpirationTimeMilliseconds() )
+        .setRefreshToken( storedCredential.getRefreshToken() );
   }
 
 
@@ -487,9 +492,9 @@ public class Client {
   private StoredCredential getStoredCredential() {
     StoredCredential s = null;
     try {
-      s = userDb.get(ACCOUNT_TOKENS);
-    } catch (IOException e) {
-      logger.error("Unable to find stored account: " + e.getMessage());
+      s = userDb.get( ACCOUNT_TOKENS );
+    } catch ( IOException e ) {
+      logger.error( "Unable to find stored account: " + e.getMessage() );
     }
     return s;
   }

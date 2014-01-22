@@ -40,7 +40,7 @@ public class AudioBoxMockHttpTransport extends MockHttpTransport {
         Pattern userPattern = Pattern.compile( UserWrapper.getPath() + "$" );
 
         if ( oauthPattern.matcher( url ).find() ) {
-          result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/access_token.json" ), "UTF-8" ) );
+          result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/oauth2/token.json" ), "UTF-8" ) );
         }
 
         if ( userPattern.matcher( url ).find() ) {

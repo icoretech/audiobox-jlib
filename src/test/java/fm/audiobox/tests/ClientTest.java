@@ -12,6 +12,7 @@
 
 package fm.audiobox.tests;
 
+
 import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -21,7 +22,9 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.exceptions.AuthorizationException;
 import fm.audiobox.core.models.User;
+import fm.audiobox.tests.mocks.AuthMockHttpTransportFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.*;
+
 
 /**
  * Created by keytwo on 20/01/14.
@@ -65,17 +69,36 @@ public class ClientTest extends AudioBoxTest {
 
 
   /**
+   * Test wrong authorization.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
+  @Test(expected = AuthorizationException.class)
+  public void testWrongAuthorization() throws ConfigurationException {
+    try {
+      c.getConf().setHttpTransport( AuthMockHttpTransportFactory.getWrongAccountHttpTransport() );
+      c.authorize( "wrong@email.com", "fakepasswd" );
+    } catch ( IOException e ) {
+      fail( e.getMessage() );
+    }
+  }
+
+
+  /**
    * Test authorization.
    *
    * @throws ConfigurationException the configuration exception
    */
   @Test
-  public void testAuthorization() throws ConfigurationException {
+  public void testRightAuthorization() throws ConfigurationException {
     try {
+      c.getConf().setHttpTransport( AuthMockHttpTransportFactory.getRightAccountHttpTransport() );
       TokenResponse r = c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+      assertEquals( "aaa", r.getAccessToken() );
+      assertEquals( "rrr", r.getRefreshToken() );
       logger.debug( r.getAccessToken() );
     } catch ( IOException e ) {
-      e.printStackTrace();
+      fail( e.getMessage() );
     }
   }
 
