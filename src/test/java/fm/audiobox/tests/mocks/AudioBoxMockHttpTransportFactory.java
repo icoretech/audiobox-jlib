@@ -29,7 +29,7 @@ import java.io.IOException;
 /**
  * Created by keytwo on 22/01/14.
  */
-public class AuthMockHttpTransportFactory {
+public class AudioBoxMockHttpTransportFactory {
 
   /**
    * Gets wrong account http transport.
@@ -100,6 +100,31 @@ public class AuthMockHttpTransportFactory {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setContentType( Json.MEDIA_TYPE );
             result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/oauth2/token.json" ), "UTF-8" ) );
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets right user http transport.
+   *
+   * @return the right user http transport
+   */
+  public static HttpTransport getRightUserHttpTransport() {
+    return new MockHttpTransport() {
+
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/user.json" ), "UTF-8" ) );
             return result;
           }
         };

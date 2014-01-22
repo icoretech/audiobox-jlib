@@ -14,10 +14,14 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.util.Key;
 
+
 /**
  * Created by keytwo on 17/01/14.
  */
 public class Stats {
+
+  @Key
+  private long total_play_count;
 
   @Key
   private long data_served_overall;
@@ -78,6 +82,16 @@ public class Stats {
 
   @Key
   private long soundcloud_data_stored_this_month;
+
+
+  /**
+   * Gets total play count.
+   *
+   * @return the total play count
+   */
+  public long getTotalPlayCount() {
+    return total_play_count;
+  }
 
 
   /**
@@ -278,4 +292,7 @@ public class Stats {
   public long getSoundcloudDataStoredThisMonth() {
     return soundcloud_data_stored_this_month;
   }
+
+
+
 }

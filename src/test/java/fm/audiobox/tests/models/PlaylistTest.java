@@ -11,6 +11,8 @@
 
 package fm.audiobox.tests.models;
 
+
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
@@ -21,7 +23,6 @@ import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.tests.AudioBoxTest;
-import fm.audiobox.tests.mocks.AudioBoxMockHttpTransport;
 import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 
 /**
  * Created by keytwo on 21/01/14.
@@ -54,7 +56,7 @@ public class PlaylistTest extends AudioBoxTest {
 
       config.setApiKey( fixtures.getString( "authentication.client_id" ) );
       config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      config.setHttpTransport( new AudioBoxMockHttpTransport() );
+      config.setHttpTransport( new NetHttpTransport() );
       JacksonFactory jf = new JacksonFactory();
       config.setJsonFactory( jf );
 

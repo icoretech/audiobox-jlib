@@ -23,8 +23,7 @@ import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.AuthorizationException;
-import fm.audiobox.core.models.User;
-import fm.audiobox.tests.mocks.AuthMockHttpTransportFactory;
+import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,7 +73,7 @@ public class ClientTest extends AudioBoxTest {
   @Test(expected = AuthorizationException.class)
   public void testWrongAuthorization() throws ConfigurationException {
     try {
-      c.getConf().setHttpTransport( AuthMockHttpTransportFactory.getWrongAccountHttpTransport() );
+      c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getWrongAccountHttpTransport() );
       c.authorize( "wrong@email.com", "fakepasswd" );
     } catch ( IOException e ) {
       fail( e.getMessage() );
@@ -90,7 +89,7 @@ public class ClientTest extends AudioBoxTest {
   @Test
   public void testRightAuthorization() throws ConfigurationException {
     try {
-      c.getConf().setHttpTransport( AuthMockHttpTransportFactory.getRightAccountHttpTransport() );
+      c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getRightAccountHttpTransport() );
       TokenResponse r = c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
       assertEquals( "aaa", r.getAccessToken() );
       assertEquals( "rrr", r.getRefreshToken() );
@@ -108,7 +107,7 @@ public class ClientTest extends AudioBoxTest {
    */
   @Test(expected = AuthorizationException.class)
   public void testStoredCredentialWithWrongRefreshToken() throws IOException {
-    c.getConf().setHttpTransport( AuthMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport() );
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore( c.getConf().getDataStoreFactory() );
     assertFalse( udb.isEmpty() );
     c.getUser();

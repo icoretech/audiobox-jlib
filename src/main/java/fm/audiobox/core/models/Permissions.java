@@ -62,7 +62,7 @@ public class Permissions {
   private boolean twitter;
 
   @Key
-  private boolean musixmatch;
+  private boolean lyrics;
 
   @Key
   private boolean songkick;
@@ -209,12 +209,12 @@ public class Permissions {
 
 
   /**
-   * Has musixmatch.
+   * Has lyrics.
    *
    * @return the boolean
    */
-  public boolean hasMusixmatch() {
-    return musixmatch;
+  public boolean hasLyrics() {
+    return lyrics;
   }
 
 

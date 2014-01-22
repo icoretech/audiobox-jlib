@@ -14,6 +14,7 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.util.Key;
 
+
 /**
  * Created by keytwo on 17/01/14.
  */
@@ -45,6 +46,9 @@ public class Preferences {
 
   @Key
   private boolean accept_emails;
+
+  @Key
+  private boolean hide_tooltips;
 
 
   /**
@@ -134,5 +138,15 @@ public class Preferences {
    */
   public boolean doesAcceptsEmails() {
     return accept_emails;
+  }
+
+
+  /**
+   * Are tooltips hidden.
+   *
+   * @return the boolean
+   */
+  public boolean areTooltipsHidden() {
+    return hide_tooltips;
   }
 }
