@@ -2,9 +2,12 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 compileJava {
-    sourceCompatibility = 1.6
-    targetCompatibility = 1.6
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
 }
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
 
 group = 'fm.audiobox'
 version = '1.0-SNAPSHOT'
