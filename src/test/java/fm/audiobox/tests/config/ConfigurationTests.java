@@ -15,7 +15,7 @@ package fm.audiobox.tests.config;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import fm.audiobox.core.config.Configuration;
-import fm.audiobox.tests.AudioBoxTest;
+import fm.audiobox.tests.AudioBoxTests;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 /**
  * Created by keytwo on 17/01/14.
  */
-public class ConfigurationTest extends AudioBoxTest {
+public class ConfigurationTests extends AudioBoxTests {
 
 
   /**

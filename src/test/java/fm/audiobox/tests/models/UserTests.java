@@ -20,7 +20,7 @@ import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.models.*;
-import fm.audiobox.tests.AudioBoxTest;
+import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 /**
  * Created by keytwo on 22/01/14.
  */
-public class UserTest extends AudioBoxTest {
+public class UserTests extends AudioBoxTests {
 
   @Before
   public void setUp() {

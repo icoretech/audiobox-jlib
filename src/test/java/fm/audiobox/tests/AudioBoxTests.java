@@ -29,7 +29,7 @@ import java.io.File;
  * <p/>
  * Created by keytwo on 16/01/14.
  */
-public class AudioBoxTest {
+public class AudioBoxTests {
 
   protected static final File DATA_STORE_DIR = new File( System.getProperty( "user.home" ), ".audiobox/abx" );
 

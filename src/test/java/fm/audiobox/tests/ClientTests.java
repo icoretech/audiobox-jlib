@@ -37,7 +37,7 @@ import static org.junit.Assert.*;
 /**
  * Created by keytwo on 20/01/14.
  */
-public class ClientTest extends AudioBoxTest {
+public class ClientTests extends AudioBoxTests {
 
   @Before
   public void setUp() {

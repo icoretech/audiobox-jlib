@@ -22,7 +22,7 @@ import fm.audiobox.core.exceptions.SyncException;
 import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.utils.HttpStatus;
-import fm.audiobox.tests.AudioBoxTest;
+import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -39,7 +39,7 @@ import static org.junit.Assert.*;
 /**
  * Created by keytwo on 21/01/14.
  */
-public class PlaylistTest extends AudioBoxTest {
+public class PlaylistTests extends AudioBoxTests {
 
   @Before
   public void setUp() {
