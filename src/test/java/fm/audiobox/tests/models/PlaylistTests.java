@@ -18,8 +18,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
-import fm.audiobox.core.exceptions.SyncException;
-import fm.audiobox.core.exceptions.ValidationException;
+import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.tests.AudioBoxTests;
@@ -107,12 +106,20 @@ public class PlaylistTests extends AudioBoxTests {
   }
 
 
+  @Test
+  public void testNotExistingPlaylistDeletion() throws AuthorizationException {
+    Playlist p = c.getPlaylist( "25de59e1acf4b37a" );
+    p.delete( c );
+    p.delete( c );
+  }
+
+
   /**
    * Test playlist creation and deletion.
    */
   @Test
   @Ignore
-  public void testPlaylistCreationAndDeletion() {
+  public void testPlaylistCreationAndDeletion() throws RemoteMessageException {
     try {
       Playlist p = c.createNewPlaylist( "My test playlist" );
       assertFalse( p.isVisible() );
@@ -138,6 +145,8 @@ public class PlaylistTests extends AudioBoxTests {
       }
       // Retry
       testPlaylistCreationAndDeletion();
+    } catch ( AudioBoxException e ) {
+      fail( e.getMessage() );
     }
   }
 

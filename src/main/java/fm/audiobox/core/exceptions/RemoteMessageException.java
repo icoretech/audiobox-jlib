@@ -19,9 +19,15 @@ import java.util.Map;
 
 
 /**
- * Created by keytwo on 22/01/14.
+ * This exception is the parent exception for:
+ * <ul>
+ * <li>{@link fm.audiobox.core.exceptions.AuthorizationException}</li>
+ * <li>{@link fm.audiobox.core.exceptions.ValidationException}</li>
+ * </ul>
+ * It is used for those exception risen by responses given by the service
+ * that bring some information on what gone wrong.
  */
-public class RemoteMessageException extends RuntimeException {
+public class RemoteMessageException extends AudioBoxException {
 
   private int statusCode = HttpStatusCodes.STATUS_CODE_UNAUTHORIZED;
 
@@ -31,7 +37,7 @@ public class RemoteMessageException extends RuntimeException {
   /**
    * Instantiates a new Validation exception.
    *
-   * @param errors the error
+   * @param errors the errors mapping
    */
   public RemoteMessageException(Errors errors) {
     this( RemoteMessageException.firstErrorToString( errors ), errors );
@@ -42,7 +48,7 @@ public class RemoteMessageException extends RuntimeException {
    * Instantiates a new Validation exception.
    *
    * @param message the message
-   * @param errors the errors
+   * @param errors  the errors mapping
    */
   public RemoteMessageException(String message, Errors errors) {
     super( message );
@@ -53,7 +59,7 @@ public class RemoteMessageException extends RuntimeException {
   /**
    * Instantiates a new Validation exception.
    *
-   * @param errors the errors
+   * @param errors     the errors
    * @param statusCode the status code
    */
   public RemoteMessageException(Errors errors, int statusCode) {
@@ -69,7 +75,7 @@ public class RemoteMessageException extends RuntimeException {
 
 
   /**
-   * Gets error code.
+   * Gets error code (typically the HTTP STATUS).
    *
    * @return the error code
    */
@@ -79,7 +85,7 @@ public class RemoteMessageException extends RuntimeException {
 
 
   /**
-   * Gets errors.
+   * Gets the errors mapping.
    *
    * @return the errors
    */
@@ -89,9 +95,10 @@ public class RemoteMessageException extends RuntimeException {
 
 
   /**
-   * Errors to string.
+   * Transforms error mapping into strings.
    *
-   * @param errors the errors
+   * @param errors the errors mapping
+   *
    * @return the string
    */
   public static String errorsToString(Errors errors) {
@@ -114,6 +121,7 @@ public class RemoteMessageException extends RuntimeException {
    * First error to string.
    *
    * @param errors the errors
+   *
    * @return the string
    */
   private static String firstErrorToString(Errors errors) {

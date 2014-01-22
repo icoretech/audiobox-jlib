@@ -11,12 +11,19 @@
 
 package fm.audiobox.core.exceptions;
 
-import com.google.api.client.json.GenericJson;
+import java.io.IOException;
 
 /**
- * This class is used to parse error messages.
+ * Generic AudioBox exceptions.
  */
-public class Errors extends GenericJson {
+public class AudioBoxException extends IOException {
 
-
+  /**
+   * Instantiates a new Audio box exception.
+   *
+   * @param message the message
+   */
+  public AudioBoxException(String message) {
+    super(message);
+  }
 }

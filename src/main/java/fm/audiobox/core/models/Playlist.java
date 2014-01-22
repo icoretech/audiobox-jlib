@@ -17,6 +17,9 @@ import com.google.api.client.http.HttpStatusCodes;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
+import fm.audiobox.core.exceptions.AudioBoxException;
+import fm.audiobox.core.exceptions.AuthorizationException;
+import fm.audiobox.core.exceptions.RemoteMessageException;
 import fm.audiobox.core.exceptions.SyncException;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
@@ -69,9 +72,11 @@ public class Playlist {
 
   /**
    * Instantiates a new Playlist.
+   * <p/>
+   * Default empty constructor.
    */
-  public Playlist() {
-  }
+  @SuppressWarnings( "unused" )
+  public Playlist() { }
 
 
   /**
@@ -85,46 +90,68 @@ public class Playlist {
 
 
   /**
-   * Remotely saves the playlist.
+   * Creates a new CustomPlaylist or SmartPlaylist depending on the input parameters.
+   * <p/>
+   * The user can create a CustomPlaylist by setting the playlist name.
+   * <p/>
+   * The user can create a SmartPlaylist by setting the playlist name AND playlist search_params.
+   * <p/>
+   * NOTE: Currently the search_params hash construction is complex enough and therefore it's
+   * restricted to the Cloud Web Player, we'll open up the possibility for developers to create them as well.
    *
    * @param client the client
    *
    * @return the boolean
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  public boolean save(Client client) {
-    HttpResponse rsp = client.doPUT(ModelUtil.interpolate(getPath(), getToken()), new JsonHttpContent(client.getConf().getJsonFactory(), this));
+  public boolean save(Client client) throws AuthorizationException {
+    HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
     return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
   }
 
 
   /**
-   * Remotely destroys the playlist.
+   * Permanently destroy a playlist.
+   * <p/>
+   * Only Custom and Smart playlists can be destroyed.
    *
-   * @param client the client
+   * @param client the client to use for the request
    *
-   * @return the boolean
+   * @return true if operation succeeds
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  public boolean delete(Client client) {
-    HttpResponse rsp = client.doDELETE(ModelUtil.interpolate(getPath(), getToken()));
+  public boolean delete(Client client) throws AuthorizationException {
+    HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
+    // OK -> 204
+    // Not Found OR Cannot delete -> 404
     return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
   }
 
 
   /**
-   * Remotely synchronize the playlist with third party systems.
+   * Begin content sync with the remote platform. Supported only by syncable playlists.
+   * <p/>
+   * Calling this method will initiate a job that will synchronize data with the remote storage,
+   * such as Dropbox, SkyDrive and others.
+   * <p/>
+   * Playlists supporting official storage such as AudioBox Cloud or AudioBox Desktop does not require syncing.
    *
-   * @param client the client
+   * @param client the client to use for the request
    *
    * @return the boolean
+   *
+   * @throws SyncException if any problem occurs.
    */
   public boolean sync(Client client) throws SyncException {
 
-    if (!this.isSyncable()) // Well...
+    if ( !this.isSyncable() ) // Well...
       throw new SyncException( HttpStatus.SC_UNPROCESSABLE_ENTITY );
-
-    HttpResponse rsp = client.doPUT(getSyncPath(), new JsonHttpContent(client.getConf().getJsonFactory(), this));
-    if (rsp.getStatusCode() != HttpStatus.SC_NO_CONTENT) {
-      throw new SyncException( rsp.getStatusCode() );
+    try {
+      client.doPUT( getSyncPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
+    } catch ( RemoteMessageException e ) {
+      throw new SyncException( e.getErrorCode() );
     }
 
     return true;
@@ -304,19 +331,19 @@ public class Playlist {
 
   @Override
   public boolean equals(Object other) {
-    if (other == null || !(other instanceof Playlist)) {
+    if ( other == null || !( other instanceof Playlist ) ) {
       return false;
     }
 
-    Playlist o = (Playlist) other;
+    Playlist o = ( Playlist ) other;
 
     boolean eq = false;
-    if (this.token != null) {
-      eq = this.token.equals(o.getToken());
+    if ( this.token != null ) {
+      eq = this.token.equals( o.getToken() );
     }
 
-    if (this.updated_at != null) {
-      eq = eq && this.updated_at.equals(o.getUpdatedAt());
+    if ( this.updated_at != null ) {
+      eq = eq && this.updated_at.equals( o.getUpdatedAt() );
     }
 
     return eq;
@@ -328,9 +355,9 @@ public class Playlist {
   public int hashCode() {
     int hashCode = 0;
 
-    if (this.token != null)
+    if ( this.token != null )
       hashCode = hashCode * 37 + this.token.hashCode();
-    if (this.updated_at != null)
+    if ( this.updated_at != null )
       hashCode = hashCode * 37 + this.updated_at.hashCode();
 
     return hashCode;
@@ -349,7 +376,7 @@ public class Playlist {
    * @return the sync path
    */
   private String getSyncPath() {
-    return ModelUtil.interpolate(SYNC_PATH, getToken());
+    return ModelUtil.interpolate( SYNC_PATH, getToken() );
   }
 
 

@@ -17,9 +17,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by keytwo on 21/01/14.
+ * This exception is thrown whenever an error occurs while trying to sync with the remote service.
+ * <p/>
+ * Errors in this case indicates a state with AudioBox account:
+ * <ul>
+ * <li>Subscription not in a good standing.</li>
+ * <li>Account link to the remote service expired or not working for a remote problem.</li>
+ * <li>The playlist was not found.</li>
+ * <li>The playlist is not suitable for syncing.</li>
+ * </ul>
  */
-public class SyncException extends RuntimeException {
+public class SyncException extends AudioBoxException {
 
   private static final Map<Integer, String> MESSAGES = new HashMap<>( 4 );
 

@@ -14,7 +14,7 @@ package fm.audiobox.core.exceptions;
 import com.google.api.client.util.Key;
 
 /**
- * Created by keytwo on 21/01/14.
+ * This class is the {@link Errors} wrapper.
  */
 public class ErrorsWrapper {
 

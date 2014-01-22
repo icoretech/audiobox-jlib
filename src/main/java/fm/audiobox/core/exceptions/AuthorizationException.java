@@ -18,17 +18,23 @@ import com.google.api.client.auth.oauth2.TokenResponseException;
 
 
 /**
- * Created by keytwo on 22/01/14.
+ * This exception is thrown when the OAuth2 token and/or the refresh token
+ * have been invalidated or they are expired.
+ * <p/>
+ * When this exception is thrown a new user authentication is required.
+ * <p/>
+ * It is also highly recommended to invalidate/delete/clear any stored
+ * credential.
  */
 public class AuthorizationException extends RemoteMessageException {
 
   /**
    * Instantiates a new Authorization exception.
    *
-   * @param ex the ex
+   * @param tokenException the TokenResponseException
    */
-  public AuthorizationException(TokenResponseException ex) {
-    super( AuthorizationException.buildErrors( ex.getDetails() ), ex.getStatusCode() );
+  public AuthorizationException(TokenResponseException tokenException) {
+    super( AuthorizationException.buildErrors( tokenException.getDetails() ), tokenException.getStatusCode() );
   }
 
 
@@ -47,6 +53,7 @@ public class AuthorizationException extends RemoteMessageException {
    * Build errors.
    *
    * @param rsp the rsp
+   *
    * @return the errors
    */
   private static Errors buildErrors(TokenErrorResponse rsp) {

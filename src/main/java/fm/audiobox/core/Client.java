@@ -19,10 +19,7 @@ import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
-import fm.audiobox.core.exceptions.AuthorizationException;
-import fm.audiobox.core.exceptions.ErrorsWrapper;
-import fm.audiobox.core.exceptions.RemoteMessageException;
-import fm.audiobox.core.exceptions.ValidationException;
+import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
@@ -126,6 +123,7 @@ public class Client {
    * Instantiates a new Client.
    *
    * @param conf the conf
+   *
    * @throws ConfigurationException the configuration exception
    * @throws ConfigurationException the configuration exception
    */
@@ -153,7 +151,9 @@ public class Client {
    *
    * @param username the username
    * @param password the password
+   *
    * @return the token response
+   *
    * @throws IOException the iO exception
    * @throws IOException the iO exception
    */
@@ -221,6 +221,7 @@ public class Client {
    * Gets the specified playlist.
    *
    * @param token the token of the playlist to get.
+   *
    * @return the playlist
    */
   public Playlist getPlaylist(String token) {
@@ -241,19 +242,25 @@ public class Client {
    * Create new playlist.
    *
    * @param name the name
+   *
    * @return the playlist
-   * @throws ValidationException if an error occurs while trying to save the playlist
+   *
+   * @throws AudioBoxException if the oauth token has been invalidated or is expired or a validation error occurs.
    */
-  public Playlist createNewPlaylist(String name) throws RemoteMessageException {
-    try {
-      Playlist p = new Playlist( name );
-      HttpResponse rsp = doPOST( Playlists.getPath(), new JsonHttpContent( getConf().getJsonFactory(), p ) );
-      if ( rsp.isSuccessStatusCode() ) {
+  public Playlist createNewPlaylist(String name) throws AudioBoxException {
+
+    Playlist p = new Playlist( name );
+    HttpResponse rsp = doPOST( Playlists.getPath(), new JsonHttpContent( getConf().getJsonFactory(), p ) );
+    validateResponse( rsp );
+
+    if ( rsp.isSuccessStatusCode() ) {
+      try {
         return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
+      } catch ( IOException e ) {
+        logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
       }
-    } catch ( IOException e ) {
-      logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
     }
+
     return null;
   }
 
@@ -263,10 +270,12 @@ public class Client {
    *
    * @param path the url to make the request against
    * @param data the data to send with the post request
+   *
    * @return the http response, may be null if any error occurs during the request.
-   * @throws RemoteMessageException the remote message exception
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  public HttpResponse doPUT(String path, HttpContent data) throws RemoteMessageException {
+  public HttpResponse doPUT(String path, HttpContent data) throws AuthorizationException {
     return doPUT( path, data, null );
   }
 
@@ -277,15 +286,15 @@ public class Client {
    * @param path   the path
    * @param data   the data
    * @param parser the parser
+   *
    * @return the http response
-   * @throws RemoteMessageException the remote message exception
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws RemoteMessageException {
+  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws AuthorizationException {
     try {
       HttpResponse response = getRequestFactory( parser ).buildPutRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
-      if ( response.getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY ) {
-        throw new ValidationException( response.parseAs( ErrorsWrapper.class ).getErrors(), response.getStatusCode() );
-      }
+      validateResponse( response );
       return response;
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
@@ -300,10 +309,12 @@ public class Client {
    * Performs a DELETE request to the given path.
    *
    * @param path the url
+   *
    * @return the http response
-   * @throws RemoteMessageException the remote message exception
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  public HttpResponse doDELETE(String path) throws RemoteMessageException {
+  public HttpResponse doDELETE(String path) throws AuthorizationException {
     return doDELETE( path, null );
   }
 
@@ -313,15 +324,16 @@ public class Client {
    *
    * @param path   the path
    * @param parser the parser
+   *
    * @return the http response
-   * @throws RemoteMessageException the remote message exception
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  public HttpResponse doDELETE(String path, JsonObjectParser parser) throws RemoteMessageException {
+  public HttpResponse doDELETE(String path, JsonObjectParser parser) throws AuthorizationException {
     try {
       HttpResponse response = getRequestFactory( parser ).buildDeleteRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
-      if ( response.isSuccessStatusCode() ) {
-        return response;
-      }
+      validateResponse( response );
+      return response;
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
     } catch ( IOException e ) {
@@ -342,10 +354,12 @@ public class Client {
    * Perform signed GET requests and returns the response.
    *
    * @param path the url to make the request against
+   *
    * @return the http response, may be null if any error occurs during the request.
-   * @throws RemoteMessageException the remote message exception
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  private HttpResponse doGET(String path) throws RemoteMessageException {
+  private HttpResponse doGET(String path) throws AuthorizationException {
     return doGET( path, null );
   }
 
@@ -355,12 +369,16 @@ public class Client {
    *
    * @param path   the path
    * @param parser the parser
+   *
    * @return the http response
-   * @throws RemoteMessageException the remote message exception
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  private HttpResponse doGET(String path, JsonObjectParser parser) throws RemoteMessageException {
+  private HttpResponse doGET(String path, JsonObjectParser parser) throws AuthorizationException {
     try {
-      return getRequestFactory( parser ).buildGetRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
+      HttpResponse response = getRequestFactory( parser ).buildGetRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
+      validateResponse( response );
+      return response;
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
     } catch ( IOException e ) {
@@ -375,10 +393,12 @@ public class Client {
    *
    * @param path the url to make the request against
    * @param data the data to send with the post request
+   *
    * @return the http response, may be null if any error occurs during the request.
-   * @throws RemoteMessageException the remote message exception
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  private HttpResponse doPOST(String path, HttpContent data) throws RemoteMessageException {
+  private HttpResponse doPOST(String path, HttpContent data) throws AuthorizationException {
     return doPOST( path, data, null );
   }
 
@@ -389,15 +409,15 @@ public class Client {
    * @param path   the path
    * @param data   the data
    * @param parser the parser
+   *
    * @return the http response
-   * @throws RemoteMessageException the remote message exception
+   *
+   * @throws AuthorizationException if the oauth token has been invalidated or is expired
    */
-  private HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws RemoteMessageException {
+  private HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws AuthorizationException {
     try {
       HttpResponse response = getRequestFactory( parser ).buildPostRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
-      if ( response.getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY ) {
-        throw new ValidationException( response.parseAs( ErrorsWrapper.class ).getErrors(), response.getStatusCode() );
-      }
+      validateResponse( response );
       return response;
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
@@ -412,6 +432,7 @@ public class Client {
    * Gets request factory.
    *
    * @param parser the parser
+   *
    * @return the request factory
    */
   private HttpRequestFactory getRequestFactory(final JsonObjectParser parser) {
@@ -432,9 +453,8 @@ public class Client {
    * Build not signed credential.
    *
    * @return the credential
-   * @throws IOException the iO exception
    */
-  private Credential buildNotSignedCredential() throws IOException {
+  private Credential buildNotSignedCredential() {
     return new Credential.Builder( BearerToken.authorizationHeaderAccessMethod() )
         .setTransport( getConf().getHttpTransport() )
         .setJsonFactory( getConf().getJsonFactory() )
@@ -449,33 +469,32 @@ public class Client {
    * Create credential with refresh token.
    *
    * @return the credential
-   * @throws IOException the iO exception
    */
-  private Credential createCredentialWithRefreshToken() throws IOException {
+  private Credential createCredentialWithRefreshToken() {
     return createCredentialWithRefreshToken( getStoredCredential() );
   }
 
 
   /**
-   * Create credential with refresh token.
+   * Create credential starting from the token response with refresh token.
    *
-   * @param tokenResponse the token response
+   * @param tokenResponse the token response to use for Credential building
+   *
    * @return the credential
-   * @throws IOException the iO exception
    */
-  private Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) throws IOException {
+  private Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) {
     return buildNotSignedCredential().setFromTokenResponse( tokenResponse );
   }
 
 
   /**
-   * Create credential with refresh token.
+   * Create credential starting from the stored credential with refresh token.
    *
-   * @param storedCredential the stored credential
+   * @param storedCredential the stored credential to use for Credential building
+   *
    * @return the credential
-   * @throws IOException the iO exception
    */
-  private Credential createCredentialWithRefreshToken(StoredCredential storedCredential) throws IOException {
+  private Credential createCredentialWithRefreshToken(StoredCredential storedCredential) {
     return buildNotSignedCredential()
         .setAccessToken( storedCredential.getAccessToken() )
         .setExpiresInSeconds( storedCredential.getExpirationTimeMilliseconds() )
@@ -496,6 +515,33 @@ public class Client {
       logger.error( "Unable to find stored account: " + e.getMessage() );
     }
     return s;
+  }
+
+
+  /**
+   * Validates the given response and eventually throws the corresponding exception.
+   *
+   * @param response the response to validate
+   *
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   */
+  private void validateResponse(HttpResponse response) throws AudioBoxException {
+    switch ( response.getStatusCode() ) {
+      case HttpStatus.SC_NOT_FOUND: // 404
+        throw new ResourceNotFoundException( response );
+
+      case HttpStatus.SC_UNPROCESSABLE_ENTITY: // 422
+        try {
+          throw new ValidationException( response.parseAs( ErrorsWrapper.class ).getErrors(), response.getStatusCode() );
+        } catch ( IOException e ) {
+          throw new RuntimeException( "Unable to parse response while rising exception" );
+        }
+
+      case HttpStatus.SC_FORBIDDEN: // 403
+      case HttpStatus.SC_PAYMENT_REQUIRED: // 402
+        throw new ForbiddenException( response );
+
+    }
   }
 
 

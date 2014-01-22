@@ -19,6 +19,12 @@ package fm.audiobox.core.exceptions;
 public class ValidationException extends RemoteMessageException {
 
 
+  /**
+   * Instantiates a new Validation exception.
+   *
+   * @param errors     the errors
+   * @param statusCode the status code
+   */
   public ValidationException(Errors errors, int statusCode) {
     super( errors, statusCode );
   }
