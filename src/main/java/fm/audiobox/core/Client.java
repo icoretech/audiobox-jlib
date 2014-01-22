@@ -360,8 +360,7 @@ public class Client {
    */
   private HttpResponse doGET(String path, JsonObjectParser parser) throws RemoteMessageException {
     try {
-      HttpResponse response = getRequestFactory( parser ).buildGetRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
-      return response;
+      return getRequestFactory( parser ).buildGetRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
     } catch ( IOException e ) {

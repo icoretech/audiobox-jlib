@@ -61,9 +61,7 @@ public class PlaylistTests extends AudioBoxTests {
       config.setJsonFactory( jf );
 
       c = new Client( config );
-    } catch ( IOException e ) {
-      fail( e.getMessage() );
-    } catch ( ConfigurationException e ) {
+    } catch ( IOException | ConfigurationException e ) {
       fail( e.getMessage() );
     }
   }
@@ -145,64 +143,180 @@ public class PlaylistTests extends AudioBoxTests {
 
 
   /**
-   * Test playlist sync.
+   * Test local playlist sync.
    */
   @Test
-  public void testPlaylistSync() {
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_local" ) );
-    Playlist local = c.getPlaylist( "000_local" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_cloud" ) );
-    Playlist cloud = c.getPlaylist( "000_cloud" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
-    Playlist dropbox = c.getPlaylist( "000_dropbox" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_skydrive" ) );
-    Playlist skydrive = c.getPlaylist( "000_skydrive" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_box" ) );
-    Playlist box = c.getPlaylist( "000_box" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_gdrive" ) );
-    Playlist gdrive = c.getPlaylist( "000_gdrive" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_youtube" ) );
-    Playlist youtube = c.getPlaylist( "000_youtube" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_soundcloud" ) );
-    Playlist soundcloud = c.getPlaylist( "000_soundcloud" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_ubuntu" ) );
-    Playlist ubuntu = c.getPlaylist( "000_ubuntu" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_smart" ) );
-    Playlist smart = c.getPlaylist( "000_smart" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_custom" ) );
-    Playlist custom = c.getPlaylist( "000_custom" );
-
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_offline" ) );
-    Playlist offline = c.getPlaylist( "000_offline" );
-
-
+  public void testLocalPlaylistSync() {
     try {
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_local" ) );
+      Playlist local = c.getPlaylist( "000_local" );
       local.sync( c );
       fail( "local playlist should not be syncable" );
     } catch ( SyncException e ) {
       assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
-      logger.info( "[ OK ] local not syncable: " + e.getMessage() );
+      logger.info( "[ OK ] local drive not syncable: " + e.getMessage() );
     }
+  }
 
+
+  /**
+   * Test cloud playlist sync.
+   */
+  @Test
+  public void testCloudPlaylistSync() {
     try {
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_cloud" ) );
+      Playlist cloud = c.getPlaylist( "000_cloud" );
       cloud.sync( c );
       fail( "cloud playlist should not be syncable" );
     } catch ( SyncException e ) {
       assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
-      logger.info( "[ OK ] drive not syncable: " + e.getMessage() );
+      logger.info( "[ OK ] cloud drive not syncable: " + e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test unsyncable playlists sync.
+   */
+  @Test
+  public void testUnsyncablePlaylistsSync() {
+    try {
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_smart" ) );
+      Playlist smart = c.getPlaylist( "000_smart" );
+      smart.sync( c );
+      fail( "smart playlists should not be syncable" );
+    } catch ( SyncException e ) {
+      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
+      logger.info( "[ OK ] smart playlist not syncable: " + e.getMessage() );
     }
 
+    try {
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_custom" ) );
+      Playlist custom = c.getPlaylist( "000_custom" );
+      custom.sync( c );
+      fail( "custom playlists should not be syncable" );
+    } catch ( SyncException e ) {
+      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
+      logger.info( "[ OK ] custom playlist not syncable: " + e.getMessage() );
+    }
 
+    try {
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_offline" ) );
+      Playlist offline = c.getPlaylist( "000_offline" );
+      offline.sync( c );
+      fail( "offline playlist should not be syncable" );
+    } catch ( SyncException e ) {
+      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
+      logger.info( "[ OK ] offline playlist not syncable: " + e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test dropbox playlist sync.
+   */
+  @Test
+  public void testDropboxPlaylistSync() {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
+    Playlist dropbox = c.getPlaylist( "000_dropbox" );
+    try {
+      dropbox.sync( c );
+      fail( "dropbox should not be syncable because it's not authenticated" );
+    } catch ( SyncException e ) {
+      assertEquals( e.getErrorCode(), HttpStatus.SC_FORBIDDEN );
+    }
+  }
+
+
+  /**
+   * Test skydrive playlist sync.
+   */
+  @Test
+  public void testSkydrivePlaylistSync() {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_skydrive" ) );
+    Playlist skydrive = c.getPlaylist( "000_skydrive" );
+    try {
+      assertTrue( skydrive.sync( c ) );
+    } catch ( SyncException e ) {
+      fail( e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test box playlist sync.
+   */
+  @Test
+  public void testBoxPlaylistSync() {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_box" ) );
+    Playlist box = c.getPlaylist( "000_box" );
+    try {
+      assertTrue( box.sync( c ) );
+    } catch ( SyncException e ) {
+      fail( e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test gdrive playlist sync.
+   */
+  @Test
+  public void testGdrivePlaylistSync() {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_gdrive" ) );
+    Playlist gdrive = c.getPlaylist( "000_gdrive" );
+    try {
+      assertTrue( gdrive.sync( c ) );
+    } catch ( SyncException e ) {
+      fail( e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test youtube playlist sync.
+   */
+  @Test
+  public void testYoutubePlaylistSync() {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_youtube" ) );
+    Playlist youtube = c.getPlaylist( "000_youtube" );
+    try {
+      assertTrue( youtube.sync( c ) );
+    } catch ( SyncException e ) {
+      fail( e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test soundcloud playlist sync.
+   */
+  @Test
+  public void testSoundcloudPlaylistSync() {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_soundcloud" ) );
+    Playlist soundcloud = c.getPlaylist( "000_soundcloud" );
+    try {
+      soundcloud.sync( c );
+      fail( "soundcloud should not be syncable because it's not authenticated" );
+    } catch ( SyncException e ) {
+      assertEquals( e.getErrorCode(), HttpStatus.SC_FORBIDDEN );
+    }
+  }
+
+
+  /**
+   * Test ubuntu playlist sync.
+   */
+  @Test
+  public void testUbuntuPlaylistSync() {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_ubuntu" ) );
+    Playlist ubuntu = c.getPlaylist( "000_ubuntu" );
+    try {
+      ubuntu.sync( c );
+      fail( "ubuntu should not be syncable because it's not authenticated" );
+    } catch ( SyncException e ) {
+      assertEquals( e.getErrorCode(), HttpStatus.SC_FORBIDDEN );
+    }
   }
 }
