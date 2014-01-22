@@ -107,7 +107,7 @@ public class ClientTest extends AudioBoxTest {
    */
   @Test(expected = AuthorizationException.class)
   public void testStoredCredentialWithWrongRefreshToken() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport(c.getConf().getJsonFactory()) );
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore( c.getConf().getDataStoreFactory() );
     assertFalse( udb.isEmpty() );
     c.getUser();

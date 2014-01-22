@@ -13,17 +13,24 @@
 package fm.audiobox.tests.mocks;
 
 
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.LowLevelHttpRequest;
-import com.google.api.client.http.LowLevelHttpResponse;
+import com.google.api.client.auth.oauth2.TokenErrorResponse;
+import com.google.api.client.auth.oauth2.TokenResponseException;
+import com.google.api.client.http.*;
 import com.google.api.client.json.Json;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
+import com.google.api.client.util.Preconditions;
+import com.google.api.client.util.StringUtils;
+import fm.audiobox.core.exceptions.AuthorizationException;
+import fm.audiobox.core.exceptions.Errors;
 import fm.audiobox.core.utils.HttpStatus;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 
 /**
@@ -62,23 +69,20 @@ public class AudioBoxMockHttpTransportFactory {
    *
    * @return the right account http transport
    */
-  public static HttpTransport getInvalidRefreshTokenHttpTransport() {
+  public static HttpTransport getInvalidRefreshTokenHttpTransport(final JsonFactory factory) {
     return new MockHttpTransport() {
 
       @Override
       public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
         return new MockLowLevelHttpRequest() {
-
           @Override
           public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/oauth2/invalid_refresh_token.json" ), "UTF-8" ) );
-            result.setStatusCode( HttpStatus.SC_BAD_REQUEST );
-            return result;
+            Errors e = factory.fromInputStream( this.getClass().getResourceAsStream( "/responses/oauth2/invalid_refresh_token.json"), Charset.defaultCharset(), Errors.class );
+            throw new AuthorizationException( e, HttpStatus.SC_BAD_REQUEST );
           }
         };
       }
+
     };
   }
 

@@ -28,7 +28,6 @@ import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.org.mozilla.javascript.internal.json.JsonParser;
 
 import javax.naming.ConfigurationException;
 import java.io.IOException;
@@ -361,7 +360,8 @@ public class Client {
    */
   private HttpResponse doGET(String path, JsonObjectParser parser) throws RemoteMessageException {
     try {
-      return getRequestFactory( parser ).buildGetRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
+      HttpResponse response = getRequestFactory( parser ).buildGetRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
+      return response;
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
     } catch ( IOException e ) {
