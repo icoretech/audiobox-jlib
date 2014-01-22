@@ -60,9 +60,7 @@ public class ClientTest extends AudioBoxTest {
       config.setJsonFactory( jf );
 
       c = new Client( config );
-    } catch ( IOException e ) {
-      fail( e.getMessage() );
-    } catch ( ConfigurationException e ) {
+    } catch ( ConfigurationException | IOException e ) {
       fail( e.getMessage() );
     }
   }
@@ -108,13 +106,12 @@ public class ClientTest extends AudioBoxTest {
    *
    * @throws IOException the iO exception
    */
-  @Test
-  public void testStoredCredential() throws IOException {
+  @Test(expected = AuthorizationException.class)
+  public void testStoredCredentialWithWrongRefreshToken() throws IOException {
+    c.getConf().setHttpTransport( AuthMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport() );
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore( c.getConf().getDataStoreFactory() );
     assertFalse( udb.isEmpty() );
-    User u = c.getUser();
-    assertNotNull( u );
+    c.getUser();
   }
-
 
 }

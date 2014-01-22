@@ -74,6 +74,7 @@ public class AuthMockHttpTransportFactory {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setContentType( Json.MEDIA_TYPE );
             result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/oauth2/invalid_refresh_token.json" ), "UTF-8" ) );
+            result.setStatusCode( HttpStatus.SC_BAD_REQUEST );
             return result;
           }
         };
