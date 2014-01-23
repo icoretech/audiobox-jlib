@@ -154,14 +154,14 @@ public class Client {
         userDb.set( ACCOUNT_TOKENS, sc );
         logger.info( "Saved credentials: " + sc.toString() );
       } catch ( IOException e ) {
-        logger.error( "Unable to save credentials: " + e.getMessage());
+        logger.error( "Unable to save credentials: " + e.getMessage() );
       }
 
       return response;
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
     } catch ( IOException e ) {
-      logger.error( "Unable to fulfill the request due to an error: " + e.getMessage());
+      logger.error( "Unable to fulfill the request due to an error: " + e.getMessage() );
       return null;
     }
   }
@@ -188,7 +188,7 @@ public class Client {
 
 
   /**
-   * Gets playlists.
+   * Gets user's playlists.
    *
    * @return the playlists
    */
@@ -226,6 +226,27 @@ public class Client {
       throw e; // Relaunch exception
     } catch ( IOException e ) {
       logger.error( "Unable to parse playlists: " + e.getMessage() );
+    }
+
+    return null;
+  }
+
+
+  /**
+   * Gets user's notifications.
+   *
+   * @return the notifications
+   */
+  public Notifications getNotifications() throws AudioBoxException {
+    try {
+      HttpResponse rsp = doGET( Notifications.getPath() );
+      if ( rsp.isSuccessStatusCode() ) {
+        return rsp.parseAs( Notifications.class );
+      }
+    } catch ( AudioBoxException e ) {
+      throw e; // Relaunch exception
+    } catch ( IOException e ) {
+      logger.error( "Unable to parse notifications: " + e.getMessage() );
     }
 
     return null;

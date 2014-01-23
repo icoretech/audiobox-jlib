@@ -64,6 +64,8 @@ public class AudioBoxMockHttpTransportFactory {
   /**
    * Gets right account http transport.
    *
+   * @param factory the factory
+   *
    * @return the right account http transport
    */
   public static HttpTransport getInvalidRefreshTokenHttpTransport(final JsonFactory factory) {
@@ -74,7 +76,7 @@ public class AudioBoxMockHttpTransportFactory {
         return new MockLowLevelHttpRequest() {
           @Override
           public LowLevelHttpResponse execute() throws IOException {
-            Errors e = factory.fromInputStream( this.getClass().getResourceAsStream( "/responses/oauth2/invalid_refresh_token.json"), Charset.defaultCharset(), Errors.class );
+            Errors e = factory.fromInputStream( this.getClass().getResourceAsStream( "/responses/oauth2/invalid_refresh_token.json" ), Charset.defaultCharset(), Errors.class );
             throw new AuthorizationException( e, HttpStatus.SC_BAD_REQUEST );
           }
         };
@@ -126,6 +128,31 @@ public class AudioBoxMockHttpTransportFactory {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setContentType( Json.MEDIA_TYPE );
             result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/user.json" ), "UTF-8" ) );
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets notifications http transport.
+   *
+   * @return the notifications http transport
+   */
+  public static HttpTransport getNotificationsHttpTransport() {
+    return new MockHttpTransport() {
+
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/notifications.json" ), "UTF-8" ) );
             return result;
           }
         };

@@ -21,6 +21,7 @@ import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.models.*;
+import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +31,8 @@ import org.junit.Test;
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.*;
 
@@ -69,14 +72,21 @@ public class UserTests extends AudioBoxTests {
    * Test all user keys are well parsed.
    */
   @Test
-  public void testAllUserKeysAreWellParsed() throws AudioBoxException {
+  public void testAllUserKeysAreWellParsed() throws AudioBoxException, ParseException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getRightUserHttpTransport() );
     User user = c.getUser();
     assertNotNull( user );
 
     assertEquals( 3, user.getId() );
+
     assertEquals( "2013-08-29T18:25:52.079Z", user.getCreatedAt() );
+    long millisCreated = ModelUtil.toUnixTime( new SimpleDateFormat( ModelUtil.AUDIOBOX_DATE_FORMAT ), user.getCreatedAt() );
+    assertEquals( 1377800752079L, millisCreated );
+
     assertEquals( "2014-01-21T21:48:58.850Z", user.getUpdatedAt() );
+    long millisUpdated = ModelUtil.toUnixTime( new SimpleDateFormat( ModelUtil.AUDIOBOX_DATE_FORMAT ), user.getUpdatedAt() );
+    assertEquals( 1390340938850L, millisUpdated );
+
     assertEquals( "Real Name", user.getRealName() );
     assertEquals( "test@test.com", user.getEmail() );
     assertEquals( "4u770k3n", user.getAuthToken() );
