@@ -138,7 +138,8 @@ public class RemoteMessageException extends AudioBoxException {
   private static Errors parseErrors(HttpResponse response) {
     try {
       return response.parseAs( ErrorsWrapper.class ).getErrors();
-    } catch ( IOException|IllegalArgumentException e ) {
+    } catch ( Exception e ) {
+      // Catchall
       return buildEmptyErrors();
     }
   }

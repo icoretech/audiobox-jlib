@@ -83,10 +83,10 @@ public class PlaylistTests extends AudioBoxTests {
   /**
    * Test playlist should be null if token is invalid.
    */
-  @Test
-  public void testPlaylistShouldBeNullIfTokenIsInvalid() {
+  @Test(expected = ResourceNotFoundException.class)
+  public void testResrouceNotFoundIsThrownIfPlaylistIfTokenIsInvalid() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "asd" ) );
-    assertNull( c.getPlaylist( "asd" ) );
+    c.getPlaylist( "asd" );
   }
 
 
@@ -94,7 +94,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test playlist should be null if token is invalid.
    */
   @Test
-  public void testPlaylistShouldNotBeNullIfTokenIsValid() {
+  public void testPlaylistShouldNotBeNullIfTokenIsValid() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
     List<Playlist> list = c.getPlaylists();
     Playlist p1 = list.get( 0 );
@@ -135,6 +135,7 @@ public class PlaylistTests extends AudioBoxTests {
    */
   @Test( expected = ValidationException.class )
   public void testPlaylistCreationWithSameNameAsAnotherShouldResultInValidationError() throws AudioBoxException {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsFourOFourTransport() );
     Playlist p = new Playlist( "Dropbox" );
     p.create( c );
   }
@@ -181,7 +182,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test local playlist sync.
    */
   @Test
-  public void testLocalPlaylistSync() {
+  public void testLocalPlaylistSync() throws AudioBoxException {
     try {
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_local" ) );
       Playlist local = c.getPlaylist( "000_local" );
@@ -198,14 +199,14 @@ public class PlaylistTests extends AudioBoxTests {
    * Test cloud playlist sync.
    */
   @Test
-  public void testCloudPlaylistSync() {
+  public void testCloudPlaylistSync() throws AudioBoxException {
     try {
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_cloud" ) );
       Playlist cloud = c.getPlaylist( "000_cloud" );
       cloud.sync( c );
       fail( "cloud playlist should not be syncable" );
     } catch ( SyncException e ) {
-      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
+      assertEquals( HttpStatus.SC_UNPROCESSABLE_ENTITY, e.getErrorCode() );
       logger.info( "[ OK ] cloud drive not syncable: " + e.getMessage() );
     }
   }
@@ -215,14 +216,14 @@ public class PlaylistTests extends AudioBoxTests {
    * Test unsyncable playlists sync.
    */
   @Test
-  public void testUnsyncablePlaylistsSync() {
+  public void testUnsyncablePlaylistsSync() throws AudioBoxException {
     try {
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_smart" ) );
       Playlist smart = c.getPlaylist( "000_smart" );
       smart.sync( c );
       fail( "smart playlists should not be syncable" );
     } catch ( SyncException e ) {
-      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
+      assertEquals( HttpStatus.SC_UNPROCESSABLE_ENTITY, e.getErrorCode() );
       logger.info( "[ OK ] smart playlist not syncable: " + e.getMessage() );
     }
 
@@ -232,7 +233,7 @@ public class PlaylistTests extends AudioBoxTests {
       custom.sync( c );
       fail( "custom playlists should not be syncable" );
     } catch ( SyncException e ) {
-      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
+      assertEquals( HttpStatus.SC_UNPROCESSABLE_ENTITY, e.getErrorCode());
       logger.info( "[ OK ] custom playlist not syncable: " + e.getMessage() );
     }
 
@@ -242,7 +243,7 @@ public class PlaylistTests extends AudioBoxTests {
       offline.sync( c );
       fail( "offline playlist should not be syncable" );
     } catch ( SyncException e ) {
-      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
+      assertEquals( HttpStatus.SC_UNPROCESSABLE_ENTITY, e.getErrorCode() );
       logger.info( "[ OK ] offline playlist not syncable: " + e.getMessage() );
     }
   }
@@ -252,7 +253,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test dropbox playlist sync.
    */
   @Test
-  public void testDropboxPlaylistSync() {
+  public void testDropboxPlaylistSync() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
     Playlist dropbox = c.getPlaylist( "000_dropbox" );
     try {
@@ -268,7 +269,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test skydrive playlist sync.
    */
   @Test
-  public void testSkydrivePlaylistSync() {
+  public void testSkydrivePlaylistSync() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_skydrive" ) );
     Playlist skydrive = c.getPlaylist( "000_skydrive" );
     try {
@@ -283,7 +284,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test box playlist sync.
    */
   @Test
-  public void testBoxPlaylistSync() {
+  public void testBoxPlaylistSync() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_box" ) );
     Playlist box = c.getPlaylist( "000_box" );
     try {
@@ -298,7 +299,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test gdrive playlist sync.
    */
   @Test
-  public void testGdrivePlaylistSync() {
+  public void testGdrivePlaylistSync() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_gdrive" ) );
     Playlist gdrive = c.getPlaylist( "000_gdrive" );
     try {
@@ -313,7 +314,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test youtube playlist sync.
    */
   @Test
-  public void testYoutubePlaylistSync() {
+  public void testYoutubePlaylistSync() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_youtube" ) );
     Playlist youtube = c.getPlaylist( "000_youtube" );
     try {
@@ -328,7 +329,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test soundcloud playlist sync.
    */
   @Test
-  public void testSoundcloudPlaylistSync() {
+  public void testSoundcloudPlaylistSync() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_soundcloud" ) );
     Playlist soundcloud = c.getPlaylist( "000_soundcloud" );
     try {
@@ -344,7 +345,7 @@ public class PlaylistTests extends AudioBoxTests {
    * Test ubuntu playlist sync.
    */
   @Test
-  public void testUbuntuPlaylistSync() {
+  public void testUbuntuPlaylistSync() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_ubuntu" ) );
     Playlist ubuntu = c.getPlaylist( "000_ubuntu" );
     try {

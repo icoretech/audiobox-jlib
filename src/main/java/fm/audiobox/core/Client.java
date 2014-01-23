@@ -155,9 +155,8 @@ public class Client {
    * @return the token response
    *
    * @throws IOException the iO exception
-   * @throws IOException the iO exception
    */
-  public TokenResponse authorize(String username, String password) throws IOException, AuthorizationException {
+  public TokenResponse authorize(String username, String password) throws IOException {
     try {
       PasswordTokenRequest ptr = new PasswordTokenRequest(
           getConf().getHttpTransport(),
@@ -181,16 +180,18 @@ public class Client {
 
 
   /**
-   * Gets user.
+   * Returns information about the currently logged in user.
    *
    * @return the user
    */
-  public User getUser() {
+  public User getUser() throws AudioBoxException {
     try {
       HttpResponse rsp = doGET( UserWrapper.getPath() );
       if ( rsp.isSuccessStatusCode() ) {
         return rsp.parseAs( UserWrapper.class ).getUser();
       }
+    } catch ( AudioBoxException e ) {
+      throw e; // Relaunch exception
     } catch ( IOException e ) {
       logger.error( "Unable to parse user: " + e.getMessage() );
     }
@@ -203,12 +204,14 @@ public class Client {
    *
    * @return the playlists
    */
-  public List<Playlist> getPlaylists() {
+  public List<Playlist> getPlaylists() throws AudioBoxException {
     try {
       HttpResponse rsp = doGET( Playlists.getPath() );
       if ( rsp.isSuccessStatusCode() ) {
         return rsp.parseAs( Playlists.class ).getPlaylists();
       }
+    } catch ( AudioBoxException e ) {
+      throw e; // Relaunch exception
     } catch ( IOException e ) {
       logger.error( "Unable to parse playlists: " + e.getMessage() );
     }
@@ -224,12 +227,14 @@ public class Client {
    *
    * @return the playlist
    */
-  public Playlist getPlaylist(String token) {
+  public Playlist getPlaylist(String token) throws AudioBoxException {
     try {
       HttpResponse rsp = doGET( ModelUtil.interpolate( Playlist.getPath(), token ) );
       if ( rsp.isSuccessStatusCode() ) {
         return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
       }
+    } catch ( AudioBoxException e ) {
+      throw e; // Relaunch exception
     } catch ( IOException e ) {
       logger.error( "Unable to parse playlists: " + e.getMessage() );
     }
@@ -497,11 +502,7 @@ public class Client {
         throw new ResourceNotFoundException( response );
 
       case HttpStatus.SC_UNPROCESSABLE_ENTITY: // 422
-        try {
-          throw new ValidationException( response );
-        } catch ( IOException e ) {
-          throw new RuntimeException( "Unable to parse response while rising exception" );
-        }
+        throw new ValidationException( response );
 
       case HttpStatus.SC_FORBIDDEN: // 403
       case HttpStatus.SC_PAYMENT_REQUIRED: // 402

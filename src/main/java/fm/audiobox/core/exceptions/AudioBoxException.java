@@ -20,9 +20,9 @@ import java.io.IOException;
  */
 public class AudioBoxException extends IOException {
 
-  private int statusCode;
-
   private HttpResponse response;
+
+  protected int statusCode;
 
 
   /**

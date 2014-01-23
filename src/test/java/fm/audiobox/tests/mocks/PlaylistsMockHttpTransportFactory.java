@@ -58,6 +58,7 @@ public class PlaylistsMockHttpTransportFactory {
    * Gets playlist transport.
    *
    * @param playlistToken the playlist token
+   *
    * @return the playlist transport
    */
   public static HttpTransport getPlaylistTransport(final String playlistToken) {
@@ -74,12 +75,12 @@ public class PlaylistsMockHttpTransportFactory {
 
             try {
               result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
-            } catch ( IOException|NullPointerException e ) {
+            } catch ( IOException | NullPointerException e ) {
               result.setStatusCode( HttpStatus.SC_NOT_FOUND );
             }
 
-            if (url.endsWith( "sync.json" )) {
-              if (Arrays.asList(new String[]{"000_dropbox", "000_ubuntu", "000_soundcloud"}).contains( playlistToken )) {
+            if ( url.endsWith( "sync.json" ) ) {
+              if ( Arrays.asList( new String[]{ "000_dropbox", "000_ubuntu", "000_soundcloud" } ).contains( playlistToken ) ) {
                 result.setStatusCode( HttpStatus.SC_FORBIDDEN );
               } else {
                 result.setStatusCode( HttpStatus.SC_NO_CONTENT );
@@ -93,12 +94,13 @@ public class PlaylistsMockHttpTransportFactory {
     };
   }
 
+
   /**
    * Gets playlists transport.
    *
    * @return the playlists transport
    */
-  public static HttpTransport getPlaylistsDeletionFailureTransport() {
+  public static HttpTransport getPlaylistsFourOFourTransport() {
     return new MockHttpTransport() {
       @Override
       public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {

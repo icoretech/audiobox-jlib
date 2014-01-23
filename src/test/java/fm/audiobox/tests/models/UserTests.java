@@ -19,6 +19,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.models.*;
 import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
@@ -58,9 +59,7 @@ public class UserTests extends AudioBoxTests {
       config.setJsonFactory( jf );
 
       c = new Client( config );
-    } catch ( IOException e ) {
-      fail( e.getMessage() );
-    } catch ( ConfigurationException e ) {
+    } catch ( IOException | ConfigurationException e ) {
       fail( e.getMessage() );
     }
   }
@@ -70,7 +69,7 @@ public class UserTests extends AudioBoxTests {
    * Test all user keys are well parsed.
    */
   @Test
-  public void testAllUserKeysAreWellParsed() {
+  public void testAllUserKeysAreWellParsed() throws AudioBoxException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getRightUserHttpTransport() );
     User user = c.getUser();
     assertNotNull( user );

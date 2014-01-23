@@ -71,13 +71,9 @@ public class ClientTests extends AudioBoxTests {
    * @throws ConfigurationException the configuration exception
    */
   @Test(expected = AuthorizationException.class)
-  public void testWrongAuthorization() throws ConfigurationException {
-    try {
-      c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getWrongAccountHttpTransport() );
-      c.authorize( "wrong@email.com", "fakepasswd" );
-    } catch ( IOException e ) {
-      fail( e.getMessage() );
-    }
+  public void testWrongAuthorization() throws IOException {
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getWrongAccountHttpTransport() );
+    c.authorize( "wrong@email.com", "fakepasswd" );
   }
 
 
@@ -109,7 +105,7 @@ public class ClientTests extends AudioBoxTests {
   public void testStoredCredentialWithWrongRefreshToken() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport(c.getConf().getJsonFactory()) );
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore( c.getConf().getDataStoreFactory() );
-    assertFalse( udb.isEmpty() );
+    assertFalse("Data store should not be empty", udb.isEmpty() );
     c.getUser();
   }
 

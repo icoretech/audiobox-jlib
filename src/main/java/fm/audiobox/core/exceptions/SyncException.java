@@ -57,6 +57,7 @@ public class SyncException extends AudioBoxException {
    */
   public SyncException(int statusCode) {
     super(MESSAGES.get( statusCode ));
+    this.statusCode = statusCode;
   }
 
 
