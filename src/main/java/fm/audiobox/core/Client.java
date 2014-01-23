@@ -239,29 +239,31 @@ public class Client {
 
 
   /**
-   * Create new playlist.
+   * Perform signed GET requests and returns the response.
    *
-   * @param name the name
+   * @param path the url to make the request against
    *
-   * @return the playlist
+   * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException if the oauth token has been invalidated or is expired or a validation error occurs.
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public Playlist createNewPlaylist(String name) throws AudioBoxException {
+  public HttpResponse doGET(String path) throws AudioBoxException {
+    return doGET( path, null );
+  }
 
-    Playlist p = new Playlist( name );
-    HttpResponse rsp = doPOST( Playlists.getPath(), new JsonHttpContent( getConf().getJsonFactory(), p ) );
-    validateResponse( rsp );
 
-    if ( rsp.isSuccessStatusCode() ) {
-      try {
-        return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
-      } catch ( IOException e ) {
-        logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
-      }
-    }
-
-    return null;
+  /**
+   * Perform signed GET requests and returns the response.
+   *
+   * @param path   the path
+   * @param parser the parser
+   *
+   * @return the http response
+   *
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   */
+  public HttpResponse doGET(String path, JsonObjectParser parser) throws AudioBoxException {
+    return doRequest( HttpMethods.GET, path, null, parser );
   }
 
 
@@ -273,9 +275,9 @@ public class Client {
    *
    * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AuthorizationException if the oauth token has been invalidated or is expired
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doPUT(String path, HttpContent data) throws AuthorizationException {
+  public HttpResponse doPUT(String path, HttpContent data) throws AudioBoxException {
     return doPUT( path, data, null );
   }
 
@@ -289,19 +291,10 @@ public class Client {
    *
    * @return the http response
    *
-   * @throws AuthorizationException if the oauth token has been invalidated or is expired
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws AuthorizationException {
-    try {
-      HttpResponse response = getRequestFactory( parser ).buildPutRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
-      validateResponse( response );
-      return response;
-    } catch ( TokenResponseException e ) {
-      throw new AuthorizationException( e );
-    } catch ( IOException e ) {
-      logger.error( "Unable to perform PUT due to IO Exception: " + e.getMessage() );
-    }
-    return null;
+  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws AudioBoxException {
+    return doRequest( HttpMethods.PUT, path, data, parser );
   }
 
 
@@ -312,9 +305,9 @@ public class Client {
    *
    * @return the http response
    *
-   * @throws AuthorizationException if the oauth token has been invalidated or is expired
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doDELETE(String path) throws AuthorizationException {
+  public HttpResponse doDELETE(String path) throws AudioBoxException {
     return doDELETE( path, null );
   }
 
@@ -327,64 +320,10 @@ public class Client {
    *
    * @return the http response
    *
-   * @throws AuthorizationException if the oauth token has been invalidated or is expired
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doDELETE(String path, JsonObjectParser parser) throws AuthorizationException {
-    try {
-      HttpResponse response = getRequestFactory( parser ).buildDeleteRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
-      validateResponse( response );
-      return response;
-    } catch ( TokenResponseException e ) {
-      throw new AuthorizationException( e );
-    } catch ( IOException e ) {
-      logger.error( "Unable to perform DELETE due to IO Exception: " + e.getMessage() );
-    }
-    return null;
-  }
-
-
-
-
-  /* ================ */
-  /*  Private methods */
-  /* ================ */
-
-
-  /**
-   * Perform signed GET requests and returns the response.
-   *
-   * @param path the url to make the request against
-   *
-   * @return the http response, may be null if any error occurs during the request.
-   *
-   * @throws AuthorizationException if the oauth token has been invalidated or is expired
-   */
-  private HttpResponse doGET(String path) throws AuthorizationException {
-    return doGET( path, null );
-  }
-
-
-  /**
-   * Perform signed GET requests and returns the response.
-   *
-   * @param path   the path
-   * @param parser the parser
-   *
-   * @return the http response
-   *
-   * @throws AuthorizationException if the oauth token has been invalidated or is expired
-   */
-  private HttpResponse doGET(String path, JsonObjectParser parser) throws AuthorizationException {
-    try {
-      HttpResponse response = getRequestFactory( parser ).buildGetRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ) ).execute();
-      validateResponse( response );
-      return response;
-    } catch ( TokenResponseException e ) {
-      throw new AuthorizationException( e );
-    } catch ( IOException e ) {
-      logger.error( "Unable to perform GET due to IO Exception: " + e.getMessage() );
-    }
-    return null;
+  public HttpResponse doDELETE(String path, JsonObjectParser parser) throws AudioBoxException {
+    return doRequest( HttpMethods.DELETE, path, null, parser );
   }
 
 
@@ -396,9 +335,9 @@ public class Client {
    *
    * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AuthorizationException if the oauth token has been invalidated or is expired
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  private HttpResponse doPOST(String path, HttpContent data) throws AuthorizationException {
+  public HttpResponse doPOST(String path, HttpContent data) throws AudioBoxException {
     return doPOST( path, data, null );
   }
 
@@ -412,17 +351,44 @@ public class Client {
    *
    * @return the http response
    *
-   * @throws AuthorizationException if the oauth token has been invalidated or is expired
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  private HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws AuthorizationException {
+  public HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws AudioBoxException {
+    return doRequest( HttpMethods.POST, path, data, parser );
+  }
+
+
+  /* ================ */
+  /*  Private methods */
+  /* ================ */
+
+
+  /**
+   * Do request.
+   *
+   * @param method the method to use
+   * @param path   the path to call
+   * @param data   the data to send
+   * @param parser the parser to use for the resulting object
+   *
+   * @return the http response
+   *
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   */
+  private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws AudioBoxException {
     try {
-      HttpResponse response = getRequestFactory( parser ).buildPostRequest( new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
+      HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
       validateResponse( response );
       return response;
+
+    } catch ( AudioBoxException e ) {
+      throw e; // Relaunch exception
+
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
+
     } catch ( IOException e ) {
-      logger.error( "Unable to perform POST due to IO Exception: " + e.getMessage() );
+      logger.error( "Unable to perform " + method + " due to IO Exception: " + e.getMessage() );
     }
     return null;
   }
@@ -532,7 +498,7 @@ public class Client {
 
       case HttpStatus.SC_UNPROCESSABLE_ENTITY: // 422
         try {
-          throw new ValidationException( response.parseAs( ErrorsWrapper.class ).getErrors(), response.getStatusCode() );
+          throw new ValidationException( response );
         } catch ( IOException e ) {
           throw new RuntimeException( "Unable to parse response while rising exception" );
         }

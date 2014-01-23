@@ -106,29 +106,55 @@ public class PlaylistTests extends AudioBoxTests {
   }
 
 
-  @Test
-  public void testNotExistingPlaylistDeletion() throws AuthorizationException {
-    Playlist p = c.getPlaylist( "25de59e1acf4b37a" );
-    p.delete( c );
+  /**
+   * Test brand new playlist deletion should rise error.
+   *
+   * @throws AuthorizationException the authorization exception
+   */
+  @Test( expected = IllegalStateException.class )
+  public void testBrandNewPlaylistDeletionShouldRiseError() throws AudioBoxException {
+    Playlist p = new Playlist( "Hello" );
     p.delete( c );
   }
 
 
   /**
+   * Test playlist creation with empty name should rise error.
+   *
+   * @throws AudioBoxException the audio box exception
+   */
+  @Test( expected = IllegalStateException.class )
+  public void testPlaylistCreationWithEmptyNameShouldRiseError() throws AudioBoxException {
+    Playlist p = new Playlist( "" );
+    p.create( c );
+  }
+
+
+  /**
+   * Test playlist creation with same name as another should result in validation error.
+   */
+  @Test( expected = ValidationException.class )
+  public void testPlaylistCreationWithSameNameAsAnotherShouldResultInValidationError() throws AudioBoxException {
+    Playlist p = new Playlist( "Dropbox" );
+    p.create( c );
+  }
+
+
+  /**
    * Test playlist creation and deletion.
+   *
+   * @throws RemoteMessageException the remote message exception
    */
   @Test
   @Ignore
-  public void testPlaylistCreationAndDeletion() throws RemoteMessageException {
+  public void testPlaylistCreationAndDeletion() throws AudioBoxException {
     try {
-      Playlist p = c.createNewPlaylist( "My test playlist" );
+      Playlist p = new Playlist( "My test playlist" );
       assertFalse( p.isVisible() );
       p.setVisible( true );
       assertTrue( p.isVisible() );
 
-      assertTrue( p.save( c ) );
-
-      Playlist p2 = c.getPlaylist( p.getToken() );
+      Playlist p2 = p.create( c );
       assertTrue( p2.isVisible() );
 
       assertTrue( p2.delete( c ) );

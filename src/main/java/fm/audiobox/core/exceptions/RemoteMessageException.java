@@ -13,16 +13,18 @@
 package fm.audiobox.core.exceptions;
 
 
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpStatusCodes;
 
+import java.io.IOException;
 import java.util.Map;
 
 
 /**
  * This exception is the parent exception for:
  * <ul>
- * <li>{@link fm.audiobox.core.exceptions.AuthorizationException}</li>
- * <li>{@link fm.audiobox.core.exceptions.ValidationException}</li>
+ * <li>{@link AuthorizationException}</li>
+ * <li>{@link ValidationException}</li>
  * </ul>
  * It is used for those exception risen by responses given by the service
  * that bring some information on what gone wrong.
@@ -32,6 +34,18 @@ public class RemoteMessageException extends AudioBoxException {
   private int statusCode = HttpStatusCodes.STATUS_CODE_UNAUTHORIZED;
 
   private Errors errors;
+
+
+  /**
+   * Instantiates a new Remote message exception.
+   *
+   * @param response the response
+   *
+   * @throws IOException may occur when parsing the response
+   */
+  public RemoteMessageException(HttpResponse response) throws IOException {
+    this( response.parseAs( ErrorsWrapper.class ).getErrors(), response.getStatusCode() );
+  }
 
 
   /**

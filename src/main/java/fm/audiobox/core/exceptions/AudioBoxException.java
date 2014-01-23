@@ -11,6 +11,8 @@
 
 package fm.audiobox.core.exceptions;
 
+import com.google.api.client.http.HttpResponse;
+
 import java.io.IOException;
 
 /**
@@ -18,12 +20,49 @@ import java.io.IOException;
  */
 public class AudioBoxException extends IOException {
 
+  private int statusCode;
+
+  private HttpResponse response;
+
+
   /**
-   * Instantiates a new Audio box exception.
+   * Instantiates a new AudioBoxException.
    *
    * @param message the message
    */
   public AudioBoxException(String message) {
-    super(message);
+    super( message );
+  }
+
+
+  /**
+   * Instantiates a new AudioBoxException exception starting from the response.
+   *
+   * @param response the response
+   */
+  public AudioBoxException(HttpResponse response) {
+    this( response.getStatusMessage() );
+    this.response = response;
+    this.statusCode = response.getStatusCode();
+  }
+
+
+  /**
+   * Gets response.
+   *
+   * @return the response
+   */
+  public HttpResponse getResponse() {
+    return response;
+  }
+
+
+  /**
+   * Gets status code.
+   *
+   * @return the status code
+   */
+  public int getErrorCode() {
+    return statusCode;
   }
 }

@@ -11,6 +11,7 @@
 
 package fm.audiobox.core.exceptions;
 
+import com.google.api.client.http.HttpResponse;
 import fm.audiobox.core.utils.HttpStatus;
 
 import java.util.HashMap;
@@ -31,9 +32,6 @@ public class SyncException extends AudioBoxException {
 
   private static final Map<Integer, String> MESSAGES = new HashMap<>( 4 );
 
-  private int statusCode = 0;
-
-
   static {
     MESSAGES.put( HttpStatus.SC_PAYMENT_REQUIRED, "Action requires a valid subscription." );
     MESSAGES.put( HttpStatus.SC_FORBIDDEN, "Playlist requires a valid account link to the remote service." );
@@ -45,20 +43,25 @@ public class SyncException extends AudioBoxException {
   /**
    * Instantiates a new Sync Exception.
    *
-   * @param statusCode the status code
+   * @param response the response
    */
-  public SyncException(int statusCode) {
-    super( MESSAGES.get( statusCode ) );
-    this.statusCode = statusCode;
+  public SyncException(HttpResponse response) {
+    super( response );
   }
 
 
   /**
-   * Gets error code.
+   * Instantiates a new Sync exception.
    *
-   * @return the error code
+   * @param statusCode the status code
    */
-  public int getErrorCode() {
-    return statusCode;
+  public SyncException(int statusCode) {
+    super(MESSAGES.get( statusCode ));
+  }
+
+
+  @Override
+  public String getMessage() {
+    return MESSAGES.get( getErrorCode() );
   }
 }

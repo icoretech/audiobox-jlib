@@ -20,39 +20,13 @@ import com.google.api.client.http.HttpResponse;
  */
 public class ForbiddenException extends AudioBoxException {
 
-  private int statusCode;
-
-  private HttpResponse response;
-
 
   /**
-   * Instantiates a new Forbidden exception.
+   * Instantiates a new Forbidden exception starting from the response.
    *
    * @param response the response
    */
   public ForbiddenException(HttpResponse response) {
-    super( response.getStatusMessage() );
-    this.response = response;
-    this.statusCode = response.getStatusCode();
-  }
-
-
-  /**
-   * Gets response.
-   *
-   * @return the response
-   */
-  public HttpResponse getResponse() {
-    return response;
-  }
-
-
-  /**
-   * Gets status code.
-   *
-   * @return the status code
-   */
-  public int getStatusCode() {
-    return statusCode;
+    super( response );
   }
 }
