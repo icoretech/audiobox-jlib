@@ -14,7 +14,7 @@ package fm.audiobox.core.utils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Created by keytwo on 20/01/14.
+ * Handful util class for various models tasks.
  */
 public class ModelUtil {
 
@@ -24,12 +24,13 @@ public class ModelUtil {
   /**
    * Performs models urls interpolation with the TOKEN_PLACEHOLDER.
    *
-   * @param url the url
+   * @param url   the url
    * @param token the token
+   *
    * @return the computed url interpolation
    */
   public static String interpolate(String url, String token) {
-    return StringUtils.replace(url, TOKEN_PLACEHOLDER, token);
+    return StringUtils.replace( url, TOKEN_PLACEHOLDER, token );
   }
 
 }

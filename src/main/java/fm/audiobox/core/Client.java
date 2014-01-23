@@ -87,34 +87,16 @@ import java.util.List;
  */
 public class Client {
 
-  /**
-   * The Conf.
-   */
   private Configuration conf;
 
-  /**
-   * The Logger.
-   */
   private Logger logger = LoggerFactory.getLogger( Client.class.getSimpleName() );
 
-  /**
-   * The User db.
-   */
   private DataStore<StoredCredential> userDb;
 
-  /**
-   * The constant ACCOUNT_TOKENS.
-   */
   private static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 
-  /**
-   * The Refresh listener.
-   */
   private DataStoreCredentialRefreshListener refreshListener;
 
-  /**
-   * The Json object parser.
-   */
   private JsonObjectParser jsonObjectParser;
 
 
@@ -135,9 +117,9 @@ public class Client {
 
 
   /**
-   * Gets conf.
+   * Gets the global client configuration.
    *
-   * @return the conf
+   * @return the configuration
    */
   public Configuration getConf() {
     return conf;
@@ -150,11 +132,11 @@ public class Client {
    * @param username the username
    * @param password the password
    *
-   * @return the token response
+   * @return the token response, may be null in case of any IOExceptions
    *
-   * @throws IOException the iO exception
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public TokenResponse authorize(String username, String password) throws IOException {
+  public TokenResponse authorize(String username, String password) throws AudioBoxException {
     try {
       PasswordTokenRequest ptr = new PasswordTokenRequest(
           getConf().getHttpTransport(),
@@ -168,11 +150,19 @@ public class Client {
       TokenResponse response = ptr.execute();
 
       StoredCredential sc = new StoredCredential( createCredentialWithRefreshToken( response ) );
-      userDb.set( ACCOUNT_TOKENS, sc );
-      logger.info( "Saved credentials: " + sc.toString() );
+      try {
+        userDb.set( ACCOUNT_TOKENS, sc );
+        logger.info( "Saved credentials: " + sc.toString() );
+      } catch ( IOException e ) {
+        logger.error( "Unable to save credentials: " + e.getMessage());
+      }
+
       return response;
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
+    } catch ( IOException e ) {
+      logger.error( "Unable to fulfill the request due to an error: " + e.getMessage());
+      return null;
     }
   }
 
@@ -220,6 +210,7 @@ public class Client {
 
   /**
    * Gets the specified playlist.
+   * Triggers Smart Playlist compilation if the requested playlist is a SmartPlaylist.
    *
    * @param token the token of the playlist to get.
    *

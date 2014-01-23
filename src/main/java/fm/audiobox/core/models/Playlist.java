@@ -174,9 +174,9 @@ public class Playlist {
    * @throws AudioBoxException if the oauth token has been invalidated or is expired or a validation error occurs.
    */
   public Playlist create(Client client) throws AudioBoxException {
-    validate();
+    validate(false);
     try {
-      HttpResponse rsp = client.doPOST( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
+      HttpResponse rsp = client.doPOST( Playlists.getPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
       if ( rsp.isSuccessStatusCode() ) {
         try {
           return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
@@ -210,7 +210,7 @@ public class Playlist {
    * @throws AudioBoxException the audio box exception
    */
   public Playlist update(Client client) throws AudioBoxException {
-    validate();
+    validate(true);
     HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
     if ( rsp.isSuccessStatusCode() ) {
       try {
@@ -503,18 +503,33 @@ public class Playlist {
     if ( StringUtils.isBlank( this.getToken() ) ) {
       throw new IllegalStateException( "Playlist is not ready for remote request: token not valid" );
     }
-
-    validate();
+    validate(true);
   }
 
 
   /**
    * Validates the playlist before performing requests.
+   *
+   * @param newRecordNotAllowed whether a new record should rise an error or not
    */
-  private void validate() {
+  private void validate(boolean newRecordNotAllowed) {
+
+    if (newRecordNotAllowed && isNewRecord()) {
+      throw new IllegalStateException( "Playlist must be remotely created first." );
+    }
+
     if ( StringUtils.isBlank( this.getName() ) ) {
       throw new IllegalStateException( "Playlist is not ready for remote request: name not valid" );
     }
+  }
+
+  /**
+   * Checks whether the playlist is a new record that still needs to be created remotely.
+   *
+   * @return true if this playlist does not exist on AudioBox, false otherwise.
+   */
+  private boolean isNewRecord() {
+    return StringUtils.isEmpty( getToken() );
   }
 
 

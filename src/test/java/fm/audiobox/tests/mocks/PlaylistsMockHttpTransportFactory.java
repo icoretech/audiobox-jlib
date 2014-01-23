@@ -11,6 +11,7 @@
 
 package fm.audiobox.tests.mocks;
 
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.LowLevelHttpRequest;
 import com.google.api.client.http.LowLevelHttpResponse;
@@ -110,6 +111,53 @@ public class PlaylistsMockHttpTransportFactory {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setContentType( Json.MEDIA_TYPE );
             result.setStatusCode( HttpStatus.SC_NOT_FOUND );
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets playlist creation 201.
+   *
+   * @return the playlist creation 201
+   */
+  public static HttpTransport getPlaylistCreation201() {
+    return new MockHttpTransport() {
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setStatusCode( HttpStatus.SC_CREATED );
+            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/playlists/test_playlist_201_created.json" ), "UTF-8" ) );
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets playlist deletion 204.
+   *
+   * @return the playlist deletion 204
+   */
+  public static HttpTransport getPlaylistDeletion204() {
+    return new MockHttpTransport() {
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setStatusCode( HttpStatus.SC_NO_CONTENT );
             return result;
           }
         };

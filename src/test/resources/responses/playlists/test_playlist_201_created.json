@@ -1,0 +1,17 @@
+{
+  "playlist":{
+    "token":"newTok3n",
+    "name":"Test playlist",
+    "system_name":"custom",
+    "type":"CustomPlaylist",
+    "media_files_count":0,
+    "position":11,
+    "offline":false,
+    "embeddable":false,
+    "visible":false,
+    "last_accessed":false,
+    "updated_at":"2014-01-23T22:27:02.472Z",
+    "syncable":false,
+    "search_params":null
+  }
+}

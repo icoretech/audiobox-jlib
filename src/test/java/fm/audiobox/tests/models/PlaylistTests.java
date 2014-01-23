@@ -24,7 +24,6 @@ import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
@@ -82,9 +81,11 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test playlist should be null if token is invalid.
+   *
+   * @throws AudioBoxException the audio box exception
    */
-  @Test(expected = ResourceNotFoundException.class)
-  public void testResrouceNotFoundIsThrownIfPlaylistIfTokenIsInvalid() throws AudioBoxException {
+  @Test( expected = ResourceNotFoundException.class )
+  public void testResourceNotFoundIsThrownIfPlaylistIfTokenIsInvalid() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "asd" ) );
     c.getPlaylist( "asd" );
   }
@@ -92,6 +93,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test playlist should be null if token is invalid.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testPlaylistShouldNotBeNullIfTokenIsValid() throws AudioBoxException {
@@ -132,6 +135,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test playlist creation with same name as another should result in validation error.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test( expected = ValidationException.class )
   public void testPlaylistCreationWithSameNameAsAnotherShouldResultInValidationError() throws AudioBoxException {
@@ -142,36 +147,58 @@ public class PlaylistTests extends AudioBoxTests {
 
 
   /**
-   * Test playlist creation and deletion.
+   * Test new playlist modification should result in illegal state exception.
    *
-   * @throws RemoteMessageException the remote message exception
+   * @throws AudioBoxException the audio box exception
+   */
+  @Test( expected = IllegalStateException.class )
+  public void testNewPlaylistModificationShouldResultInIllegalStateException() throws AudioBoxException {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsFourOFourTransport() );
+    Playlist p = new Playlist( "Invalid" );
+    p.update( c );
+  }
+
+
+  /**
+   * Test new playlist sync should rise illegal state exception.
+   *
+   * @throws AudioBoxException the audio box exception
+   */
+  @Test( expected = IllegalStateException.class )
+  public void testNewPlaylistSyncShouldRiseIllegalStateException() throws AudioBoxException {
+    Playlist p = new Playlist( "Invalid" );
+    p.sync( c );
+  }
+
+
+  /**
+   * Test new playlist creation success.
    */
   @Test
-  @Ignore
-  public void testPlaylistCreationAndDeletion() throws AudioBoxException {
+  public void testNewPlaylistCreationSuccess() {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistCreation201() );
+    Playlist p = new Playlist( "Test playlist" );
     try {
-      Playlist p = new Playlist( "My test playlist" );
-      assertFalse( p.isVisible() );
-      p.setVisible( true );
-      assertTrue( p.isVisible() );
-
       Playlist p2 = p.create( c );
-      assertTrue( p2.isVisible() );
+      assertNotNull( p2 );
+    } catch ( AudioBoxException e ) {
+      fail( e.getMessage() );
+    }
+  }
 
-      assertTrue( p2.delete( c ) );
 
-    } catch ( ValidationException e ) {
-      // Cleanup code (in case of any failure)
+  /**
+   * Test new playlist deletion success.
+   */
+  @Test
+  public void testNewPlaylistDeletion() {
 
-      List<Playlist> list = c.getPlaylists();
-      for ( Playlist p : list ) {
-        if ( "My test playlist".equals( p.getName() ) ) {
-          assertTrue( p.delete( c ) );
-          break;
-        }
-      }
-      // Retry
-      testPlaylistCreationAndDeletion();
+    try {
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "test_playlist_201_created" ) );
+      Playlist p = c.getPlaylist( "test_playlist_201_created" );
+
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistDeletion204() );
+      assertTrue( "Playlist should be deleted", p.delete( c ) );
     } catch ( AudioBoxException e ) {
       fail( e.getMessage() );
     }
@@ -180,6 +207,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test local playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testLocalPlaylistSync() throws AudioBoxException {
@@ -197,6 +226,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test cloud playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testCloudPlaylistSync() throws AudioBoxException {
@@ -214,6 +245,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test unsyncable playlists sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testUnsyncablePlaylistsSync() throws AudioBoxException {
@@ -233,7 +266,7 @@ public class PlaylistTests extends AudioBoxTests {
       custom.sync( c );
       fail( "custom playlists should not be syncable" );
     } catch ( SyncException e ) {
-      assertEquals( HttpStatus.SC_UNPROCESSABLE_ENTITY, e.getErrorCode());
+      assertEquals( HttpStatus.SC_UNPROCESSABLE_ENTITY, e.getErrorCode() );
       logger.info( "[ OK ] custom playlist not syncable: " + e.getMessage() );
     }
 
@@ -251,6 +284,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test dropbox playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testDropboxPlaylistSync() throws AudioBoxException {
@@ -267,6 +302,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test skydrive playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testSkydrivePlaylistSync() throws AudioBoxException {
@@ -282,6 +319,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test box playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testBoxPlaylistSync() throws AudioBoxException {
@@ -297,6 +336,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test gdrive playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testGdrivePlaylistSync() throws AudioBoxException {
@@ -312,6 +353,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test youtube playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testYoutubePlaylistSync() throws AudioBoxException {
@@ -327,6 +370,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test soundcloud playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testSoundcloudPlaylistSync() throws AudioBoxException {
@@ -343,6 +388,8 @@ public class PlaylistTests extends AudioBoxTests {
 
   /**
    * Test ubuntu playlist sync.
+   *
+   * @throws AudioBoxException the audio box exception
    */
   @Test
   public void testUbuntuPlaylistSync() throws AudioBoxException {
