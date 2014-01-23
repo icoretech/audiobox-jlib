@@ -15,7 +15,15 @@ package fm.audiobox.core.models;
 import com.google.api.client.util.Key;
 
 /**
- * Created by keytwo on 17/01/14.
+ * A user can subscribe and manage multiple remote storage services.
+ * <p/>
+ * This hash defines the boolean permissions the user has access to, depending on
+ * subscription state if it's a paid feature.
+ * <p/>
+ * In case the User has been created through a Partner it will inherit permissions
+ * depending on the Partner requested features.
+ * <p/>
+ * Such attributes are automatically set by the system and cannot be changed manually.
  */
 public class Permissions {
 
@@ -69,9 +77,9 @@ public class Permissions {
 
 
   /**
-   * Has player.
+   * Checks if user can access the Cloud Web Player.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasPlayer() {
     return player;
@@ -79,9 +87,9 @@ public class Permissions {
 
 
   /**
-   * Has local.
+   * Checks if user can access the AudioBox Desktop feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasLocal() {
     return local;
@@ -89,9 +97,9 @@ public class Permissions {
 
 
   /**
-   * Has cloud.
+   * Checks if user can access the AudioBox Cloud feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasCloud() {
     return cloud;
@@ -99,9 +107,9 @@ public class Permissions {
 
 
   /**
-   * Has dropbox.
+   * Checks if user can access the Dropbox feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasDropbox() {
     return dropbox;
@@ -109,9 +117,9 @@ public class Permissions {
 
 
   /**
-   * Has gdrive.
+   * Checks if user can access the Google Drive feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasGdrive() {
     return gdrive;
@@ -119,9 +127,9 @@ public class Permissions {
 
 
   /**
-   * Has skydrive.
+   * Checks if user can access the SkyDrive feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasSkydrive() {
     return skydrive;
@@ -129,9 +137,9 @@ public class Permissions {
 
 
   /**
-   * Has ubuntu.
+   * Checks if user can access the Ubuntu One Music feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasUbuntu() {
     return ubuntu;
@@ -139,9 +147,9 @@ public class Permissions {
 
 
   /**
-   * Has soundcloud.
+   * Checks if user can access the Soundcloud feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasSoundcloud() {
     return soundcloud;
@@ -149,9 +157,9 @@ public class Permissions {
 
 
   /**
-   * Has youtube.
+   * Checks if user can access the YouTube feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasYoutube() {
     return youtube;
@@ -159,9 +167,9 @@ public class Permissions {
 
 
   /**
-   * Has box.
+   * Checks if user can access the Box feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasBox() {
     return box;
@@ -169,9 +177,9 @@ public class Permissions {
 
 
   /**
-   * Has lastfm.
+   * Checks if user can access the Last.fm feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasLastfm() {
     return lastfm;
@@ -179,9 +187,9 @@ public class Permissions {
 
 
   /**
-   * Has twitchtv.
+   * Checks if user can access the Twitch.tv feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasTwitchtv() {
     return twitchtv;
@@ -189,9 +197,9 @@ public class Permissions {
 
 
   /**
-   * Has facebook.
+   * Checks if user can access the Facebook feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasFacebook() {
     return facebook;
@@ -199,9 +207,9 @@ public class Permissions {
 
 
   /**
-   * Has twitter.
+   * Checks if user can access the Twitter feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasTwitter() {
     return twitter;
@@ -209,9 +217,9 @@ public class Permissions {
 
 
   /**
-   * Has lyrics.
+   * Checks if user can access the lyrics feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasLyrics() {
     return lyrics;
@@ -219,9 +227,9 @@ public class Permissions {
 
 
   /**
-   * Has songkick.
+   * Checks if user can access the Songkick feature.
    *
-   * @return the boolean
+   * @return the true if access is granted, false otherwise.
    */
   public boolean hasSongkick() {
     return songkick;

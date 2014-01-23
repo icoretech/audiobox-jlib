@@ -15,7 +15,6 @@ package fm.audiobox.core;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
-import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
@@ -124,7 +123,6 @@ public class Client {
    *
    * @param conf the conf
    *
-   * @throws ConfigurationException the configuration exception
    * @throws ConfigurationException the configuration exception
    */
   public Client(Configuration conf) throws ConfigurationException, IOException {

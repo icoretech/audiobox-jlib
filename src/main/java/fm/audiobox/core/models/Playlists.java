@@ -17,7 +17,7 @@ import com.google.api.client.util.Key;
 import java.util.List;
 
 /**
- * Created by keytwo on 20/01/14.
+ * Used to get a list of all the playlist in the user's account.
  */
 public class Playlists {
 
@@ -28,7 +28,7 @@ public class Playlists {
 
 
   /**
-   * Gets path.
+   * Gets the generic remote resource collection path.
    *
    * @return the path
    */

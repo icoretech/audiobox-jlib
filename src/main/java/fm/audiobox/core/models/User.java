@@ -15,7 +15,52 @@ package fm.audiobox.core.models;
 import com.google.api.client.util.Key;
 
 /**
- * Created by keytwo on 17/01/14.
+ * A User can interact with his own files in different ways, depending on the remote storage in play.
+ * <p/>
+ * However AudioBox is built with homogeneity in mind and therefore you will end up
+ * calling the same methods for different, powerful actions.
+ * <p/>
+ * For the most part the returned attributes are straightforward, such as media_files_count,
+ * however there are special attributes to explain:
+ * <p/>
+ * <dl>
+ * <dt>auth_token:</dt>
+ * <dd>
+ * The current authentication token for the user. This attribute can change and might be rotated at any time.
+ * </dd>
+ * <dt>permissions: {...}</dt>
+ * <dd>
+ * A user can subscribe and manage multiple remote storage services. This hash defines the boolean permissions the user has access to, depending on subscription state if it's a paid feature. In case the User has been created through a Partner it will inherit permissions depending on the Partner requested features.
+ * Such attributes are automatically set by the system and cannot be changed manually.
+ * </dd>
+ * <dt>external_tokens: {...}</dt>
+ * <dd>
+ * For each of the external services the boolean value indicates if we have stored a OAuth token for the user.
+ * Such attributes are automatically set by the system and cannot be changed manually.
+ * </dd>
+ * <dt>stats: {...}</dt>
+ * <dd>
+ * Bytes long values showing the storage used for each supported storage service and the amount of data that has been streamed.
+ * </dd>
+ * <dt>subscription_state:</dt>
+ * <dd>
+ * String identifying the paid subscription states for this user. Some features cannot be accessed if the subscription is not valid. We suggest to not use logic in your own application against this attribute, but rather query the permissions: {} data to have more fine-grained control over the available actions.
+ * Possible values are: active, trialing, past_due, canceled and unpaid.
+ * </dd>
+ * <dt>plan:</dt>
+ * <dd>
+ * The plan name the user is subscribed to, if any.
+ * </dd>
+ * <dt>comet_channel:</dt>
+ * <dd>
+ * The unique push engine channel for this user. AudioBox employ push notifications, by making the application subscribe to this channel name it will be able to receive actions to perform in the user interface.
+ * Using push messages is a great way to keep all the applications in sync when an action is performed, such as media add. Further documentation on how to connect to the push server will be provided soon.
+ * </dd>
+ * <dt>preferences: {...}</dt>
+ * <dd>
+ * General preferences of the user, mostly used in the Cloud Web Player.
+ * </dd>
+ * </dl>
  */
 public class User {
 
@@ -94,9 +139,9 @@ public class User {
 
 
   /**
-   * Gets created at.
+   * Gets the user creation time (in form of an UTC String).
    *
-   * @return the created at
+   * @return the UTC String of the user creation time
    */
   public String getCreatedAt() {
     return created_at;
@@ -104,9 +149,12 @@ public class User {
 
 
   /**
-   * Gets updated at.
+   * Gets the last time (in form of an UTC String) this account have been changed.
+   * <br/>
+   * NOTE: Since client timezone may differ significantly you are strongly invited
+   * to always trust and use this datetime in case you are building a sync tool.
    *
-   * @return the updated at
+   * @return the UTC String of the last update on this account
    */
   public String getUpdatedAt() {
     return updated_at;
@@ -134,7 +182,8 @@ public class User {
 
 
   /**
-   * Gets auth token.
+   * Gets the current authentication token for the user.
+   * This attribute can change and might be rotated at any time.
    *
    * @return the auth token
    */
@@ -144,7 +193,7 @@ public class User {
 
 
   /**
-   * Gets media files count.
+   * Gets total media files count.
    *
    * @return the media files count
    */
@@ -214,7 +263,11 @@ public class User {
 
 
   /**
-   * Gets comet channel.
+   * Gets the unique push engine channel for this user. AudioBox employ push notifications, by making the application
+   * subscribe to this channel name it will be able to receive actions to perform in the user interface.
+   * <p/>
+   * Using push messages is a great way to keep all the applications in sync when an action is performed, such as media
+   * add. Further documentation on how to connect to the push server will be provided soon.
    *
    * @return the comet channel
    */
@@ -224,7 +277,11 @@ public class User {
 
 
   /**
-   * Gets subscription state.
+   * Gets the string identifying the paid subscription states for this user. Some features cannot be accessed if the
+   * subscription is not valid. We suggest to not use logic in your own application against this attribute, but rather
+   * query the permissions: {} data to have more fine-grained control over the available actions.
+   * <p/>
+   * Possible values are: active, trialing, past_due, canceled and unpaid.
    *
    * @return the subscription state
    */
@@ -234,7 +291,7 @@ public class User {
 
 
   /**
-   * Gets plan.
+   * Gets the plan name the user is subscribed to, if any..
    *
    * @return the plan
    */
@@ -244,9 +301,9 @@ public class User {
 
 
   /**
-   * Gets offline playlist.
+   * Gets offline playlist token.
    *
-   * @return the offline playlist
+   * @return the offline playlist token
    */
   public String getOfflinePlaylist() {
     return offline_playlist;
@@ -254,9 +311,15 @@ public class User {
 
 
   /**
-   * Gets permissions.
+   * Gets the hash that defines the boolean permissions the user has access to, depending on subscription state if it's
+   * a paid feature.
+   * <p/>
+   * In case the User has been created through a Partner it will inherit permissions depending on the Partner requested
+   * features.
+   * <p/>
+   * Such attributes are automatically set by the system and cannot be changed manually.
    *
-   * @return the permissions
+   * @return the user's {@link fm.audiobox.core.models.Permissions}
    */
   public Permissions getPermissions() {
     return permissions;
@@ -264,7 +327,10 @@ public class User {
 
 
   /**
-   * Gets external tokens.
+   * Gets the user's {@link fm.audiobox.core.models.ExternalTokens} that indicates if AudioBox have stored an OAuth
+   * token for the user.
+   * <p/>
+   * Such attributes are automatically set by the system and cannot be changed manually.
    *
    * @return the external tokens
    */
@@ -274,7 +340,7 @@ public class User {
 
 
   /**
-   * Gets stats.
+   * Gets the user's {@link fm.audiobox.core.models.Stats}
    *
    * @return the stats
    */
@@ -284,7 +350,7 @@ public class User {
 
 
   /**
-   * Gets preferences.
+   * Gets the user's {@link fm.audiobox.core.models.Preferences}
    *
    * @return the preferences
    */

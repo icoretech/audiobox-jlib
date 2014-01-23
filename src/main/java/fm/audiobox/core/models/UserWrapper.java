@@ -14,7 +14,8 @@ package fm.audiobox.core.models;
 import com.google.api.client.util.Key;
 
 /**
- * Created by keytwo on 18/01/14.
+ * This class is used as simple {@link sun.nio.fs.UnixUserPrincipals.User} wrapper
+ * for those JSON parser that do not support root elements.
  */
 public class UserWrapper {
 

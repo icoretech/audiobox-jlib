@@ -200,7 +200,7 @@ public class Playlist {
    * <p/>
    * SmartPlaylist's +search_params+ can be set only on creation and thus cannot be changed, in this action.
    * <p/>
-   * SmartPlaylist are not tweakable in their search_params due to the complexity of their construct.
+   * SmartPlaylist cannot be tweaked in their search_params due to the complexity of their construct.
    * Since SmartPlaylist are compiled on demand, just destroy the old and create a new one.
    *
    * @param client the client
@@ -272,9 +272,9 @@ public class Playlist {
 
 
   /**
-   * Gets path.
+   * Gets the generic remote resource path (token interpolation is needed).
    *
-   * @return the path
+   * @return the path String
    */
   public static String getPath() {
     return PATH;
@@ -282,9 +282,9 @@ public class Playlist {
 
 
   /**
-   * Gets token.
+   * Gets playlist unique token.
    *
-   * @return the token
+   * @return the token String
    */
   public String getToken() {
     return this.token;
@@ -294,7 +294,7 @@ public class Playlist {
   /**
    * Gets name.
    *
-   * @return the name
+   * @return the playlist name
    */
   public String getName() {
     return this.name;
@@ -302,7 +302,9 @@ public class Playlist {
 
 
   /**
-   * Sets name.
+   * Changes playlist name, if you want to persist the change
+   * remember to call {@link Playlist#update(fm.audiobox.core.Client)}
+   * method.
    *
    * @param name the name
    */
@@ -332,7 +334,7 @@ public class Playlist {
 
 
   /**
-   * Gets media files count.
+   * Gets media files count on this playlist.
    *
    * @return the media files count
    */
@@ -344,7 +346,7 @@ public class Playlist {
   /**
    * Gets position.
    *
-   * @return the position
+   * @return the position of the playlist
    */
   public long getPosition() {
     return this.position;
@@ -352,9 +354,11 @@ public class Playlist {
 
 
   /**
-   * Sets position.
+   * Changes position value, if you want to persist the change
+   * remember to call {@link Playlist#update(fm.audiobox.core.Client)}
+   * method.
    *
-   * @param position the position
+   * @param position the position to set
    */
   public void setPosition(long position) {
     this.position = position;
@@ -362,20 +366,9 @@ public class Playlist {
 
 
   /**
-   * Gets offline.
+   * Use this method to check if the playlist is embeddable or not.
    *
-   * @return the offline
-   */
-  @Deprecated
-  public boolean isOffline() {
-    return this.offline;
-  }
-
-
-  /**
-   * Gets embeddable.
-   *
-   * @return the embeddable
+   * @return true if the playlist is embeddable
    */
   public boolean isEmbeddable() {
     return this.embeddable;
@@ -383,9 +376,11 @@ public class Playlist {
 
 
   /**
-   * Sets embeddable.
+   * Changes embeddable value, if you want to persist the change
+   * remember to call {@link Playlist#update(fm.audiobox.core.Client)}
+   * method.
    *
-   * @param embeddable the embeddable
+   * @param embeddable true to mark it as embeddable, false to disable the feature.
    */
   public void setEmbeddable(boolean embeddable) {
     this.embeddable = embeddable;
@@ -393,9 +388,9 @@ public class Playlist {
 
 
   /**
-   * Gets visible.
+   * Use this method to check if the playlist is visible or not.
    *
-   * @return the visible
+   * @return true if the playlist is embeddable
    */
   public boolean isVisible() {
     return this.visible;
@@ -403,9 +398,11 @@ public class Playlist {
 
 
   /**
-   * Sets visible.
+   * Changes visible value, if you want to persist the change
+   * remember to call {@link Playlist#update(fm.audiobox.core.Client)}
+   * method.
    *
-   * @param visible the visible
+   * @param visible true to mark it as visible, false to disable the feature.
    */
   public void setVisible(boolean visible) {
     this.visible = visible;
@@ -413,9 +410,10 @@ public class Playlist {
 
 
   /**
-   * Gets last accessed.
+   * Use this method to check if the playlist is the last one accessed.
+   * (i.e. {@link Client#getPlaylist(String)} was called at last}
    *
-   * @return the last accessed
+   * @return true if this was the last accessed playlist
    */
   public boolean getLastAccessed() {
     return this.last_accessed;
@@ -423,9 +421,12 @@ public class Playlist {
 
 
   /**
-   * Gets updated at.
+   * Gets the last time (in form of an UTC String) this playlist have been changed.
+   * <br/>
+   * NOTE: Since client timezone may differ significantly you are strongly invited
+   * to always trust and use this datetime in case you are building a sync tool.
    *
-   * @return the updated at
+   * @return the UTC String of the last update on this playlist
    */
   public String getUpdatedAt() {
     return this.updated_at;
@@ -433,9 +434,9 @@ public class Playlist {
 
 
   /**
-   * Gets syncable.
+   * Checks if this playlist supports syncing with remote content, usually valid for external storage services.
    *
-   * @return the syncable
+   * @return true if this is a syncable playlist, false otherwise
    */
   public boolean isSyncable() {
     return this.syncable;

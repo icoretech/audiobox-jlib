@@ -16,7 +16,7 @@ import com.google.api.client.util.Key;
 
 
 /**
- * Created by keytwo on 17/01/14.
+ * General preferences of the user, mostly used in the Cloud Web Player.
  */
 public class Preferences {
 
@@ -52,9 +52,9 @@ public class Preferences {
 
 
   /**
-   * Gets color.
+   * Gets the color chosen by the user.
    *
-   * @return the color
+   * @return the color name (no rgba neither hex code)
    */
   public String getColor() {
     return color;
@@ -62,9 +62,9 @@ public class Preferences {
 
 
   /**
-   * Is repeat enabled.
+   * Checks if CWP repetition is enabled by the user.
    *
-   * @return the boolean
+   * @return the true if it is enabled, false otherwise.
    */
   public boolean isRepeatEnabled() {
     return repeat;
@@ -72,9 +72,9 @@ public class Preferences {
 
 
   /**
-   * Is shuffle enabled.
+   * Checks if CWP shuffle is enabled by the user.
    *
-   * @return the boolean
+   * @return the true if it is enabled, false otherwise.
    */
   public boolean isShuffleEnabled() {
     return shuffle;
@@ -82,9 +82,9 @@ public class Preferences {
 
 
   /**
-   * Is autoplay enabled.
+   * Checks if CWP autoplay is enabled by the user.
    *
-   * @return the boolean
+   * @return the true if it is enabled, false otherwise.
    */
   public boolean isAutoplayEnabled() {
     return autoplay;
@@ -92,9 +92,9 @@ public class Preferences {
 
 
   /**
-   * Is prebuffer enabled.
+   * Checks if CWP prebuffer is enabled by the user.
    *
-   * @return the boolean
+   * @return the true if it is enabled, false otherwise.
    */
   public boolean isPrebufferEnabled() {
     return prebuffer;
@@ -102,9 +102,9 @@ public class Preferences {
 
 
   /**
-   * Is js demuxer enabled.
+   * Checks if CWP JS demuxer is enabled by the user.
    *
-   * @return the boolean
+   * @return the true if it is enabled, false otherwise.
    */
   public boolean isJsDemuxerEnabled() {
     return js_demuxer;
@@ -112,9 +112,9 @@ public class Preferences {
 
 
   /**
-   * Gets top bar bg.
+   * Gets CWP top bar background name.
    *
-   * @return the top bar bg
+   * @return the CWP top bar background name.
    */
   public String getTopBarBg() {
     return top_bar_bg;
@@ -122,9 +122,9 @@ public class Preferences {
 
 
   /**
-   * Gets volume level.
+   * Gets CWP volume level.
    *
-   * @return the volume level
+   * @return the CWP volume level
    */
   public String getVolumeLevel() {
     return volume_level;
@@ -134,7 +134,7 @@ public class Preferences {
   /**
    * Does accepts emails.
    *
-   * @return the boolean
+   * @return true if the user accepts emails.
    */
   public boolean doesAcceptsEmails() {
     return accept_emails;
@@ -142,9 +142,9 @@ public class Preferences {
 
 
   /**
-   * Are tooltips hidden.
+   * Checks whether the CWP tooltips should be shown or not.
    *
-   * @return the boolean
+   * @return true if the tooltip should be shown, false otherwise.
    */
   public boolean areTooltipsHidden() {
     return hide_tooltips;
