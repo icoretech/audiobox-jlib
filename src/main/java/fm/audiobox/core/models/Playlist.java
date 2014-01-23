@@ -17,10 +17,7 @@ import com.google.api.client.http.HttpStatusCodes;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
-import fm.audiobox.core.exceptions.AudioBoxException;
-import fm.audiobox.core.exceptions.AuthorizationException;
-import fm.audiobox.core.exceptions.RemoteMessageException;
-import fm.audiobox.core.exceptions.SyncException;
+import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -178,13 +175,19 @@ public class Playlist {
    */
   public Playlist create(Client client) throws AudioBoxException {
     validate();
-    HttpResponse rsp = client.doPOST( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
-    if ( rsp.isSuccessStatusCode() ) {
-      try {
-        return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
-      } catch ( IOException e ) {
-        logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
+    try {
+      HttpResponse rsp = client.doPOST( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
+      if ( rsp.isSuccessStatusCode() ) {
+        try {
+          return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
+        } catch ( IOException e ) {
+          logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
+        }
       }
+    } catch ( ResourceNotFoundException e ) {
+      // According to the documentation a 404 is returned if playlist is immutable (not smart or custom).
+      // Flatten this error as validation exception.
+      throw new ValidationException( e.getResponse() );
     }
     return null;
   }

@@ -14,8 +14,6 @@ package fm.audiobox.core.exceptions;
 
 import com.google.api.client.http.HttpResponse;
 
-import java.io.IOException;
-
 /**
  * This exception is thrown when a POST or PUT request
  * rise a remote validation error.
@@ -27,10 +25,8 @@ public class ValidationException extends RemoteMessageException {
    * Instantiates a new Validation exception starting from the response.
    *
    * @param response the response
-   *
-   * @throws IOException may occurs when parsing the response
    */
-  public ValidationException(HttpResponse response) throws IOException {
+  public ValidationException(HttpResponse response) {
     super( response );
   }
 }

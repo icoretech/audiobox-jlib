@@ -17,6 +17,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpStatusCodes;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -40,11 +41,9 @@ public class RemoteMessageException extends AudioBoxException {
    * Instantiates a new Remote message exception.
    *
    * @param response the response
-   *
-   * @throws IOException may occur when parsing the response
    */
-  public RemoteMessageException(HttpResponse response) throws IOException {
-    this( response.parseAs( ErrorsWrapper.class ).getErrors(), response.getStatusCode() );
+  public RemoteMessageException(HttpResponse response) {
+    this(RemoteMessageException.parseErrors( response ) , response.getStatusCode() );
   }
 
 
@@ -62,7 +61,7 @@ public class RemoteMessageException extends AudioBoxException {
    * Instantiates a new Validation exception.
    *
    * @param message the message
-   * @param errors  the errors mapping
+   * @param errors the errors mapping
    */
   public RemoteMessageException(String message, Errors errors) {
     super( message );
@@ -73,7 +72,7 @@ public class RemoteMessageException extends AudioBoxException {
   /**
    * Instantiates a new Validation exception.
    *
-   * @param errors     the errors
+   * @param errors the errors
    * @param statusCode the status code
    */
   public RemoteMessageException(Errors errors, int statusCode) {
@@ -112,7 +111,6 @@ public class RemoteMessageException extends AudioBoxException {
    * Transforms error mapping into strings.
    *
    * @param errors the errors mapping
-   *
    * @return the string
    */
   public static String errorsToString(Errors errors) {
@@ -132,10 +130,38 @@ public class RemoteMessageException extends AudioBoxException {
 
 
   /**
+   * Parse errors.
+   *
+   * @param response the response
+   * @return the errors
+   */
+  private static Errors parseErrors(HttpResponse response) {
+    try {
+      return response.parseAs( ErrorsWrapper.class ).getErrors();
+    } catch ( IOException|IllegalArgumentException e ) {
+      return buildEmptyErrors();
+    }
+  }
+
+
+  /**
+   * Build empty errors.
+   *
+   * @return the errors
+   */
+  private static Errors buildEmptyErrors() {
+    Map<String, Object> err = new HashMap<>();
+    err.put( "No message", new Object() );
+    Errors errors = new Errors();
+    errors.setUnknownKeys( err );
+    return errors;
+  }
+
+
+  /**
    * First error to string.
    *
    * @param errors the errors
-   *
    * @return the string
    */
   private static String firstErrorToString(Errors errors) {
