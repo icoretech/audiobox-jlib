@@ -97,29 +97,6 @@ public class PlaylistsMockHttpTransportFactory {
 
 
   /**
-   * Gets playlists transport.
-   *
-   * @return the playlists transport
-   */
-  public static HttpTransport getPlaylistsFourOFourTransport() {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            return result;
-          }
-        };
-      }
-    };
-  }
-
-
-  /**
    * Gets playlist creation 201.
    *
    * @return the playlist creation 201

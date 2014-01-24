@@ -22,6 +22,7 @@ import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.tests.AudioBoxTests;
+import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
 import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,7 +85,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test( expected = ResourceNotFoundException.class )
+  @Test(expected = ResourceNotFoundException.class)
   public void testResourceNotFoundIsThrownIfPlaylistIfTokenIsInvalid() throws AudioBoxException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "asd" ) );
     c.getPlaylist( "asd" );
@@ -114,7 +115,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AuthorizationException the authorization exception
    */
-  @Test( expected = IllegalStateException.class )
+  @Test(expected = IllegalStateException.class)
   public void testBrandNewPlaylistDeletionShouldRiseError() throws AudioBoxException {
     Playlist p = new Playlist( "Hello" );
     p.delete( c );
@@ -126,7 +127,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test( expected = IllegalStateException.class )
+  @Test(expected = IllegalStateException.class)
   public void testPlaylistCreationWithEmptyNameShouldRiseError() throws AudioBoxException {
     Playlist p = new Playlist( "" );
     p.create( c );
@@ -138,9 +139,9 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test( expected = ValidationException.class )
+  @Test(expected = ValidationException.class)
   public void testPlaylistCreationWithSameNameAsAnotherShouldResultInValidationError() throws AudioBoxException {
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsFourOFourTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
     Playlist p = new Playlist( "Dropbox" );
     p.create( c );
   }
@@ -151,9 +152,9 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test( expected = IllegalStateException.class )
+  @Test(expected = IllegalStateException.class)
   public void testNewPlaylistModificationShouldResultInIllegalStateException() throws AudioBoxException {
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsFourOFourTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
     Playlist p = new Playlist( "Invalid" );
     p.update( c );
   }
@@ -164,7 +165,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test( expected = IllegalStateException.class )
+  @Test(expected = IllegalStateException.class)
   public void testNewPlaylistSyncShouldRiseIllegalStateException() throws AudioBoxException {
     Playlist p = new Playlist( "Invalid" );
     p.sync( c );

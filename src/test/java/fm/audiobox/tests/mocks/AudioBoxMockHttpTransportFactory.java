@@ -137,6 +137,29 @@ public class AudioBoxMockHttpTransportFactory {
 
 
   /**
+   * Gets playlists transport.
+   *
+   * @return the playlists transport
+   */
+  public static HttpTransport getFourOFourTransport() {
+    return new MockHttpTransport() {
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setStatusCode( HttpStatus.SC_NOT_FOUND );
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
    * Gets notifications http transport.
    *
    * @return the notifications http transport
@@ -153,6 +176,31 @@ public class AudioBoxMockHttpTransportFactory {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setContentType( Json.MEDIA_TYPE );
             result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/notifications.json" ), "UTF-8" ) );
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets two o four http transport.
+   *
+   * @return the two o four http transport
+   */
+  public static HttpTransport getTwoOFourHttpTransport() {
+    return new MockHttpTransport() {
+
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setStatusCode( HttpStatus.SC_NO_CONTENT );
             return result;
           }
         };

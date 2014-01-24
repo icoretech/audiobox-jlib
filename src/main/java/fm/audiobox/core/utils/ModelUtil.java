@@ -25,11 +25,13 @@ public class ModelUtil {
 
   public static final String TOKEN_PLACEHOLDER = ":token:";
 
+  public static final String ID_PLACEHOLDER = ":id:";
+
   public static final String AUDIOBOX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
 
   /**
-   * Performs models urls interpolation with the TOKEN_PLACEHOLDER.
+   * Performs models urls interpolation with the {@link fm.audiobox.core.utils.ModelUtil#TOKEN_PLACEHOLDER}.
    *
    * @param url   the url
    * @param token the token
@@ -38,6 +40,19 @@ public class ModelUtil {
    */
   public static String interpolate(String url, String token) {
     return StringUtils.replace( url, TOKEN_PLACEHOLDER, token );
+  }
+
+
+  /**
+   * Performs models urls interpolation with the {@link fm.audiobox.core.utils.ModelUtil#ID_PLACEHOLDER}.
+   *
+   * @param url the url
+   * @param id  the id
+   *
+   * @return the computed url interpolation
+   */
+  public static String interpolate(String url, long id) {
+    return StringUtils.replace( url, ID_PLACEHOLDER, String.valueOf( id ) );
   }
 
 

@@ -11,7 +11,12 @@
 
 package fm.audiobox.core.models;
 
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.util.Key;
+import fm.audiobox.core.Client;
+import fm.audiobox.core.exceptions.AudioBoxException;
+import fm.audiobox.core.utils.HttpStatus;
+import fm.audiobox.core.utils.ModelUtil;
 
 /**
  * Notifications are system messages that the AudioBox will send the user, for example when a Cloud Drive needs
@@ -20,6 +25,8 @@ import com.google.api.client.util.Key;
  * There are four different notification levels: `error`, `success`, `info` and `warning`.
  */
 public class Notification {
+
+  private static final String PATH = "/api/v1/notifications/" + ModelUtil.ID_PLACEHOLDER + ".json";
 
   @Key
   private long id;
@@ -69,8 +76,32 @@ public class Notification {
    *
    * @return the UTC creation time
    */
-  public String getCreated_at() {
+  public String getCreatedAt() {
     return created_at;
   }
 
+
+  /**
+   * Gets the generic remote resource path (ID interpolation is needed).
+   *
+   * @return the path String
+   */
+  public static String getPath() {
+    return PATH;
+  }
+
+
+  /**
+   * Performs a Notification deletion. If deletion cannot be accomplished an exception is thrown.
+   *
+   * @return true if deletion succeeds
+   *
+   * @throws AudioBoxException in case of 401, 402, 403, 404 or 422 response codes.
+   */
+  public boolean delete(Client client) throws AudioBoxException {
+    HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( Notification.getPath(), getId() ) );
+    // OK -> 204
+    // Not Found OR Cannot delete -> 404
+    return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
+  }
 }

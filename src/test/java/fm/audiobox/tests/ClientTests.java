@@ -67,8 +67,6 @@ public class ClientTests extends AudioBoxTests {
 
   /**
    * Test wrong authorization.
-   *
-   * @throws ConfigurationException the configuration exception
    */
   @Test(expected = AuthorizationException.class)
   public void testWrongAuthorization() throws IOException {
