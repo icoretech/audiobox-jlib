@@ -13,12 +13,40 @@
 package fm.audiobox.core.models;
 
 import com.google.api.client.util.Key;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
  * General preferences of the user, mostly used in the Cloud Web Player.
  */
 public class Preferences {
+
+  public static final String PATH = "/api/v1/preferences.json";
+
+  private Logger logger = LoggerFactory.getLogger( User.class );
+
+  /**
+   * Contains the color mapping: key is the name, value is the RGB value.
+   */
+  public static final Map<String, String> COLORS = new HashMap<>( 8 );
+
+
+  static {
+    COLORS.put( "techcrunch-green", "#3cc535" );
+    COLORS.put( "shadows-grey", "#36393D" );
+    COLORS.put( "flock-blue", "#4096EE" );
+    COLORS.put( "audiobox-fm-blue", "#6DA5CB" );
+    COLORS.put( "flickr-pink", "#FF0084" );
+    COLORS.put( "last-fm-crimson", "#D01F3C" );
+    COLORS.put( "mozilla-red", "#FF1A00" );
+    COLORS.put( "rss-orange", "#FF7400" );
+  }
+
 
   @Key
   private String color;
@@ -54,10 +82,20 @@ public class Preferences {
   /**
    * Gets the color chosen by the user.
    *
-   * @return the color name (no rgba neither hex code)
+   * @return the color name (no RGB neither hex code)
    */
   public String getColor() {
     return color;
+  }
+
+
+  /**
+   * Gets the RGB value of the color chosen by the user.
+   *
+   * @return the RGB color value
+   */
+  public String getColorValue() {
+    return COLORS.get( getColor() );
   }
 
 
@@ -149,4 +187,110 @@ public class Preferences {
   public boolean areTooltipsHidden() {
     return hide_tooltips;
   }
+
+
+  /**
+   * Sets color (must be one of the {@link fm.audiobox.core.models.Preferences#COLORS} keys).
+   *
+   * @param colorName the color name to set
+   *
+   * @throws IllegalArgumentException the illegal argument exception
+   */
+  public void setColor(String colorName) throws IllegalArgumentException {
+    if ( !COLORS.containsKey( colorName ) ) {
+      throw new IllegalArgumentException( "Color must be one of " + StringUtils.join( COLORS.keySet(), ", " ) );
+    }
+    this.color = colorName;
+  }
+
+
+  /**
+   * Enable or disable repeat feature on CWP.
+   *
+   * @param repeat true to enable false to disable
+   */
+  public void setRepeat(boolean repeat) {
+    this.repeat = repeat;
+  }
+
+
+  /**
+   * Enable or disable shuffle feature on CWP.
+   *
+   * @param shuffle true to enable false to disable
+   */
+  public void setShuffle(boolean shuffle) {
+    this.shuffle = shuffle;
+  }
+
+
+  /**
+   * Enable or disable autoplay feature on CWP.
+   *
+   * @param autoplay true to enable false to disable
+   */
+  public void setAutoplay(boolean autoplay) {
+    this.autoplay = autoplay;
+  }
+
+
+  /**
+   * Enable or disable prebuffer feature on CWP.
+   *
+   * @param prebuffer true to enable false to disable
+   */
+  public void setPrebuffer(boolean prebuffer) {
+    this.prebuffer = prebuffer;
+  }
+
+
+  /**
+   * Enable or disable CWP experimental apple losseless support.
+   *
+   * @param js_demuxer true to enable false to disable
+   */
+  public void setJsDemuxer(boolean js_demuxer) {
+    this.js_demuxer = js_demuxer;
+  }
+
+
+  /**
+   * Sets top bar bg.
+   *
+   * @param top_bar_bg the top _ bar _ bg
+   */
+  public void setTopBarBg(String top_bar_bg) {
+    this.top_bar_bg = top_bar_bg;
+  }
+
+
+  /**
+   * Sets CWP volume level.
+   *
+   * @param volume_level a range from 0 (mute) to 100 (max) in form of a String
+   */
+  public void setVolumeLevel(String volume_level) {
+    this.volume_level = volume_level;
+  }
+
+
+  /**
+   * Sets accept emails.
+   *
+   * @param accept_emails true to accept email false otherwise
+   */
+  public void setAcceptEmails(boolean accept_emails) {
+    this.accept_emails = accept_emails;
+  }
+
+
+  /**
+   * Sets CWP hide tooltips preference.
+   *
+   * @param hide_tooltips true to show tooltips false to hide
+   */
+  public void setHideTooltips(boolean hide_tooltips) {
+    this.hide_tooltips = hide_tooltips;
+  }
+
 }

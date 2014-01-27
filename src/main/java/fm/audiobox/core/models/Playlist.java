@@ -171,9 +171,9 @@ public class Playlist {
    *
    * @return a new instance of the saved Playlist if success or null if any error occurs
    *
-   * @throws AudioBoxException if the oauth token has been invalidated or is expired or a validation error occurs.
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public Playlist create(Client client) throws AudioBoxException {
+  public Playlist create(Client client) throws IOException {
     validate(false);
     try {
       HttpResponse rsp = client.doPOST( Playlists.getPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
@@ -207,9 +207,9 @@ public class Playlist {
    *
    * @return the playlist
    *
-   * @throws AudioBoxException the audio box exception
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public Playlist update(Client client) throws AudioBoxException {
+  public Playlist update(Client client) throws IOException {
     validate(true);
     HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
     if ( rsp.isSuccessStatusCode() ) {
@@ -234,7 +234,7 @@ public class Playlist {
    *
    * @throws AudioBoxException in case of 401, 402, 403, 404 or 422 response codes.
    */
-  public boolean delete(Client client) throws AudioBoxException {
+  public boolean delete(Client client) throws IOException {
     ensurePlaylistForRequest();
     HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
     // OK -> 204
@@ -257,7 +257,7 @@ public class Playlist {
    *
    * @throws SyncException if any problem occurs.
    */
-  public boolean sync(Client client) throws SyncException {
+  public boolean sync(Client client) throws IOException {
     ensurePlaylistForRequest();
     if ( !this.isSyncable() ) // Well...
       throw new SyncException( HttpStatus.SC_UNPROCESSABLE_ENTITY );

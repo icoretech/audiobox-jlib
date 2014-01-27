@@ -17,6 +17,7 @@ import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
+import fm.audiobox.core.auth.Credential;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
@@ -83,7 +84,8 @@ import java.util.List;
  * <li>DELETE /api/v1/notifications/:id.json</li>
  * </ul>
  * <p/>
- * Created by keytwo on 17/01/14.
+ * TODO: review exceptions javadoc: for each method explain the IO exception given.
+ * TODO: better credential specifications.
  */
 public class Client {
 
@@ -105,6 +107,7 @@ public class Client {
    *
    * @param conf the conf
    *
+   * @throws ConfigurationException the configuration exception
    * @throws ConfigurationException the configuration exception
    */
   public Client(Configuration conf) throws ConfigurationException, IOException {
@@ -149,7 +152,7 @@ public class Client {
 
       TokenResponse response = ptr.execute();
 
-      StoredCredential sc = new StoredCredential( createCredentialWithRefreshToken( response ) );
+      StoredCredential sc = new StoredCredential( ( com.google.api.client.auth.oauth2.Credential ) createCredentialWithRefreshToken( response ) );
       try {
         userDb.set( ACCOUNT_TOKENS, sc );
         logger.info( "Saved credentials: " + sc.toString() );
@@ -171,6 +174,8 @@ public class Client {
    * Returns information about the currently logged in user.
    *
    * @return the user
+   *
+   * @throws AudioBoxException the audio box exception
    */
   public User getUser() throws AudioBoxException {
     try {
@@ -191,6 +196,8 @@ public class Client {
    * Gets user's playlists.
    *
    * @return the playlists
+   *
+   * @throws AudioBoxException the audio box exception
    */
   public List<Playlist> getPlaylists() throws AudioBoxException {
     try {
@@ -215,6 +222,8 @@ public class Client {
    * @param token the token of the playlist to get.
    *
    * @return the playlist
+   *
+   * @throws AudioBoxException the audio box exception
    */
   public Playlist getPlaylist(String token) throws AudioBoxException {
     try {
@@ -236,6 +245,8 @@ public class Client {
    * Gets user's notifications.
    *
    * @return the notifications
+   *
+   * @throws AudioBoxException the audio box exception
    */
   public Notifications getNotifications() throws AudioBoxException {
     try {
@@ -262,7 +273,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doGET(String path) throws AudioBoxException {
+  public HttpResponse doGET(String path) throws IOException {
     return doGET( path, null );
   }
 
@@ -277,7 +288,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doGET(String path, JsonObjectParser parser) throws AudioBoxException {
+  public HttpResponse doGET(String path, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.GET, path, null, parser );
   }
 
@@ -292,7 +303,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doPUT(String path, HttpContent data) throws AudioBoxException {
+  public HttpResponse doPUT(String path, HttpContent data) throws IOException {
     return doPUT( path, data, null );
   }
 
@@ -308,7 +319,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws AudioBoxException {
+  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.PUT, path, data, parser );
   }
 
@@ -322,7 +333,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doDELETE(String path) throws AudioBoxException {
+  public HttpResponse doDELETE(String path) throws IOException {
     return doDELETE( path, null );
   }
 
@@ -337,7 +348,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doDELETE(String path, JsonObjectParser parser) throws AudioBoxException {
+  public HttpResponse doDELETE(String path, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.DELETE, path, null, parser );
   }
 
@@ -352,7 +363,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doPOST(String path, HttpContent data) throws AudioBoxException {
+  public HttpResponse doPOST(String path, HttpContent data) throws IOException {
     return doPOST( path, data, null );
   }
 
@@ -368,7 +379,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws AudioBoxException {
+  public HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.POST, path, data, parser );
   }
 
@@ -390,7 +401,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws AudioBoxException {
+  private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
     try {
       HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
       validateResponse( response );
@@ -404,8 +415,8 @@ public class Client {
 
     } catch ( IOException e ) {
       logger.error( "Unable to perform " + method + " due to IO Exception: " + e.getMessage() );
+      throw e;
     }
-    return null;
   }
 
 
@@ -421,7 +432,7 @@ public class Client {
 
       @Override
       public void initialize(HttpRequest request) throws IOException {
-        Credential c = createCredentialWithRefreshToken();
+        HttpRequestInitializer c = createCredentialWithRefreshToken();
         c.initialize( request );
         request.setParser( parser == null ? jsonObjectParser : parser );
         request.setThrowExceptionOnExecuteError( false );
@@ -451,7 +462,7 @@ public class Client {
    *
    * @return the credential
    */
-  private Credential createCredentialWithRefreshToken() {
+  private HttpRequestInitializer createCredentialWithRefreshToken() {
     return createCredentialWithRefreshToken( getStoredCredential() );
   }
 
@@ -463,7 +474,7 @@ public class Client {
    *
    * @return the credential
    */
-  private Credential createCredentialWithRefreshToken(TokenResponse tokenResponse) {
+  private HttpRequestInitializer createCredentialWithRefreshToken(TokenResponse tokenResponse) {
     return buildNotSignedCredential().setFromTokenResponse( tokenResponse );
   }
 
@@ -475,7 +486,7 @@ public class Client {
    *
    * @return the credential
    */
-  private Credential createCredentialWithRefreshToken(StoredCredential storedCredential) {
+  private HttpRequestInitializer createCredentialWithRefreshToken(StoredCredential storedCredential) {
     return buildNotSignedCredential()
         .setAccessToken( storedCredential.getAccessToken() )
         .setExpiresInSeconds( storedCredential.getExpirationTimeMilliseconds() )

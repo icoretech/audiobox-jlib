@@ -92,7 +92,7 @@ public class NotificationsTest extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test( expected = ResourceNotFoundException.class )
-  public void testInvalidNotificationDeletion() throws AudioBoxException {
+  public void testInvalidNotificationDeletion() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
     Notification n = new Notification();
     n.delete( c );
@@ -105,7 +105,7 @@ public class NotificationsTest extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testValidNotificationDeletion() throws AudioBoxException {
+  public void testValidNotificationDeletion() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getNotificationsHttpTransport() );
     Notifications ns = c.getNotifications();
     Notification n = ns.getNotifications().get( 0 );

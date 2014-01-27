@@ -12,7 +12,14 @@
 
 package fm.audiobox.core.models;
 
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
+import fm.audiobox.core.Client;
+import fm.audiobox.core.exceptions.AudioBoxException;
+import fm.audiobox.core.utils.HttpStatus;
+
+import java.io.IOException;
 
 /**
  * A User can interact with his own files in different ways, depending on the remote storage in play.
@@ -356,6 +363,21 @@ public class User {
    */
   public Preferences getPreferences() {
     return preferences;
+  }
+
+
+  /**
+   * Saves user preferences
+   *
+   * @param client the client
+   *
+   * @return true if operation succeed throws an exception if something goes wrong
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   */
+  public boolean savePreferences(Client client) throws IOException {
+    HttpResponse rsp = client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), new UserWrapper(this)) );
+    return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
   }
 
 }

@@ -14,7 +14,7 @@ package fm.audiobox.core.models;
 import com.google.api.client.util.Key;
 
 /**
- * This class is used as simple {@link sun.nio.fs.UnixUserPrincipals.User} wrapper
+ * This class is used as simple {@link User} wrapper
  * for those JSON parser that do not support root elements.
  */
 public class UserWrapper {
@@ -23,6 +23,23 @@ public class UserWrapper {
 
   @Key
   private User user;
+
+
+  /**
+   * Instantiates a new User wrapper.
+   */
+  @SuppressWarnings( "unused" )
+  public UserWrapper() { }
+
+
+  /**
+   * Instantiates a new User wrapper.
+   *
+   * @param user the user to wrap
+   */
+  public UserWrapper(User user) {
+    this.user = user;
+  }
 
 
   /**

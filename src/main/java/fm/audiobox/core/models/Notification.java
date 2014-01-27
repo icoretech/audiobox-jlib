@@ -18,6 +18,8 @@ import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 
+import java.io.IOException;
+
 /**
  * Notifications are system messages that the AudioBox will send the user, for example when a Cloud Drive needs
  * to be re-authenticated or if some operation fails.
@@ -98,7 +100,7 @@ public class Notification {
    *
    * @throws AudioBoxException in case of 401, 402, 403, 404 or 422 response codes.
    */
-  public boolean delete(Client client) throws AudioBoxException {
+  public boolean delete(Client client) throws IOException {
     HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( Notification.getPath(), getId() ) );
     // OK -> 204
     // Not Found OR Cannot delete -> 404

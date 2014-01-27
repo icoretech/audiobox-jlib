@@ -86,7 +86,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test(expected = ResourceNotFoundException.class)
-  public void testResourceNotFoundIsThrownIfPlaylistIfTokenIsInvalid() throws AudioBoxException {
+  public void testResourceNotFoundIsThrownIfPlaylistIfTokenIsInvalid() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "asd" ) );
     c.getPlaylist( "asd" );
   }
@@ -98,7 +98,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testPlaylistShouldNotBeNullIfTokenIsValid() throws AudioBoxException {
+  public void testPlaylistShouldNotBeNullIfTokenIsValid() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
     List<Playlist> list = c.getPlaylists();
     Playlist p1 = list.get( 0 );
@@ -116,7 +116,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AuthorizationException the authorization exception
    */
   @Test(expected = IllegalStateException.class)
-  public void testBrandNewPlaylistDeletionShouldRiseError() throws AudioBoxException {
+  public void testBrandNewPlaylistDeletionShouldRiseError() throws IOException {
     Playlist p = new Playlist( "Hello" );
     p.delete( c );
   }
@@ -128,7 +128,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test(expected = IllegalStateException.class)
-  public void testPlaylistCreationWithEmptyNameShouldRiseError() throws AudioBoxException {
+  public void testPlaylistCreationWithEmptyNameShouldRiseError() throws IOException {
     Playlist p = new Playlist( "" );
     p.create( c );
   }
@@ -140,7 +140,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test(expected = ValidationException.class)
-  public void testPlaylistCreationWithSameNameAsAnotherShouldResultInValidationError() throws AudioBoxException {
+  public void testPlaylistCreationWithSameNameAsAnotherShouldResultInValidationError() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
     Playlist p = new Playlist( "Dropbox" );
     p.create( c );
@@ -153,7 +153,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test(expected = IllegalStateException.class)
-  public void testNewPlaylistModificationShouldResultInIllegalStateException() throws AudioBoxException {
+  public void testNewPlaylistModificationShouldResultInIllegalStateException() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
     Playlist p = new Playlist( "Invalid" );
     p.update( c );
@@ -166,7 +166,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test(expected = IllegalStateException.class)
-  public void testNewPlaylistSyncShouldRiseIllegalStateException() throws AudioBoxException {
+  public void testNewPlaylistSyncShouldRiseIllegalStateException() throws IOException {
     Playlist p = new Playlist( "Invalid" );
     p.sync( c );
   }
@@ -182,7 +182,7 @@ public class PlaylistsTests extends AudioBoxTests {
     try {
       Playlist p2 = p.create( c );
       assertNotNull( p2 );
-    } catch ( AudioBoxException e ) {
+    } catch ( IOException e ) {
       fail( e.getMessage() );
     }
   }
@@ -200,7 +200,7 @@ public class PlaylistsTests extends AudioBoxTests {
 
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistDeletion204() );
       assertTrue( "Playlist should be deleted", p.delete( c ) );
-    } catch ( AudioBoxException e ) {
+    } catch ( IOException e ) {
       fail( e.getMessage() );
     }
   }
@@ -212,7 +212,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testLocalPlaylistSync() throws AudioBoxException {
+  public void testLocalPlaylistSync() throws IOException {
     try {
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_local" ) );
       Playlist local = c.getPlaylist( "000_local" );
@@ -231,7 +231,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testCloudPlaylistSync() throws AudioBoxException {
+  public void testCloudPlaylistSync() throws IOException {
     try {
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_cloud" ) );
       Playlist cloud = c.getPlaylist( "000_cloud" );
@@ -250,7 +250,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testUnsyncablePlaylistsSync() throws AudioBoxException {
+  public void testUnsyncablePlaylistsSync() throws IOException {
     try {
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_smart" ) );
       Playlist smart = c.getPlaylist( "000_smart" );
@@ -289,7 +289,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testDropboxPlaylistSync() throws AudioBoxException {
+  public void testDropboxPlaylistSync() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
     Playlist dropbox = c.getPlaylist( "000_dropbox" );
     try {
@@ -307,7 +307,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testSkydrivePlaylistSync() throws AudioBoxException {
+  public void testSkydrivePlaylistSync() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_skydrive" ) );
     Playlist skydrive = c.getPlaylist( "000_skydrive" );
     try {
@@ -324,7 +324,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testBoxPlaylistSync() throws AudioBoxException {
+  public void testBoxPlaylistSync() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_box" ) );
     Playlist box = c.getPlaylist( "000_box" );
     try {
@@ -341,7 +341,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testGdrivePlaylistSync() throws AudioBoxException {
+  public void testGdrivePlaylistSync() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_gdrive" ) );
     Playlist gdrive = c.getPlaylist( "000_gdrive" );
     try {
@@ -358,7 +358,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testYoutubePlaylistSync() throws AudioBoxException {
+  public void testYoutubePlaylistSync() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_youtube" ) );
     Playlist youtube = c.getPlaylist( "000_youtube" );
     try {
@@ -375,7 +375,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testSoundcloudPlaylistSync() throws AudioBoxException {
+  public void testSoundcloudPlaylistSync() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_soundcloud" ) );
     Playlist soundcloud = c.getPlaylist( "000_soundcloud" );
     try {
@@ -393,7 +393,7 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testUbuntuPlaylistSync() throws AudioBoxException {
+  public void testUbuntuPlaylistSync() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_ubuntu" ) );
     Playlist ubuntu = c.getPlaylist( "000_ubuntu" );
     try {

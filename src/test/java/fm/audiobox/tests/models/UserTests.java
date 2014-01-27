@@ -13,6 +13,7 @@
 package fm.audiobox.tests.models;
 
 
+import com.google.api.client.http.apache.ApacheHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
@@ -26,6 +27,7 @@ import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
@@ -52,7 +54,7 @@ public class UserTests extends AudioBoxTests {
       final File httpCacheDir = CACHE_DIR;
       HttpResponseCache.install( httpCacheDir, httpCacheSize );
 
-      Configuration config = new Configuration( Configuration.Env.staging );
+      Configuration config = new Configuration( Configuration.Env.development );
       config.setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) );
 
       config.setApiKey( fixtures.getString( "authentication.client_id" ) );
@@ -70,6 +72,9 @@ public class UserTests extends AudioBoxTests {
 
   /**
    * Test all user keys are well parsed.
+   *
+   * @throws AudioBoxException the audio box exception
+   * @throws ParseException    the parse exception
    */
   @Test
   public void testAllUserKeysAreWellParsed() throws AudioBoxException, ParseException {
@@ -175,5 +180,22 @@ public class UserTests extends AudioBoxTests {
     assertEquals( "50", prefs.getVolumeLevel() );
     assertTrue( prefs.doesAcceptsEmails() );
     assertFalse( prefs.areTooltipsHidden() );
+  }
+
+
+  /**
+   * Test user update.
+   *
+   * @throws AudioBoxException the audio box exception
+   */
+  @Test
+  @Ignore
+  public void testUserUpdate() throws IOException {
+    // c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    User u = c.getUser();
+    assertNotNull( u );
+    assertNotNull( u.getPreferences() );
+    u.getPreferences().setVolumeLevel( "54" );
+    assertNotNull( u.savePreferences( c ) );
   }
 }
