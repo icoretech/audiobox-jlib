@@ -189,13 +189,13 @@ public class UserTests extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  @Ignore
   public void testUserUpdate() throws IOException {
-    // c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getRightUserHttpTransport() );
     User u = c.getUser();
     assertNotNull( u );
     assertNotNull( u.getPreferences() );
-    u.getPreferences().setVolumeLevel( "54" );
+    u.getPreferences().setVolumeLevel( "100" );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getTwoOFourHttpTransport() );
     assertNotNull( u.savePreferences( c ) );
   }
 }
