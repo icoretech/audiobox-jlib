@@ -1,5 +1,15 @@
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'git-dependencies'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.batcha.gradle.plugins:git-dependencies:0.1'
+    }
+}
 
 compileJava {
     sourceCompatibility = 1.7
@@ -43,7 +53,8 @@ dependencies {
 
     // Http
     compile     'com.google.http-client:google-http-client:1.17.0-rc'
-    compile     'com.google.oauth-client:google-oauth-client:1.17.0-rc'
+    //compile     'com.google.oauth-client:google-oauth-client:1.17.0-rc'
+    compile('com.google.oauth-client:google-oauth-client:1.18.0-rc-SNAPSHOT').ext.git = 'git@github.com:Keytwo/google-oauth-java-client.git'
 
     // Common utils
     compile     'commons-validator:commons-validator:+'
