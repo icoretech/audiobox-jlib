@@ -16,6 +16,7 @@ package fm.audiobox.core;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.util.IOUtils;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.auth.Credential;
 import fm.audiobox.core.config.Configuration;
@@ -27,7 +28,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLConnection;
+import java.nio.file.Files;
 import java.util.List;
 
 
@@ -96,6 +102,8 @@ public class Client {
   private DataStore<StoredCredential> userDb;
 
   private static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
+
+  private static final String UPLOAD_PATH = "/api/v1/upload";
 
   private DataStoreCredentialRefreshListener refreshListener;
 
@@ -261,6 +269,35 @@ public class Client {
     }
 
     return null;
+  }
+
+
+  /**
+   * Upload media files in AudioBox Cloud.
+   * <p>
+   * If the subscription is not valid the upload server will refuse the uploads with a 402 HTTP status (payment required).
+   * If a media file already exists on AudioBox Cloud the upload server will return a 409 HTTP status (conflict).
+   * The application should ensure to accept those errors and retry accordingly after few minutes.
+   * On successful upload the server returns a 202 with additional information in the response's body,
+   * including the token assigned to a single media file.
+   * If you are uploading multiple media files in a single pass this endpoint will return a JSON array in the response's body.
+   * Files uploaded through this endpoint will go directly into the CloudPlaylist.
+   * </p>
+   *
+   * @param file the file to upload on AudioBox
+   *
+   * @return true if upload succeed, false or throws exception on any other case.
+   *
+   * @throws IOException if 422, 503 or 500 errors occurs (additional information in the exception body).
+   */
+  public boolean upload(final File file) throws IOException {
+
+    FileContent fileContent = new FileContent( URLConnection.guessContentTypeFromName( file.getAbsolutePath() ), file );
+    MultipartFormDataContent multipart = new MultipartFormDataContent();
+    multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
+    HttpResponse rsp = doPOST( UPLOAD_PATH, multipart );
+
+    return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
   }
 
 
