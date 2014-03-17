@@ -217,16 +217,6 @@ public class MediaFile {
   private String audio_sample_rate;
 
 
-  public static Set<String> getAllAvailableFields() {
-    Set<String> fields = new HashSet<>();
-    for( Field f : MediaFile.class.getDeclaredFields()) {
-      if (f.isAnnotationPresent( Key.class )) {
-        fields.add( f.getName() );
-      }
-    }
-    return fields;
-  }
-
   /**
    * Gets type.
    *

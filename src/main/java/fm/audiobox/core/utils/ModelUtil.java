@@ -11,11 +11,16 @@
 
 package fm.audiobox.core.utils;
 
+import com.google.api.client.util.Preconditions;
+import fm.audiobox.core.Client;
+import fm.audiobox.core.exceptions.AudioBoxException;
+import fm.audiobox.core.models.Playlist;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -73,6 +78,29 @@ public class ModelUtil {
     simpleDateFormat.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
     Date date = simpleDateFormat.parse( audioboxDate );
     return date.getTime();
+  }
+
+
+  /**
+   * Given the user's playlists and the desired type this method will return the right playlist.
+   * <br/>
+   * If the playlist is not found null is returned.
+   *
+   * @param playlists the user's playlists
+   * @param type      the Playlists#PLAYLIST_* type to find
+   */
+  public static Playlist findPlaylistByType(List<Playlist> playlists, String type) {
+
+    Preconditions.checkNotNull( playlists );
+    Preconditions.checkNotNull( type );
+
+    for ( Playlist p : playlists ) {
+      if ( type.equals( p.getSystemName() ) ) {
+        return p;
+      }
+    }
+
+    return null;
   }
 
 

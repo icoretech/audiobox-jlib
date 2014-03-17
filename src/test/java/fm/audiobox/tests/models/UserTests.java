@@ -13,7 +13,6 @@
 package fm.audiobox.tests.models;
 
 
-import com.google.api.client.http.apache.ApacheHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
@@ -27,7 +26,6 @@ import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;

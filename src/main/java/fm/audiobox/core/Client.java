@@ -16,7 +16,6 @@ package fm.audiobox.core;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
-import com.google.api.client.util.IOUtils;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.auth.Credential;
 import fm.audiobox.core.config.Configuration;
@@ -29,11 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URLConnection;
-import java.nio.file.Files;
 import java.util.List;
 
 

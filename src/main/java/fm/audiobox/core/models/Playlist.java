@@ -13,9 +13,9 @@
 package fm.audiobox.core.models;
 
 
-import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
+import com.google.api.client.util.GenericData;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.exceptions.AudioBoxException;
@@ -106,7 +106,7 @@ public class Playlist {
 
   private static final String SYNC_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/sync.json";
 
-  private static final String MEDIA_FILES_PATH = "/api/vi/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files.json";
+  private static final String MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files.json";
 
   @Key
   private String token;
@@ -150,7 +150,7 @@ public class Playlist {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings("unused")
+  @SuppressWarnings( "unused" )
   public Playlist() {
   }
 
@@ -176,7 +176,9 @@ public class Playlist {
    * restricted to the Cloud Web Player, we'll open up the possibility for developers to create them as well.
    *
    * @param client the client
+   *
    * @return a new instance of the saved Playlist if success or null if any error occurs
+   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public Playlist create(Client client) throws IOException {
@@ -210,7 +212,9 @@ public class Playlist {
    * Since SmartPlaylist are compiled on demand, just destroy the old and create a new one.
    *
    * @param client the client
+   *
    * @return the playlist
+   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public Playlist update(Client client) throws IOException {
@@ -233,7 +237,9 @@ public class Playlist {
    * Only Custom and Smart playlists can be destroyed.
    *
    * @param client the client to use for the request
+   *
    * @return true if operation succeeds
+   *
    * @throws AudioBoxException in case of 401, 402, 403, 404 or 422 response codes.
    */
   public boolean delete(Client client) throws IOException {
@@ -254,7 +260,9 @@ public class Playlist {
    * Playlists supporting official storage such as AudioBox Cloud or AudioBox Desktop does not require syncing.
    *
    * @param client the client to use for the request
+   *
    * @return the boolean
+   *
    * @throws SyncException if any problem occurs.
    */
   public boolean sync(Client client) throws IOException {
@@ -268,6 +276,39 @@ public class Playlist {
     }
 
     return true;
+  }
+
+
+  /**
+   * Same as {@link fm.audiobox.core.models.Playlist#getMediaFiles(fm.audiobox.core.Client, long, String)} but
+   * all media file fields are returned and *no* time filter is applied.
+   *
+   * @param client the client to use for the request
+   *
+   * @return A list of {@link MediaFile} elements
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   */
+  public List<MediaFile> getMediaFiles(Client client) throws AudioBoxException {
+    return getMediaFiles( client, 0 );
+  }
+
+
+  /**
+   * Same as {@link fm.audiobox.core.models.Playlist#getMediaFiles(fm.audiobox.core.Client, long, String)} but
+   * all media file fields are returned.
+   * <br/>
+   * Time filter is applied.
+   *
+   * @param client the client to use for the request
+   * @param since  unix timestamp that filters the collection and returns records modified since the specified date.
+   *
+   * @return A list of {@link MediaFile} elements
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   */
+  public List<MediaFile> getMediaFiles(Client client, long since) throws AudioBoxException {
+    return getMediaFiles( client, since, null );
   }
 
 
@@ -294,12 +335,33 @@ public class Playlist {
    * </p>
    *
    * @param client the client to use for the request
-   * @param data the HttpContent to send as query string (see {@link fm.audiobox.core.models.MediaFiles#PARAM_SET} and {@link fm.audiobox.core.models.MediaFiles#PARAM_SINCE}
+   * @param since  unix timestamp that filters the collection and returns records modified since the specified date.
+   * @param set    comma separated 'set' parameter which indicates which attributes to render, like 'type,token', null will return all available fields.
+   *
    * @return A list of {@link MediaFile} elements
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public List<MediaFile> getMediaFiles(Client client, HttpContent data) throws AudioBoxException {
+  public List<MediaFile> getMediaFiles(Client client, long since, String set) throws AudioBoxException {
     ensurePlaylistForRequest();
+
+    JsonHttpContent data = null;
+    GenericData d = null;
+
+    if ( since != 0 ) {
+      d = new GenericData();
+      d.put( MediaFiles.PARAM_SINCE, since );
+    }
+
+    if ( set != null ) {
+      d = d == null ? new GenericData() : d;
+      d.put( MediaFiles.PARAM_SET, set );
+    }
+
+    if ( d != null ) {
+      data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
+    }
+
     try {
       HttpResponse rsp = client.doGET( getMediaFilesPath(), data );
       if ( rsp.isSuccessStatusCode() ) {
@@ -489,7 +551,7 @@ public class Playlist {
 
   @Override
   public boolean equals(Object other) {
-    if ( other == null || !(other instanceof Playlist) ) {
+    if ( other == null || !( other instanceof Playlist ) ) {
       return false;
     }
 
