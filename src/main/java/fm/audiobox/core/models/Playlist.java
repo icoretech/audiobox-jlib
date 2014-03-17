@@ -13,6 +13,7 @@
 package fm.audiobox.core.models;
 
 
+import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
@@ -280,6 +281,12 @@ public class Playlist {
    * show endpoint.
    * </p>
    * <p>
+   * Supports a comma separated 'set' parameter which indicates which attributes to render, like 'type,token' so a developer can just ask the needed attributes.
+   * </p>
+   * <p>
+   * Supports a datetime 'since' parameter that filters the collection and returns records modified since the specified date.
+   * </p>
+   * <p>
    * Remote and third party Cloud Storage services' content can be accessed through this endpoint, however an error will
    * be returned if the user has no valid authentication information stored towards the service in question or has an
    * invalid subscription. For example if the user tries to access the Dropbox playlist but he has not the related account
@@ -287,13 +294,14 @@ public class Playlist {
    * </p>
    *
    * @param client the client to use for the request
+   * @param data the HttpContent to send as query string (see {@link fm.audiobox.core.models.MediaFiles#PARAM_SET} and {@link fm.audiobox.core.models.MediaFiles#PARAM_SINCE}
    * @return A list of {@link MediaFile} elements
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public List<MediaFile> getMediaFiles(Client client) throws AudioBoxException {
+  public List<MediaFile> getMediaFiles(Client client, HttpContent data) throws AudioBoxException {
     ensurePlaylistForRequest();
     try {
-      HttpResponse rsp = client.doGET( getMediaFilesPath() );
+      HttpResponse rsp = client.doGET( getMediaFilesPath(), data );
       if ( rsp.isSuccessStatusCode() ) {
         return rsp.parseAs( MediaFiles.class ).getMediaFiles();
       }

@@ -114,7 +114,6 @@ public class Client {
    * Instantiates a new Client.
    *
    * @param conf the conf
-   *
    * @throws ConfigurationException the configuration exception
    * @throws ConfigurationException the configuration exception
    */
@@ -142,9 +141,7 @@ public class Client {
    *
    * @param username the username
    * @param password the password
-   *
    * @return the token response, may be null in case of any IOExceptions
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public TokenResponse authorize(String username, String password) throws AudioBoxException {
@@ -182,7 +179,6 @@ public class Client {
    * Returns information about the currently logged in user.
    *
    * @return the user
-   *
    * @throws AudioBoxException the audio box exception
    */
   public User getUser() throws AudioBoxException {
@@ -204,7 +200,6 @@ public class Client {
    * Gets user's playlists.
    *
    * @return the playlists
-   *
    * @throws AudioBoxException the audio box exception
    */
   public List<Playlist> getPlaylists() throws AudioBoxException {
@@ -228,9 +223,7 @@ public class Client {
    * Triggers Smart Playlist compilation if the requested playlist is a SmartPlaylist.
    *
    * @param token the token of the playlist to get.
-   *
    * @return the playlist
-   *
    * @throws AudioBoxException the audio box exception
    */
   public Playlist getPlaylist(String token) throws AudioBoxException {
@@ -253,7 +246,6 @@ public class Client {
    * Gets user's notifications.
    *
    * @return the notifications
-   *
    * @throws AudioBoxException the audio box exception
    */
   public Notifications getNotifications() throws AudioBoxException {
@@ -285,9 +277,7 @@ public class Client {
    * </p>
    *
    * @param file the file to upload on AudioBox
-   *
    * @return true if upload succeed, false or throws exception on any other case.
-   *
    * @throws IOException if 422, 503 or 500 errors occurs (additional information in the exception body).
    */
   public boolean upload(final File file) throws IOException {
@@ -305,9 +295,7 @@ public class Client {
    * Perform signed GET requests and returns the response.
    *
    * @param path the url to make the request against
-   *
    * @return the http response, may be null if any error occurs during the request.
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public HttpResponse doGET(String path) throws IOException {
@@ -318,15 +306,26 @@ public class Client {
   /**
    * Perform signed GET requests and returns the response.
    *
-   * @param path   the path
-   * @param parser the parser
-   *
+   * @param path the path
+   * @param data the data to send as query parameter
    * @return the http response
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doGET(String path, JsonObjectParser parser) throws IOException {
-    return doRequest( HttpMethods.GET, path, null, parser );
+  public HttpResponse doGET(String path, HttpContent data) throws IOException {
+    return doGET( path, null, data );
+  }
+
+
+  /**
+   * Perform signed GET requests and returns the response.
+   *
+   * @param path   the path
+   * @param parser the parser
+   * @return the http response
+   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   */
+  public HttpResponse doGET(String path, JsonObjectParser parser, HttpContent data) throws IOException {
+    return doRequest( HttpMethods.GET, path, data, parser );
   }
 
 
@@ -335,9 +334,7 @@ public class Client {
    *
    * @param path the url to make the request against
    * @param data the data to send with the post request
-   *
    * @return the http response, may be null if any error occurs during the request.
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public HttpResponse doPUT(String path, HttpContent data) throws IOException {
@@ -351,9 +348,7 @@ public class Client {
    * @param path   the path
    * @param data   the data
    * @param parser the parser
-   *
    * @return the http response
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws IOException {
@@ -365,9 +360,7 @@ public class Client {
    * Performs a DELETE request to the given path.
    *
    * @param path the url
-   *
    * @return the http response
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public HttpResponse doDELETE(String path) throws IOException {
@@ -380,9 +373,7 @@ public class Client {
    *
    * @param path   the path
    * @param parser the parser
-   *
    * @return the http response
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public HttpResponse doDELETE(String path, JsonObjectParser parser) throws IOException {
@@ -395,9 +386,7 @@ public class Client {
    *
    * @param path the url to make the request against
    * @param data the data to send with the post request
-   *
    * @return the http response, may be null if any error occurs during the request.
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public HttpResponse doPOST(String path, HttpContent data) throws IOException {
@@ -411,9 +400,7 @@ public class Client {
    * @param path   the path
    * @param data   the data
    * @param parser the parser
-   *
    * @return the http response
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws IOException {
@@ -433,9 +420,7 @@ public class Client {
    * @param path   the path to call
    * @param data   the data to send
    * @param parser the parser to use for the resulting object
-   *
    * @return the http response
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
@@ -461,7 +446,6 @@ public class Client {
    * Gets request factory.
    *
    * @param parser the parser
-   *
    * @return the request factory
    */
   private HttpRequestFactory getRequestFactory(final JsonObjectParser parser) {
@@ -508,7 +492,6 @@ public class Client {
    * Create credential starting from the token response with refresh token.
    *
    * @param tokenResponse the token response to use for Credential building
-   *
    * @return the credential
    */
   private HttpRequestInitializer createCredentialWithRefreshToken(TokenResponse tokenResponse) {
@@ -520,7 +503,6 @@ public class Client {
    * Create credential starting from the stored credential with refresh token.
    *
    * @param storedCredential the stored credential to use for Credential building
-   *
    * @return the credential
    */
   private HttpRequestInitializer createCredentialWithRefreshToken(StoredCredential storedCredential) {
@@ -551,7 +533,6 @@ public class Client {
    * Validates the given response and eventually throws the corresponding exception.
    *
    * @param response the response to validate
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   private void validateResponse(HttpResponse response) throws AudioBoxException {

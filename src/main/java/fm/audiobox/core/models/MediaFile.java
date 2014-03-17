@@ -18,6 +18,11 @@ import fm.audiobox.core.utils.ModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 /**
  * <p>
@@ -211,6 +216,16 @@ public class MediaFile {
   @Key
   private String audio_sample_rate;
 
+
+  public static Set<String> getAllAvailableFields() {
+    Set<String> fields = new HashSet<>();
+    for( Field f : MediaFile.class.getDeclaredFields()) {
+      if (f.isAnnotationPresent( Key.class )) {
+        fields.add( f.getName() );
+      }
+    }
+    return fields;
+  }
 
   /**
    * Gets type.

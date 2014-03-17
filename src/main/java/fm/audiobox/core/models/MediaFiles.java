@@ -24,6 +24,11 @@ import java.util.List;
 public class MediaFiles {
 
 
+  public static final String PARAM_SET = "set";
+
+  public static final String PARAM_SINCE = "since";
+
+
   @Key("media_files")
   private List<MediaFile> media_files;
 
