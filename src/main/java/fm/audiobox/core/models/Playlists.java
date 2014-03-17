@@ -12,9 +12,7 @@
 
 package fm.audiobox.core.models;
 
-import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
-import com.google.api.client.util.Preconditions;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.utils.ModelUtil;
@@ -30,52 +28,52 @@ public class Playlists {
 
 
   /**
-   * The constant PLAYLIST_LOCAL.
+   * The constant that identifies the "local" playlist.
    */
   public static final String PLAYLIST_LOCAL = "local";
 
   /**
-   * The constant PLAYLIST_CLOUD.
+   * The constant that identifies the "cloud" playlist.
    */
   public static final String PLAYLIST_CLOUD = "cloud";
 
   /**
-   * The constant PLAYLIST_DROPBOX.
+   * The constant that identifies the "dropbox" playlist.
    */
   public static final String PLAYLIST_DROPBOX = "dropbox";
 
   /**
-   * The constant PLAYLIST_ONERIVE.
+   * The constant that identifies the "onedrive" playlist.
    */
   public static final String PLAYLIST_ONERIVE = "skydrive";
 
   /**
-   * The constant PLAYLIST_BOX.
+   * The constant that identifies the "box" playlist.
    */
   public static final String PLAYLIST_BOX = "box";
 
   /**
-   * The constant PLAYLIST_GDRIVE.
+   * The constant that identifies the "gdrive" playlist.
    */
   public static final String PLAYLIST_GDRIVE = "gdrive";
 
   /**
-   * The constant PLAYLIST_YOUTUBE.
+   * The constant that identifies the "youtube" playlist.
    */
   public static final String PLAYLIST_YOUTUBE = "youtube";
 
   /**
-   * The constant PLAYLIST_SOUNDCLOUD.
+   * The constant that identifies the "soundcloud" playlist.
    */
   public static final String PLAYLIST_SOUNDCLOUD = "soundcloud";
 
   /**
-   * The constant PLAYLIST_UBUNTU.
+   * The constant that identifies the "ubuntu" playlist.
    */
   public static final String PLAYLIST_UBUNTU = "ubuntu";
 
   /**
-   * The constant PLAYLIST_OFFLINE.
+   * The constant that identifies the "offline" playlist.
    */
   public static final String PLAYLIST_OFFLINE = "offline";
 
@@ -110,8 +108,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -132,8 +130,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -154,8 +152,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -176,8 +174,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -198,8 +196,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -220,8 +218,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -242,8 +240,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -264,8 +262,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -286,8 +284,8 @@ public class Playlists {
    * <p>.
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
@@ -308,8 +306,8 @@ public class Playlists {
    * <p>
    * NOTE: this method will always make a request against AudioBox, use carefully.
    * If you want to avoid this behavior consider storing the playlist collection
-   * within your application and use {@link } in combination with the PLAYLIST_*
-   * to get the right playlist from the memory.
+   * within your application and use {@link fm.audiobox.core.utils.ModelUtil#findPlaylistByType(java.util.List, String)}
+   * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
    * @param client the {@link Client} to use to make the request
