@@ -16,7 +16,28 @@ import com.google.api.client.http.HttpResponse;
 import java.io.IOException;
 
 /**
+ * <p>
  * Generic AudioBox exceptions.
+ * </p>
+ * <p>
+ * This kind of exceptions are typically thrown when a problem with the remote service occurs.
+ * </p>
+ *
+ * Managed remote handled errors are:
+ * <dl>
+ * <dt>HTTP Status 402:</dt>
+ * <dd>Action requires a valid subscription ({@link ForbiddenException}).</dd>
+ * <dt>HTTP Status 403:</dt>
+ * <dd>Action requires a valid account link to the remote service ({@link ForbiddenException}).</dd>
+ * <dt>HTTP Status 404:</dt>
+ * <dd>Resource not found or immutable ({@link ResourceNotFoundException}).</dd>
+ * <dt>HTTP Status 409:</dt>
+ * <dd>Conflict occurred.</dd>
+ * <dt>HTTP Status 422:</dt>
+ * <dd>Validation errors ({@link ValidationException}).</dd>
+ * <dt>HTTP Status 503:</dt>
+ * <dd>Remote service unavailable (overload or system failure)</dd>
+ * </dl>
  */
 public class AudioBoxException extends IOException {
 

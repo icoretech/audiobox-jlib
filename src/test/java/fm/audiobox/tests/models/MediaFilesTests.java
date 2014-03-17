@@ -11,7 +11,6 @@
 
 package fm.audiobox.tests.models;
 
-import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
@@ -23,6 +22,7 @@ import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
 import fm.audiobox.tests.AudioBoxTests;
+import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +31,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 /**
  * Created by keytwo on 17/03/14.
@@ -65,8 +66,9 @@ public class MediaFilesTests extends AudioBoxTests {
 
   @Test
   public void testMediaFiles() throws AudioBoxException {
-    TokenResponse r = c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
-    Playlist p = Playlists.getBoxPlaylist(c);
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
+    Playlist p = Playlists.getDropboxPlaylist(c);
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport(p.getToken()) );
     List<MediaFile> m = p.getMediaFiles( c );
     assertNotNull(m);
   }
