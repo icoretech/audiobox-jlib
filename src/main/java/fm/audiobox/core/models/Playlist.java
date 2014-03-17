@@ -12,12 +12,15 @@
 
 package fm.audiobox.core.models;
 
+
 import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpStatusCodes;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
-import fm.audiobox.core.exceptions.*;
+import fm.audiobox.core.exceptions.AudioBoxException;
+import fm.audiobox.core.exceptions.ResourceNotFoundException;
+import fm.audiobox.core.exceptions.SyncException;
+import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
+
 
 /**
  * Playlists are the main containers for Media Files and are represented in the system by an unique token.
@@ -100,6 +105,8 @@ public class Playlist {
 
   private static final String SYNC_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/sync.json";
 
+  private static final String MEDIA_FILES_PATH = "/api/vi/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files.json";
+
   @Key
   private String token;
 
@@ -142,7 +149,7 @@ public class Playlist {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public Playlist() {
   }
 
@@ -168,13 +175,11 @@ public class Playlist {
    * restricted to the Cloud Web Player, we'll open up the possibility for developers to create them as well.
    *
    * @param client the client
-   *
    * @return a new instance of the saved Playlist if success or null if any error occurs
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public Playlist create(Client client) throws IOException {
-    validate(false);
+    validate( false );
     try {
       HttpResponse rsp = client.doPOST( Playlists.getPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
       if ( rsp.isSuccessStatusCode() ) {
@@ -204,13 +209,11 @@ public class Playlist {
    * Since SmartPlaylist are compiled on demand, just destroy the old and create a new one.
    *
    * @param client the client
-   *
    * @return the playlist
-   *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public Playlist update(Client client) throws IOException {
-    validate(true);
+    validate( true );
     HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
     if ( rsp.isSuccessStatusCode() ) {
       try {
@@ -229,9 +232,7 @@ public class Playlist {
    * Only Custom and Smart playlists can be destroyed.
    *
    * @param client the client to use for the request
-   *
    * @return true if operation succeeds
-   *
    * @throws AudioBoxException in case of 401, 402, 403, 404 or 422 response codes.
    */
   public boolean delete(Client client) throws IOException {
@@ -252,9 +253,7 @@ public class Playlist {
    * Playlists supporting official storage such as AudioBox Cloud or AudioBox Desktop does not require syncing.
    *
    * @param client the client to use for the request
-   *
    * @return the boolean
-   *
    * @throws SyncException if any problem occurs.
    */
   public boolean sync(Client client) throws IOException {
@@ -268,6 +267,43 @@ public class Playlist {
     }
 
     return true;
+  }
+
+
+  /**
+   * <p>
+   * Returns media files linked to the specified playlist token along with primary information.
+   * </p>
+   * <p>
+   * This does not return all the attributes for a MediaFile, instead it returns an optimized JSON for fast view-level
+   * rendering and parsing purposes. Full details about a particular MediaFile can be obtained by calling the dedicated
+   * show endpoint.
+   * </p>
+   * <p>
+   * Remote and third party Cloud Storage services' content can be accessed through this endpoint, however an error will
+   * be returned if the user has no valid authentication information stored towards the service in question or has an
+   * invalid subscription. For example if the user tries to access the Dropbox playlist but he has not the related account
+   * linked a ForbiddenException will be thrown, along with the subscription status. Valid subscription statuses are active and trialing.
+   * </p>
+   *
+   * @param client the client to use for the request
+   * @return A list of {@link MediaFile} elements
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   */
+  public List<MediaFile> getMediaFiles(Client client) throws AudioBoxException {
+    ensurePlaylistForRequest();
+    try {
+      HttpResponse rsp = client.doGET( getMediaFilesPath() );
+      if ( rsp.isSuccessStatusCode() ) {
+        return rsp.parseAs( MediaFiles.class ).getMediaFiles();
+      }
+    } catch ( AudioBoxException e ) {
+      throw e; // Relaunch exception
+    } catch ( IOException e ) {
+      logger.error( "Unable to parse playlists: " + e.getMessage() );
+    }
+
+    return null;
   }
 
 
@@ -445,7 +481,7 @@ public class Playlist {
 
   @Override
   public boolean equals(Object other) {
-    if ( other == null || !( other instanceof Playlist ) ) {
+    if ( other == null || !(other instanceof Playlist) ) {
       return false;
     }
 
@@ -495,6 +531,16 @@ public class Playlist {
 
 
   /**
+   * Gets media_files path.
+   *
+   * @return the sync path
+   */
+  private String getMediaFilesPath() {
+    return ModelUtil.interpolate( MEDIA_FILES_PATH, getToken() );
+  }
+
+
+  /**
    * Checks whether the playlist is ready for requesting remote server.
    * <p/>
    * If something is missing or not valid an IllegalStateException is thrown
@@ -503,7 +549,7 @@ public class Playlist {
     if ( StringUtils.isBlank( this.getToken() ) ) {
       throw new IllegalStateException( "Playlist is not ready for remote request: token not valid" );
     }
-    validate(true);
+    validate( true );
   }
 
 
@@ -514,7 +560,7 @@ public class Playlist {
    */
   private void validate(boolean newRecordNotAllowed) {
 
-    if (newRecordNotAllowed && isNewRecord()) {
+    if ( newRecordNotAllowed && isNewRecord() ) {
       throw new IllegalStateException( "Playlist must be remotely created first." );
     }
 
@@ -522,6 +568,7 @@ public class Playlist {
       throw new IllegalStateException( "Playlist is not ready for remote request: name not valid" );
     }
   }
+
 
   /**
    * Checks whether the playlist is a new record that still needs to be created remotely.
