@@ -124,5 +124,6 @@ task generateDoclava(type: Javadoc) {
         addStringOption("stubs", "${project.docsDir}/stubs")
         addStringOption("apixml", "${project.docsDir}/apidocs/api.xml")
         addStringOption("stubs", "${project.docsDir}/apidocs")
+        addStringOption("templatedir", "${rootDir}/src/javadoc")
     }
 }
