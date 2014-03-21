@@ -30,7 +30,7 @@ public class MediaFiles {
 
 
   @Key("media_files")
-  private List<MediaFile> media_files;
+  protected List<? extends MediaFile> media_files;
 
 
 
@@ -39,7 +39,7 @@ public class MediaFiles {
    *
    * @return the playlists collection.
    */
-  public List<MediaFile> getMediaFiles() {
+  public List<? extends MediaFile> getMediaFiles() {
     return media_files;
   }
 }

@@ -316,7 +316,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public List<MediaFile> getMediaFiles(Client client) throws AudioBoxException {
+  public List<? extends MediaFile> getMediaFiles(Client client) throws AudioBoxException {
     return getMediaFiles( client, 0 );
   }
 
@@ -334,7 +334,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public List<MediaFile> getMediaFiles(Client client, long since) throws AudioBoxException {
+  public List<? extends MediaFile> getMediaFiles(Client client, long since) throws AudioBoxException {
     return getMediaFiles( client, since, null );
   }
 
@@ -369,7 +369,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public List<MediaFile> getMediaFiles(Client client, long since, String set) throws AudioBoxException {
+  public List<? extends MediaFile> getMediaFiles(Client client, long since, String set) throws AudioBoxException {
     ensurePlaylistForRequest();
 
     JsonHttpContent data = null;
@@ -390,17 +390,74 @@ public class Playlist {
     }
 
     try {
+
       HttpResponse rsp = client.doGET( getMediaFilesPath(), data );
-      if ( rsp.isSuccessStatusCode() ) {
-        return rsp.parseAs( MediaFiles.class ).getMediaFiles();
-      }
+      return rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles();
+
     } catch ( AudioBoxException e ) {
       throw e; // Relaunch exception
     } catch ( IOException e ) {
-      logger.error( "Unable to parse playlists: " + e.getMessage() );
+      logger.error( "Unable to parse playlists: " + e.getMessage(), e );
     }
 
     return null;
+  }
+
+
+  /**
+   * Gets media files grouped by albums.
+   * <p/>
+   * Also includes the same media file entities in other collection views, sorted by the media files' position attribute.
+   * <p/>
+   * Throws {@link fm.audiobox.core.exceptions.ForbiddenException} if the user is not enabled to view this playlist due
+   * to bad subscription state or missing AudioMash link.
+   * <p/>
+   * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
+   *
+   * @return grouped {@link fm.audiobox.core.models.Albums} data.
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   */
+  public Albums getAlbums(Client client) throws AudioBoxException {
+    return getGroupedCollection( client, client.getConf().getAlbumsWrapperClass(), Albums.getPath( this.token ) );
+  }
+
+
+  /**
+   * Gets media files grouped by albums.
+   * <p/>
+   * Also includes the same media file entities in other collection views, sorted by the media files' position attribute.
+   * <p/>
+   * Throws {@link fm.audiobox.core.exceptions.ForbiddenException} if the user is not enabled to view this playlist due
+   * to bad subscription state or missing AudioMash link.
+   * <p/>
+   * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
+   *
+   * @return grouped {@link fm.audiobox.core.models.Albums} data.
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   */
+  public Genres getGenres(Client client) throws AudioBoxException {
+    return getGroupedCollection( client, client.getConf().getGenresWrapperClass(), Genres.getPath( this.token ) );
+  }
+
+
+  /**
+   * Gets media files grouped by albums.
+   * <p/>
+   * Also includes the same media file entities in other collection views, sorted by the media files' position attribute.
+   * <p/>
+   * Throws {@link fm.audiobox.core.exceptions.ForbiddenException} if the user is not enabled to view this playlist due
+   * to bad subscription state or missing AudioMash link.
+   * <p/>
+   * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
+   *
+   * @return grouped {@link fm.audiobox.core.models.Albums} data.
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   */
+  public Artists getArtists(Client client) throws AudioBoxException {
+    return getGroupedCollection( client, client.getConf().getArtistsWrapperClass(), Artists.getPath( this.token ) );
   }
 
 
@@ -684,6 +741,31 @@ public class Playlist {
    */
   private boolean isNewRecord() {
     return StringUtils.isEmpty( getToken() );
+  }
+
+
+  /**
+   * Given a class and a string path this method will return a collection of the specified type.
+   *
+   * @param client the client to use for the request
+   * @param klass  the class to use for response parsing
+   * @param path   the path to call
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs.
+   */
+  private <T> T getGroupedCollection(Client client, Class<T> klass, String path) throws AudioBoxException {
+    ensurePlaylistForRequest();
+
+    try {
+      HttpResponse rsp = client.doGET( path );
+      return rsp.parseAs( klass );
+    } catch ( AudioBoxException e ) {
+      throw e; // Relaunch exception
+    } catch ( IOException e ) {
+      logger.error( "Unable to parse playlists: " + e.getMessage(), e );
+    }
+
+    return null;
   }
 
 

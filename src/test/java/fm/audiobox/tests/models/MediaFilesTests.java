@@ -69,7 +69,7 @@ public class MediaFilesTests extends AudioBoxTests {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
     Playlist p = Playlists.getDropboxPlaylist(c);
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport(p.getToken()) );
-    List<MediaFile> m = p.getMediaFiles( c );
+    List<? extends MediaFile> m = p.getMediaFiles( c );
     assertNotNull(m);
   }
 }
