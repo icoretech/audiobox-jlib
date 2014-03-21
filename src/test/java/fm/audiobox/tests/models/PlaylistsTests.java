@@ -50,7 +50,7 @@ public class PlaylistsTests extends AudioBoxTests {
       final File httpCacheDir = CACHE_DIR;
       HttpResponseCache.install( httpCacheDir, httpCacheSize );
 
-      Configuration config = new Configuration( Configuration.Env.staging );
+      Configuration config = new Configuration( Configuration.Env.development );
       config.setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) );
 
       config.setApiKey( fixtures.getString( "authentication.client_id" ) );
@@ -85,7 +85,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test(expected = ResourceNotFoundException.class)
+  @Test( expected = ResourceNotFoundException.class )
   public void testResourceNotFoundIsThrownIfPlaylistIfTokenIsInvalid() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "asd" ) );
     c.getPlaylist( "asd" );
@@ -115,7 +115,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AuthorizationException the authorization exception
    */
-  @Test(expected = IllegalStateException.class)
+  @Test( expected = IllegalStateException.class )
   public void testBrandNewPlaylistDeletionShouldRiseError() throws IOException {
     Playlist p = new Playlist( "Hello" );
     p.delete( c );
@@ -127,7 +127,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test(expected = IllegalStateException.class)
+  @Test( expected = IllegalStateException.class )
   public void testPlaylistCreationWithEmptyNameShouldRiseError() throws IOException {
     Playlist p = new Playlist( "" );
     p.create( c );
@@ -139,7 +139,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test(expected = ValidationException.class)
+  @Test( expected = ValidationException.class )
   public void testPlaylistCreationWithSameNameAsAnotherShouldResultInValidationError() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
     Playlist p = new Playlist( "Dropbox" );
@@ -152,7 +152,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test(expected = IllegalStateException.class)
+  @Test( expected = IllegalStateException.class )
   public void testNewPlaylistModificationShouldResultInIllegalStateException() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
     Playlist p = new Playlist( "Invalid" );
@@ -165,7 +165,7 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test(expected = IllegalStateException.class)
+  @Test( expected = IllegalStateException.class )
   public void testNewPlaylistSyncShouldRiseIllegalStateException() throws IOException {
     Playlist p = new Playlist( "Invalid" );
     p.sync( c );
@@ -202,6 +202,25 @@ public class PlaylistsTests extends AudioBoxTests {
       assertTrue( "Playlist should be deleted", p.delete( c ) );
     } catch ( IOException e ) {
       fail( e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test local playlist visibility.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testLocalPlaylistVisibility() throws IOException {
+    try {
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_local" ) );
+      Playlist local = c.getPlaylist( "000_local" );
+      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistVisibilityTransport( "000_local" ) );
+      assertTrue( local.toggleVisibility( c ) );
+    } catch ( SyncException e ) {
+      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
+      logger.info( "[ OK ] local drive not syncable: " + e.getMessage() );
     }
   }
 

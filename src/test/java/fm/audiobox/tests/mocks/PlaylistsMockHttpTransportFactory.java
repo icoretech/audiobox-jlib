@@ -11,7 +11,6 @@
 
 package fm.audiobox.tests.mocks;
 
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.LowLevelHttpRequest;
 import com.google.api.client.http.LowLevelHttpResponse;
@@ -88,6 +87,38 @@ public class PlaylistsMockHttpTransportFactory {
               }
             }
 
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets playlist visibility transport.
+   *
+   * @param playlistToken the playlist token
+   *
+   * @return the playlist visibility transport
+   */
+  public static HttpTransport getPlaylistVisibilityTransport(final String playlistToken) {
+    return new MockHttpTransport() {
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+
+            String fileName = "/responses/playlists/" + playlistToken + "/visible.json";
+            result.setStatusCode( HttpStatus.SC_NO_CONTENT ); // <-- this is crazy :P
+            try {
+              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
+            } catch ( IOException | NullPointerException e ) {
+              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
+            }
             return result;
           }
         };

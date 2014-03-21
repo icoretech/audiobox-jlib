@@ -67,6 +67,8 @@ public class ClientTests extends AudioBoxTests {
 
   /**
    * Test wrong authorization.
+   *
+   * @throws IOException the iO exception
    */
   @Test(expected = AuthorizationException.class)
   public void testWrongAuthorization() throws IOException {
@@ -101,10 +103,22 @@ public class ClientTests extends AudioBoxTests {
    */
   @Test(expected = AuthorizationException.class)
   public void testStoredCredentialWithWrongRefreshToken() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport(c.getConf().getJsonFactory()) );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport( c.getConf().getJsonFactory() ) );
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore( c.getConf().getDataStoreFactory() );
-    assertFalse("Data store should not be empty", udb.isEmpty() );
+    assertFalse( "Data store should not be empty", udb.isEmpty() );
     c.getUser();
+  }
+
+
+  /**
+   * Test malformed request.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test( expected = AuthorizationException.class )
+  public void testMalformedRequest() throws IOException {
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getMalformedHttpTransport() );
+    c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
   }
 
 }

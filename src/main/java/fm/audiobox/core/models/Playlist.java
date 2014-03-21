@@ -106,6 +106,8 @@ public class Playlist {
 
   private static final String SYNC_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/sync.json";
 
+  private static final String VISIBILITY_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/visible.json";
+
   private static final String MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files.json";
 
   @Key
@@ -261,7 +263,7 @@ public class Playlist {
    *
    * @param client the client to use for the request
    *
-   * @return the boolean
+   * @return true if operation succeeds.
    *
    * @throws SyncException if any problem occurs.
    */
@@ -275,6 +277,31 @@ public class Playlist {
       throw new SyncException( e.getResponse() );
     }
 
+    return true;
+  }
+
+
+  /**
+   * <p>
+   * Toggle visibility mode for this playlist.
+   * </p>
+   * <p>
+   * By toggling the visibility attribute clients should avoid to render the playlist marked with visible: false
+   * or grey them out.
+   * </p>
+   * <p>
+   * Non visible playlists retains their functionality, they just should be hidden in views.
+   * </p>
+   *
+   * @param client the client to use for the request
+   *
+   * @return true if operation succeeds.
+   *
+   * @throws IOException if any problem occurs.
+   */
+  public boolean toggleVisibility(Client client) throws IOException {
+    ensurePlaylistForRequest();
+    client.doPUT( getVisibilityPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
     return true;
   }
 
@@ -597,6 +624,16 @@ public class Playlist {
    */
   private String getSyncPath() {
     return ModelUtil.interpolate( SYNC_PATH, getToken() );
+  }
+
+
+  /**
+   * Gets visibility path for this playlist.
+   *
+   * @return the visibility path
+   */
+  private String getVisibilityPath() {
+    return ModelUtil.interpolate( VISIBILITY_PATH, getToken() );
   }
 
 

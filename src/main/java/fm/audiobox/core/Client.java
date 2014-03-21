@@ -17,7 +17,6 @@ import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
-import fm.audiobox.core.auth.Credential;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
@@ -34,23 +33,6 @@ import java.util.List;
 
 
 /**
- * == User:
- * <ul>
- * <li>GET /api/v1/user.json</li>
- * </ul>
- * <p/>
- * == Playlists:
- * <ul>
- * <li>GET /api/v1/playlists.json</li>
- * <li>GET /api/v1/playlists/:token.json</li>
- * <li>POST /api/v1/playlists.json</li>
- * <li>PUT /api/v1/playlists/:token.json</li>
- * <li>DELETE /api/v1/playlists/:token.json</li>
- * <li>PUT /api/v1/playlists/:token/visible.json</li>
- * <li>PUT /api/v1/playlists/:token/sync.json</li>
- * <li>PUT /api/v1/playlists/sync_all.json</li>
- * </ul>
- * <p/>
  * == MediaFiles:
  * <ul>
  * <li>POST /api/v1/upload</li>
@@ -78,12 +60,6 @@ import java.util.List;
  * <li>POST /api/v1/media_files/:token/love.json</li>
  * <li>POST /api/v1/media_files/:token/unlove.json</li>
  * <li>POST /api/v1/media_files/:token/toggle_love.json</li>
- * </ul>
- * <p/>
- * == Notifications
- * <ul>
- * <li>GET /api/v1/notifications.json</li>
- * <li>DELETE /api/v1/notifications/:id.json</li>
  * </ul>
  * <p/>
  * TODO: review exceptions javadoc: for each method explain the IO exception given.

@@ -16,7 +16,6 @@ package fm.audiobox.tests.mocks;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.LowLevelHttpRequest;
 import com.google.api.client.http.LowLevelHttpResponse;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.Json;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.testing.http.MockHttpTransport;
@@ -37,6 +36,7 @@ import java.nio.charset.Charset;
 public class AudioBoxMockHttpTransportFactory {
 
   //private static final HttpTransport = new NetHttpTransport();
+
 
   /**
    * Gets wrong account http transport.
@@ -204,6 +204,28 @@ public class AudioBoxMockHttpTransportFactory {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setContentType( Json.MEDIA_TYPE );
             result.setStatusCode( HttpStatus.SC_NO_CONTENT );
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets malformed http transport.
+   *
+   * @return the malformed http transport
+   */
+  public static HttpTransport getMalformedHttpTransport() {
+    return new MockHttpTransport() {
+      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setStatusCode( HttpStatus.SC_UNAUTHORIZED );
+            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/oauth2/auth_exception.json" ), "UTF-8" ) );
             return result;
           }
         };

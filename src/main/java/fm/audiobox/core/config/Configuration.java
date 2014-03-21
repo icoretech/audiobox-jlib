@@ -48,17 +48,24 @@ public class Configuration {
   private DataStoreFactory db;
 
   /**
-   * The enum Env.
+   * AudioBox environments.
    */
   public enum Env {
-    production, staging, development
+    /** The AudioBox production environment, use this as default or in release builds. */
+    production,
+
+    /** Staging if the environment to use for experimental features and future APIs. */
+    staging,
+
+    /** The test and the development environment. */
+    development
   }
 
 
   /**
-   * Instantiates a new Configuration.
+   * Initiates a new Configuration.
    *
-   * @param environment the environment
+   * @param environment the {@link fm.audiobox.core.config.Configuration.Env environment} to use.
    */
   public Configuration(Env environment) {
 

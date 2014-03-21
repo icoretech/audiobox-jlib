@@ -30,6 +30,25 @@ import static org.junit.Assert.*;
 public class ConfigurationTests extends AudioBoxTests {
 
 
+
+  /**
+   * Test should rise configuration exception on missing environment.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
+  @Test
+  public void testShouldRiseConfigurationExceptionOnMissingEnvironment() throws ConfigurationException {
+    try {
+      Configuration c = new Configuration(null);
+      c.checkConfiguration();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Environment cannot be null", e.getMessage());
+      return;
+    }
+    fail("Exception message was not the one expected");
+  }
+
+
   /**
    * Test should rise configuration exception on missing api key.
    *
