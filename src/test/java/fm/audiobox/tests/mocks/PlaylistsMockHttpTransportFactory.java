@@ -58,7 +58,6 @@ public class PlaylistsMockHttpTransportFactory {
    * Gets playlist transport.
    *
    * @param playlistToken the playlist token
-   *
    * @return the playlist transport
    */
   public static HttpTransport getPlaylistTransport(final String playlistToken) {
@@ -99,7 +98,6 @@ public class PlaylistsMockHttpTransportFactory {
    * Gets playlist visibility transport.
    *
    * @param playlistToken the playlist token
-   *
    * @return the playlist visibility transport
    */
   public static HttpTransport getPlaylistVisibilityTransport(final String playlistToken) {
@@ -131,7 +129,6 @@ public class PlaylistsMockHttpTransportFactory {
    * Gets playlist media files transport.
    *
    * @param playlistToken the playlist token
-   *
    * @return the playlist media files transport
    */
   public static HttpTransport getPlaylistMediaFilesTransport(final String playlistToken) {
@@ -145,6 +142,36 @@ public class PlaylistsMockHttpTransportFactory {
             result.setContentType( Json.MEDIA_TYPE );
 
             String fileName = "/responses/playlists/" + playlistToken + "/media_files.json";
+
+            try {
+              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
+            } catch ( IOException | NullPointerException e ) {
+              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
+            }
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets playlist albums transport.
+   *
+   * @param playlistToken the playlist token
+   * @return the playlist albums transport
+   */
+  public static HttpTransport getPlaylistAlbumsTransport(final String playlistToken) {
+    return new MockHttpTransport() {
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            String fileName = "/responses/playlists/" + playlistToken + "/albums.json";
 
             try {
               result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );

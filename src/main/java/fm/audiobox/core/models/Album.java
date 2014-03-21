@@ -38,7 +38,7 @@ public class Album {
   private String artist;
 
   @Key
-  private MediaFiles media_files;
+  private List<? extends MediaFile> media_files;
 
 
   /**
@@ -97,6 +97,6 @@ public class Album {
    * @return the media files
    */
   public List<? extends MediaFile> getMediaFiles() {
-    return media_files != null ? media_files.getMediaFiles() : null;
+    return media_files;
   }
 }

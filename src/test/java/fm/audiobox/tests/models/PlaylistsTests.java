@@ -19,7 +19,10 @@ import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
+import fm.audiobox.core.models.Album;
+import fm.audiobox.core.models.Albums;
 import fm.audiobox.core.models.Playlist;
+import fm.audiobox.core.models.Playlists;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
@@ -421,5 +424,32 @@ public class PlaylistsTests extends AudioBoxTests {
     } catch ( SyncException e ) {
       assertEquals( e.getErrorCode(), HttpStatus.SC_FORBIDDEN );
     }
+  }
+
+
+  /**
+   * Test dropbox playlist album.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testDropboxPlaylistAlbum() throws IOException {
+    //c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
+    Playlist dropbox = c.getPlaylist( "000_dropbox" );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistAlbumsTransport("000_dropbox") );
+    Albums albs = dropbox.getAlbums( c );
+
+    assertNotNull( albs );
+    assertFalse( albs.getAlbums().isEmpty() );
+
+    Album a = albs.getAlbums().get(0);
+    assertFalse( a.getMediaFiles().isEmpty() );
+
+    assertEquals( "Album", a.getAlbum() );
+    assertEquals( "t0k3n", a.getToken() );
+    assertEquals( 2000, a.getReleaseYear());
+    assertEquals( "a/001/255/art.png", a.getArtwork());
+    assertEquals( "Artist", a.getArtist());
   }
 }
