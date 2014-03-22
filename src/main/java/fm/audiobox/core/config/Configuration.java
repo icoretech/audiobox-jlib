@@ -17,7 +17,6 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
-import com.sun.istack.internal.NotNull;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.models.*;
@@ -233,7 +232,7 @@ public class Configuration {
    *
    * @return the environment configuration
    */
-  public Config getEnvironmentConfiguration(@NotNull Env environment) {
+  public Config getEnvironmentConfiguration(Env environment) {
     if ( envConfig == null ) {
       envConfig = config.getConfig( "abx." + environment.name() );
     }

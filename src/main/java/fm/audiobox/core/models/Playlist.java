@@ -605,7 +605,7 @@ public class Playlist {
    *
    * @return true if this was the last accessed playlist
    */
-  public boolean getLastAccessed() {
+  public boolean isLastAccessed() {
     return this.last_accessed;
   }
 

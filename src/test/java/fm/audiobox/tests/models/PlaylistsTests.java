@@ -491,6 +491,88 @@ public class PlaylistsTests extends AudioBoxTests {
     assertFalse( a.getMediaFiles().isEmpty() );
     assertEquals( "Artist", a.getArtist() );
     assertEquals( "t0k3333n", a.getToken() );
+  }
 
+
+  @Test
+  public void testPlaylistsByType() throws IOException {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
+    List<Playlist> pls = c.getPlaylists();
+    for ( Playlist p : pls ) {
+      Playlist p2 = null;
+      switch ( p.getSystemName() ) {
+
+        case "box":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_box" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getBoxPlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "dropbox":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getDropboxPlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "local":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_local" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getLocalPlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "cloud":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_cloud" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getCloudPlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "gdrive":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_gdrive" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getGdrivePlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "ubuntu":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_ubuntu" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getUbuntuPlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "skydrive":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_skydrive" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getOneDrivePlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "offline":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_offline" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getOfflinePlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "youtube":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_youtube" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getYoutubePlaylist( c );
+          assertEquals( p, p2 );
+          break;
+
+        case "soundcloud":
+          c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_soundcloud" ) );
+          assertNotEquals( p, p2 );
+          p2 = Playlists.getSoundcloudPlaylist( c );
+          assertEquals( p, p2 );
+          break;
+      }
+
+    }
   }
 }

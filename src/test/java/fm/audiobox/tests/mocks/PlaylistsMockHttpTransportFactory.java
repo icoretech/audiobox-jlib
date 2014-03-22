@@ -72,6 +72,9 @@ public class PlaylistsMockHttpTransportFactory {
             result.setContentType( Json.MEDIA_TYPE );
 
             String fileName = "/responses/playlists/" + playlistToken + ".json";
+            if (url.endsWith( "playlists.json" )) {
+              fileName = "/responses/playlists.json";
+            }
 
             try {
               result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
