@@ -19,10 +19,7 @@ import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
-import fm.audiobox.core.models.Album;
-import fm.audiobox.core.models.Albums;
-import fm.audiobox.core.models.Playlist;
-import fm.audiobox.core.models.Playlists;
+import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
@@ -434,22 +431,66 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testDropboxPlaylistAlbum() throws IOException {
-    //c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
     Playlist dropbox = c.getPlaylist( "000_dropbox" );
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistAlbumsTransport("000_dropbox") );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistAlbumsTransport( "000_dropbox" ) );
     Albums albs = dropbox.getAlbums( c );
 
     assertNotNull( albs );
     assertFalse( albs.getAlbums().isEmpty() );
 
-    Album a = albs.getAlbums().get(0);
+    Album a = albs.getAlbums().get( 0 );
     assertFalse( a.getMediaFiles().isEmpty() );
 
     assertEquals( "Album", a.getAlbum() );
     assertEquals( "t0k3n", a.getToken() );
-    assertEquals( 2000, a.getReleaseYear());
-    assertEquals( "a/001/255/art.png", a.getArtwork());
-    assertEquals( "Artist", a.getArtist());
+    assertEquals( 2000, a.getReleaseYear() );
+    assertEquals( "a/001/255/art.png", a.getArtwork() );
+    assertEquals( "Artist", a.getArtist() );
+  }
+
+
+  /**
+   * Test dropbox playlist genre.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testDropboxPlaylistGenre() throws IOException {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
+    Playlist dropbox = c.getPlaylist( "000_dropbox" );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistGenresTransport( "000_dropbox" ) );
+    Genres genres = dropbox.getGenres( c );
+
+    assertNotNull( genres );
+    assertFalse( genres.getGenres().isEmpty() );
+
+    Genre g = genres.getGenres().get( 0 );
+    assertFalse( g.getMediaFiles().isEmpty() );
+    assertEquals( "Genre", g.getGenre() );
+    assertEquals( "t0k3333n", g.getToken() );
+  }
+
+
+  /**
+   * Test dropbox playlist artist.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testDropboxPlaylistArtist() throws IOException {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
+    Playlist dropbox = c.getPlaylist( "000_dropbox" );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistArtistsTransport( "000_dropbox" ) );
+    Artists artists = dropbox.getArtists( c );
+
+    assertNotNull( artists );
+    assertFalse( artists.getArtists().isEmpty() );
+
+    Artist a = artists.getArtists().get( 0 );
+    assertFalse( a.getMediaFiles().isEmpty() );
+    assertEquals( "Artist", a.getArtist() );
+    assertEquals( "t0k3333n", a.getToken() );
+
   }
 }

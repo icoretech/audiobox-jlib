@@ -1,0 +1,32 @@
+{
+  "genres": [
+    {
+      "genre": "Genre",
+      "token": "t0k3333n",
+      "media_files": [
+        {
+          "type": "AudioFile",
+          "token": "d_token",
+          "artist": "Artist",
+          "album": "Album",
+          "genre": "Genre",
+          "release_year": 2000,
+          "title": "Title",
+          "len_str": "0:00",
+          "len_int": 0,
+          "position": 19,
+          "filename": "d_token.mp3",
+          "loved": false,
+          "disc_number": 1,
+          "mime": "audio/mpeg",
+          "remote_path": "/remote/path/audio.mp3",
+          "source": "dropbox",
+          "share_token": "sh4r3t0k3n",
+          "artwork": "art.png",
+          "size": 7840243,
+          "album_artist": null
+        }
+      ]
+    }
+  ]
+}
