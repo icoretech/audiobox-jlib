@@ -72,7 +72,7 @@ public class PlaylistsMockHttpTransportFactory {
             result.setContentType( Json.MEDIA_TYPE );
 
             String fileName = "/responses/playlists/" + playlistToken + ".json";
-            if (url.endsWith( "playlists.json" )) {
+            if ( url.endsWith( "playlists.json" ) ) {
               fileName = "/responses/playlists.json";
             }
 
@@ -148,6 +148,37 @@ public class PlaylistsMockHttpTransportFactory {
             result.setContentType( Json.MEDIA_TYPE );
 
             String fileName = "/responses/playlists/" + playlistToken + "/media_files.json";
+
+            try {
+              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
+            } catch ( IOException | NullPointerException e ) {
+              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
+            }
+            return result;
+          }
+        };
+      }
+    };
+  }
+
+
+  /**
+   * Gets playlist name already taken transport.
+   *
+   * @return the playlist name already taken transport
+   */
+  public static HttpTransport getPlaylistNameAlreadyTakenTransport() {
+    return new MockHttpTransport() {
+      @Override
+      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+          @Override
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setStatusCode( HttpStatus.SC_UNPROCESSABLE_ENTITY );
+
+            String fileName = "/responses/playlists/name_already_taken.json";
 
             try {
               result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );

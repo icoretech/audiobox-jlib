@@ -15,6 +15,7 @@ package fm.audiobox.core.exceptions;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpStatusCodes;
+import com.google.api.client.util.ArrayMap;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -43,7 +44,7 @@ public class RemoteMessageException extends AudioBoxException {
    * @param response the response
    */
   public RemoteMessageException(HttpResponse response) {
-    this(RemoteMessageException.parseErrors( response ) , response.getStatusCode() );
+    this( RemoteMessageException.parseErrors( response ), response.getStatusCode() );
   }
 
 
@@ -61,7 +62,7 @@ public class RemoteMessageException extends AudioBoxException {
    * Instantiates a new Validation exception.
    *
    * @param message the message
-   * @param errors the errors mapping
+   * @param errors  the errors mapping
    */
   public RemoteMessageException(String message, Errors errors) {
     super( message );
@@ -72,7 +73,7 @@ public class RemoteMessageException extends AudioBoxException {
   /**
    * Instantiates a new Validation exception.
    *
-   * @param errors the errors
+   * @param errors     the errors
    * @param statusCode the status code
    */
   public RemoteMessageException(Errors errors, int statusCode) {
@@ -83,7 +84,7 @@ public class RemoteMessageException extends AudioBoxException {
 
   @Override
   public String getMessage() {
-    return super.getMessage();
+    return this.toString();
   }
 
 
@@ -103,6 +104,9 @@ public class RemoteMessageException extends AudioBoxException {
    * @return the errors
    */
   public Errors getErrors() {
+    if (errors == null) {
+      errors = buildEmptyErrors();
+    }
     return errors;
   }
 
@@ -110,15 +114,38 @@ public class RemoteMessageException extends AudioBoxException {
   /**
    * Transforms error mapping into strings.
    *
+   * @return the string
+   */
+  public String toString() {
+    return errorsToString( getErrors() );
+  }
+
+
+  /**
+   * Transforms error mapping into strings.
+   *
    * @param errors the errors mapping
+   *
    * @return the string
    */
   public static String errorsToString(Errors errors) {
     String msg = "";
     for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
-      msg += error.getKey() + ": " + error.getValue() + "\n";
+      msg += errorToString( error ) + "\n";
     }
     return msg;
+  }
+
+
+  /**
+   * Transform error set into a string.
+   *
+   * @param error an error in form of a {@link java.util.Map.Entry}
+   *
+   * @return a single string containing the error.
+   */
+  private static String errorToString(Map.Entry<String, Object> error) {
+    return error.getKey() + ": " + error.getValue();
   }
 
 
@@ -133,6 +160,7 @@ public class RemoteMessageException extends AudioBoxException {
    * Parse errors.
    *
    * @param response the response
+   *
    * @return the errors
    */
   private static Errors parseErrors(HttpResponse response) {
@@ -163,14 +191,13 @@ public class RemoteMessageException extends AudioBoxException {
    * First error to string.
    *
    * @param errors the errors
+   *
    * @return the string
    */
   private static String firstErrorToString(Errors errors) {
-    String msg = "";
     for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
-      msg = error.getKey() + ": " + error.getValue();
-      break;
+      return errorToString( error );
     }
-    return msg;
+    return null;
   }
 }

@@ -139,11 +139,44 @@ public class PlaylistsTests extends AudioBoxTests {
    *
    * @throws AudioBoxException the audio box exception
    */
-  @Test( expected = ValidationException.class )
+  @Test
   public void testPlaylistCreationWithSameNameAsAnotherShouldResultInValidationError() throws IOException {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistNameAlreadyTakenTransport() );
+    //c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    Playlist p = new Playlist( "Dropbox" );
+    try {
+      p.create( c );
+    } catch ( ValidationException e ) {
+
+      assertEquals( e.toString(), e.getMessage() );
+      assertEquals( HttpStatus.SC_UNPROCESSABLE_ENTITY, e.getErrorCode() );
+      assertNotNull( e.getErrors() );
+      assertNotNull( RemoteMessageException.errorsToString( e.getErrors() ) );
+      assertEquals( RemoteMessageException.errorsToString( e.getErrors() ), e.toString() );
+
+    } catch ( Exception e ) {
+      fail( "ValidationException expected, got " + e.getClass().getSimpleName() );
+    }
+  }
+
+
+  /**
+   * Test playlist creation with no return body.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testPlaylistCreationWithNoReturnBody() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
     Playlist p = new Playlist( "Dropbox" );
-    p.create( c );
+    try {
+      p.create( c );
+    } catch ( ValidationException e ) {
+      assertEquals( HttpStatus.SC_NOT_FOUND, e.getErrorCode() );
+
+    } catch ( Exception e ) {
+      fail( "ValidationException expected, got " + e.getClass().getSimpleName() );
+    }
   }
 
 
@@ -494,6 +527,11 @@ public class PlaylistsTests extends AudioBoxTests {
   }
 
 
+  /**
+   * Test playlists by type.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testPlaylistsByType() throws IOException {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );

@@ -65,11 +65,10 @@ public class AudioBoxMockHttpTransportFactory {
 
 
   /**
-   * Gets right account http transport.
+   * Gets invalid refresh token http transport.
    *
    * @param factory the factory
-   *
-   * @return the right account http transport
+   * @return the invalid refresh token http transport
    */
   public static HttpTransport getInvalidRefreshTokenHttpTransport(final JsonFactory factory) {
     return new MockHttpTransport() {
