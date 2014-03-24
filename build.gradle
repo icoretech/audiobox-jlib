@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.batcha.gradle.plugins:git-dependencies:0.2+'
+        classpath "org.batcha.gradle.plugins:git-dependencies:0.2"
     }
 }
 
@@ -63,6 +63,7 @@ idea {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -74,7 +75,7 @@ dependencies {
     compile     group: 'com.typesafe', name: 'config', version: '1.2.+'
 
     // Http
-    compile     'com.google.http-client:google-http-client:1.17.0-rc'
+    //compile     'com.google.http-client:google-http-client:1.17.0-rc'
     //compile     'com.google.oauth-client:google-oauth-client:1.17.0-rc'
     compile('com.google.oauth-client:google-oauth-client:1.18.0-rc-SNAPSHOT').ext.git = 'git@github.com:Keytwo/google-oauth-java-client.git'
 
