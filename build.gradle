@@ -8,12 +8,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.batcha.gradle.plugins:git-dependencies:0.1'
+        classpath 'org.batcha.gradle.plugins:git-dependencies:0.2+'
     }
 }
 
 jacoco {
     toolVersion = "0.6.5.201403032054"
+    excludes = [ "com/gogle/**" ]
 }
 
 jacocoTestReport {
@@ -36,7 +37,6 @@ compileJava {
 configurations {
     jaxDoclet
 }
-
 
 
 sourceCompatibility = JavaVersion.VERSION_1_7
