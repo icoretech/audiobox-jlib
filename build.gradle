@@ -35,6 +35,8 @@ compileJava {
 
 configurations {
     jaxDoclet
+    compile
+    runtime
 }
 
 
