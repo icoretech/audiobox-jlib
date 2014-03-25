@@ -32,11 +32,12 @@
     <orderEntry type="library" exported="" name="Gradle: commons-lang3-3.3.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: google-http-client-jackson2-1.18.0-rc" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: google-http-client-1.18.0-rc" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: unresolved_dependency___com_google_oauth_client_google_oauth_client_1_18_0_rc_SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: jsr305-1.3.9" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: httpcore-4.0.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: commons-codec-1.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: httpclient-4.0.1" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: google-oauth-client-1.18.0-rc-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: jsr305-1.3.9" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: httpcore-4.0.1" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: commons-codec-1.3" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: httpclient-4.0.1" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: google-http-client-1.17.0-rc" level="project" />
   </component>
 </module>
 
