@@ -37,16 +37,11 @@ import java.util.List;
  * <ul>
  * <li>POST /api/v1/upload</li>
  * <li>OPTIONS /api/v1/upload</li>
- * <li>GET /api/v1/stream/:token</li>
- * <li>GET /api/v1/download/:token</li>
  * <li>GET /api/v1/media_files/:token.json</li>
  * <li>GET /api/v1/playlists/:playlist_token/media_files/fingerprints.json</li>
  * <li>POST /api/v1/playlists/:playlist_token/media_files/add.json?tokens[]=</li>
  * <li>DELETE /api/v1/playlists/:playlist_token/media_files/remove.json?tokens[]=</li>
- * <li>PUT /api/v1/media_files/:token.json</li>
  * <li>PUT /api/v1/media_files/multiupdate.json?tokens[]=</li>
- * <li>DELETE /api/v1/media_files/:token.json</li>
- * <li>DELETE /api/v1/media_files/multidestroy.json?tokens[]=</li>
  * </ul>
  * <p/>
  * TODO: review exceptions javadoc: for each method explain the IO exception given.

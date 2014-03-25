@@ -350,6 +350,30 @@ public class MediaFile {
 
 
   /**
+   * Handle a single media file destruction synchronously.
+   * <p/>
+   * If you need to permanently destroy more than one single media file in one sweep use
+   * {@link fm.audiobox.core.models.MediaFiles#destroyAll(fm.audiobox.core.Client, java.util.List)}
+   * <p/>
+   * Do not attempt to call this endpoint for single tracks the user selected to destroy.
+   * <p/>
+   * This will remove the media file from our database. If the media file is stored on AudioBox Cloud it will be
+   * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
+   * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
+   *
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   *
+   * @return true if the operation succeeds.
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
+   */
+  public boolean destroy(Client client) throws IOException {
+    HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
+    return rsp.isSuccessStatusCode();
+  }
+
+
+  /**
    * Notify the system that this media file finished playing.
    * <p/>
    * This endpoint is highly recommended to be used and should be called when the Media File is approaching the end of the stream.
