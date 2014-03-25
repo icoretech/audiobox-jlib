@@ -106,9 +106,18 @@ public class Playlist {
 
   private static final String SYNC_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/sync.json";
 
+  /** PUT */
   private static final String VISIBILITY_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/visible.json";
 
+  /** GET */
   private static final String MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files.json";
+
+  /** POST */
+  private static final String ADD_MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/add.json";
+
+  /** DELETE */
+  private static final String REMOVE_MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/remove.json";
+
 
   @Key
   private String token;

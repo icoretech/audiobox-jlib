@@ -87,6 +87,8 @@ dependencies {
     // Common utils
     compile     'commons-validator:commons-validator:+'
     compile     'org.apache.commons:commons-lang3:+'
+    compile     'de.danielbechler:java-object-diff:0.13+'
+
 
     // Testing
     testCompile 'junit:junit:4.11+'
