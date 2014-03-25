@@ -77,12 +77,12 @@ dependencies {
     compile     group: 'com.typesafe', name: 'config', version: '1.2.+'
 
     // Http
-    //compile     'com.google.http-client:google-http-client:1.17.0-rc'
-    //compile     'com.google.oauth-client:google-oauth-client:1.17.0-rc'
-    compile('com.google.oauth-client:google-oauth-client:1.18.0-rc-SNAPSHOT') {
-        ext.git = 'git@github.com:Keytwo/google-oauth-java-client.git'
-        ext.gitVersion = 'master'
-    }
+    compile     'com.google.http-client:google-http-client:1.17.0-rc'
+    compile     'com.google.oauth-client:google-oauth-client:1.17.0-rc'
+    // compile('com.google.oauth-client:google-oauth-client:1.18.0-rc-SNAPSHOT') {
+    //     ext.git = 'git@github.com:Keytwo/google-oauth-java-client.git'
+    //     ext.gitVersion = 'master'
+    // }
 
     // Common utils
     compile     'commons-validator:commons-validator:+'
