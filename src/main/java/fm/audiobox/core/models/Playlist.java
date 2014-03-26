@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 /**
@@ -502,7 +503,6 @@ public class Playlist {
     }
     JsonHttpContent data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
     client.doDELETE( ModelUtil.interpolate( ADD_MEDIA_FILES_PATH, getToken() ), data, null );
-
     return true;
   }
 

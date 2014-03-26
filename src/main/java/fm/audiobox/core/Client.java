@@ -20,6 +20,7 @@ import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
+import fm.audiobox.core.utils.Credential;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.slf4j.Logger;
@@ -114,7 +115,7 @@ public class Client {
 
       TokenResponse response = ptr.execute();
 
-      StoredCredential sc = new StoredCredential( ( com.google.api.client.auth.oauth2.Credential ) createCredentialWithRefreshToken( response ) );
+      StoredCredential sc = new StoredCredential( ( Credential ) createCredentialWithRefreshToken( response ) );
       try {
         userDb.set( ACCOUNT_TOKENS, sc );
         logger.info( "Saved credentials: " + sc.toString() );
