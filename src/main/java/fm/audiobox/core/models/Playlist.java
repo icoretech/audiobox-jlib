@@ -106,16 +106,24 @@ public class Playlist {
 
   private static final String SYNC_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/sync.json";
 
-  /** PUT */
+  /**
+   * PUT
+   */
   private static final String VISIBILITY_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/visible.json";
 
-  /** GET */
+  /**
+   * GET
+   */
   private static final String MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files.json";
 
-  /** POST */
+  /**
+   * POST
+   */
   private static final String ADD_MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/add.json";
 
-  /** DELETE */
+  /**
+   * DELETE
+   */
   private static final String REMOVE_MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/remove.json";
 
 
@@ -423,6 +431,8 @@ public class Playlist {
    * <p/>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
    *
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   *
    * @return grouped {@link fm.audiobox.core.models.Albums} data.
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
@@ -441,6 +451,8 @@ public class Playlist {
    * to bad subscription state or missing AudioMash link.
    * <p/>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
+   *
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
    *
    * @return grouped {@link fm.audiobox.core.models.Albums} data.
    *
@@ -461,12 +473,37 @@ public class Playlist {
    * <p/>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
    *
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   *
    * @return grouped {@link fm.audiobox.core.models.Albums} data.
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
   public Artists getArtists(Client client) throws AudioBoxException {
     return getGroupedCollection( client, client.getConf().getArtistsWrapperClass(), Artists.getPath( this.token ) );
+  }
+
+
+  /**
+   * Add Media Files to a CustomPlaylist.
+   * <p/>
+   * Shallow action that requires a list of media files tokens to be added to this custom playlist.
+   * Media files can be added manually only to custom playlists.
+   *
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param tokens the list of the tokens string to add to this playlist
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if playlist not found or the playlist is not a CustomPlaylist
+   */
+  public boolean addMediaFiles(Client client, List<String> tokens) throws IOException {
+    GenericData d = new GenericData();
+    for ( String token : tokens ) {
+      d.put( MediaFiles.PARAM_TOKENS, token );
+    }
+    JsonHttpContent data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
+    client.doDELETE( ModelUtil.interpolate( ADD_MEDIA_FILES_PATH, getToken() ), data, null );
+
+    return true;
   }
 
 
