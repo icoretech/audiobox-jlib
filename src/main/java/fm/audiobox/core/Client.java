@@ -15,7 +15,6 @@ package fm.audiobox.core;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
-import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
@@ -31,18 +30,13 @@ import org.slf4j.LoggerFactory;
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URLConnection;
 import java.util.List;
 
 
 /**
- * == MediaFiles:
+ * TODO: On MediaFiles:
  * <ul>
- * <li>OPTIONS /api/v1/upload</li>
- * <li>GET /api/v1/media_files/:token.json</li>
  * <li>GET /api/v1/playlists/:playlist_token/media_files/fingerprints.json</li>
  * <li>POST /api/v1/playlists/:playlist_token/media_files/add.json?tokens[]=</li>
  * <li>DELETE /api/v1/playlists/:playlist_token/media_files/remove.json?tokens[]=</li>
@@ -432,12 +426,6 @@ public class Client {
   public HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.POST, path, data, parser );
   }
-
-
-  public HttpResponse doOPTION(String path) throws IOException {
-    return doRequest( HttpMethods.OPTIONS, null, null, null );
-  }
-
 
 
   /* ================ */

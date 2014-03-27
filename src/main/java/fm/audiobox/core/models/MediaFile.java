@@ -157,105 +157,207 @@ public class MediaFile {
    */
   private static final String TOGGLE_LOVE_PATH = "/api/v1/media_files/" + ModelUtil.TOKEN_PLACEHOLDER + "/toggle_love.json";
 
+  /**
+   * The Type.
+   */
   @Key
   protected String type;
 
+  /**
+   * The Token.
+   */
   @Key
   protected String token;
 
+  /**
+   * The Artist.
+   */
   @Key
   protected String artist;
 
+  /**
+   * The Album.
+   */
   @Key
   protected String album;
 
+  /**
+   * The Genre.
+   */
   @Key
   protected String genre;
 
+  /**
+   * The Release year.
+   */
   @Key
   protected int release_year;
 
+  /**
+   * The Title.
+   */
   @Key
   protected String title;
 
+  /**
+   * The duration string formatted.
+   */
   @Key
   protected String len_str;
 
+  /**
+   * The duration in seconds.
+   */
   @Key
   protected int len_int;
 
+  /**
+   * The Position.
+   */
   @Key
   protected int position;
 
+  /**
+   * The Filename.
+   */
   @Key
   protected String filename;
 
+  /**
+   * The Media file name.
+   */
   @Key
   protected String media_file_name; // Used when upload succeeds.
 
+  /**
+   * The Loved.
+   */
   @Key
   protected boolean loved;
 
+  /**
+   * The Disc number.
+   */
   @Key
   protected int disc_number;
 
+  /**
+   * The Mime.
+   */
   @Key
   protected String mime;
 
+  /**
+   * The Remote path.
+   */
   @Key
   protected String remote_path;
 
+  /**
+   * The Source.
+   */
   @Key
   protected String source;
 
+  /**
+   * The Share token.
+   */
   @Key
   protected String share_token;
 
+  /**
+   * The Artwork.
+   */
   @Key
   protected String artwork;
 
+  /**
+   * The Size.
+   */
   @Key
   protected long size;
 
+  /**
+   * The Album artist.
+   */
   @Key
   protected String album_artist;
 
+  /**
+   * The Hash.
+   */
   @Key
   protected String hash;
 
+  /**
+   * The Composer.
+   */
   @Key
   protected String composer;
 
+  /**
+   * The Comment.
+   */
   @Key
   protected String comment;
 
+  /**
+   * The Video bitrate.
+   */
   @Key
   protected String video_bitrate;
 
+  /**
+   * The Video codec.
+   */
   @Key
   protected String video_codec;
 
+  /**
+   * The Video resolution.
+   */
   @Key
   protected String video_resolution;
 
+  /**
+   * The Video FPS.
+   */
   @Key
   protected String video_fps;
 
+  /**
+   * The Video aspect ratio.
+   */
   @Key
   protected String video_aspect;
 
+  /**
+   * The Video container.
+   */
   @Key
   protected String video_container;
 
+  /**
+   * The Audio bitrate.
+   */
   @Key
   protected String audio_bitrate;
 
+  /**
+   * The Audio codec.
+   */
   @Key
   protected String audio_codec;
 
+  /**
+   * The Audio sample rate.
+   */
   @Key
   protected String audio_sample_rate;
 
+  /**
+   * The Lyrics.
+   */
   @Key
   protected String lyrics;
 
@@ -265,7 +367,7 @@ public class MediaFile {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public MediaFile() {
   }
 
@@ -301,41 +403,27 @@ public class MediaFile {
 
 
   /**
-   * Gets love path. :-D Yes, we know where it is! :grin:
+   * Load a single media file.
    *
-   * @return the love path
-   */
-  public String getLovePath() {
-    return ModelUtil.interpolate( LOVE_PATH, getToken() );
-  }
-
-
-  /**
-   * Gets unlove path.
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param token  the token that uniquely identify the media file
    *
-   * @return the unlove path
-   */
-  public String getUnlovePath() {
-    return ModelUtil.interpolate( UNLOVE_PATH, getToken() );
-  }
-
-
-  /**
-   * Gets toggle love path.
+   * @return the requested media file
    *
-   * @return the toggle love path
+   * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
    */
-  public String getToggleLovePath() {
-    return ModelUtil.interpolate( TOGGLE_LOVE_PATH, getToken() );
+  public static MediaFile load(Client client, String token) throws IOException {
+    HttpResponse rsp = client.doGET( ModelUtil.interpolate( PATH, token ) );
+    return rsp.parseAs( MediaFileWrapper.class ).getMediaFile();
   }
 
 
   /**
    * Handle a single media file update.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param client the to use for the request
    *
-   * @return the  or null (request failed)
+   * @return the or null (request failed)
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
@@ -356,7 +444,7 @@ public class MediaFile {
    * Handle a single media file destruction synchronously.
    * <p/>
    * If you need to permanently destroy more than one single media file in one sweep use
-   * {@link fm.audiobox.core.models.MediaFiles#destroyAll(fm.audiobox.core.Client, java.util.List)}
+   * {@link MediaFiles#destroyAll(fm.audiobox.core.Client, java.util.List)}
    * <p/>
    * Do not attempt to call this endpoint for single tracks the user selected to destroy.
    * <p/>
@@ -364,7 +452,7 @@ public class MediaFile {
    * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
    * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param client the to use for the request
    *
    * @return true if the operation succeeds.
    *
@@ -383,7 +471,7 @@ public class MediaFile {
    * <p/>
    * Triggers different actions in the system, such as Scrobbling to Last.fm and much more.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param client the to use for the request
    *
    * @return true if the operation succeeds.
    *
@@ -398,9 +486,9 @@ public class MediaFile {
   /**
    * Loads the media file lyrics from AudioBox.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param client the to use for the request
    *
-   * @return the lyrics {@link java.lang.String} or null
+   * @return the lyrics or null
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
@@ -413,7 +501,7 @@ public class MediaFile {
     try {
 
       HttpResponse rsp = client.doGET( ModelUtil.interpolate( LYRICS_PATH, getToken() ) );
-      MediaFile m = rsp.parseAs( client.getConf().getMediaFileClass() );
+      MediaFile m = rsp.parseAs( MediaFileWrapper.class ).getMediaFile();
       this.lyrics = m.getLyricsField();
 
     } catch ( AudioBoxException e ) {
@@ -436,7 +524,7 @@ public class MediaFile {
    * <p/>
    * Last.fm will see a track as loved, Facebook as liked, Google Drive as starred, and so on.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param client the to use for the request
    *
    * @return true if the operation succeeds.
    *
@@ -459,7 +547,7 @@ public class MediaFile {
    * <p/>
    * Last.fm will see a track as unloved, Facebook as unliked, Google Drive as not starred, and so on.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param client the to use for the request
    *
    * @return true if the operation succeeds.
    *
@@ -479,7 +567,7 @@ public class MediaFile {
    * <p/>
    * Preserve all the features of the love and unlove endpoints.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param client the to use for the request
    *
    * @return true if the operation succeeds.
    *
