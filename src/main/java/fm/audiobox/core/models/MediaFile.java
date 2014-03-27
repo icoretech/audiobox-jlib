@@ -421,7 +421,7 @@ public class MediaFile {
   /**
    * Handle a single media file update.
    *
-   * @param client the to use for the request
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
    *
    * @return the or null (request failed)
    *
@@ -452,7 +452,7 @@ public class MediaFile {
    * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
    * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
    *
-   * @param client the to use for the request
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
    *
    * @return true if the operation succeeds.
    *
@@ -471,7 +471,7 @@ public class MediaFile {
    * <p/>
    * Triggers different actions in the system, such as Scrobbling to Last.fm and much more.
    *
-   * @param client the to use for the request
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
    *
    * @return true if the operation succeeds.
    *
@@ -486,7 +486,7 @@ public class MediaFile {
   /**
    * Loads the media file lyrics from AudioBox.
    *
-   * @param client the to use for the request
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
    *
    * @return the lyrics or null
    *
@@ -524,7 +524,7 @@ public class MediaFile {
    * <p/>
    * Last.fm will see a track as loved, Facebook as liked, Google Drive as starred, and so on.
    *
-   * @param client the to use for the request
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
    *
    * @return true if the operation succeeds.
    *
@@ -547,7 +547,7 @@ public class MediaFile {
    * <p/>
    * Last.fm will see a track as unloved, Facebook as unliked, Google Drive as not starred, and so on.
    *
-   * @param client the to use for the request
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
    *
    * @return true if the operation succeeds.
    *
@@ -567,7 +567,7 @@ public class MediaFile {
    * <p/>
    * Preserve all the features of the love and unlove endpoints.
    *
-   * @param client the to use for the request
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
    *
    * @return true if the operation succeeds.
    *
