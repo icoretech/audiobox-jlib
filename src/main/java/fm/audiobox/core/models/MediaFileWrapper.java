@@ -14,21 +14,21 @@ package fm.audiobox.core.models;
 import com.google.api.client.util.Key;
 
 /**
- * This class is used as simple {@link fm.audiobox.core.models.Playlist} wrapper
+ * This class is used as simple {@link fm.audiobox.core.models.MediaFile} wrapper
  * for those JSON parser that do not support root elements.
  */
-public class PlaylistWrapper {
+public class MediaFileWrapper {
 
   @Key
-  private Playlist playlist;
+  private MediaFile media_file;
 
 
   /**
-   * Gets {@link fm.audiobox.core.models.Playlist}.
+   * Gets the {@link fm.audiobox.core.models.MediaFile}.
    *
-   * @return the wrapped playlist
+   * @return the wrapped media file
    */
-  public Playlist getPlaylist() {
-    return playlist;
+  public MediaFile getMediaFile() {
+    return media_file;
   }
 }

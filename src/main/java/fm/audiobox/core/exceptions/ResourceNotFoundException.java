@@ -17,6 +17,8 @@ import com.google.api.client.http.HttpResponse;
  * This exception is thrown when a 404 is returned by the service.
  * It generally means that the requested resource is not found or
  * it doesn't exists anymore (or yet).
+ * <p/>
+ * Its main usage is to handle 404 {@link fm.audiobox.core.utils.HttpStatus} messages.
  */
 public class ResourceNotFoundException extends AudioBoxException {
 

@@ -26,15 +26,15 @@ import java.io.IOException;
  * Managed remote handled errors are:
  * <dl>
  * <dt>HTTP Status 402:</dt>
- * <dd>Action requires a valid subscription ({@link ForbiddenException}).</dd>
+ * <dd>Action requires a valid subscription ({@link fm.audiobox.core.exceptions.ForbiddenException}).</dd>
  * <dt>HTTP Status 403:</dt>
- * <dd>Action requires a valid account link to the remote service ({@link ForbiddenException}).</dd>
+ * <dd>Action requires a valid account link to the remote service ({@link fm.audiobox.core.exceptions.ForbiddenException}).</dd>
  * <dt>HTTP Status 404:</dt>
- * <dd>Resource not found or immutable ({@link ResourceNotFoundException}).</dd>
+ * <dd>Resource not found or immutable ({@link fm.audiobox.core.exceptions.ResourceNotFoundException}).</dd>
  * <dt>HTTP Status 409:</dt>
- * <dd>Conflict occurred.</dd>
+ * <dd>Conflict occurred ({@link fm.audiobox.core.exceptions.ForbiddenException}).</dd>
  * <dt>HTTP Status 422:</dt>
- * <dd>Validation errors ({@link ValidationException}).</dd>
+ * <dd>Validation errors ({@link fm.audiobox.core.exceptions.ValidationException}).</dd>
  * <dt>HTTP Status 503:</dt>
  * <dd>Remote service unavailable (overload or system failure)</dd>
  * </dl>

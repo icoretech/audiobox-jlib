@@ -25,8 +25,8 @@ import java.util.Map;
 /**
  * This exception is the parent exception for:
  * <ul>
- * <li>{@link AuthorizationException}</li>
- * <li>{@link ValidationException}</li>
+ * <li>{@link fm.audiobox.core.exceptions.AuthorizationException}</li>
+ * <li>{@link fm.audiobox.core.exceptions.ValidationException}</li>
  * </ul>
  * It is used for those exception risen by responses given by the service
  * that bring some information on what gone wrong.
@@ -104,8 +104,8 @@ public class RemoteMessageException extends AudioBoxException {
    * @return the errors
    */
   public Errors getErrors() {
-    if (errors == null) {
-      errors = buildEmptyErrors();
+    if ( errors == null ) {
+      errors = buildEmptyErrors( getErrorCode() );
     }
     return errors;
   }
@@ -145,7 +145,7 @@ public class RemoteMessageException extends AudioBoxException {
    * @return a single string containing the error.
    */
   private static String errorToString(Map.Entry<String, Object> error) {
-    return error.getKey() + ": " + error.getValue();
+    return String.format( "%1s: %2s", error.getKey(), error.getValue() );
   }
 
 
@@ -167,8 +167,8 @@ public class RemoteMessageException extends AudioBoxException {
     try {
       return response.parseAs( ErrorsWrapper.class ).getErrors();
     } catch ( Exception e ) {
-      // Catchall
-      return buildEmptyErrors();
+      // Catchall, preserve status message
+      return buildEmptyErrors( response == null ? 0 : response.getStatusCode() );
     }
   }
 
@@ -178,9 +178,9 @@ public class RemoteMessageException extends AudioBoxException {
    *
    * @return the errors
    */
-  private static Errors buildEmptyErrors() {
+  private static Errors buildEmptyErrors(int statusMessage) {
     Map<String, Object> err = new HashMap<>();
-    err.put( "No message", new Object() );
+    err.put( "[ RemEx ] Unknown error", String.format( "Client got a remote error (%1d) but no message was given.", statusMessage ) );
     Errors errors = new Errors();
     errors.setUnknownKeys( err );
     return errors;
@@ -195,9 +195,10 @@ public class RemoteMessageException extends AudioBoxException {
    * @return the string
    */
   private static String firstErrorToString(Errors errors) {
-    for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
-      return errorToString( error );
-    }
+    if ( errors != null )
+      for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
+        return errorToString( error );
+      }
     return null;
   }
 }

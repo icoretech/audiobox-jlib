@@ -21,13 +21,16 @@ public class ErrorsWrapper {
   @Key
   private Errors errors;
 
+  @Key
+  private Errors error;
 
   /**
-   * Gets errors.
+   * Gets errors (generic type).
    *
    * @return the errors
    */
   public Errors getErrors() {
-    return errors;
+    return errors == null ? error : errors;
   }
+
 }

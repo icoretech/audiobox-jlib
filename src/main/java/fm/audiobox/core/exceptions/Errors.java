@@ -17,6 +17,4 @@ import com.google.api.client.json.GenericJson;
  * This class is used to parse error messages.
  */
 public class Errors extends GenericJson {
-
-
 }

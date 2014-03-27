@@ -15,6 +15,7 @@ package fm.audiobox.core;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
+import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
@@ -23,12 +24,16 @@ import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.Credential;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
+import fm.audiobox.core.utils.PlainTextContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URLConnection;
 import java.util.List;
 
@@ -36,7 +41,6 @@ import java.util.List;
 /**
  * == MediaFiles:
  * <ul>
- * <li>POST /api/v1/upload</li>
  * <li>OPTIONS /api/v1/upload</li>
  * <li>GET /api/v1/media_files/:token.json</li>
  * <li>GET /api/v1/playlists/:playlist_token/media_files/fingerprints.json</li>
@@ -228,15 +232,21 @@ public class Client {
 
 
   /**
-   * Upload media files in AudioBox Cloud.
-   * <p>
-   * If the subscription is not valid the upload server will refuse the uploads with a 402 HTTP status (payment required).
-   * If a media file already exists on AudioBox Cloud the upload server will return a 409 HTTP status (conflict).
+   * Uploads media files in AudioBox Cloud.
+   * <p/>
+   * If the subscription is not valid {@link fm.audiobox.core.exceptions.ForbiddenException} is thrown.
+   * If a media file already exists on AudioBox Cloud {@link fm.audiobox.core.exceptions.FileAlreadyUploaded} is thrown.
+   * <p/>
+   * Other errors might include {@link fm.audiobox.core.exceptions.ValidationException},
+   * {@link fm.audiobox.core.exceptions.SystemOverloadedException} or {@link fm.audiobox.core.exceptions.RemoteMessageException}
+   * with additional information in the exception body.
+   * <p/>
    * The application should ensure to accept those errors and retry accordingly after few minutes.
+   * <p/>
    * On successful upload the server returns a 202 with additional information in the response's body,
    * including the token assigned to a single media file.
-   * If you are uploading multiple media files in a single pass this endpoint will return a JSON array in the response's body.
-   * Files uploaded through this endpoint will go directly into the CloudPlaylist.
+   * <p/>
+   * Files uploaded through this method will go directly into the CloudPlaylist.
    * </p>
    *
    * @param file the file to upload on AudioBox
@@ -245,14 +255,17 @@ public class Client {
    *
    * @throws IOException if 422, 503 or 500 errors occurs (additional information in the exception body).
    */
-  public boolean upload(final File file) throws IOException {
+  public MediaFile upload(final File file) throws IOException {
 
     FileContent fileContent = new FileContent( URLConnection.guessContentTypeFromName( file.getAbsolutePath() ), file );
-    MultipartFormDataContent multipart = new MultipartFormDataContent();
-    multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
-    HttpResponse rsp = doPOST( UPLOAD_PATH, multipart );
+    HttpContent pathContent = new PlainTextContent( file.getAbsolutePath() );
 
-    return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
+    MultipartFormDataContent multipart = new MultipartFormDataContent();
+    multipart.addPart( new MultipartContent.Part( pathContent ), "remote_path", null );
+    multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
+
+    HttpResponse rsp = doPOST( UPLOAD_PATH, multipart );
+    return rsp.parseAs( MediaFileWrapper.class ).getMediaFile();
   }
 
 
@@ -421,6 +434,12 @@ public class Client {
   }
 
 
+  public HttpResponse doOPTION(String path) throws IOException {
+    return doRequest( HttpMethods.OPTIONS, null, null, null );
+  }
+
+
+
   /* ================ */
   /*  Private methods */
   /* ================ */
@@ -552,19 +571,28 @@ public class Client {
    *
    * @param response the response to validate
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws AudioBoxException in case of 402, 403, 404, 409, 422, 500 or 503 response codes.
    */
   private void validateResponse(HttpResponse response) throws AudioBoxException {
     switch ( response.getStatusCode() ) {
+      case HttpStatus.SC_PAYMENT_REQUIRED: // 402
+      case HttpStatus.SC_FORBIDDEN: // 403
+        throw new ForbiddenException( response );
+
       case HttpStatus.SC_NOT_FOUND: // 404
         throw new ResourceNotFoundException( response );
+
+      case HttpStatus.SC_CONFLICT: // 409 (uploads)
+        throw new FileAlreadyUploaded( response );
 
       case HttpStatus.SC_UNPROCESSABLE_ENTITY: // 422
         throw new ValidationException( response );
 
-      case HttpStatus.SC_FORBIDDEN: // 403
-      case HttpStatus.SC_PAYMENT_REQUIRED: // 402
-        throw new ForbiddenException( response );
+      case HttpStatus.SC_INTERNAL_SERVER_ERROR: // 500
+        throw new RemoteMessageException( response );
+
+      case HttpStatus.SC_SERVICE_UNAVAILABLE: // 503
+        throw new SystemOverloadedException( response );
 
     }
   }

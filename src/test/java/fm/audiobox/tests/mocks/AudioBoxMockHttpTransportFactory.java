@@ -231,4 +231,30 @@ public class AudioBoxMockHttpTransportFactory {
       }
     };
   }
+
+
+  /**
+   * Gets upload transport.
+   *
+   * @return the upload transport
+   */
+  public static HttpTransport getUploadTransport(final boolean error) {
+    return new MockHttpTransport() {
+      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
+        return new MockLowLevelHttpRequest() {
+          public LowLevelHttpResponse execute() throws IOException {
+            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+            result.setContentType( Json.MEDIA_TYPE );
+            result.setStatusCode( error ? HttpStatus.SC_CONFLICT : HttpStatus.SC_CREATED );
+            if (error) {
+              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/upload_409.json" ), "UTF-8" ) );
+            } else {
+              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/upload_202.json" ), "UTF-8" ) );
+            }
+            return result;
+          }
+        };
+      }
+    };
+  }
 }

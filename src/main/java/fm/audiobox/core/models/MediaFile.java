@@ -191,6 +191,9 @@ public class MediaFile {
   protected String filename;
 
   @Key
+  protected String media_file_name; // Used when upload succeeds.
+
+  @Key
   protected boolean loved;
 
   @Key
@@ -595,7 +598,7 @@ public class MediaFile {
    * @return the filename
    */
   public String getFilename() {
-    return this.filename;
+    return this.filename == null ? this.media_file_name : this.filename;
   }
 
 
