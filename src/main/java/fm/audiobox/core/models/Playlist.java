@@ -28,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.concurrent.Immutable;
 import java.io.IOException;
 import java.util.List;
 
@@ -99,8 +100,6 @@ import java.util.List;
  * </dl>
  */
 public class Playlist {
-
-  private Logger logger = LoggerFactory.getLogger( Playlist.class );
 
   private static final String PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + ".json";
 
@@ -234,14 +233,7 @@ public class Playlist {
   public Playlist update(Client client) throws IOException {
     validate( true );
     HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
-    if ( rsp.isSuccessStatusCode() ) {
-      try {
-        return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
-      } catch ( IOException e ) {
-        logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
-      }
-    }
-    return null;
+    return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
   }
 
 
@@ -665,7 +657,7 @@ public class Playlist {
 
 
   @Override
-  public boolean equals(Object other) {
+  public final boolean equals(Object other) {
     if ( other == null || !( other instanceof Playlist ) ) {
       return false;
     }
@@ -675,10 +667,14 @@ public class Playlist {
     boolean eq = false;
     if ( this.token != null ) {
       eq = this.token.equals( o.getToken() );
+    } else {
+      eq = o.getToken() == null;
     }
 
     if ( this.updated_at != null ) {
       eq = eq && this.updated_at.equals( o.getUpdatedAt() );
+    } else {
+      eq = o.getUpdatedAt() == null;
     }
 
     return eq;
@@ -687,7 +683,7 @@ public class Playlist {
 
 
   @Override
-  public int hashCode() {
+  public final int hashCode() {
     int hashCode = 0;
 
     if ( this.token != null )

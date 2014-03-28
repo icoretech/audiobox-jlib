@@ -24,6 +24,8 @@ import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
 import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,6 +68,13 @@ public class PlaylistsTests extends AudioBoxTests {
     }
   }
 
+
+  @Test
+  public void testEquality() {
+    EqualsVerifier.forClass( Playlist.class )
+        .suppress( Warning.NONFINAL_FIELDS )
+        .verify();
+  }
 
   /**
    * Test playlists.
@@ -722,5 +731,8 @@ public class PlaylistsTests extends AudioBoxTests {
     boolean result = p.addMediaFiles( c, tokens );
     assertTrue( result );
   }
+
+
+
 
 }
