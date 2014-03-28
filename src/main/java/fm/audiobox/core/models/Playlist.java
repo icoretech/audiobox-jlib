@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
 /**
@@ -206,19 +205,13 @@ public class Playlist {
     validate( false );
     try {
       HttpResponse rsp = client.doPOST( Playlists.getPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
-      if ( rsp.isSuccessStatusCode() ) {
-        try {
-          return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
-        } catch ( IOException e ) {
-          logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
-        }
-      }
+      return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
+
     } catch ( ResourceNotFoundException e ) {
       // According to the documentation a 404 is returned if playlist is immutable (not smart or custom).
       // Flatten this error as validation exception.
       throw new ValidationException( e.getResponse() );
     }
-    return null;
   }
 
 
@@ -335,7 +328,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public List<? extends MediaFile> getMediaFiles(Client client) throws AudioBoxException {
+  public List<? extends MediaFile> getMediaFiles(Client client) throws IOException {
     return getMediaFiles( client, 0 );
   }
 
@@ -353,7 +346,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public List<? extends MediaFile> getMediaFiles(Client client, long since) throws AudioBoxException {
+  public List<? extends MediaFile> getMediaFiles(Client client, long since) throws IOException {
     return getMediaFiles( client, since, null );
   }
 
@@ -388,7 +381,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public List<? extends MediaFile> getMediaFiles(Client client, long since, String set) throws AudioBoxException {
+  public List<? extends MediaFile> getMediaFiles(Client client, long since, String set) throws IOException {
     ensurePlaylistForRequest();
 
     JsonHttpContent data = null;
@@ -408,18 +401,8 @@ public class Playlist {
       data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
     }
 
-    try {
-
-      HttpResponse rsp = client.doGET( getMediaFilesPath(), data );
-      return rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles();
-
-    } catch ( AudioBoxException e ) {
-      throw e; // Relaunch exception
-    } catch ( IOException e ) {
-      logger.error( "Unable to parse playlists: " + e.getMessage(), e );
-    }
-
-    return null;
+    HttpResponse rsp = client.doGET( getMediaFilesPath(), data );
+    return rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles();
   }
 
 
@@ -439,7 +422,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public Albums getAlbums(Client client) throws AudioBoxException {
+  public Albums getAlbums(Client client) throws IOException {
     return getGroupedCollection( client, client.getConf().getAlbumsWrapperClass(), Albums.getPath( this.token ) );
   }
 
@@ -460,7 +443,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public Genres getGenres(Client client) throws AudioBoxException {
+  public Genres getGenres(Client client) throws IOException {
     return getGroupedCollection( client, client.getConf().getGenresWrapperClass(), Genres.getPath( this.token ) );
   }
 
@@ -481,7 +464,7 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
    */
-  public Artists getArtists(Client client) throws AudioBoxException {
+  public Artists getArtists(Client client) throws IOException {
     return getGroupedCollection( client, client.getConf().getArtistsWrapperClass(), Artists.getPath( this.token ) );
   }
 
@@ -801,19 +784,10 @@ public class Playlist {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs.
    */
-  private <T> T getGroupedCollection(Client client, Class<T> klass, String path) throws AudioBoxException {
+  private <T> T getGroupedCollection(Client client, Class<T> klass, String path) throws IOException {
     ensurePlaylistForRequest();
-
-    try {
-      HttpResponse rsp = client.doGET( path );
-      return rsp.parseAs( klass );
-    } catch ( AudioBoxException e ) {
-      throw e; // Relaunch exception
-    } catch ( IOException e ) {
-      logger.error( "Unable to parse playlists: " + e.getMessage(), e );
-    }
-
-    return null;
+    HttpResponse rsp = client.doGET( path );
+    return rsp.parseAs( klass );
   }
 
 
