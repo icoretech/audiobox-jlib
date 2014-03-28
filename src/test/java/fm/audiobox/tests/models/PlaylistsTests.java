@@ -30,6 +30,7 @@ import org.junit.Test;
 import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -50,7 +51,7 @@ public class PlaylistsTests extends AudioBoxTests {
       final File httpCacheDir = CACHE_DIR;
       HttpResponseCache.install( httpCacheDir, httpCacheSize );
 
-      Configuration config = new Configuration( Configuration.Env.development );
+      Configuration config = new Configuration( Configuration.Env.staging );
       config.setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) );
 
       config.setApiKey( fixtures.getString( "authentication.client_id" ) );
@@ -77,6 +78,28 @@ public class PlaylistsTests extends AudioBoxTests {
     List<Playlist> list = c.getPlaylists();
     assertNotNull( list );
     assertFalse( list.isEmpty() );
+    Playlist p = list.get( 0 );
+    assertNotNull( p.getToken() );
+    assertEquals( "AudioBox Desktop", p.getName() );
+    p.setName("test");
+    assertEquals( "test", p.getName() );
+
+    assertEquals( "local", p.getSystemName() );
+    assertEquals( "LocalPlaylist", p.getType() );
+    assertEquals( 0, p.getMediaFilesCount() );
+    assertEquals( 1, p.getPosition() );
+    p.setPosition(10);
+    assertEquals( 10, p.getPosition() );
+    assertEquals( false, p.isEmbeddable() );
+    p.setEmbeddable(true);
+    assertEquals( true, p.isEmbeddable() );
+    assertEquals( true, p.isVisible() );
+    p.setVisible(false);
+    assertEquals( false, p.isVisible() );
+    assertEquals( false, p.isLastAccessed() );
+    assertEquals( "2013-08-29T18:25:53.517Z", p.getUpdatedAt() );
+    assertEquals( false, p.isSyncable() );
+
   }
 
 
@@ -613,4 +636,91 @@ public class PlaylistsTests extends AudioBoxTests {
 
     }
   }
+
+  /**
+   * Test add media files to not existing playlist.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testAddMediaFilesToNotExistingPlaylist() throws IOException {
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
+    Playlist p = new Playlist( "Hello" );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
+    Playlist dropbox = Playlists.getDropboxPlaylist( c );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport("000_dropbox") );
+    List<? extends MediaFile> mfs = dropbox.getMediaFiles( c );
+
+    List<String> tokens = new ArrayList<>( mfs.size() );
+    for ( MediaFile m : mfs ) {
+      tokens.add( m.getToken() );
+    }
+
+    try {
+      c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
+      p.addMediaFiles( c, tokens );
+      fail();
+    } catch ( Exception e ) {
+      assertTrue(e instanceof ResourceNotFoundException);
+    }
+  }
+
+
+  /**
+   * Test add media files to not custom playlist.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testAddMediaFilesToNotCustomPlaylist() throws IOException {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_local" ) );
+    Playlist p = Playlists.getLocalPlaylist( c );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
+    Playlist dropbox = Playlists.getDropboxPlaylist( c );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport("000_dropbox") );
+    List<? extends MediaFile> mfs = dropbox.getMediaFiles( c );
+
+    List<String> tokens = new ArrayList<>( mfs.size() );
+    for ( MediaFile m : mfs ) {
+      tokens.add( m.getToken() );
+    }
+    try {
+      c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
+      p.addMediaFiles( c, tokens );
+      fail();
+    } catch ( Exception e ) {
+      assertTrue(e instanceof ResourceNotFoundException);
+    }
+  }
+
+
+
+  @Test
+  public void testAddMediaFilesCustomPlaylist() throws IOException {
+
+    // c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
+    Playlist p = new Playlist( "test" );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistCreation201() );
+    p = p.create( c );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_cloud" ) );
+    Playlist cloud = Playlists.getCloudPlaylist( c );
+
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport("000_dropbox") );
+    List<? extends MediaFile> mfs = cloud.getMediaFiles( c );
+
+    List<String> tokens = new ArrayList<>( mfs.size() );
+    for ( MediaFile m : mfs ) {
+      tokens.add( m.getToken() );
+    }
+
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getTwoOFourHttpTransport() );
+    boolean result = p.addMediaFiles( c, tokens );
+    assertTrue( result );
+  }
+
 }

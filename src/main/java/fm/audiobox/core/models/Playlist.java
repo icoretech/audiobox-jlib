@@ -170,7 +170,7 @@ public class Playlist {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public Playlist() {
   }
 
@@ -182,6 +182,7 @@ public class Playlist {
    */
   public Playlist(String name) {
     this.name = name;
+    this.setVisible( true );
   }
 
 
@@ -494,7 +495,8 @@ public class Playlist {
    * @param client the {@link fm.audiobox.core.Client} to use for the request
    * @param tokens the list of the tokens string to add to this playlist
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if playlist not found or the playlist is not a CustomPlaylist
+   * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the playlist not found or not of type CustomPlaylist.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if playlist not found or the playlist is not a CustomPlaylist
    */
   public boolean addMediaFiles(Client client, List<String> tokens) throws IOException {
     GenericData d = new GenericData();
@@ -502,7 +504,7 @@ public class Playlist {
       d.put( MediaFiles.PARAM_TOKENS, token );
     }
     JsonHttpContent data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
-    client.doDELETE( ModelUtil.interpolate( ADD_MEDIA_FILES_PATH, getToken() ), data, null );
+    client.doPOST( ModelUtil.interpolate( ADD_MEDIA_FILES_PATH, getToken() ), data, null );
     return true;
   }
 
