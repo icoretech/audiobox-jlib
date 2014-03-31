@@ -21,6 +21,7 @@ import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.HttpStatus;
+import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
 import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
@@ -755,7 +756,8 @@ public class PlaylistsTests extends AudioBoxTests {
     t.add( "c_ddcf6876debeb3cb365bcc" );
     try {
       p.removeMediaFiles( c, t );
-    } catch ( IllegalStateException e ) {
+    } catch ( Exception e ) {
+      assertTrue( e instanceof IllegalStateException );
       assertEquals( "Playlist must be remotely created before performing the requested action.", e.getMessage() );
     }
   }
@@ -790,9 +792,75 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws IOException the iO exception
    */
   @Test
+  @Ignore
   public void testShouldRiseErrorOnNotCustomPlaylistFileRemoval() throws IOException {
 
   }
 
 
+  /**
+   * Test update should rise error on not persisted playlist.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testUpdateShouldRiseErrorOnNotPersistedPlaylist() throws IOException {
+    Playlist pls = new Playlist( "test" );
+    try {
+      pls.update( c );
+      fail( "This test should rise a IllegalStateException" );
+    } catch ( Exception e ) {
+      assertTrue( e instanceof IllegalStateException );
+      assertEquals( "Playlist must be remotely created before performing the requested action.", e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test update should rise error on rename not editable playlist.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testUpdateShouldRiseErrorOnRenameNotEditablePlaylist() throws IOException {
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
+    Playlist cloudPlaylist = ModelUtil.findPlaylistByType( c.getPlaylists(), Playlists.PLAYLIST_CLOUD );
+
+    cloudPlaylist
+        .setName( "Test Rename" )
+        .setVisible( false )
+        .setEmbeddable( false )
+        .setPosition( 100 );
+
+    try {
+      c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
+      cloudPlaylist.update( c );
+      fail( "This test should rise a ResourceNotFoundException" );
+    } catch ( Exception e ) {
+      assertTrue( e instanceof ResourceNotFoundException );
+      assertEquals( "Not Found", e.getMessage() );
+    }
+
+  }
+
+
+  /**
+   * Test update should succeed on custom types.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testUpdateShouldSucceedOnCustomTypes() throws IOException {
+    //c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_custom" ) );
+    Playlist pls = c.getPlaylist( "000_custom" );
+    pls
+        .setName( "Test" )
+        .setVisible( true )
+        .setEmbeddable( false )
+        .setPosition( 100 );
+
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getTwoOFourHttpTransport() );
+    assertEquals( pls, pls.update( c ) );
+  }
 }

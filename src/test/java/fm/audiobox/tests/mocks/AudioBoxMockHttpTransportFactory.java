@@ -153,6 +153,7 @@ public class AudioBoxMockHttpTransportFactory {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setContentType( Json.MEDIA_TYPE );
             result.setStatusCode( HttpStatus.SC_NOT_FOUND );
+            result.setReasonPhrase( "Not Found" );
             return result;
           }
         };

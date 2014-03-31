@@ -206,21 +206,24 @@ public class Playlist {
    * <p/>
    * As a rule of thumb you can have one uniquely named playlist for each type.
    * <p/>
-   * SmartPlaylist's +search_params+ can be set only on creation and thus cannot be changed, in this action.
+   * SmartPlaylist's <code>search_params</code> can be set only on creation and thus cannot be changed, in this action.
    * <p/>
-   * SmartPlaylist cannot be tweaked in their search_params due to the complexity of their construct.
+   * SmartPlaylist cannot be tweaked in their <code>search_params</code> due to the complexity of their construct.
    * Since SmartPlaylist are compiled on demand, just destroy the old and create a new one.
    *
    * @param client the client
    *
    * @return the playlist
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws java.lang.IllegalStateException                       if the playlist is not persisted yet.
+   * @throws fm.audiobox.core.exceptions.ForbiddenException        if no valid subscription found
+   * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if playlist is not found or immutable
+   * @throws fm.audiobox.core.exceptions.ValidationException       if playlist data is not valid (ex: name already taken)
    */
   public Playlist update(Client client) throws IOException {
     ensurePlaylistForRequest();
-    HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
-    return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
+    client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
+    return this;
   }
 
 
@@ -548,9 +551,12 @@ public class Playlist {
    * method.
    *
    * @param name the name
+   *
+   * @return the playlist instance in order to chain other methods.
    */
-  public void setName(String name) {
+  public Playlist setName(String name) {
     this.name = name;
+    return this;
   }
 
 
@@ -600,9 +606,12 @@ public class Playlist {
    * method.
    *
    * @param position the position to set
+   *
+   * @return the playlist instance in order to chain other methods.
    */
-  public void setPosition(long position) {
+  public Playlist setPosition(long position) {
     this.position = position;
+    return this;
   }
 
 
@@ -622,9 +631,12 @@ public class Playlist {
    * method.
    *
    * @param embeddable true to mark it as embeddable, false to disable the feature.
+   *
+   * @return the playlist instance in order to chain other methods.
    */
-  public void setEmbeddable(boolean embeddable) {
+  public Playlist setEmbeddable(boolean embeddable) {
     this.embeddable = embeddable;
+    return this;
   }
 
 
@@ -644,9 +656,12 @@ public class Playlist {
    * method.
    *
    * @param visible true to mark it as visible, false to disable the feature.
+   *
+   * @return the playlist instance in order to chain other methods.
    */
-  public void setVisible(boolean visible) {
+  public Playlist setVisible(boolean visible) {
     this.visible = visible;
+    return this;
   }
 
 
