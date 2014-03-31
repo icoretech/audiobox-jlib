@@ -38,8 +38,6 @@ import java.util.List;
  * TODO: On MediaFiles:
  * <ul>
  * <li>GET /api/v1/playlists/:playlist_token/media_files/fingerprints.json</li>
- * <li>POST /api/v1/playlists/:playlist_token/media_files/add.json?tokens[]=</li>
- * <li>DELETE /api/v1/playlists/:playlist_token/media_files/remove.json?tokens[]=</li>
  * <li>PUT /api/v1/media_files/multiupdate.json?tokens[]=</li>
  * </ul>
  * <p/>
@@ -100,7 +98,7 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public TokenResponse authorize(String username, String password) throws AudioBoxException {
+  public TokenResponse authorize(String username, String password) throws IOException {
     try {
       PasswordTokenRequest ptr = new PasswordTokenRequest(
           getConf().getHttpTransport(),
@@ -124,9 +122,6 @@ public class Client {
       return response;
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
-    } catch ( IOException e ) {
-      logger.error( "Unable to fulfill the request due to an error: " + e.getMessage() );
-      return null;
     }
   }
 
@@ -138,18 +133,9 @@ public class Client {
    *
    * @throws AudioBoxException the audio box exception
    */
-  public User getUser() throws AudioBoxException {
-    try {
-      HttpResponse rsp = doGET( UserWrapper.getPath() );
-      if ( rsp.isSuccessStatusCode() ) {
-        return rsp.parseAs( UserWrapper.class ).getUser();
-      }
-    } catch ( AudioBoxException e ) {
-      throw e; // Relaunch exception
-    } catch ( IOException e ) {
-      logger.error( "Unable to parse user: " + e.getMessage() );
-    }
-    return null;
+  public User getUser() throws IOException {
+    HttpResponse rsp = doGET( UserWrapper.getPath() );
+    return rsp.parseAs( UserWrapper.class ).getUser();
   }
 
 
@@ -160,19 +146,9 @@ public class Client {
    *
    * @throws AudioBoxException the audio box exception
    */
-  public List<Playlist> getPlaylists() throws AudioBoxException {
-    try {
-      HttpResponse rsp = doGET( Playlists.getPath() );
-      if ( rsp.isSuccessStatusCode() ) {
-        return rsp.parseAs( Playlists.class ).getPlaylists();
-      }
-    } catch ( AudioBoxException e ) {
-      throw e; // Relaunch exception
-    } catch ( IOException e ) {
-      logger.error( "Unable to parse playlists: " + e.getMessage() );
-    }
-
-    return null;
+  public List<Playlist> getPlaylists() throws IOException {
+    HttpResponse rsp = doGET( Playlists.getPath() );
+    return rsp.parseAs( Playlists.class ).getPlaylists();
   }
 
 
@@ -188,19 +164,9 @@ public class Client {
    *
    * @throws AudioBoxException the audio box exception
    */
-  public Playlist getPlaylist(String token) throws AudioBoxException {
-    try {
-      HttpResponse rsp = doGET( ModelUtil.interpolate( Playlist.getPath(), token ) );
-      if ( rsp.isSuccessStatusCode() ) {
-        return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
-      }
-    } catch ( AudioBoxException e ) {
-      throw e; // Relaunch exception
-    } catch ( IOException e ) {
-      logger.error( "Unable to parse playlists: " + e.getMessage() );
-    }
-
-    return null;
+  public Playlist getPlaylist(String token) throws IOException {
+    HttpResponse rsp = doGET( ModelUtil.interpolate( Playlist.getPath(), token ) );
+    return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
   }
 
 
@@ -211,19 +177,9 @@ public class Client {
    *
    * @throws AudioBoxException the audio box exception
    */
-  public Notifications getNotifications() throws AudioBoxException {
-    try {
-      HttpResponse rsp = doGET( Notifications.getPath() );
-      if ( rsp.isSuccessStatusCode() ) {
-        return rsp.parseAs( Notifications.class );
-      }
-    } catch ( AudioBoxException e ) {
-      throw e; // Relaunch exception
-    } catch ( IOException e ) {
-      logger.error( "Unable to parse notifications: " + e.getMessage() );
-    }
-
-    return null;
+  public Notifications getNotifications() throws IOException {
+    HttpResponse rsp = doGET( Notifications.getPath() );
+    return rsp.parseAs( Notifications.class );
   }
 
 
@@ -458,10 +414,6 @@ public class Client {
 
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
-
-    } catch ( IOException e ) {
-      logger.error( "Unable to perform " + method + " due to IO Exception: " + e.getMessage() );
-      throw e;
     }
   }
 

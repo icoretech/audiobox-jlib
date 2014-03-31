@@ -17,6 +17,7 @@ import fm.audiobox.core.Client;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.utils.ModelUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -118,7 +119,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getLocalPlaylist(Client client) throws AudioBoxException {
+  public static Playlist getLocalPlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_LOCAL );
   }
 
@@ -140,7 +141,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getCloudPlaylist(Client client) throws AudioBoxException {
+  public static Playlist getCloudPlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_CLOUD );
   }
 
@@ -162,7 +163,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getDropboxPlaylist(Client client) throws AudioBoxException {
+  public static Playlist getDropboxPlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_DROPBOX );
   }
 
@@ -184,7 +185,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getOneDrivePlaylist(Client client) throws AudioBoxException {
+  public static Playlist getOneDrivePlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_ONERIVE );
   }
 
@@ -206,7 +207,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getBoxPlaylist(Client client) throws AudioBoxException {
+  public static Playlist getBoxPlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_BOX );
   }
 
@@ -228,7 +229,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getGdrivePlaylist(Client client) throws AudioBoxException {
+  public static Playlist getGdrivePlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_GDRIVE );
   }
 
@@ -250,7 +251,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getYoutubePlaylist(Client client) throws AudioBoxException {
+  public static Playlist getYoutubePlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_YOUTUBE );
   }
 
@@ -272,7 +273,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getSoundcloudPlaylist(Client client) throws AudioBoxException {
+  public static Playlist getSoundcloudPlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_SOUNDCLOUD );
   }
 
@@ -294,7 +295,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getUbuntuPlaylist(Client client) throws AudioBoxException {
+  public static Playlist getUbuntuPlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_UBUNTU );
   }
 
@@ -316,7 +317,7 @@ public class Playlists {
    *
    * @throws AudioBoxException if any problem occurs
    */
-  public static Playlist getOfflinePlaylist(Client client) throws AudioBoxException {
+  public static Playlist getOfflinePlaylist(Client client) throws IOException {
     return getPlaylistOfType( client, PLAYLIST_OFFLINE );
   }
 
@@ -335,7 +336,7 @@ public class Playlists {
    * @param client the user's {@link Client} to use to make the request
    * @param type   the Playlists#PLAYLIST_* type to if any problem occurs
    */
-  private static Playlist getPlaylistOfType(Client client, String type) throws AudioBoxException {
+  private static Playlist getPlaylistOfType(Client client, String type) throws IOException {
     return ModelUtil.findPlaylistByType( client.getPlaylists(), type );
   }
 

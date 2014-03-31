@@ -75,7 +75,7 @@ public class UserTests extends AudioBoxTests {
    * @throws ParseException    the parse exception
    */
   @Test
-  public void testAllUserKeysAreWellParsed() throws AudioBoxException, ParseException {
+  public void testAllUserKeysAreWellParsed() throws IOException, ParseException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getRightUserHttpTransport() );
     User user = c.getUser();
     assertNotNull( user );

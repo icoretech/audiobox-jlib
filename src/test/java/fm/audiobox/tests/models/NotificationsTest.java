@@ -69,7 +69,7 @@ public class NotificationsTest extends AudioBoxTests {
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testNotificationsParsing() throws AudioBoxException {
+  public void testNotificationsParsing() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getNotificationsHttpTransport() );
     Notifications n = c.getNotifications();
     assertNotNull( n );
