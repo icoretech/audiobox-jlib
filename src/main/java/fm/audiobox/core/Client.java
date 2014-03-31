@@ -179,6 +179,8 @@ public class Client {
   /**
    * Gets the specified playlist.
    * Triggers Smart Playlist compilation if the requested playlist is a SmartPlaylist.
+   * <br/>
+   * NOTE: this method will always perform a request against AudioBox servers.
    *
    * @param token the token of the playlist to get.
    *

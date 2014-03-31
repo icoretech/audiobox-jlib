@@ -16,6 +16,7 @@ package fm.audiobox.core.models;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.GenericData;
+import com.google.api.client.util.Joiner;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.exceptions.AudioBoxException;
@@ -25,10 +26,7 @@ import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.annotation.concurrent.Immutable;
 import java.io.IOException;
 import java.util.List;
 
@@ -41,7 +39,7 @@ import java.util.List;
  * There are different types of playlists and each one can represent a particular media storage service, here's a
  * rundown:
  * <dl>
- * <dt>LocalPlaylist</dt>
+ * <dt><strong>LocalPlaylist</strong></dt>
  * <dd>
  * Contains AudioBox Desktop media files. AudioBox Desktop is an application that is able to stream media files
  * directly from the User's pc, without uploading an entire collection first.
@@ -50,7 +48,7 @@ import java.util.List;
  * filesystem in the folder he specified. This playlist is not treated differently, except that media files actions are
  * limited, such as destroy, since it is automatically managed.
  * </dd>
- * <dt>CloudPlaylist</dt>
+ * <dt><strong>CloudPlaylist</strong></dt>
  * <dd>
  * Contains AudioBox Cloud media files. AudioBox Cloud is the official AudioBox Cloud Media Storage offering and it's
  * available space is unlimited.
@@ -58,45 +56,35 @@ import java.util.List;
  * This playlist can be accessed only when a valid subscription is in place, so in order to perform actions against it
  * make sure that the permissions: cloud is true in the /api/v1/user.json call.
  * </dd>
- * <dt>
+ * <dt><strong>
  * DropboxPlaylist, SkydrivePlaylist, BoxPlaylist, GdrivePlaylist, YouTubePlaylist, SoundcloudPlaylist, UbuntuPlaylist
- * </dt>
+ * </strong></dt>
  * <dd>
  * Contains media files synced from the relative remote storage. Accessible when a valid subscription exists,
  * whereas applicable, and a proper service authentication is stored in database. The link between an AudioBox account
  * and the remote service is called an AudioMash.
  * </dd>
- * <dt>CustomPlaylist</dt>
+ * <dt><strong>CustomPlaylist</strong></dt>
  * <dd>User-created playlist that contains media files assigned by the user.</dd>
- * <dt>SmartPlaylist</dt>
+ * <dt><strong>SmartPlaylist</strong></dt>
  * <dd>
  * User-created playlist that contains media files that corresponds to rules defined by the user. Updates
  * automatically on demand.
  * </dd>
- * <dt>OfflinePlaylist</dt>
+ * <dt><strong>OfflinePlaylist</strong></dt>
  * <dd>System-created playlist that contains media files the user would like to store on client.</dd>
  * </dl>
- * Each playlist supports a set of attributes:
  * <p/>
+ * Each playlist supports a set of attributes:
  * <dl>
- * <dt>token:</dt>
+ * <dt><strong>token:</strong></dt>
  * <dd>identifier used to perform actions on a playlist, usually part of the URL.</dd>
- * <dt>embeddable:</dt>
+ * <dt><strong>embeddable:</strong></dt>
  * <dd>boolean identifying if this playlist can be embedded on an external website. For future use.</dd>
- * <dt>visible:</dt>
+ * <dt><strong>visible:</strong></dt>
  * <dd>boolean identifying if this playlist should be hidden from the user interface.</dd>
- * <dt>syncable:</dt>
+ * <dt><strong>syncable:</strong></dt>
  * <dd>
- * boolean identifying if this playlist supports syncing with remote content, usually valid for external storage
- * services.
- * </dd>
- * <dt>system_name:</dt>
- * <dd>a code friendly name identifying playlist's type.</dd>
- * <dt>position:</dt>
- * <dd>
- * integer identifying the order of which playlists should be shown, this is a user's preference. The most
- * important playlists has this attribute unchangeable.
- * </dd>
  * </dl>
  */
 public class Playlist {
@@ -124,7 +112,6 @@ public class Playlist {
    * DELETE
    */
   private static final String REMOVE_MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/remove.json";
-
 
   @Key
   private String token;
@@ -168,7 +155,7 @@ public class Playlist {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings("unused")
+  @SuppressWarnings( "unused" )
   public Playlist() {
   }
 
@@ -201,7 +188,7 @@ public class Playlist {
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public Playlist create(Client client) throws IOException {
-    validate( false );
+    validateForRequest( false );
     try {
       HttpResponse rsp = client.doPOST( Playlists.getPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
       return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
@@ -231,7 +218,7 @@ public class Playlist {
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public Playlist update(Client client) throws IOException {
-    validate( true );
+    ensurePlaylistForRequest();
     HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
     return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
   }
@@ -248,12 +235,10 @@ public class Playlist {
    *
    * @throws AudioBoxException in case of 401, 402, 403, 404 or 422 response codes.
    */
-  public boolean delete(Client client) throws IOException {
+  public boolean destroy(Client client) throws IOException {
     ensurePlaylistForRequest();
-    HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
-    // OK -> 204
-    // Not Found OR Cannot delete -> 404
-    return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
+    client.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
+    return true;
   }
 
 
@@ -353,16 +338,19 @@ public class Playlist {
    * show endpoint.
    * </p>
    * <p>
-   * Supports a comma separated 'set' parameter which indicates which attributes to render, like 'type,token' so a developer can just ask the needed attributes.
+   * Supports a comma separated 'set' parameter which indicates which attributes to render, like 'type,token' so a
+   * developer can just ask the needed attributes.
    * </p>
    * <p>
-   * Supports a datetime 'since' parameter that filters the collection and returns records modified since the specified date.
+   * Supports a datetime 'since' parameter that filters the collection and returns records modified since the specified
+   * date.
    * </p>
    * <p>
    * Remote and third party Cloud Storage services' content can be accessed through this endpoint, however an error will
    * be returned if the user has no valid authentication information stored towards the service in question or has an
    * invalid subscription. For example if the user tries to access the Dropbox playlist but he has not the related account
-   * linked a ForbiddenException will be thrown, along with the subscription status. Valid subscription statuses are active and trialing.
+   * linked a ForbiddenException will be thrown, along with the subscription status. Valid subscription statuses are
+   * active and trialing.
    * </p>
    *
    * @param client the client to use for the request
@@ -470,22 +458,62 @@ public class Playlist {
    * @param client the {@link fm.audiobox.core.Client} to use for the request
    * @param tokens the list of the tokens string to add to this playlist
    *
+   * @return the playlist instance in order to chain other operations on it if needed.
+   *
+   * @throws java.lang.IllegalStateException                       if the playlist is not persisted yet.
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the playlist not found or not of type CustomPlaylist.
-   * @throws fm.audiobox.core.exceptions.AudioBoxException         if playlist not found or the playlist is not a CustomPlaylist
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of AudioBoxException occurs.
    */
-  public boolean addMediaFiles(Client client, List<String> tokens) throws IOException {
+  public Playlist addMediaFiles(Client client, List<String> tokens) throws IOException {
+
+    ensurePlaylistForRequest();
+
     GenericData d = new GenericData();
     for ( String token : tokens ) {
       d.put( MediaFiles.PARAM_TOKENS, token );
     }
     JsonHttpContent data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
     client.doPOST( ModelUtil.interpolate( ADD_MEDIA_FILES_PATH, getToken() ), data, null );
-    return true;
+    return this;
   }
 
 
   /**
-   * Gets the generic remote resource path (token interpolation is needed).
+   * Remove Media Files from a CustomPlaylist.
+   * <p/>
+   * Shallow action that requires a list of media files tokens to be removed from this playlist.
+   * Only custom playlist tokens are allowed, being the only ones for which content can be modified.
+   * <br/>
+   * AudioBox will not remove media files not present in the destination playlist.
+   *
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param tokens the list of the tokens string to add to this playlist
+   *
+   * @return the playlist instance in order to chain other operations on it if needed.
+   *
+   * @throws java.lang.IllegalStateException                       if the playlist is not persisted yet.
+   * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the playlist not found or not of type CustomPlaylist.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of AudioBoxException occurs.
+   */
+  public Playlist removeMediaFiles(Client client, List<String> tokens) throws IOException {
+
+    ensurePlaylistForRequest();
+
+    // NOTE: We are building the request with query parameters because google-http-java-client at the moment of
+    // writing this library does not support DELETE methods with content-length != 0.
+    // Trying to change this to a valid HttpContent type for request will result in an exception.
+    String url = ModelUtil.interpolate( REMOVE_MEDIA_FILES_PATH, getToken() );
+    url += "?" + MediaFiles.PARAM_TOKENS + "=";
+    url += Joiner.on( ',' ).join( tokens );
+
+    client.doDELETE( url );
+    return this;
+  }
+
+
+  /**
+   * Gets the generic remote resource path (token interpolation needed,
+   * see {@link fm.audiobox.core.utils.ModelUtil#interpolate(String, String)} ).
    *
    * @return the path String
    */
@@ -505,7 +533,7 @@ public class Playlist {
 
 
   /**
-   * Gets name.
+   * Gets the playlist name.
    *
    * @return the playlist name
    */
@@ -537,7 +565,7 @@ public class Playlist {
 
 
   /**
-   * Gets type.
+   * Gets the playlist type.
    *
    * @return the type
    */
@@ -557,7 +585,7 @@ public class Playlist {
 
 
   /**
-   * Gets position.
+   * Gets the position of the playlist (client application should respect this field while sorting playlists).
    *
    * @return the position of the playlist
    */
@@ -624,7 +652,7 @@ public class Playlist {
 
   /**
    * Use this method to check if the playlist is the last one accessed.
-   * (i.e. {@link Client#getPlaylist(String)} was called at last}
+   * (i.e. {@link fm.audiobox.core.Client#getPlaylist(String)} was called at last}
    *
    * @return true if this was the last accessed playlist
    */
@@ -737,10 +765,7 @@ public class Playlist {
    * If something is missing or not valid an IllegalStateException is thrown
    */
   private void ensurePlaylistForRequest() {
-    if ( StringUtils.isBlank( this.getToken() ) ) {
-      throw new IllegalStateException( "Playlist is not ready for remote request: token not valid" );
-    }
-    validate( true );
+    validateForRequest( true );
   }
 
 
@@ -749,10 +774,10 @@ public class Playlist {
    *
    * @param newRecordNotAllowed whether a new record should rise an error or not
    */
-  private void validate(boolean newRecordNotAllowed) {
+  private void validateForRequest(boolean newRecordNotAllowed) {
 
     if ( newRecordNotAllowed && isNewRecord() ) {
-      throw new IllegalStateException( "Playlist must be remotely created first." );
+      throw new IllegalStateException( "Playlist must be remotely created before performing the requested action." );
     }
 
     if ( StringUtils.isBlank( this.getName() ) ) {

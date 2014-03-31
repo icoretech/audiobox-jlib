@@ -115,7 +115,6 @@ import java.io.IOException;
  */
 public class MediaFile {
 
-  private Logger logger = LoggerFactory.getLogger( MediaFile.class );
 
   /**
    * GET, PUT, DELETE
@@ -367,7 +366,7 @@ public class MediaFile {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings("unused")
+  @SuppressWarnings( "unused" )
   public MediaFile() {
   }
 
@@ -405,11 +404,10 @@ public class MediaFile {
   /**
    * Load a single media file.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
-   * @param token  the token that uniquely identify the media file
-   *
+   * @param client the
+   * to use for the request
+   * @param token the token that uniquely identify the media file
    * @return the requested media file
-   *
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
    */
   public static MediaFile load(Client client, String token) throws IOException {
@@ -421,22 +419,14 @@ public class MediaFile {
   /**
    * Handle a single media file update.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
-   *
+   * @param client the
+   * to use for the request
    * @return the or null (request failed)
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public MediaFile update(Client client) throws IOException {
     HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
-    if ( rsp.isSuccessStatusCode() ) {
-      try {
-        return rsp.parseAs( client.getConf().getMediaFileClass() );
-      } catch ( IOException e ) {
-        logger.error( "Unable to perform request due to IO Exception: " + e.getMessage() );
-      }
-    }
-    return null;
+    return rsp.parseAs( client.getConf().getMediaFileClass() );
   }
 
 
@@ -452,10 +442,9 @@ public class MediaFile {
    * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
    * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
-   *
+   * @param client the
+   * to use for the request
    * @return true if the operation succeeds.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
   public boolean destroy(Client client) throws IOException {
@@ -471,10 +460,9 @@ public class MediaFile {
    * <p/>
    * Triggers different actions in the system, such as Scrobbling to Last.fm and much more.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
-   *
+   * @param client the
+   * to use for the request
    * @return true if the operation succeeds.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
   public boolean scrobble(Client client) throws IOException {
@@ -486,10 +474,9 @@ public class MediaFile {
   /**
    * Loads the media file lyrics from AudioBox.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
-   *
+   * @param client the
+   * to use for the request
    * @return the lyrics or null
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
   public String getLyrics(Client client) throws IOException {
@@ -498,17 +485,9 @@ public class MediaFile {
       return getLyricsField();
     }
 
-    try {
-
-      HttpResponse rsp = client.doGET( ModelUtil.interpolate( LYRICS_PATH, getToken() ) );
-      MediaFile m = rsp.parseAs( MediaFileWrapper.class ).getMediaFile();
-      this.lyrics = m.getLyricsField();
-
-    } catch ( AudioBoxException e ) {
-      throw e; // Relaunch exception
-    } catch ( IOException e ) {
-      logger.error( "Unable to parse playlists: " + e.getMessage(), e );
-    }
+    HttpResponse rsp = client.doGET( ModelUtil.interpolate( LYRICS_PATH, getToken() ) );
+    MediaFile m = rsp.parseAs( MediaFileWrapper.class ).getMediaFile();
+    this.lyrics = m.getLyricsField();
 
     return this.lyrics;
   }
@@ -524,10 +503,9 @@ public class MediaFile {
    * <p/>
    * Last.fm will see a track as loved, Facebook as liked, Google Drive as starred, and so on.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
-   *
+   * @param client the
+   * to use for the request
    * @return true if the operation succeeds.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
   public boolean love(Client client) throws IOException {
@@ -547,10 +525,9 @@ public class MediaFile {
    * <p/>
    * Last.fm will see a track as unloved, Facebook as unliked, Google Drive as not starred, and so on.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
-   *
+   * @param client the
+   * to use for the request
    * @return true if the operation succeeds.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
   public boolean unlove(Client client) throws IOException {
@@ -567,10 +544,9 @@ public class MediaFile {
    * <p/>
    * Preserve all the features of the love and unlove endpoints.
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
-   *
+   * @param client the
+   * to use for the request
    * @return true if the operation succeeds.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
   public boolean toggleLove(Client client) throws IOException {
@@ -611,12 +587,32 @@ public class MediaFile {
 
 
   /**
+   * Sets artist.
+   *
+   * @param artist the artist
+   */
+  public void setArtist(String artist) {
+    this.artist = artist;
+  }
+
+
+  /**
    * Album name, automatically set depending on the Cloud Drive in use if not set.
    *
    * @return the album
    */
   public String getAlbum() {
     return this.album;
+  }
+
+
+  /**
+   * Sets album.
+   *
+   * @param album the album
+   */
+  public void setAlbum(String album) {
+    this.album = album;
   }
 
 
@@ -631,6 +627,16 @@ public class MediaFile {
 
 
   /**
+   * Sets genre.
+   *
+   * @param genre the genre
+   */
+  public void setGenre(String genre) {
+    this.genre = genre;
+  }
+
+
+  /**
    * Four integers, represents the year when the Media File has been released.
    *
    * @return the release year
@@ -641,12 +647,32 @@ public class MediaFile {
 
 
   /**
+   * Sets release year.
+   *
+   * @param releaseYear the release year
+   */
+  public void setReleaseYear(int releaseYear) {
+    this.release_year = releaseYear;
+  }
+
+
+  /**
    * The title of this Media File.
    *
    * @return the title
    */
   public String getTitle() {
     return this.title;
+  }
+
+
+  /**
+   * Sets title.
+   *
+   * @param title the title
+   */
+  public void setTitle(String title) {
+    this.title = title;
   }
 
 
@@ -681,6 +707,16 @@ public class MediaFile {
 
 
   /**
+   * Sets position.
+   *
+   * @param position the position
+   */
+  public void setPosition(int position) {
+    this.position = position;
+  }
+
+
+  /**
    * File name indicating where the file has been stored on our systems.
    *
    * @return the filename
@@ -701,12 +737,32 @@ public class MediaFile {
 
 
   /**
+   * Sets loved.
+   *
+   * @param loved the loved
+   */
+  public void setLoved(boolean loved) {
+    this.loved = loved;
+  }
+
+
+  /**
    * Represents the number of the disc in a multi collection set.
    *
    * @return the disc number
    */
   public int getDiscNumber() {
     return this.disc_number;
+  }
+
+
+  /**
+   * Sets disc number.
+   *
+   * @param discNumber the disc number
+   */
+  public void setDiscNumber(int discNumber) {
+    this.disc_number = discNumber;
   }
 
 
@@ -764,6 +820,16 @@ public class MediaFile {
 
 
   /**
+   * Sets artwork.
+   *
+   * @param artwork the artwork
+   */
+  public void setArtwork(String artwork) {
+    this.artwork = artwork;
+  }
+
+
+  /**
    * Physical size of the Media File, in bytes.
    *
    * @return the size
@@ -780,6 +846,16 @@ public class MediaFile {
    */
   public String getAlbumArtist() {
     return this.album_artist;
+  }
+
+
+  /**
+   * Sets album _ artist.
+   *
+   * @param album_artist the album _ artist
+   */
+  public void setAlbum_artist(String album_artist) {
+    this.album_artist = album_artist;
   }
 
 
@@ -804,12 +880,32 @@ public class MediaFile {
 
 
   /**
+   * Sets composer.
+   *
+   * @param composer the composer
+   */
+  public void setComposer(String composer) {
+    this.composer = composer;
+  }
+
+
+  /**
    * Gets custom comment.
    *
    * @return the comment
    */
   public String getComment() {
     return this.comment;
+  }
+
+
+  /**
+   * Sets comment.
+   *
+   * @param comment the comment
+   */
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 
 

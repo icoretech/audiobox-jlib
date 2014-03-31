@@ -27,6 +27,7 @@ import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
@@ -69,12 +70,16 @@ public class PlaylistsTests extends AudioBoxTests {
   }
 
 
+  /**
+   * Test equality.
+   */
   @Test
   public void testEquality() {
     EqualsVerifier.forClass( Playlist.class )
         .suppress( Warning.NONFINAL_FIELDS )
         .verify();
   }
+
 
   /**
    * Test playlists.
@@ -90,20 +95,20 @@ public class PlaylistsTests extends AudioBoxTests {
     Playlist p = list.get( 0 );
     assertNotNull( p.getToken() );
     assertEquals( "AudioBox Desktop", p.getName() );
-    p.setName("test");
+    p.setName( "test" );
     assertEquals( "test", p.getName() );
 
     assertEquals( "local", p.getSystemName() );
     assertEquals( "LocalPlaylist", p.getType() );
     assertEquals( 0, p.getMediaFilesCount() );
     assertEquals( 1, p.getPosition() );
-    p.setPosition(10);
+    p.setPosition( 10 );
     assertEquals( 10, p.getPosition() );
     assertEquals( false, p.isEmbeddable() );
-    p.setEmbeddable(true);
+    p.setEmbeddable( true );
     assertEquals( true, p.isEmbeddable() );
     assertEquals( true, p.isVisible() );
-    p.setVisible(false);
+    p.setVisible( false );
     assertEquals( false, p.isVisible() );
     assertEquals( false, p.isLastAccessed() );
     assertEquals( "2013-08-29T18:25:53.517Z", p.getUpdatedAt() );
@@ -150,7 +155,7 @@ public class PlaylistsTests extends AudioBoxTests {
   @Test( expected = IllegalStateException.class )
   public void testBrandNewPlaylistDeletionShouldRiseError() throws IOException {
     Playlist p = new Playlist( "Hello" );
-    p.delete( c );
+    p.destroy( c );
   }
 
 
@@ -264,7 +269,7 @@ public class PlaylistsTests extends AudioBoxTests {
       Playlist p = c.getPlaylist( "test_playlist_201_created" );
 
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistDeletion204() );
-      assertTrue( "Playlist should be deleted", p.delete( c ) );
+      assertTrue( "Playlist should be deleted", p.destroy( c ) );
     } catch ( IOException e ) {
       fail( e.getMessage() );
     }
@@ -646,6 +651,7 @@ public class PlaylistsTests extends AudioBoxTests {
     }
   }
 
+
   /**
    * Test add media files to not existing playlist.
    *
@@ -659,7 +665,7 @@ public class PlaylistsTests extends AudioBoxTests {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
     Playlist dropbox = Playlists.getDropboxPlaylist( c );
 
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport("000_dropbox") );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport( "000_dropbox" ) );
     List<? extends MediaFile> mfs = dropbox.getMediaFiles( c );
 
     List<String> tokens = new ArrayList<>( mfs.size() );
@@ -670,9 +676,9 @@ public class PlaylistsTests extends AudioBoxTests {
     try {
       c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
       p.addMediaFiles( c, tokens );
-      fail();
+      fail( "Expected InvalidStateException got success" );
     } catch ( Exception e ) {
-      assertTrue(e instanceof ResourceNotFoundException);
+      assertTrue( "Exception should be of type IllegalStateException", e instanceof IllegalStateException );
     }
   }
 
@@ -690,7 +696,7 @@ public class PlaylistsTests extends AudioBoxTests {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_dropbox" ) );
     Playlist dropbox = Playlists.getDropboxPlaylist( c );
 
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport("000_dropbox") );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport( "000_dropbox" ) );
     List<? extends MediaFile> mfs = dropbox.getMediaFiles( c );
 
     List<String> tokens = new ArrayList<>( mfs.size() );
@@ -702,12 +708,16 @@ public class PlaylistsTests extends AudioBoxTests {
       p.addMediaFiles( c, tokens );
       fail();
     } catch ( Exception e ) {
-      assertTrue(e instanceof ResourceNotFoundException);
+      assertTrue( e instanceof ResourceNotFoundException );
     }
   }
 
 
-
+  /**
+   * Test add media files custom playlist.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testAddMediaFilesCustomPlaylist() throws IOException {
 
@@ -719,7 +729,7 @@ public class PlaylistsTests extends AudioBoxTests {
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000_cloud" ) );
     Playlist cloud = Playlists.getCloudPlaylist( c );
 
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport("000_dropbox") );
+    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport( "000_dropbox" ) );
     List<? extends MediaFile> mfs = cloud.getMediaFiles( c );
 
     List<String> tokens = new ArrayList<>( mfs.size() );
@@ -728,11 +738,61 @@ public class PlaylistsTests extends AudioBoxTests {
     }
 
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getTwoOFourHttpTransport() );
-    boolean result = p.addMediaFiles( c, tokens );
-    assertTrue( result );
+    Playlist p2 = p.addMediaFiles( c, tokens );
+    assertEquals( p2, p );
   }
 
 
+  /**
+   * Test should rise error on not existing playlist media file removal.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testShouldRiseErrorOnNotExistingPlaylistMediaFileRemoval() throws IOException {
+    Playlist p = new Playlist( "test" );
+    List<String> t = new ArrayList<>( 1 );
+    t.add( "c_ddcf6876debeb3cb365bcc" );
+    try {
+      p.removeMediaFiles( c, t );
+    } catch ( IllegalStateException e ) {
+      assertEquals( "Playlist must be remotely created before performing the requested action.", e.getMessage() );
+    }
+  }
+
+
+  /**
+   * Test should rise error on not existing media file removal.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  @Ignore
+  public void testShouldRiseErrorOnNotExistingMediaFileRemoval() throws IOException {
+    c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
+    Playlist testPlaylist = c.getPlaylist( "76836ff900f7de0e" );
+
+    List<String> t = new ArrayList<>( 1 );
+    t.add( "aaa" );
+    testPlaylist.removeMediaFiles( c, t );
+
+    //c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "000Dropbox" ) );
+    //Playlist p = Playlists.getCloudPlaylist( c );
+//
+    //c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport("000Dropbox") );
+    ////List<? extends MediaFile> mfs = p.getMediaFiles( c );
+  }
+
+
+  /**
+   * Test should rise error on not custom playlist file removal.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testShouldRiseErrorOnNotCustomPlaylistFileRemoval() throws IOException {
+
+  }
 
 
 }

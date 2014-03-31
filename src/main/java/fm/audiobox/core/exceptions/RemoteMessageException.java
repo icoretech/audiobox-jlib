@@ -180,7 +180,7 @@ public class RemoteMessageException extends AudioBoxException {
    */
   private static Errors buildEmptyErrors(int statusMessage) {
     Map<String, Object> err = new HashMap<>();
-    err.put( "[ RemEx ] Unknown error", String.format( "Client got a remote error (%1d) but no message was given.", statusMessage ) );
+    err.put( RemoteMessageException.class.getCanonicalName(), String.format( "Client got a remote error (%1d) but no message was given.", statusMessage ) );
     Errors errors = new Errors();
     errors.setUnknownKeys( err );
     return errors;
