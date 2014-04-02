@@ -70,7 +70,7 @@ public class ClientTests extends AudioBoxTests {
    *
    * @throws IOException the iO exception
    */
-  @Test(expected = AuthorizationException.class)
+  @Test( expected = AuthorizationException.class )
   public void testWrongAuthorization() throws IOException {
     c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getWrongAccountHttpTransport() );
     c.authorize( "wrong@email.com", "fakepasswd" );
@@ -101,12 +101,19 @@ public class ClientTests extends AudioBoxTests {
    *
    * @throws IOException the iO exception
    */
-  @Test(expected = AuthorizationException.class)
+  @Test
   public void testStoredCredentialWithWrongRefreshToken() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport( c.getConf().getJsonFactory() ) );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport() );
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore( c.getConf().getDataStoreFactory() );
     assertFalse( "Data store should not be empty", udb.isEmpty() );
-    c.getUser();
+    try {
+      c.getUser();
+      fail("AuthorizationException expected");
+    } catch ( AuthorizationException e ) {
+      assertEquals("invalid_grant: invalid refresh token", e.getMessage());
+    } catch ( Exception e) {
+      fail("AuthorizationException expected, got " + e.getClass().getCanonicalName());
+    }
   }
 
 

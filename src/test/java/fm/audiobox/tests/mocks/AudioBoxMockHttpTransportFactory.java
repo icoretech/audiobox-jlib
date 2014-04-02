@@ -17,17 +17,13 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.LowLevelHttpRequest;
 import com.google.api.client.http.LowLevelHttpResponse;
 import com.google.api.client.json.Json;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
-import fm.audiobox.core.exceptions.AuthorizationException;
-import fm.audiobox.core.exceptions.Errors;
 import fm.audiobox.core.utils.HttpStatus;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 
 /**
@@ -35,15 +31,50 @@ import java.nio.charset.Charset;
  */
 public class AudioBoxMockHttpTransportFactory {
 
-  //private static final HttpTransport = new NetHttpTransport();
+
+  /**
+   * Gets transport.
+   *
+   * @return the transport
+   */
+  public static HttpTransport getTransport() {
+    return getTransport( HttpStatus.SC_NO_CONTENT );
+  }
 
 
   /**
-   * Gets wrong account http transport.
+   * Gets transport.
    *
-   * @return the wrong account http transport
+   * @param responseFilePath the response file path
+   *
+   * @return the transport
    */
-  public static HttpTransport getWrongAccountHttpTransport() {
+  public static HttpTransport getTransport(final String responseFilePath) {
+    return getTransport( HttpStatus.SC_OK, responseFilePath );
+  }
+
+
+  /**
+   * Gets transport.
+   *
+   * @param status the status
+   *
+   * @return the transport
+   */
+  public static HttpTransport getTransport(final int status) {
+    return getTransport( status, null );
+  }
+
+
+  /**
+   * Gets transport.
+   *
+   * @param status           the status
+   * @param responseFilePath the response file path
+   *
+   * @return the transport
+   */
+  public static HttpTransport getTransport(final int status, final String responseFilePath) {
     return new MockHttpTransport() {
 
       @Override
@@ -53,9 +84,18 @@ public class AudioBoxMockHttpTransportFactory {
           @Override
           public LowLevelHttpResponse execute() throws IOException {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
+
             result.setContentType( Json.MEDIA_TYPE );
-            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/oauth2/invalid_account.json" ), "UTF-8" ) );
-            result.setStatusCode( HttpStatus.SC_BAD_REQUEST );
+            result.setStatusCode( status );
+
+            if ( HttpStatus.SC_NOT_FOUND == status ) {
+              result.setReasonPhrase( "Not Found" );
+            }
+
+            if ( responseFilePath != null ) {
+              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( responseFilePath ), "UTF-8" ) );
+            }
+
             return result;
           }
         };
@@ -65,26 +105,22 @@ public class AudioBoxMockHttpTransportFactory {
 
 
   /**
+   * Gets wrong account http transport.
+   *
+   * @return the wrong account http transport
+   */
+  public static HttpTransport getWrongAccountHttpTransport() {
+    return getTransport( HttpStatus.SC_BAD_REQUEST, "/responses/oauth2/invalid_account.json" );
+  }
+
+
+  /**
    * Gets invalid refresh token http transport.
    *
-   * @param factory the factory
    * @return the invalid refresh token http transport
    */
-  public static HttpTransport getInvalidRefreshTokenHttpTransport(final JsonFactory factory) {
-    return new MockHttpTransport() {
-
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            Errors e = factory.fromInputStream( this.getClass().getResourceAsStream( "/responses/oauth2/invalid_refresh_token.json" ), Charset.defaultCharset(), Errors.class );
-            throw new AuthorizationException( e, HttpStatus.SC_BAD_REQUEST );
-          }
-        };
-      }
-
-    };
+  public static HttpTransport getInvalidRefreshTokenHttpTransport() {
+    return getTransport( HttpStatus.SC_BAD_REQUEST, "/responses/oauth2/invalid_refresh_token.json" );
   }
 
 
@@ -94,22 +130,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the right account http transport
    */
   public static HttpTransport getRightAccountHttpTransport() {
-    return new MockHttpTransport() {
-
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/oauth2/token.json" ), "UTF-8" ) );
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport( "/responses/oauth2/token.json" );
   }
 
 
@@ -119,22 +140,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the right user http transport
    */
   public static HttpTransport getRightUserHttpTransport() {
-    return new MockHttpTransport() {
-
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/user.json" ), "UTF-8" ) );
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport( "/responses/user.json" );
   }
 
 
@@ -144,21 +150,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the playlists transport
    */
   public static HttpTransport getFourOFourTransport() {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            result.setReasonPhrase( "Not Found" );
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport( HttpStatus.SC_NOT_FOUND );
   }
 
 
@@ -168,22 +160,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the notifications http transport
    */
   public static HttpTransport getNotificationsHttpTransport() {
-    return new MockHttpTransport() {
-
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/notifications.json" ), "UTF-8" ) );
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport( "/responses/notifications.json" );
   }
 
 
@@ -193,22 +170,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the two o four http transport
    */
   public static HttpTransport getTwoOFourHttpTransport() {
-    return new MockHttpTransport() {
-
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setStatusCode( HttpStatus.SC_NO_CONTENT );
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport();
   }
 
 
@@ -218,44 +180,22 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the malformed http transport
    */
   public static HttpTransport getMalformedHttpTransport() {
-    return new MockHttpTransport() {
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setStatusCode( HttpStatus.SC_UNAUTHORIZED );
-            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/oauth2/auth_exception.json" ), "UTF-8" ) );
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport( HttpStatus.SC_UNAUTHORIZED, "/responses/oauth2/auth_exception.json" );
   }
 
 
   /**
    * Gets upload transport.
    *
+   * @param error the error
+   *
    * @return the upload transport
    */
   public static HttpTransport getUploadTransport(final boolean error) {
-    return new MockHttpTransport() {
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setStatusCode( error ? HttpStatus.SC_CONFLICT : HttpStatus.SC_CREATED );
-            if (error) {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/upload_409.json" ), "UTF-8" ) );
-            } else {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/upload_202.json" ), "UTF-8" ) );
-            }
-            return result;
-          }
-        };
-      }
-    };
+    if ( error ) {
+      return getTransport( HttpStatus.SC_CONFLICT, "/responses/upload_409.json" );
+    } else {
+      return getTransport( HttpStatus.SC_CREATED, "/responses/upload_202.json" );
+    }
   }
 }

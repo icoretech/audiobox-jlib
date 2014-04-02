@@ -517,6 +517,9 @@ public class Client {
    */
   private void validateResponse(HttpResponse response) throws AudioBoxException {
     switch ( response.getStatusCode() ) {
+      case HttpStatus.SC_BAD_REQUEST: // 400
+        throw new AuthorizationException( response );
+
       case HttpStatus.SC_PAYMENT_REQUIRED: // 402
       case HttpStatus.SC_FORBIDDEN: // 403
         throw new ForbiddenException( response );

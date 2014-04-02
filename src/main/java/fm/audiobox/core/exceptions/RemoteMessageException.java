@@ -15,9 +15,8 @@ package fm.audiobox.core.exceptions;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpStatusCodes;
-import com.google.api.client.util.ArrayMap;
+import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +26,8 @@ import java.util.Map;
  * <ul>
  * <li>{@link fm.audiobox.core.exceptions.AuthorizationException}</li>
  * <li>{@link fm.audiobox.core.exceptions.ValidationException}</li>
+ * <li>{@link fm.audiobox.core.exceptions.FileAlreadyUploaded}</li>
+ * <li>{@link fm.audiobox.core.exceptions.SystemOverloadedException}</li>
  * </ul>
  * It is used for those exception risen by responses given by the service
  * that bring some information on what gone wrong.
@@ -129,9 +130,11 @@ public class RemoteMessageException extends AudioBoxException {
    * @return the string
    */
   public static String errorsToString(Errors errors) {
-    String msg = "";
-    for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
-      msg += errorToString( error ) + "\n";
+    String msg = errors.toString();
+    if ( StringUtils.EMPTY.equals( msg ) ) {
+      for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
+        msg += errorToString( error ) + "\n";
+      }
     }
     return msg;
   }
@@ -165,8 +168,9 @@ public class RemoteMessageException extends AudioBoxException {
    */
   private static Errors parseErrors(HttpResponse response) {
     try {
-      return response.parseAs( ErrorsWrapper.class ).getErrors();
+      return response.parseAs( Errors.class );
     } catch ( Exception e ) {
+      e.printStackTrace();
       // Catchall, preserve status message
       return buildEmptyErrors( response == null ? 0 : response.getStatusCode() );
     }
