@@ -26,31 +26,9 @@ import java.io.IOException;
 /**
  * Created by keytwo on 28/03/14.
  */
-public class MediaFilesMockHttpTransportFactory {
+public class MediaFilesMockHttpTransportFactory extends AudioBoxMockHttpTransportFactory {
 
   public static HttpTransport getMediaFileTransport(final String mediaFileToken) {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-
-            String fileName = "/responses/media_files/" + mediaFileToken + ".json";
-
-            try {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
-            } catch ( IOException | NullPointerException e ) {
-              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            }
-
-
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport( "media_files/" + mediaFileToken + ".json" );
   }
 }

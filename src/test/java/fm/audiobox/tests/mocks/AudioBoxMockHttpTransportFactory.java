@@ -88,7 +88,7 @@ public class AudioBoxMockHttpTransportFactory {
             result.setContentType( Json.MEDIA_TYPE );
             if ( responseFilePath != null ) {
               try {
-                result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( responseFilePath ), "UTF-8" ) );
+                result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/" + responseFilePath ), "UTF-8" ) );
               } catch ( IOException | NullPointerException e ) {
                 e.printStackTrace();
                 result.setStatusCode( HttpStatus.SC_NOT_FOUND );
@@ -136,7 +136,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the wrong account http transport
    */
   public static HttpTransport getWrongAccountHttpTransport() {
-    return getTransport( HttpStatus.SC_BAD_REQUEST, "/responses/oauth2/invalid_account.json" );
+    return getTransport( HttpStatus.SC_BAD_REQUEST, "oauth2/invalid_account.json" );
   }
 
 
@@ -146,7 +146,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the invalid refresh token http transport
    */
   public static HttpTransport getInvalidRefreshTokenHttpTransport() {
-    return getTransport( HttpStatus.SC_BAD_REQUEST, "/responses/oauth2/invalid_refresh_token.json" );
+    return getTransport( HttpStatus.SC_BAD_REQUEST, "oauth2/invalid_refresh_token.json" );
   }
 
 
@@ -156,7 +156,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the right account http transport
    */
   public static HttpTransport getRightAccountHttpTransport() {
-    return getTransport( "/responses/oauth2/token.json" );
+    return getTransport( "oauth2/token.json" );
   }
 
 
@@ -166,7 +166,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the right user http transport
    */
   public static HttpTransport getRightUserHttpTransport() {
-    return getTransport( "/responses/user.json" );
+    return getTransport( "user.json" );
   }
 
 
@@ -176,7 +176,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the notifications http transport
    */
   public static HttpTransport getNotificationsHttpTransport() {
-    return getTransport( "/responses/notifications.json" );
+    return getTransport( "notifications.json" );
   }
 
 
@@ -186,7 +186,7 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the malformed http transport
    */
   public static HttpTransport getMalformedHttpTransport() {
-    return getTransport( HttpStatus.SC_UNAUTHORIZED, "/responses/oauth2/auth_exception.json" );
+    return getTransport( HttpStatus.SC_UNAUTHORIZED, "oauth2/auth_exception.json" );
   }
 
 
@@ -199,9 +199,9 @@ public class AudioBoxMockHttpTransportFactory {
    */
   public static HttpTransport getUploadTransport(final boolean error) {
     if ( error ) {
-      return getTransport( HttpStatus.SC_CONFLICT, "/responses/upload_409.json" );
+      return getTransport( HttpStatus.SC_CONFLICT, "upload_409.json" );
     } else {
-      return getTransport( HttpStatus.SC_CREATED, "/responses/upload_202.json" );
+      return getTransport( HttpStatus.SC_CREATED, "upload_202.json" );
     }
   }
 
@@ -212,6 +212,6 @@ public class AudioBoxMockHttpTransportFactory {
    * @return the playlists transport
    */
   public static HttpTransport getPlaylistsTransport() {
-    return getTransport( "/responses/playlists.json" );
+    return getTransport( "playlists.json" );
   }
 }

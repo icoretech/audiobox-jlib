@@ -39,6 +39,7 @@ public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransport
    * @return the playlist transport
    */
   public static HttpTransport getPlaylistTransport(final String playlistToken) {
+
     return new MockHttpTransport() {
       @Override
       public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
@@ -83,7 +84,7 @@ public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransport
    * @return the playlist visibility transport
    */
   public static HttpTransport getPlaylistVisibilityTransport(final String playlistToken) {
-    return getTransport(HttpStatus.SC_NO_CONTENT, "/responses/playlists/" + playlistToken + "/visible.json");
+    return getTransport(HttpStatus.SC_NO_CONTENT, "playlists/" + playlistToken + "/visible.json");
   }
 
 
@@ -95,7 +96,7 @@ public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransport
    * @return the playlist media files transport
    */
   public static HttpTransport getPlaylistMediaFilesTransport(final String playlistToken) {
-    return getTransport("/responses/playlists/" + playlistToken + "/media_files.json");
+    return getTransport("playlists/" + playlistToken + "/media_files.json");
   }
 
 
@@ -105,7 +106,7 @@ public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransport
    * @return the playlist name already taken transport
    */
   public static HttpTransport getPlaylistNameAlreadyTakenTransport() {
-    return getTransport(HttpStatus.SC_UNPROCESSABLE_ENTITY, "/responses/playlists/name_already_taken.json");
+    return getTransport(HttpStatus.SC_UNPROCESSABLE_ENTITY, "playlists/name_already_taken.json");
   }
 
 
@@ -117,7 +118,7 @@ public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransport
    * @return the playlist albums transport
    */
   public static HttpTransport getPlaylistAlbumsTransport(final String playlistToken) {
-    return getTransport("/responses/playlists/" + playlistToken + "/albums.json");
+    return getTransport("playlists/" + playlistToken + "/albums.json");
   }
 
 
@@ -129,7 +130,7 @@ public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransport
    * @return the playlist albums transport
    */
   public static HttpTransport getPlaylistGenresTransport(final String playlistToken) {
-    return getTransport("/responses/playlists/" + playlistToken + "/genres.json");
+    return getTransport("playlists/" + playlistToken + "/genres.json");
   }
 
 
@@ -141,7 +142,7 @@ public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransport
    * @return the playlist artists transport
    */
   public static HttpTransport getPlaylistArtistsTransport(final String playlistToken) {
-    return getTransport("/responses/playlists/" + playlistToken + "/artists.json");
+    return getTransport("playlists/" + playlistToken + "/artists.json");
   }
 
 
@@ -151,7 +152,7 @@ public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransport
    * @return the playlist creation 201
    */
   public static HttpTransport getPlaylistCreation201() {
-    return getTransport(HttpStatus.SC_CREATED, "/responses/playlists/test_playlist_201_created.json");
+    return getTransport(HttpStatus.SC_CREATED, "playlists/test_playlist_201_created.json");
   }
 
 }
