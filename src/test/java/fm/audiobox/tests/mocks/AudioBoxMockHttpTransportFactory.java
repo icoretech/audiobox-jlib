@@ -86,21 +86,47 @@ public class AudioBoxMockHttpTransportFactory {
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
 
             result.setContentType( Json.MEDIA_TYPE );
+            if ( responseFilePath != null ) {
+              try {
+                result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( responseFilePath ), "UTF-8" ) );
+              } catch ( IOException | NullPointerException e ) {
+                e.printStackTrace();
+                result.setStatusCode( HttpStatus.SC_NOT_FOUND );
+              }
+            }
+
             result.setStatusCode( status );
 
             if ( HttpStatus.SC_NOT_FOUND == status ) {
               result.setReasonPhrase( "Not Found" );
             }
 
-            if ( responseFilePath != null ) {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( responseFilePath ), "UTF-8" ) );
-            }
 
             return result;
           }
         };
       }
     };
+  }
+
+
+  /**
+   * Gets playlists transport.
+   *
+   * @return the playlists transport
+   */
+  public static HttpTransport getFourOFourTransport() {
+    return getTransport( HttpStatus.SC_NOT_FOUND );
+  }
+
+
+  /**
+   * Gets two o four http transport.
+   *
+   * @return the two o four http transport
+   */
+  public static HttpTransport getTwoOFourHttpTransport() {
+    return getTransport();
   }
 
 
@@ -145,32 +171,12 @@ public class AudioBoxMockHttpTransportFactory {
 
 
   /**
-   * Gets playlists transport.
-   *
-   * @return the playlists transport
-   */
-  public static HttpTransport getFourOFourTransport() {
-    return getTransport( HttpStatus.SC_NOT_FOUND );
-  }
-
-
-  /**
    * Gets notifications http transport.
    *
    * @return the notifications http transport
    */
   public static HttpTransport getNotificationsHttpTransport() {
     return getTransport( "/responses/notifications.json" );
-  }
-
-
-  /**
-   * Gets two o four http transport.
-   *
-   * @return the two o four http transport
-   */
-  public static HttpTransport getTwoOFourHttpTransport() {
-    return getTransport();
   }
 
 
@@ -197,5 +203,15 @@ public class AudioBoxMockHttpTransportFactory {
     } else {
       return getTransport( HttpStatus.SC_CREATED, "/responses/upload_202.json" );
     }
+  }
+
+
+  /**
+   * Gets playlists transport.
+   *
+   * @return the playlists transport
+   */
+  public static HttpTransport getPlaylistsTransport() {
+    return getTransport( "/responses/playlists.json" );
   }
 }

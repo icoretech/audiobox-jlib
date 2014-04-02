@@ -18,6 +18,7 @@ import com.google.api.client.json.Json;
 import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
+import fm.audiobox.core.exceptions.AuthorizationException;
 import fm.audiobox.core.utils.HttpStatus;
 import org.apache.commons.io.IOUtils;
 
@@ -28,31 +29,7 @@ import java.util.Arrays;
 /**
  * Created by keytwo on 22/01/14.
  */
-public class PlaylistsMockHttpTransportFactory {
-
-
-  /**
-   * Gets playlists transport.
-   *
-   * @return the playlists transport
-   */
-  public static HttpTransport getPlaylistsTransport() {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/playlists.json" ), "UTF-8" ) );
-            return result;
-          }
-        };
-      }
-    };
-  }
-
+public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransportFactory {
 
   /**
    * Gets playlist transport.
@@ -106,27 +83,7 @@ public class PlaylistsMockHttpTransportFactory {
    * @return the playlist visibility transport
    */
   public static HttpTransport getPlaylistVisibilityTransport(final String playlistToken) {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-
-            String fileName = "/responses/playlists/" + playlistToken + "/visible.json";
-            result.setStatusCode( HttpStatus.SC_NO_CONTENT ); // <-- this is crazy :P
-            try {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
-            } catch ( IOException | NullPointerException e ) {
-              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            }
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport(HttpStatus.SC_NO_CONTENT, "/responses/playlists/" + playlistToken + "/visible.json");
   }
 
 
@@ -138,27 +95,7 @@ public class PlaylistsMockHttpTransportFactory {
    * @return the playlist media files transport
    */
   public static HttpTransport getPlaylistMediaFilesTransport(final String playlistToken) {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-
-            String fileName = "/responses/playlists/" + playlistToken + "/media_files.json";
-
-            try {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
-            } catch ( IOException | NullPointerException e ) {
-              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            }
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport("/responses/playlists/" + playlistToken + "/media_files.json");
   }
 
 
@@ -168,28 +105,7 @@ public class PlaylistsMockHttpTransportFactory {
    * @return the playlist name already taken transport
    */
   public static HttpTransport getPlaylistNameAlreadyTakenTransport() {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setStatusCode( HttpStatus.SC_UNPROCESSABLE_ENTITY );
-
-            String fileName = "/responses/playlists/name_already_taken.json";
-
-            try {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
-            } catch ( IOException | NullPointerException e ) {
-              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            }
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport(HttpStatus.SC_UNPROCESSABLE_ENTITY, "/responses/playlists/name_already_taken.json");
   }
 
 
@@ -201,26 +117,7 @@ public class PlaylistsMockHttpTransportFactory {
    * @return the playlist albums transport
    */
   public static HttpTransport getPlaylistAlbumsTransport(final String playlistToken) {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            String fileName = "/responses/playlists/" + playlistToken + "/albums.json";
-
-            try {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
-            } catch ( IOException | NullPointerException e ) {
-              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            }
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport("/responses/playlists/" + playlistToken + "/albums.json");
   }
 
 
@@ -232,26 +129,7 @@ public class PlaylistsMockHttpTransportFactory {
    * @return the playlist albums transport
    */
   public static HttpTransport getPlaylistGenresTransport(final String playlistToken) {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            String fileName = "/responses/playlists/" + playlistToken + "/genres.json";
-
-            try {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
-            } catch ( IOException | NullPointerException e ) {
-              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            }
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport("/responses/playlists/" + playlistToken + "/genres.json");
   }
 
 
@@ -263,26 +141,7 @@ public class PlaylistsMockHttpTransportFactory {
    * @return the playlist artists transport
    */
   public static HttpTransport getPlaylistArtistsTransport(final String playlistToken) {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            String fileName = "/responses/playlists/" + playlistToken + "/artists.json";
-
-            try {
-              result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( fileName ), "UTF-8" ) );
-            } catch ( IOException | NullPointerException e ) {
-              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
-            }
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport("/responses/playlists/" + playlistToken + "/artists.json");
   }
 
 
@@ -292,43 +151,7 @@ public class PlaylistsMockHttpTransportFactory {
    * @return the playlist creation 201
    */
   public static HttpTransport getPlaylistCreation201() {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setStatusCode( HttpStatus.SC_CREATED );
-            result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/playlists/test_playlist_201_created.json" ), "UTF-8" ) );
-            return result;
-          }
-        };
-      }
-    };
+    return getTransport(HttpStatus.SC_CREATED, "/responses/playlists/test_playlist_201_created.json");
   }
 
-
-  /**
-   * Gets playlist deletion 204.
-   *
-   * @return the playlist deletion 204
-   */
-  public static HttpTransport getPlaylistDeletion204() {
-    return new MockHttpTransport() {
-      @Override
-      public LowLevelHttpRequest buildRequest(String method, String url) throws IOException {
-        return new MockLowLevelHttpRequest() {
-          @Override
-          public LowLevelHttpResponse execute() throws IOException {
-            MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
-            result.setContentType( Json.MEDIA_TYPE );
-            result.setStatusCode( HttpStatus.SC_NO_CONTENT );
-            return result;
-          }
-        };
-      }
-    };
-  }
 }

@@ -89,7 +89,7 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testPlaylists() throws IOException {
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getPlaylistsTransport() );
     List<Playlist> list = c.getPlaylists();
     assertNotNull( list );
     assertFalse( list.isEmpty() );
@@ -137,7 +137,7 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testPlaylistShouldNotBeNullIfTokenIsValid() throws IOException {
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getPlaylistsTransport() );
     List<Playlist> list = c.getPlaylists();
     Playlist p1 = list.get( 0 );
     assertNotNull( p1 );
@@ -269,7 +269,7 @@ public class PlaylistsTests extends AudioBoxTests {
       c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistTransport( "test_playlist_201_created" ) );
       Playlist p = c.getPlaylist( "test_playlist_201_created" );
 
-      c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistDeletion204() );
+      c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getTwoOFourHttpTransport() );
       assertTrue( "Playlist should be deleted", p.destroy( c ) );
     } catch ( IOException e ) {
       fail( e.getMessage() );
@@ -572,7 +572,7 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testPlaylistsByType() throws IOException {
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getPlaylistsTransport() );
     List<Playlist> pls = c.getPlaylists();
     for ( Playlist p : pls ) {
       Playlist p2 = null;
@@ -823,7 +823,7 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testUpdateShouldRiseErrorOnRenameNotEditablePlaylist() throws IOException {
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getPlaylistsTransport() );
     Playlist cloudPlaylist = ModelUtil.findPlaylistByType( c.getPlaylists(), Playlists.PLAYLIST_CLOUD );
 
     cloudPlaylist

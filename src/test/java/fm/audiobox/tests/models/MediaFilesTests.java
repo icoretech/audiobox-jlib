@@ -126,7 +126,7 @@ public class MediaFilesTests extends AudioBoxTests {
    */
   @Test
   public void testMediaFiles() throws IOException {
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getPlaylistsTransport() );
     Playlist p = Playlists.getDropboxPlaylist( c );
     c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport( p.getToken() ) );
     List<? extends MediaFile> m = p.getMediaFiles( c );
