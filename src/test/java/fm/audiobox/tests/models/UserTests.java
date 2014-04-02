@@ -23,7 +23,7 @@ import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.tests.AudioBoxTests;
-import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
+import fm.audiobox.tests.mocks.MockHttp;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,7 +76,7 @@ public class UserTests extends AudioBoxTests {
    */
   @Test
   public void testAllUserKeysAreWellParsed() throws IOException, ParseException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getRightUserHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getRightUserHttpTransport() );
     User user = c.getUser();
     assertNotNull( user );
 
@@ -188,12 +188,12 @@ public class UserTests extends AudioBoxTests {
    */
   @Test
   public void testUserUpdate() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getRightUserHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getRightUserHttpTransport() );
     User u = c.getUser();
     assertNotNull( u );
     assertNotNull( u.getPreferences() );
     u.getPreferences().setVolumeLevel( "100" );
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getTwoOFourHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.get204() );
     assertNotNull( u.savePreferences( c ) );
   }
 }

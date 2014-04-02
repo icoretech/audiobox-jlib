@@ -18,7 +18,6 @@ import com.google.api.client.json.Json;
 import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
-import fm.audiobox.core.exceptions.AuthorizationException;
 import fm.audiobox.core.utils.HttpStatus;
 import org.apache.commons.io.IOUtils;
 
@@ -29,7 +28,7 @@ import java.util.Arrays;
 /**
  * Created by keytwo on 22/01/14.
  */
-public class PlaylistsMockHttpTransportFactory extends AudioBoxMockHttpTransportFactory {
+public class PlaylistsMockHttp extends MockHttp {
 
   /**
    * Gets playlist transport.

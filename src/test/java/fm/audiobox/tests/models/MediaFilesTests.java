@@ -24,9 +24,9 @@ import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
 import fm.audiobox.tests.AudioBoxTests;
-import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
-import fm.audiobox.tests.mocks.MediaFilesMockHttpTransportFactory;
-import fm.audiobox.tests.mocks.PlaylistsMockHttpTransportFactory;
+import fm.audiobox.tests.mocks.MediaFilesMockHttp;
+import fm.audiobox.tests.mocks.MockHttp;
+import fm.audiobox.tests.mocks.PlaylistsMockHttp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,7 +69,7 @@ public class MediaFilesTests extends AudioBoxTests {
 
   @Test( expected = ResourceNotFoundException.class )
   public void testLoadMediaFileShouldFailIfWrongTokenGiven() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
+    c.getConf().setHttpTransport( MockHttp.get404() );
     MediaFile.load( c, "AAA" );
   }
 
@@ -77,7 +77,7 @@ public class MediaFilesTests extends AudioBoxTests {
   @Test
   public void testLoadMediaFileShouldSucceedWithRightToken() throws IOException {
     //c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
-    c.getConf().setHttpTransport( MediaFilesMockHttpTransportFactory.getMediaFileTransport("c_ddcf6876debeb3cb365bcc") );
+    c.getConf().setHttpTransport( MediaFilesMockHttp.getMediaFileTransport( "c_ddcf6876debeb3cb365bcc" ) );
     MediaFile mf = MediaFile.load( c, "c_ddcf6876debeb3cb365bcc" );
 
     assertNotNull( mf );
@@ -126,9 +126,9 @@ public class MediaFilesTests extends AudioBoxTests {
    */
   @Test
   public void testMediaFiles() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( MockHttp.getPlaylistsTransport() );
     Playlist p = Playlists.getDropboxPlaylist( c );
-    c.getConf().setHttpTransport( PlaylistsMockHttpTransportFactory.getPlaylistMediaFilesTransport( p.getToken() ) );
+    c.getConf().setHttpTransport( PlaylistsMockHttp.getPlaylistMediaFilesTransport( p.getToken() ) );
     List<? extends MediaFile> m = p.getMediaFiles( c );
     assertNotNull( m );
   }
@@ -146,7 +146,7 @@ public class MediaFilesTests extends AudioBoxTests {
     assertNotNull( file );
     assertTrue( file.exists() );
 
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getUploadTransport( false ) );
+    c.getConf().setHttpTransport( MockHttp.getUploadTransport( false ) );
     assertNotNull( c.upload( file ) );
   }
 
@@ -163,7 +163,7 @@ public class MediaFilesTests extends AudioBoxTests {
     assertNotNull( file );
     assertTrue( file.exists() );
 
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getUploadTransport( true ) );
+    c.getConf().setHttpTransport( MockHttp.getUploadTransport( true ) );
     assertNotNull( c.upload( file ) );
   }
 
@@ -180,12 +180,12 @@ public class MediaFilesTests extends AudioBoxTests {
     assertNotNull( file );
     assertTrue( file.exists() );
 
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getUploadTransport( false ) );
+    c.getConf().setHttpTransport( MockHttp.getUploadTransport( false ) );
     MediaFile mf = c.upload( file );
 
     assertNotNull( mf );
 
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getTwoOFourHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.get204() );
     assertTrue( mf.destroy( c ) );
 
   }
@@ -203,12 +203,12 @@ public class MediaFilesTests extends AudioBoxTests {
     assertNotNull( file );
     assertTrue( file.exists() );
 
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getUploadTransport( false ) );
+    c.getConf().setHttpTransport( MockHttp.getUploadTransport( false ) );
     MediaFile mf = c.upload( file );
 
     assertNotNull( mf );
 
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
+    c.getConf().setHttpTransport( MockHttp.get404() );
     mf.destroy( c );
     fail( "Should rise ResourceNotFoundException" );
 

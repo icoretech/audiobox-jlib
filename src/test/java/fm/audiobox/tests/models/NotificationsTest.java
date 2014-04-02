@@ -22,7 +22,7 @@ import fm.audiobox.core.exceptions.ResourceNotFoundException;
 import fm.audiobox.core.models.Notification;
 import fm.audiobox.core.models.Notifications;
 import fm.audiobox.tests.AudioBoxTests;
-import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
+import fm.audiobox.tests.mocks.MockHttp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -70,7 +70,7 @@ public class NotificationsTest extends AudioBoxTests {
    */
   @Test
   public void testNotificationsParsing() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getNotificationsHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getNotificationsHttpTransport() );
     Notifications n = c.getNotifications();
     assertNotNull( n );
     assertNotNull( n.getNotifications() );
@@ -93,7 +93,7 @@ public class NotificationsTest extends AudioBoxTests {
    */
   @Test( expected = ResourceNotFoundException.class )
   public void testInvalidNotificationDeletion() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getFourOFourTransport() );
+    c.getConf().setHttpTransport( MockHttp.get404() );
     Notification n = new Notification();
     n.delete( c );
   }
@@ -106,10 +106,10 @@ public class NotificationsTest extends AudioBoxTests {
    */
   @Test
   public void testValidNotificationDeletion() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getNotificationsHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getNotificationsHttpTransport() );
     Notifications ns = c.getNotifications();
     Notification n = ns.getNotifications().get( 0 );
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getTwoOFourHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.get204() );
     assertTrue( n.delete( c ) );
   }
 }

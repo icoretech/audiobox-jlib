@@ -29,7 +29,7 @@ import java.io.IOException;
 /**
  * Created by keytwo on 22/01/14.
  */
-public class AudioBoxMockHttpTransportFactory {
+public class MockHttp {
 
 
   /**
@@ -115,7 +115,7 @@ public class AudioBoxMockHttpTransportFactory {
    *
    * @return the playlists transport
    */
-  public static HttpTransport getFourOFourTransport() {
+  public static HttpTransport get404() {
     return getTransport( HttpStatus.SC_NOT_FOUND );
   }
 
@@ -125,7 +125,7 @@ public class AudioBoxMockHttpTransportFactory {
    *
    * @return the two o four http transport
    */
-  public static HttpTransport getTwoOFourHttpTransport() {
+  public static HttpTransport get204() {
     return getTransport();
   }
 

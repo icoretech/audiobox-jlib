@@ -23,7 +23,7 @@ import com.integralblue.httpresponsecache.HttpResponseCache;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.AuthorizationException;
-import fm.audiobox.tests.mocks.AudioBoxMockHttpTransportFactory;
+import fm.audiobox.tests.mocks.MockHttp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,7 +72,7 @@ public class ClientTests extends AudioBoxTests {
    */
   @Test( expected = AuthorizationException.class )
   public void testWrongAuthorization() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getWrongAccountHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getWrongAccountHttpTransport() );
     c.authorize( "wrong@email.com", "fakepasswd" );
   }
 
@@ -85,7 +85,7 @@ public class ClientTests extends AudioBoxTests {
   @Test
   public void testRightAuthorization() throws ConfigurationException {
     try {
-      c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getRightAccountHttpTransport() );
+      c.getConf().setHttpTransport( MockHttp.getRightAccountHttpTransport() );
       TokenResponse r = c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
       assertEquals( "aaa", r.getAccessToken() );
       assertEquals( "rrr", r.getRefreshToken() );
@@ -103,14 +103,14 @@ public class ClientTests extends AudioBoxTests {
    */
   @Test
   public void testStoredCredentialWithWrongRefreshToken() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getInvalidRefreshTokenHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getInvalidRefreshTokenHttpTransport() );
     DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore( c.getConf().getDataStoreFactory() );
     assertFalse( "Data store should not be empty", udb.isEmpty() );
     try {
       c.getUser();
       fail("AuthorizationException expected");
     } catch ( AuthorizationException e ) {
-      assertEquals("invalid_grant: invalid refresh token", e.getMessage());
+      assertEquals( "invalid_grant: invalid refresh token", e.getMessage() );
     } catch ( Exception e) {
       fail("AuthorizationException expected, got " + e.getClass().getCanonicalName());
     }
@@ -124,7 +124,7 @@ public class ClientTests extends AudioBoxTests {
    */
   @Test( expected = AuthorizationException.class )
   public void testMalformedRequest() throws IOException {
-    c.getConf().setHttpTransport( AudioBoxMockHttpTransportFactory.getMalformedHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getMalformedHttpTransport() );
     c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
   }
 
