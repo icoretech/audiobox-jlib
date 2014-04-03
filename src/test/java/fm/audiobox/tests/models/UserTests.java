@@ -152,7 +152,7 @@ public class UserTests extends AudioBoxTests {
     prefs.setHideTooltips( true );
 
     assertEquals( "flock-blue", prefs.getColor() );
-    assertEquals( "#FF0084", prefs.getColorValue() );
+    assertEquals( "#4096EE", prefs.getColorValue() );
     assertEquals( false, prefs.isRepeatEnabled() );
     assertEquals( true, prefs.isShuffleEnabled() );
     assertEquals( true, prefs.isAutoplayEnabled() );
