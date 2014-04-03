@@ -76,7 +76,7 @@ public class UserTests extends AudioBoxTests {
    */
   @Test
   public void testAllUserKeysAreWellParsed() throws IOException, ParseException {
-    c.getConf().setHttpTransport( MockHttp.getRightUserHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getTransport() );
     User user = c.getUser();
     assertNotNull( user );
 
@@ -188,7 +188,7 @@ public class UserTests extends AudioBoxTests {
    */
   @Test
   public void testUserUpdate() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getRightUserHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getTransport() );
     User u = c.getUser();
     assertNotNull( u );
     assertNotNull( u.getPreferences() );

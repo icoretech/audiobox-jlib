@@ -70,7 +70,7 @@ public class NotificationsTest extends AudioBoxTests {
    */
   @Test
   public void testNotificationsParsing() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getNotificationsHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getTransport() );
     Notifications n = c.getNotifications();
     assertNotNull( n );
     assertNotNull( n.getNotifications() );
@@ -106,7 +106,7 @@ public class NotificationsTest extends AudioBoxTests {
    */
   @Test
   public void testValidNotificationDeletion() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getNotificationsHttpTransport() );
+    c.getConf().setHttpTransport( MockHttp.getTransport() );
     Notifications ns = c.getNotifications();
     Notification n = ns.getNotifications().get( 0 );
     c.getConf().setHttpTransport( MockHttp.get204() );

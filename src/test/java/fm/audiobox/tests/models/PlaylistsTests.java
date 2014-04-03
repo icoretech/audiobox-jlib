@@ -89,7 +89,7 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testPlaylists() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( MockHttp.getTransport() );
     List<Playlist> list = c.getPlaylists();
     assertNotNull( list );
     assertFalse( list.isEmpty() );
@@ -137,7 +137,7 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testPlaylistShouldNotBeNullIfTokenIsValid() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( MockHttp.getTransport() );
     List<Playlist> list = c.getPlaylists();
     Playlist p1 = list.get( 0 );
     assertNotNull( p1 );
@@ -572,7 +572,7 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testPlaylistsByType() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( MockHttp.getTransport() );
     List<Playlist> pls = c.getPlaylists();
     for ( Playlist p : pls ) {
       Playlist p2 = null;
@@ -823,7 +823,7 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testUpdateShouldRiseErrorOnRenameNotEditablePlaylist() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getPlaylistsTransport() );
+    c.getConf().setHttpTransport( MockHttp.getTransport() );
     Playlist cloudPlaylist = ModelUtil.findPlaylistByType( c.getPlaylists(), Playlists.PLAYLIST_CLOUD );
 
     cloudPlaylist

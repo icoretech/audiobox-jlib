@@ -85,7 +85,7 @@ public class ClientTests extends AudioBoxTests {
   @Test
   public void testRightAuthorization() throws ConfigurationException {
     try {
-      c.getConf().setHttpTransport( MockHttp.getRightAccountHttpTransport() );
+      c.getConf().setHttpTransport( MockHttp.getTransport() );
       TokenResponse r = c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
       assertEquals( "aaa", r.getAccessToken() );
       assertEquals( "rrr", r.getRefreshToken() );
