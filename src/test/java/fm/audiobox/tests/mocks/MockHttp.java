@@ -110,7 +110,7 @@ public class MockHttp {
               result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/" + fileName ), "UTF-8" ) );
             } catch ( NullPointerException e ) {
               l.warn( "Requested resource not found: " + fileName );
-              l.warn( "Try to perform the request on:  " + url);
+              l.warn( "Try to perform the request on:  " + url );
             }
 
             if ( HttpStatus.SC_NOT_FOUND == status ) {
@@ -152,7 +152,7 @@ public class MockHttp {
    * @return the wrong account http transport
    */
   public static HttpTransport getWrongAccountHttpTransport() {
-    return getTransport( HttpStatus.SC_BAD_REQUEST );
+    return getTransport( HttpStatus.SC_BAD_REQUEST, "oauth2/invalid_account.json" );
   }
 
 
@@ -172,7 +172,7 @@ public class MockHttp {
    * @return the malformed http transport
    */
   public static HttpTransport getMalformedHttpTransport() {
-    return getTransport( HttpStatus.SC_UNAUTHORIZED );
+    return getTransport( HttpStatus.SC_UNAUTHORIZED, "oauth2/auth_exception.json" );
   }
 
 
