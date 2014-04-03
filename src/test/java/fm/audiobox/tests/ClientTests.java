@@ -15,24 +15,15 @@ package fm.audiobox.tests;
 
 import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStore;
-import com.google.api.client.util.store.FileDataStoreFactory;
-import com.integralblue.httpresponsecache.HttpResponseCache;
-import fm.audiobox.core.Client;
-import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.AuthorizationException;
 import fm.audiobox.tests.mocks.MockHttp;
-import org.junit.Before;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
-import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.*;
-
 
 public class ClientTests extends AudioBoxTests {
 

@@ -139,6 +139,29 @@ public class UserTests extends AudioBoxTests {
     assertEquals( "50", prefs.getVolumeLevel() );
     assertTrue( prefs.doesAcceptsEmails() );
     assertFalse( prefs.areTooltipsHidden() );
+
+    prefs.setColor( "flock-blue" );
+    prefs.setRepeat( false );
+    prefs.setShuffle( true );
+    prefs.setAutoplay( true );
+    prefs.setPrebuffer( false );
+    prefs.setJsDemuxer( true );
+    prefs.setTopBarBg( "String" );
+    prefs.setVolumeLevel( "String" );
+    prefs.setAcceptEmails( false );
+    prefs.setHideTooltips( true );
+
+    assertEquals( "flock-blue", prefs.getColor() );
+    assertEquals( "#FF0084", prefs.getColorValue() );
+    assertEquals( false, prefs.isRepeatEnabled() );
+    assertEquals( true, prefs.isShuffleEnabled() );
+    assertEquals( true, prefs.isAutoplayEnabled() );
+    assertEquals( false, prefs.isPrebufferEnabled() );
+    assertEquals( true, prefs.isJsDemuxerEnabled() );
+    assertEquals( "String", prefs.getTopBarBg() );
+    assertEquals( "String", prefs.getVolumeLevel() );
+    assertEquals( false, prefs.doesAcceptsEmails() );
+    assertEquals( true, prefs.areTooltipsHidden() );
   }
 
 

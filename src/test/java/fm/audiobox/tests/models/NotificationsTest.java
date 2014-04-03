@@ -68,6 +68,6 @@ public class NotificationsTest extends AudioBoxTests {
   public void testValidNotificationDeletion() throws IOException {
     Notifications ns = c.getNotifications();
     Notification n = ns.getNotifications().get( 0 );
-    assertTrue( n.delete( c ) );
+    assertSame( n, n.delete( c ) );
   }
 }

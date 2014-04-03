@@ -112,12 +112,7 @@ public class Client {
       TokenResponse response = ptr.execute();
 
       StoredCredential sc = new StoredCredential( ( Credential ) createCredentialWithRefreshToken( response ) );
-      try {
-        userDb.set( ACCOUNT_TOKENS, sc );
-        logger.info( "Saved credentials: " + sc.toString() );
-      } catch ( IOException e ) {
-        logger.error( "Unable to save credentials: " + e.getMessage() );
-      }
+      userDb.set( ACCOUNT_TOKENS, sc );
 
       return response;
     } catch ( TokenResponseException e ) {
@@ -460,7 +455,7 @@ public class Client {
    *
    * @return the credential
    */
-  private HttpRequestInitializer createCredentialWithRefreshToken() {
+  private HttpRequestInitializer createCredentialWithRefreshToken() throws IOException {
     return createCredentialWithRefreshToken( getStoredCredential() );
   }
 
@@ -497,14 +492,8 @@ public class Client {
    *
    * @return the stored credential
    */
-  private StoredCredential getStoredCredential() {
-    StoredCredential s = null;
-    try {
-      s = userDb.get( ACCOUNT_TOKENS );
-    } catch ( IOException e ) {
-      logger.error( "Unable to find stored account: " + e.getMessage() );
-    }
-    return s;
+  private StoredCredential getStoredCredential() throws IOException {
+    return userDb.get( ACCOUNT_TOKENS );
   }
 
 

@@ -28,8 +28,6 @@ public class Preferences {
 
   public static final String PATH = "/api/v1/preferences.json";
 
-  private Logger logger = LoggerFactory.getLogger( User.class );
-
   /**
    * Contains the color mapping: key is the name, value is the RGB value.
    */
