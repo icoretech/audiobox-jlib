@@ -17,11 +17,14 @@ import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.LowLevelHttpRequest;
 import com.google.api.client.http.LowLevelHttpResponse;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.Json;
 import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
+import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.utils.HttpStatus;
+import fm.audiobox.tests.AudioBoxTests;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +57,11 @@ public class MockHttp {
    * @return the transport
    */
   public static HttpTransport getTransport(final int status, final String responseFilePath) {
+
+    if (Configuration.Env.development != AudioBoxTests.env) {
+      return new NetHttpTransport();
+    }
+
     return new MockHttpTransport() {
 
       @Override
@@ -66,7 +74,7 @@ public class MockHttp {
             String fileName = responseFilePath;
 
             if ( fileName == null ) {
-              Pattern p = Pattern.compile( "^.*(/api/v1|\\:443)/" );
+              Pattern p = Pattern.compile( "^(.*\\:(80|443|5000))?(.*/api/v1)?/" );
               Matcher m = p.matcher( url );
               fileName = m.replaceAll( "" );
             }

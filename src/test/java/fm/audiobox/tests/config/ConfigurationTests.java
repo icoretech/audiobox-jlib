@@ -24,9 +24,6 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by keytwo on 17/01/14.
- */
 public class ConfigurationTests extends AudioBoxTests {
 
 

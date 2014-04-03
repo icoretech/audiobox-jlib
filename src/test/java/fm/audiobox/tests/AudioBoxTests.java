@@ -11,9 +11,14 @@
 
 package fm.audiobox.tests;
 
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
+import com.integralblue.httpresponsecache.HttpResponseCache;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.Client;
+import fm.audiobox.core.config.Configuration;
+import fm.audiobox.tests.mocks.MockHttp;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -22,7 +27,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
+import javax.naming.ConfigurationException;
 import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.fail;
 
 /**
  * Generic test case class.
@@ -45,6 +54,8 @@ public class AudioBoxTests {
 
   private boolean printTimingLog = false;
 
+  public static final Configuration.Env env = Configuration.Env.development;
+
 
   @Rule
   public TestName name = new TestName();
@@ -64,6 +75,26 @@ public class AudioBoxTests {
     printTimingLog = true;
     time_start = System.currentTimeMillis();
     logger.debug( "*** Tests started: " + name.getMethodName() );
+
+    try {
+
+      final long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
+      final File httpCacheDir = CACHE_DIR;
+      HttpResponseCache.install( httpCacheDir, httpCacheSize );
+
+      Configuration config = new Configuration( env );
+      config.setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) );
+
+      config.setApiKey( fixtures.getString( "authentication.client_id" ) );
+      config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
+      config.setHttpTransport( MockHttp.getTransport() );
+      JacksonFactory jf = new JacksonFactory();
+      config.setJsonFactory( jf );
+
+      c = new Client( config );
+    } catch ( ConfigurationException | IOException e ) {
+      fail( e.getMessage() );
+    }
   }
 
 

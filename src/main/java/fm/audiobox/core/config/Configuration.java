@@ -60,11 +60,6 @@ public class Configuration {
 
   private Class<? extends MediaFile> mediaFileClass;
 
-  private Class<? extends Album> albumClass;
-
-  private Class<? extends Genre> genreClass;
-
-  private Class<? extends Artist> artistClass;
 
   /**
    * AudioBox environments.
@@ -106,6 +101,7 @@ public class Configuration {
     setAlbumsWrapperClass( Albums.class );
     setGenresWrapperClass( Genres.class );
     setArtistsWrapperClass( Artists.class );
+    setmediaFileClass( MediaFile.class );
   }
 
 
@@ -214,6 +210,18 @@ public class Configuration {
     this.artistsWrapperClass = klass;
   }
 
+  /**
+   * Sets the media file class.
+   * <p/>
+   * Use this configuration method to set your own class to use for media file parsing.
+   * <p/>
+   * Default is {@link fm.audiobox.core.models.MediaFile}.
+   *
+   * @param klass the class to use for artists parsing.
+   */
+  public void setmediaFileClass(Class<? extends MediaFile> klass) {
+    this.mediaFileClass = klass;
+  }
 
   /**
    * Gets data store factory.
@@ -351,16 +359,6 @@ public class Configuration {
 
 
   /**
-   * Gets the album class.
-   *
-   * @return the class to use for album parsing.
-   */
-  public Class<? extends Album> getAlbumClass() {
-    return this.albumClass;
-  }
-
-
-  /**
    * Gets the genres wrapper class.
    *
    * @return the class to use for genres parsing.
@@ -371,32 +369,12 @@ public class Configuration {
 
 
   /**
-   * Gets the genre class.
-   *
-   * @return the class to use for genre parsing.
-   */
-  public Class<? extends Genre> getGenreClass() {
-    return this.genreClass;
-  }
-
-
-  /**
    * Gets the artists wrapper class.
    *
    * @return the class to use for artists parsing.
    */
   public Class<? extends Artists> getArtistsWrapperClass() {
     return this.artistsWrapperClass;
-  }
-
-
-  /**
-   * Gets the artist class.
-   *
-   * @return the class to use for artist parsing.
-   */
-  public Class<? extends Artist> getArtistClass() {
-    return this.artistClass;
   }
 
 

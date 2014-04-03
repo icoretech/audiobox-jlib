@@ -13,22 +13,13 @@
 package fm.audiobox.tests.models;
 
 
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
-import com.integralblue.httpresponsecache.HttpResponseCache;
-import fm.audiobox.core.Client;
-import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.tests.AudioBoxTests;
-import fm.audiobox.tests.mocks.MockHttp;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
 import org.junit.Test;
 
-import javax.naming.ConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,31 +28,6 @@ import static org.junit.Assert.*;
 
 
 public class UserTests extends AudioBoxTests {
-
-  @Before
-  public void setUp() {
-    super.setUp();
-
-    try {
-
-      final long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
-      final File httpCacheDir = CACHE_DIR;
-      HttpResponseCache.install( httpCacheDir, httpCacheSize );
-
-      Configuration config = new Configuration( Configuration.Env.development );
-      config.setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) );
-
-      config.setApiKey( fixtures.getString( "authentication.client_id" ) );
-      config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      config.setHttpTransport( MockHttp.getTransport() );
-      JacksonFactory jf = new JacksonFactory();
-      config.setJsonFactory( jf );
-
-      c = new Client( config );
-    } catch ( IOException | ConfigurationException e ) {
-      fail( e.getMessage() );
-    }
-  }
 
 
   /**

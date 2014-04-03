@@ -34,36 +34,7 @@ import java.io.IOException;
 import static org.junit.Assert.*;
 
 
-/**
- * Created by keytwo on 20/01/14.
- */
 public class ClientTests extends AudioBoxTests {
-
-  @Before
-  public void setUp() {
-    super.setUp();
-
-    try {
-
-      final long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
-      final File httpCacheDir = CACHE_DIR;
-      HttpResponseCache.install( httpCacheDir, httpCacheSize );
-
-      Configuration config = new Configuration( Configuration.Env.staging );
-      config.setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) );
-
-      config.setApiKey( fixtures.getString( "authentication.client_id" ) );
-      config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      config.setHttpTransport( MockHttp.getTransport() );
-      JacksonFactory jf = new JacksonFactory();
-      config.setJsonFactory( jf );
-
-      c = new Client( config );
-    } catch ( ConfigurationException | IOException e ) {
-      fail( e.getMessage() );
-    }
-  }
-
 
   /**
    * Test wrong authorization.
