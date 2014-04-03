@@ -140,6 +140,13 @@ public class UserTests extends AudioBoxTests {
     assertTrue( prefs.doesAcceptsEmails() );
     assertFalse( prefs.areTooltipsHidden() );
 
+    try {
+      prefs.setColor( "invalid-value" );
+      fail("Invalid color name should rise an exception");
+    } catch ( Exception e ) {
+      assertEquals( IllegalArgumentException.class, e.getClass() );
+    }
+    
     prefs.setColor( "flock-blue" );
     prefs.setRepeat( false );
     prefs.setShuffle( true );
@@ -150,6 +157,8 @@ public class UserTests extends AudioBoxTests {
     prefs.setVolumeLevel( "String" );
     prefs.setAcceptEmails( false );
     prefs.setHideTooltips( true );
+
+
 
     assertEquals( "flock-blue", prefs.getColor() );
     assertEquals( "#4096EE", prefs.getColorValue() );
