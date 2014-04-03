@@ -13,7 +13,6 @@
 package fm.audiobox.tests.models;
 
 
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
@@ -37,9 +36,6 @@ import java.text.SimpleDateFormat;
 import static org.junit.Assert.*;
 
 
-/**
- * Created by keytwo on 22/01/14.
- */
 public class UserTests extends AudioBoxTests {
 
   @Before
@@ -57,7 +53,7 @@ public class UserTests extends AudioBoxTests {
 
       config.setApiKey( fixtures.getString( "authentication.client_id" ) );
       config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      config.setHttpTransport( new NetHttpTransport() );
+      config.setHttpTransport( MockHttp.getTransport() );
       JacksonFactory jf = new JacksonFactory();
       config.setJsonFactory( jf );
 
@@ -76,7 +72,6 @@ public class UserTests extends AudioBoxTests {
    */
   @Test
   public void testAllUserKeysAreWellParsed() throws IOException, ParseException {
-    c.getConf().setHttpTransport( MockHttp.getTransport() );
     User user = c.getUser();
     assertNotNull( user );
 
@@ -188,12 +183,10 @@ public class UserTests extends AudioBoxTests {
    */
   @Test
   public void testUserUpdate() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getTransport() );
     User u = c.getUser();
     assertNotNull( u );
     assertNotNull( u.getPreferences() );
     u.getPreferences().setVolumeLevel( "100" );
-    c.getConf().setHttpTransport( MockHttp.get204() );
     assertNotNull( u.savePreferences( c ) );
   }
 }

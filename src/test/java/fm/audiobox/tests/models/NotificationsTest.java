@@ -11,7 +11,6 @@
 
 package fm.audiobox.tests.models;
 
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
@@ -52,7 +51,7 @@ public class NotificationsTest extends AudioBoxTests {
 
       config.setApiKey( fixtures.getString( "authentication.client_id" ) );
       config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      config.setHttpTransport( new NetHttpTransport() );
+      config.setHttpTransport( MockHttp.getTransport() );
       JacksonFactory jf = new JacksonFactory();
       config.setJsonFactory( jf );
 
@@ -70,7 +69,6 @@ public class NotificationsTest extends AudioBoxTests {
    */
   @Test
   public void testNotificationsParsing() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getTransport() );
     Notifications n = c.getNotifications();
     assertNotNull( n );
     assertNotNull( n.getNotifications() );
@@ -93,7 +91,6 @@ public class NotificationsTest extends AudioBoxTests {
    */
   @Test( expected = ResourceNotFoundException.class )
   public void testInvalidNotificationDeletion() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.get404() );
     Notification n = new Notification();
     n.delete( c );
   }
@@ -106,10 +103,8 @@ public class NotificationsTest extends AudioBoxTests {
    */
   @Test
   public void testValidNotificationDeletion() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getTransport() );
     Notifications ns = c.getNotifications();
     Notification n = ns.getNotifications().get( 0 );
-    c.getConf().setHttpTransport( MockHttp.get204() );
     assertTrue( n.delete( c ) );
   }
 }

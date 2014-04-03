@@ -13,6 +13,7 @@
 package fm.audiobox.tests.mocks;
 
 
+import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.LowLevelHttpRequest;
 import com.google.api.client.http.LowLevelHttpResponse;
@@ -30,9 +31,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-/**
- * Created by keytwo on 22/01/14.
- */
 public class MockHttp {
 
   protected static Logger l = LoggerFactory.getLogger( MockHttp.class );
@@ -44,33 +42,8 @@ public class MockHttp {
    * @return the transport
    */
   public static HttpTransport getTransport() {
-    return getTransport( HttpStatus.SC_OK );
+    return getTransport( HttpStatus.SC_OK, null );
   }
-
-
-  /**
-   * Gets transport.
-   *
-   * @param responseFilePath the response file path
-   *
-   * @return the transport
-   */
-  public static HttpTransport getTransport(final String responseFilePath) {
-    return getTransport( HttpStatus.SC_OK, responseFilePath );
-  }
-
-
-  /**
-   * Gets transport.
-   *
-   * @param status the status
-   *
-   * @return the transport
-   */
-  public static HttpTransport getTransport(final int status) {
-    return getTransport( status, null );
-  }
-
 
   /**
    * Gets transport.
@@ -84,7 +57,7 @@ public class MockHttp {
     return new MockHttpTransport() {
 
       @Override
-      public LowLevelHttpRequest buildRequest(String method, final String url) throws IOException {
+      public LowLevelHttpRequest buildRequest(final String method, final String url) throws IOException {
         return new MockLowLevelHttpRequest() {
 
           @Override
@@ -100,20 +73,44 @@ public class MockHttp {
 
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setStatusCode( status );
+
+            if ( HttpMethods.DELETE.equals( method ) ) {
+              result.setStatusCode( HttpStatus.SC_NO_CONTENT );
+            }
+
             result.setContentType( Json.MEDIA_TYPE );
 
             if ( !fileName.endsWith( ".json" ) ) {
               fileName += ".json";
             }
 
+            if ( url.endsWith( "sync.json" ) ) {
+              Pattern p = Pattern.compile( "000_(dropbox|ubuntu|soundcloud)" );
+              Matcher m = p.matcher( url );
+              if ( m.find() ) {
+                result.setStatusCode( HttpStatus.SC_FORBIDDEN );
+              } else {
+                result.setStatusCode( HttpStatus.SC_NO_CONTENT );
+              }
+              return result;
+            }
+
+            if ( HttpMethods.PUT.equals( method ) ) {
+              if ( url.endsWith( "000_cloud.json" ) ) {
+                result.setStatusCode( HttpStatus.SC_NOT_FOUND );
+              }
+            }
+
+
             try {
               result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/" + fileName ), "UTF-8" ) );
             } catch ( NullPointerException e ) {
-              l.warn( "Requested resource not found: " + fileName );
+              l.warn( "Requested resource not found: /responses/" + fileName );
               l.warn( "Try to perform the request on:  " + url );
+              result.setStatusCode( HttpStatus.SC_NOT_FOUND );
             }
 
-            if ( HttpStatus.SC_NOT_FOUND == status ) {
+            if ( HttpStatus.SC_NOT_FOUND == result.getStatusCode() ) {
               result.setReasonPhrase( "Not Found" );
             }
 
@@ -123,26 +120,6 @@ public class MockHttp {
         };
       }
     };
-  }
-
-
-  /**
-   * Gets playlists transport.
-   *
-   * @return the playlists transport
-   */
-  public static HttpTransport get404() {
-    return getTransport( HttpStatus.SC_NOT_FOUND );
-  }
-
-
-  /**
-   * Gets two o four http transport.
-   *
-   * @return the two o four http transport
-   */
-  public static HttpTransport get204() {
-    return getTransport( HttpStatus.SC_NO_CONTENT );
   }
 
 

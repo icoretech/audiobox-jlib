@@ -11,7 +11,6 @@
 
 package fm.audiobox.tests.models;
 
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
@@ -24,9 +23,7 @@ import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
 import fm.audiobox.tests.AudioBoxTests;
-import fm.audiobox.tests.mocks.MediaFilesMockHttp;
 import fm.audiobox.tests.mocks.MockHttp;
-import fm.audiobox.tests.mocks.PlaylistsMockHttp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,9 +34,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by keytwo on 17/03/14.
- */
 public class MediaFilesTests extends AudioBoxTests {
 
   @Before
@@ -56,7 +50,7 @@ public class MediaFilesTests extends AudioBoxTests {
 
       config.setApiKey( fixtures.getString( "authentication.client_id" ) );
       config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      config.setHttpTransport( new NetHttpTransport() );
+      config.setHttpTransport( MockHttp.getTransport() );
       JacksonFactory jf = new JacksonFactory();
       config.setJsonFactory( jf );
 
@@ -69,15 +63,12 @@ public class MediaFilesTests extends AudioBoxTests {
 
   @Test( expected = ResourceNotFoundException.class )
   public void testLoadMediaFileShouldFailIfWrongTokenGiven() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.get404() );
     MediaFile.load( c, "AAA" );
   }
 
 
   @Test
   public void testLoadMediaFileShouldSucceedWithRightToken() throws IOException {
-    //c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
-    c.getConf().setHttpTransport( MediaFilesMockHttp.getMediaFileTransport( "c_ddcf6876debeb3cb365bcc" ) );
     MediaFile mf = MediaFile.load( c, "c_ddcf6876debeb3cb365bcc" );
 
     assertNotNull( mf );
@@ -126,9 +117,7 @@ public class MediaFilesTests extends AudioBoxTests {
    */
   @Test
   public void testMediaFiles() throws IOException {
-    c.getConf().setHttpTransport( MockHttp.getTransport() );
     Playlist p = Playlists.getDropboxPlaylist( c );
-    c.getConf().setHttpTransport( PlaylistsMockHttp.getPlaylistMediaFilesTransport( p.getToken() ) );
     List<? extends MediaFile> m = p.getMediaFiles( c );
     assertNotNull( m );
   }
@@ -185,7 +174,6 @@ public class MediaFilesTests extends AudioBoxTests {
 
     assertNotNull( mf );
 
-    c.getConf().setHttpTransport( MockHttp.get204() );
     assertTrue( mf.destroy( c ) );
 
   }
@@ -199,16 +187,8 @@ public class MediaFilesTests extends AudioBoxTests {
   @Test( expected = ResourceNotFoundException.class )
   public void testDestroyFailure() throws IOException {
 
-    File file = new File( this.getClass().getResource( "/mpthreetest.mp3" ).getFile() );
-    assertNotNull( file );
-    assertTrue( file.exists() );
-
-    c.getConf().setHttpTransport( MockHttp.getUploadTransport( false ) );
-    MediaFile mf = c.upload( file );
-
+    MediaFile mf = new MediaFile();
     assertNotNull( mf );
-
-    c.getConf().setHttpTransport( MockHttp.get404() );
     mf.destroy( c );
     fail( "Should rise ResourceNotFoundException" );
 

@@ -54,7 +54,7 @@ public class ClientTests extends AudioBoxTests {
 
       config.setApiKey( fixtures.getString( "authentication.client_id" ) );
       config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      config.setHttpTransport( new NetHttpTransport() );
+      config.setHttpTransport( MockHttp.getTransport() );
       JacksonFactory jf = new JacksonFactory();
       config.setJsonFactory( jf );
 
@@ -85,7 +85,6 @@ public class ClientTests extends AudioBoxTests {
   @Test
   public void testRightAuthorization() throws ConfigurationException {
     try {
-      c.getConf().setHttpTransport( MockHttp.getTransport() );
       TokenResponse r = c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
       assertEquals( "aaa", r.getAccessToken() );
       assertEquals( "rrr", r.getRefreshToken() );
@@ -108,11 +107,11 @@ public class ClientTests extends AudioBoxTests {
     assertFalse( "Data store should not be empty", udb.isEmpty() );
     try {
       c.getUser();
-      fail("AuthorizationException expected");
+      fail( "AuthorizationException expected" );
     } catch ( AuthorizationException e ) {
       assertEquals( "invalid_grant: invalid refresh token", e.getMessage() );
-    } catch ( Exception e) {
-      fail("AuthorizationException expected, got " + e.getClass().getCanonicalName());
+    } catch ( Exception e ) {
+      fail( "AuthorizationException expected, got " + e.getClass().getCanonicalName() );
     }
   }
 
