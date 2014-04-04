@@ -1,12 +1,17 @@
 /*
- * ==
- * Copyright (c) 2009-2014 iCoreTech, Inc.
- * This file is part of the AudioBox-Jlib project.
- * ==
+ * Copyright 2009-2014 iCoreTech, Inc.
  *
- * @author keytwo
- * @copyright Copyright (c) 2009-2014 iCoreTech, Inc.
- * @license iCoreTech, Inc. Private License
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package fm.audiobox.tests.models;
@@ -75,6 +80,32 @@ public class MediaFilesTests extends AudioBoxTests {
     assertEquals( "128", mf.getAudioBitrate() );
     assertEquals( "", mf.getAudioCodec() );
     assertEquals( "44100", mf.getAudioSampleRate() );
+
+    mf.setArtist("String");
+    mf.setAlbum("String");
+    mf.setGenre("String");
+    mf.setReleaseYear(2000);
+    mf.setTitle("String");
+    mf.setPosition(99);
+    mf.setLoved(true);
+    mf.setDiscNumber(2);
+    mf.setArtwork("String");
+    mf.setAlbumArtist("String");
+    mf.setComposer("String");
+    mf.setComment("String");
+
+    assertEquals("String", mf.getArtist());
+    assertEquals("String", mf.getAlbum());
+    assertEquals("String", mf.getGenre());
+    assertEquals(2000, mf.getReleaseYear());
+    assertEquals("String", mf.getTitle());
+    assertEquals(99, mf.getPosition());
+    assertEquals(true, mf.isLoved());
+    assertEquals(2, mf.getDiscNumber());
+    assertEquals("String", mf.getArtwork());
+    assertEquals("String", mf.getAlbumArtist());
+    assertEquals("String", mf.getComposer());
+    assertEquals("String", mf.getComment());
   }
 
 
