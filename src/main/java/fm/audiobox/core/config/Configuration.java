@@ -87,6 +87,15 @@ public class Configuration {
 
 
   /**
+   * Initiates a new Configuration ready for production.
+   */
+  @SuppressWarnings( "unused" )
+  public Configuration() {
+    this(Env.production);
+  }
+
+
+  /**
    * Initiates a new Configuration.
    *
    * @param environment the {@link fm.audiobox.core.config.Configuration.Env environment} to use.
@@ -105,7 +114,7 @@ public class Configuration {
     setAlbumsWrapperClass( Albums.class );
     setGenresWrapperClass( Genres.class );
     setArtistsWrapperClass( Artists.class );
-    setmediaFileClass( MediaFile.class );
+    setMediaFileClass( MediaFile.class );
   }
 
 
@@ -114,8 +123,9 @@ public class Configuration {
    *
    * @param apiKey the api key
    */
-  public void setApiKey(String apiKey) {
+  public Configuration setApiKey(String apiKey) {
     this.apiKey = apiKey;
+    return this;
   }
 
 
@@ -124,8 +134,9 @@ public class Configuration {
    *
    * @param apiSecret the api secret
    */
-  public void setApiSecret(String apiSecret) {
+  public Configuration setApiSecret(String apiSecret) {
     this.apiSecret = apiSecret;
+    return this;
   }
 
 
@@ -134,8 +145,9 @@ public class Configuration {
    *
    * @param httpTransport the http transport
    */
-  public void setHttpTransport(HttpTransport httpTransport) {
+  public Configuration setHttpTransport(HttpTransport httpTransport) {
     this.httpTransport = httpTransport;
+    return this;
   }
 
 
@@ -144,8 +156,9 @@ public class Configuration {
    *
    * @param jsonFactory the json factory
    */
-  public void setJsonFactory(JsonFactory jsonFactory) {
+  public Configuration setJsonFactory(JsonFactory jsonFactory) {
     this.jsonFactory = jsonFactory;
+    return this;
   }
 
 
@@ -154,8 +167,9 @@ public class Configuration {
    *
    * @param dataStoreFactory the data store factory
    */
-  public void setDataStoreFactory(DataStoreFactory dataStoreFactory) {
+  public Configuration setDataStoreFactory(DataStoreFactory dataStoreFactory) {
     this.db = dataStoreFactory;
+    return this;
   }
 
 
@@ -168,8 +182,9 @@ public class Configuration {
    *
    * @param klass the class to use for media files parsing.
    */
-  public void setMediaFilesWrapperClass(Class<? extends MediaFiles> klass) {
+  public Configuration setMediaFilesWrapperClass(Class<? extends MediaFiles> klass) {
     this.mediaFilesWrapperClass = klass;
+    return this;
   }
 
 
@@ -182,8 +197,9 @@ public class Configuration {
    *
    * @param klass the class to use for albums parsing.
    */
-  public void setAlbumsWrapperClass(Class<? extends Albums> klass) {
+  public Configuration setAlbumsWrapperClass(Class<? extends Albums> klass) {
     this.albumsWrapperClass = klass;
+    return this;
   }
 
 
@@ -196,8 +212,9 @@ public class Configuration {
    *
    * @param klass the class to use for genres parsing.
    */
-  public void setGenresWrapperClass(Class<? extends Genres> klass) {
+  public Configuration setGenresWrapperClass(Class<? extends Genres> klass) {
     this.genresWrapperClass = klass;
+    return this;
   }
 
 
@@ -210,8 +227,9 @@ public class Configuration {
    *
    * @param klass the class to use for artists parsing.
    */
-  public void setArtistsWrapperClass(Class<? extends Artists> klass) {
+  public Configuration setArtistsWrapperClass(Class<? extends Artists> klass) {
     this.artistsWrapperClass = klass;
+    return this;
   }
 
   /**
@@ -223,8 +241,20 @@ public class Configuration {
    *
    * @param klass the class to use for artists parsing.
    */
-  public void setmediaFileClass(Class<? extends MediaFile> klass) {
+  public Configuration setMediaFileClass(Class<? extends MediaFile> klass) {
     this.mediaFileClass = klass;
+    return this;
+  }
+
+
+  /**
+   * Changes the AudioBox environment (only useful in API development mode).
+   * <p/>
+   * Do not use this method if you are working on a production application.
+   */
+  @Deprecated
+  public void setEnvironment(Env environment) {
+    this.environment = environment;
   }
 
   /**

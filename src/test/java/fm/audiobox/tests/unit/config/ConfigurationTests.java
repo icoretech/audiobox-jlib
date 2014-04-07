@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package fm.audiobox.tests.config;
+package fm.audiobox.tests.unit.config;
 
 
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import fm.audiobox.core.config.Configuration;
-import fm.audiobox.tests.AudioBoxTests;
+import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;

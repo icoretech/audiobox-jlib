@@ -19,7 +19,9 @@ package fm.audiobox.core;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
+import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.util.GenericData;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
@@ -63,6 +65,8 @@ public class Client {
   private DataStoreCredentialRefreshListener refreshListener;
 
   private JsonObjectParser jsonObjectParser;
+
+  private static final String META_VERB_PARAM = "_method";
 
 
   /**
@@ -404,6 +408,14 @@ public class Client {
    */
   private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
     try {
+
+      /*
+      if ( HttpMethods.DELETE.equals( method ) ) {
+        path += "?_method=" + method;
+        method = HttpMethods.POST;
+      }
+      */
+
       HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
       validateResponse( response );
       return response;
@@ -518,6 +530,7 @@ public class Client {
         throw new ForbiddenException( response );
 
       case HttpStatus.SC_NOT_FOUND: // 404
+        // Due to technical issues 404 is also given for not editable resources.
         throw new ResourceNotFoundException( response );
 
       case HttpStatus.SC_CONFLICT: // 409 (uploads)

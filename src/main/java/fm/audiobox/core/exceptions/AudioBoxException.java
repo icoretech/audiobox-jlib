@@ -17,6 +17,8 @@
 package fm.audiobox.core.exceptions;
 
 import com.google.api.client.http.HttpResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -27,7 +29,7 @@ import java.io.IOException;
  * <p>
  * This kind of exceptions are typically thrown when a problem with the remote service occurs.
  * </p>
- *
+ * <p/>
  * Managed remote handled errors are:
  * <dl>
  * <dt>HTTP Status 402:</dt>
@@ -45,6 +47,8 @@ import java.io.IOException;
  * </dl>
  */
 public class AudioBoxException extends IOException {
+
+  protected static Logger logger = LoggerFactory.getLogger( AudioBoxException.class );
 
   private HttpResponse response;
 

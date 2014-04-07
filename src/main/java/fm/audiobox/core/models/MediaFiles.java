@@ -45,7 +45,7 @@ public class MediaFiles {
   /**
    * The constant PARAM_TOKENS.
    */
-  public static final String PARAM_TOKENS = "tokens";
+  public static final String PARAM_TOKENS = "tokens[]";
 
   /**
    * PUT

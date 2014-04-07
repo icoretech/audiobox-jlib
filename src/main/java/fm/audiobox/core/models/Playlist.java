@@ -17,22 +17,24 @@
 package fm.audiobox.core.models;
 
 
-import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.*;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.GenericData;
 import com.google.api.client.util.Joiner;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.exceptions.AudioBoxException;
-import fm.audiobox.core.exceptions.ResourceNotFoundException;
 import fm.audiobox.core.exceptions.SyncException;
-import fm.audiobox.core.exceptions.ValidationException;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
+import fm.audiobox.core.utils.PlainTextContent;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -159,7 +161,7 @@ public class Playlist {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public Playlist() {
   }
 
@@ -193,15 +195,8 @@ public class Playlist {
    */
   public Playlist create(Client client) throws IOException {
     validateForRequest( false );
-    try {
-      HttpResponse rsp = client.doPOST( Playlists.getPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
-      return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
-
-    } catch ( ResourceNotFoundException e ) {
-      // According to the documentation a 404 is returned if playlist is immutable (not smart or custom).
-      // Flatten this error as validation exception.
-      throw new ValidationException( e.getResponse() );
-    }
+    HttpResponse rsp = client.doPOST( Playlists.getPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
+    return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
   }
 
 
@@ -509,9 +504,8 @@ public class Playlist {
     // NOTE: We are building the request with query parameters because google-http-java-client at the moment of
     // writing this library does not support DELETE methods with content-length != 0.
     // Trying to change this to a valid HttpContent type for request will result in an exception.
-    String url = ModelUtil.interpolate( REMOVE_MEDIA_FILES_PATH, getToken() );
-    url += "?" + MediaFiles.PARAM_TOKENS + "=";
-    url += Joiner.on( ',' ).join( tokens );
+    String url = ModelUtil.interpolate( REMOVE_MEDIA_FILES_PATH, getToken() ) + "?utf8=true";
+    for (String tk : tokens) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
 
     client.doDELETE( url );
     return this;

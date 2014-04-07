@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package fm.audiobox.tests;
+package fm.audiobox.tests.unit.base;
 
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
@@ -40,9 +41,8 @@ import static org.junit.Assert.fail;
 
 /**
  * Generic test case class.
- * <p/>
- * Created by keytwo on 16/01/14.
  */
+@SuppressWarnings( "deprecation" )
 public class AudioBoxTests {
 
   protected static final File DATA_STORE_DIR = new File( System.getProperty( "user.home" ), ".audiobox/abx" );
@@ -87,14 +87,14 @@ public class AudioBoxTests {
       final File httpCacheDir = CACHE_DIR;
       HttpResponseCache.install( httpCacheDir, httpCacheSize );
 
-      Configuration config = new Configuration( env );
-      config.setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) );
-
-      config.setApiKey( fixtures.getString( "authentication.client_id" ) );
-      config.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      config.setHttpTransport( MockHttp.getTransport() );
       JacksonFactory jf = new JacksonFactory();
-      config.setJsonFactory( jf );
+
+      Configuration config = new Configuration( env )
+          .setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) )
+          .setApiKey( fixtures.getString( "authentication.client_id" ) )
+          .setApiSecret( fixtures.getString( "authentication.client_secret" ) )
+          .setHttpTransport( MockHttp.getTransport() )
+          .setJsonFactory( jf );
 
       c = new Client( config );
     } catch ( ConfigurationException | IOException e ) {
@@ -115,5 +115,25 @@ public class AudioBoxTests {
     }
   }
 
+
+
+  /* ================= */
+  /* Protected methods */
+  /* ================= */
+
+
+  /**
+   * Use this method if you need to make requests against real AudioBox
+   * staging environment.
+   * <p/>
+   * This is useful only to register a real API transaction. Use with cautions.
+   */
+  @SuppressWarnings( "unused" )
+  protected void prepareForStaging() throws IOException {
+
+    c.getConf().setEnvironment( Configuration.Env.staging );
+    c.getConf().setHttpTransport( new NetHttpTransport() );
+    c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
+  }
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fm.audiobox.tests;
+package fm.audiobox.tests.unit;
 
 
 import com.google.api.client.auth.oauth2.StoredCredential;
@@ -22,6 +22,7 @@ import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.exceptions.AuthorizationException;
 import fm.audiobox.tests.mocks.MockHttp;
+import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
 
 import javax.naming.ConfigurationException;
@@ -92,5 +93,7 @@ public class ClientTests extends AudioBoxTests {
     c.getConf().setHttpTransport( MockHttp.getMalformedHttpTransport() );
     c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
   }
+
+
 
 }

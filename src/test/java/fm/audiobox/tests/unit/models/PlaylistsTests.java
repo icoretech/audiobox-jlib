@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package fm.audiobox.tests.models;
+package fm.audiobox.tests.unit.models;
 
 
+import com.google.api.client.http.javanet.NetHttpTransport;
+import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
-import fm.audiobox.tests.AudioBoxTests;
 import fm.audiobox.tests.mocks.MockHttp;
+import fm.audiobox.tests.unit.base.AudioBoxTests;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Ignore;
@@ -680,25 +682,22 @@ public class PlaylistsTests extends AudioBoxTests {
 
 
   /**
-   * Test should rise error on not existing media file removal.
+   * Test playlist should rise error on not existing media file removal.
    *
    * @throws IOException the iO exception
    */
   @Test
-  @Ignore
-  public void testShouldRiseErrorOnNotExistingMediaFileRemoval() throws IOException {
-    c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
-    Playlist testPlaylist = c.getPlaylist( "76836ff900f7de0e" );
+  public void testShouldNotRiseErrorOnNotExistingMediaFileRemoval() throws IOException {
 
-    List<String> t = new ArrayList<>( 1 );
+    Playlist testPlaylist = c.getPlaylist( "000_custom" );
+
+    List<String> t = new ArrayList<>( 4 );
     t.add( "aaa" );
-    testPlaylist.removeMediaFiles( c, t );
+    t.add( "bbb" );
+    t.add( "CCC" );
+    t.add( "bbb" );
 
-    //c.getConf().setHttpTransport( MockHttp.getTransport() );
-    //Playlist p = Playlists.getCloudPlaylist( c );
-//
-    //c.getConf().setHttpTransport( MockHttp.getPlaylistMediaFilesTransport("000Dropbox") );
-    ////List<? extends MediaFile> mfs = p.getMediaFiles( c );
+    assertEquals( testPlaylist, testPlaylist.removeMediaFiles( c, t ) );
   }
 
 
@@ -708,8 +707,21 @@ public class PlaylistsTests extends AudioBoxTests {
    * @throws IOException the iO exception
    */
   @Test
-  @Ignore
   public void testShouldRiseErrorOnNotCustomPlaylistFileRemoval() throws IOException {
+    Playlist testPlaylist = c.getPlaylist( "000_cloud" );
+
+    List<String> t = new ArrayList<>( 4 );
+    t.add( "aaa" );
+    t.add( "bbb" );
+    t.add( "CCC" );
+    t.add( "bbb" );
+
+    try {
+      testPlaylist.removeMediaFiles( c, t );
+      fail("Immutable playlist should rise exception");
+    } catch ( Exception e ) {
+      assertEquals( ResourceNotFoundException.class, e.getClass() );
+    }
 
   }
 
@@ -765,9 +777,11 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testUpdateShouldSucceedOnCustomTypes() throws IOException {
+
     Playlist pls = c.getPlaylist( "000_custom" );
+    assertNotNull( pls );
     pls
-        .setName( "Test" )
+        .setName( "Test 2" )
         .setVisible( true )
         .setEmbeddable( false )
         .setPosition( 100 );

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fm.audiobox.tests.models;
+package fm.audiobox.tests.unit.models;
 
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.exceptions.FileAlreadyUploaded;
@@ -22,7 +22,7 @@ import fm.audiobox.core.exceptions.ResourceNotFoundException;
 import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
-import fm.audiobox.tests.AudioBoxTests;
+import fm.audiobox.tests.unit.base.AudioBoxTests;
 import fm.audiobox.tests.mocks.MockHttp;
 import org.junit.Test;
 

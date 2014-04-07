@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package fm.audiobox.tests.models;
+package fm.audiobox.tests.unit.models;
 
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.exceptions.ResourceNotFoundException;
 import fm.audiobox.core.models.Notification;
 import fm.audiobox.core.models.Notifications;
-import fm.audiobox.tests.AudioBoxTests;
+import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
 
 import java.io.IOException;

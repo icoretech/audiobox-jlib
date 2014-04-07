@@ -28,7 +28,7 @@ import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.utils.HttpStatus;
-import fm.audiobox.tests.AudioBoxTests;
+import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,6 +83,14 @@ public class MockHttp {
               fileName = m.replaceAll( "" );
             }
 
+            Pattern queryString = Pattern.compile( "\\?.*$" );
+            Matcher qStringMatcher = queryString.matcher( fileName );
+            boolean hasQueryString = false;
+            if ( qStringMatcher.find() ) {
+              hasQueryString = true;
+              fileName = qStringMatcher.replaceAll( "" );
+            }
+
             MockLowLevelHttpResponse result = new MockLowLevelHttpResponse();
             result.setStatusCode( status );
 
@@ -92,7 +100,7 @@ public class MockHttp {
 
             result.setContentType( Json.MEDIA_TYPE );
 
-            if ( !fileName.endsWith( ".json" ) ) {
+            if ( !hasQueryString && !fileName.endsWith( ".json" ) ) {
               fileName += ".json";
             }
 
