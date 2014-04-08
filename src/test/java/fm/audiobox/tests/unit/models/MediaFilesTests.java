@@ -135,7 +135,9 @@ public class MediaFilesTests extends AudioBoxTests {
     assertTrue( file.exists() );
 
     c.getConf().setHttpTransport( MockHttp.getUploadTransport( false ) );
-    assertNotNull( c.upload( file ) );
+    MediaFile m = c.upload( file );
+    assertNotNull( m );
+    assertEquals( "c_ddcf6876debeb3cb365bcc.mp3", m.getFilename() );
   }
 
 
