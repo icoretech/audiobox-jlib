@@ -366,24 +366,18 @@ public class Playlist {
   public List<? extends MediaFile> getMediaFiles(Client client, long since, String set) throws IOException {
     ensurePlaylistForRequest();
 
-    JsonHttpContent data = null;
-    GenericData d = null;
-
+    String url = getMediaFilesPath();
     if ( since != 0 ) {
-      d = new GenericData();
-      d.put( MediaFiles.PARAM_SINCE, since );
+      url += "?" + MediaFiles.PARAM_SINCE + "=" + since;
     }
 
     if ( set != null ) {
-      d = d == null ? new GenericData() : d;
-      d.put( MediaFiles.PARAM_SET, set );
+      String setParam = MediaFiles.PARAM_SET + "=" + set;
+      setParam =  url.contains( "?" ) ? "&" : "?" + setParam;
+      url += setParam;
     }
 
-    if ( d != null ) {
-      data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
-    }
-
-    HttpResponse rsp = client.doGET( getMediaFilesPath(), data );
+    HttpResponse rsp = client.doGET( url );
     return rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles();
   }
 

@@ -241,21 +241,6 @@ public class Client {
   /**
    * Perform signed GET requests and returns the response.
    *
-   * @param path the path
-   * @param data the data to send as query parameter
-   *
-   * @return the http response
-   *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
-   */
-  public HttpResponse doGET(String path, HttpContent data) throws IOException {
-    return doGET( path, null, data );
-  }
-
-
-  /**
-   * Perform signed GET requests and returns the response.
-   *
    * @param path   the path
    * @param parser the parser
    *
@@ -263,8 +248,8 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
-  public HttpResponse doGET(String path, JsonObjectParser parser, HttpContent data) throws IOException {
-    return doRequest( HttpMethods.GET, path, data, parser );
+  public HttpResponse doGET(String path, JsonObjectParser parser) throws IOException {
+    return doRequest( HttpMethods.GET, path, null, parser );
   }
 
 

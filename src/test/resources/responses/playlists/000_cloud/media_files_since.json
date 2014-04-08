@@ -1,0 +1,50 @@
+{
+  "media_files": [
+    {
+      "type": "AudioFile",
+      "token": "d_11",
+      "artist": "Coma",
+      "album": "Mindless",
+      "genre": "Unknown",
+      "release_year": 0,
+      "title": "Under Attack",
+      "len_str": "0:00",
+      "len_int": 0,
+      "position": 8,
+      "filename": "d_11.mp3",
+      "loved": false,
+      "disc_number": 1,
+      "mime": "audio/mpeg",
+      "remote_path": "/Dropbox/remote_path/Under Attack.mp3",
+      "source": "dropbox",
+      "share_token": "share_token_hash_path",
+      "artwork": "artwork/path/d_11.jpg",
+      "size": 5191072,
+      "album_artist": null,
+      "hash": null
+    },
+    {
+      "type": "AudioFile",
+      "token": "d_12",
+      "artist": "Coma",
+      "album": "Mindless",
+      "genre": "Unknown",
+      "release_year": 0,
+      "title": "Old Man",
+      "len_str": "0:00",
+      "len_int": 0,
+      "position": 9,
+      "filename": "d_12.mp3",
+      "loved": false,
+      "disc_number": 1,
+      "mime": "audio/mpeg",
+      "remote_path": "/Dropbox/remote_path/Old Man.mp3",
+      "source": "dropbox",
+      "share_token": "share_token_hash_path",
+      "artwork": "artwork/path/d_12.jpg",
+      "size": 10615696,
+      "album_artist": null,
+      "hash": null
+    }
+  ]
+}

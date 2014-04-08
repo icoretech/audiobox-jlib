@@ -380,8 +380,8 @@ public class User {
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public boolean savePreferences(Client client) throws IOException {
-    HttpResponse rsp = client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), new UserWrapper(this)) );
-    return rsp.getStatusCode() == HttpStatus.SC_NO_CONTENT;
+    client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), new UserWrapper(this)) );
+    return true;
   }
 
 }

@@ -121,6 +121,11 @@ public class MockHttp {
               }
             }
 
+            // "since" param on get playlist media files
+            if (url.contains( "since=" )) {
+              fileName = "playlists/000_cloud/media_files_since.json";
+            }
+
 
             try {
               result.setContent( IOUtils.toString( this.getClass().getResourceAsStream( "/responses/" + fileName ), "UTF-8" ) );

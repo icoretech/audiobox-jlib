@@ -17,8 +17,6 @@
 package fm.audiobox.tests.unit.models;
 
 
-import com.google.api.client.http.javanet.NetHttpTransport;
-import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.HttpStatus;
@@ -27,7 +25,7 @@ import fm.audiobox.tests.mocks.MockHttp;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-import org.junit.Ignore;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -37,6 +35,9 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 
+/**
+ * The type Playlists tests.
+ */
 public class PlaylistsTests extends AudioBoxTests {
 
   /**
@@ -718,7 +719,7 @@ public class PlaylistsTests extends AudioBoxTests {
 
     try {
       testPlaylist.removeMediaFiles( c, t );
-      fail("Immutable playlist should rise exception");
+      fail( "Immutable playlist should rise exception" );
     } catch ( Exception e ) {
       assertEquals( ResourceNotFoundException.class, e.getClass() );
     }
@@ -787,5 +788,49 @@ public class PlaylistsTests extends AudioBoxTests {
         .setPosition( 100 );
 
     assertEquals( pls, pls.update( c ) );
+  }
+
+
+  /**
+   * Test set param in get media files.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testSetParamInGetMediaFiles() throws IOException {
+
+    Playlist pls = Playlists.getLocalPlaylist( c );
+    List<? extends MediaFile> mfs = pls.getMediaFiles( c, 0, "token" );
+    assertNotNull( mfs );
+    assertFalse( mfs.isEmpty() );
+    for ( MediaFile f : mfs ) {
+      assertTrue( StringUtils.isNotBlank( f.getToken() ) );
+      assertTrue( StringUtils.isBlank( f.getArtist() ) );
+    }
+  }
+
+
+  /**
+   * Test since param in get media files.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testSinceParamInGetMediaFiles() throws IOException {
+
+    Playlist pls = c.getPlaylist( "000_cloud" );
+    List<? extends MediaFile> mfs1 = pls.getMediaFiles( c, 0, null );
+    List<? extends MediaFile> mfs2 = pls.getMediaFiles( c, 1387575475, "token" );
+    assertNotNull( mfs1 );
+    assertNotNull( mfs2 );
+    assertFalse( mfs1.isEmpty() );
+    assertFalse( mfs2.isEmpty() );
+
+    assertNotEquals( mfs1.size(), mfs2.size() );
+    assertTrue( mfs1.size() > mfs2.size() );
+
+    for ( MediaFile f : mfs1 ) {
+      assertTrue( StringUtils.isNotBlank( f.getToken() ) );
+    }
   }
 }

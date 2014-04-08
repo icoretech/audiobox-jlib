@@ -136,4 +136,19 @@ public class AudioBoxTests {
     c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
   }
 
+
+  /**
+   * Use this method if you need to make requests against real AudioBox
+   * staging environment.
+   * <p/>
+   * This is useful only to register a real API transaction. Use with cautions.
+   */
+  @SuppressWarnings( "unused" )
+  protected void prepareForLocalDevelopment() throws IOException {
+
+    c.getConf().setEnvironment( Configuration.Env.development );
+    c.getConf().setHttpTransport( new NetHttpTransport() );
+    c.authorize( fixtures.getString( "authentication.local.email" ), fixtures.getString( "authentication.local.password" ) );
+  }
+
 }
