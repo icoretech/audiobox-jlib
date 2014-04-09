@@ -21,10 +21,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
-import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.utils.ModelUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -370,7 +367,7 @@ public class MediaFile {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public MediaFile() {
   }
 
@@ -408,10 +405,11 @@ public class MediaFile {
   /**
    * Load a single media file.
    *
-   * @param client the
-   * to use for the request
-   * @param token the token that uniquely identify the media file
+   * @param client the {@link Client} to use for the request
+   * @param token  the token that uniquely identify the media file
+   *
    * @return the requested media file
+   *
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
    */
   public static MediaFile load(Client client, String token) throws IOException {
@@ -421,16 +419,31 @@ public class MediaFile {
 
 
   /**
+   * (Re)load a new instance of the same media file.
+   *
+   * @param client the {@link Client} to use for the request
+   *
+   * @return the requested media file
+   *
+   * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
+   */
+  public MediaFile reload(Client client) throws IOException {
+    return MediaFile.load(client, getToken());
+  }
+
+
+  /**
    * Handle a single media file update.
    *
-   * @param client the
-   * to use for the request
-   * @return the or null (request failed)
+   * @param client the {@link Client} to use for the request
+   *
+   * @return the media file in order to chain other calls.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public MediaFile update(Client client) throws IOException {
-    HttpResponse rsp = client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
-    return rsp.parseAs( client.getConf().getMediaFileClass() );
+    client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
+    return this;
   }
 
 
@@ -446,9 +459,10 @@ public class MediaFile {
    * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
    * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
    *
-   * @param client the
-   * to use for the request
+   * @param client the {@link Client} to use for the request
+   *
    * @return true if the operation succeeds.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
   public boolean destroy(Client client) throws IOException {
@@ -464,23 +478,25 @@ public class MediaFile {
    * <p/>
    * Triggers different actions in the system, such as Scrobbling to Last.fm and much more.
    *
-   * @param client the
-   * to use for the request
-   * @return true if the operation succeeds.
+   * @param client the {@link Client} to use for the request
+   *
+   * @return the media file in order to chain other calls.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
-  public boolean scrobble(Client client) throws IOException {
+  public MediaFile scrobble(Client client) throws IOException {
     client.doPOST( ModelUtil.interpolate( SCROBBLE_PATH, getToken() ) );
-    return true;
+    return this;
   }
 
 
   /**
    * Loads the media file lyrics from AudioBox.
    *
-   * @param client the
-   * to use for the request
+   * @param client the {@link Client} to use for the request
+   *
    * @return the lyrics or null
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
   public String getLyrics(Client client) throws IOException {
@@ -507,15 +523,16 @@ public class MediaFile {
    * <p/>
    * Last.fm will see a track as loved, Facebook as liked, Google Drive as starred, and so on.
    *
-   * @param client the
-   * to use for the request
-   * @return true if the operation succeeds.
+   * @param client the {@link Client} to use for the request
+   *
+   * @return the media file in order to chain other calls.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
-  public boolean love(Client client) throws IOException {
+  public MediaFile love(Client client) throws IOException {
     setPreferred( client, LOVE_PATH );
     this.loved = true;
-    return true;
+    return this;
   }
 
 
@@ -529,15 +546,16 @@ public class MediaFile {
    * <p/>
    * Last.fm will see a track as unloved, Facebook as unliked, Google Drive as not starred, and so on.
    *
-   * @param client the
-   * to use for the request
-   * @return true if the operation succeeds.
+   * @param client the {@link Client} to use for the request
+   *
+   * @return the media file in order to chain other calls.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
-  public boolean unlove(Client client) throws IOException {
+  public MediaFile unlove(Client client) throws IOException {
     setPreferred( client, UNLOVE_PATH );
     this.loved = false;
-    return true;
+    return this;
   }
 
 
@@ -548,15 +566,16 @@ public class MediaFile {
    * <p/>
    * Preserve all the features of the love and unlove endpoints.
    *
-   * @param client the
-   * to use for the request
-   * @return true if the operation succeeds.
+   * @param client the {@link Client} to use for the request
+   *
+   * @return the media file in order to chain other calls.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
    */
-  public boolean toggleLove(Client client) throws IOException {
+  public MediaFile toggleLove(Client client) throws IOException {
     setPreferred( client, TOGGLE_LOVE_PATH );
     this.loved = !this.loved;
-    return true;
+    return this;
   }
 
 

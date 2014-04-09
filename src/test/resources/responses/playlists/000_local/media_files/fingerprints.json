@@ -1,0 +1,36 @@
+{
+  "media_files": [
+    {
+      "token": "token:0",
+      "hash": "hash_0"
+    },
+    {
+      "token": "token:1",
+      "hash": "hash_1"
+    },
+    {
+      "token": "token:2",
+      "hash": "hash_2"
+    },
+    {
+      "token": "token:3",
+      "hash": "hash_3"
+    },
+    {
+      "token": "token:4",
+      "hash": "hash_4"
+    },
+    {
+      "token": "token:5",
+      "hash": "hash_5"
+    },
+    {
+      "token": "token:6",
+      "hash": "hash_6"
+    },
+    {
+      "token": "token:7",
+      "hash": "hash_7"
+    }
+  ]
+}

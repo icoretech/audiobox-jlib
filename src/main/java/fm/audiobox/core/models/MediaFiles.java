@@ -21,6 +21,7 @@ import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.GenericData;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
+import fm.audiobox.core.utils.ModelUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -87,14 +88,9 @@ public class MediaFiles {
    * @throws IOException the iO exception
    */
   public static final boolean destroyAll(Client client, List<String> tokens) throws IOException {
-
-    GenericData d = new GenericData();
-    for ( String token : tokens ) {
-      d.put( PARAM_TOKENS, token );
-    }
-    JsonHttpContent data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
-    client.doDELETE( DESTROY_MEDIA_FILES_PATH, data, null );
-
+    String url = DESTROY_MEDIA_FILES_PATH + "?utf8=true";
+    for (String tk : tokens) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
+    client.doDELETE( url );
     return true;
   }
 

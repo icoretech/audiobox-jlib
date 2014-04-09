@@ -833,4 +833,41 @@ public class PlaylistsTests extends AudioBoxTests {
       assertTrue( StringUtils.isNotBlank( f.getToken() ) );
     }
   }
+
+
+  /**
+   * Test fingerprints fails on not cloud or local playlist.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testFingerprintsFailsOnNotCloudOrLocalPlaylist() throws IOException {
+    Playlist pls = c.getPlaylist( "000_custom" );
+    try {
+      pls.getFingerprints( c );
+      fail( "Should throw ResourceNotFoundException" );
+    } catch ( Exception e ) {
+      assertTrue( e instanceof ResourceNotFoundException );
+    }
+  }
+
+
+  /**
+   * Test fingerprints succeed on local playlist.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testFingerprintsSucceedOnLocalPlaylist() throws IOException {
+    Playlist pls = Playlists.getLocalPlaylist( c );
+    List<? extends MediaFile> mfs = pls.getFingerprints( c );
+    assertNotNull( mfs );
+    assertFalse( mfs.isEmpty() );
+
+    for ( MediaFile m : mfs ) {
+      assertNotNull( m.getToken() );
+      assertNotNull( m.getHash() );
+      assertNull( m.getTitle() );
+    }
+  }
 }

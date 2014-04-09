@@ -19,9 +19,7 @@ package fm.audiobox.core;
 
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
-import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.JsonObjectParser;
-import com.google.api.client.util.GenericData;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
@@ -43,7 +41,6 @@ import java.util.List;
 /**
  * TODO: On MediaFiles:
  * <ul>
- * <li>GET /api/v1/playlists/:playlist_token/media_files/fingerprints.json</li>
  * <li>PUT /api/v1/media_files/multiupdate.json?tokens[]=</li>
  * </ul>
  * <p/>
@@ -309,23 +306,7 @@ public class Client {
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   public HttpResponse doDELETE(String path, JsonObjectParser parser) throws IOException {
-    return doDELETE( path, null, parser );
-  }
-
-
-  /**
-   * Performs a DELETE request to the given path.
-   *
-   * @param path   the path
-   * @param data   the data
-   * @param parser the parser
-   *
-   * @return the http response
-   *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
-   */
-  public HttpResponse doDELETE(String path, HttpContent data, JsonObjectParser parser) throws IOException {
-    return doRequest( HttpMethods.DELETE, path, data, parser );
+    return doRequest( HttpMethods.DELETE, path, null, parser );
   }
 
 

@@ -17,24 +17,19 @@
 package fm.audiobox.core.models;
 
 
-import com.google.api.client.http.*;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.GenericData;
-import com.google.api.client.util.Joiner;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.exceptions.SyncException;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
-import fm.audiobox.core.utils.PlainTextContent;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -119,6 +114,11 @@ public class Playlist {
    */
   private static final String REMOVE_MEDIA_FILES_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/remove.json";
 
+  /**
+   * GET
+   */
+  private static final String FINGERPRINTS_PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/fingerprints.json";
+
   @Key
   private String token;
 
@@ -161,7 +161,7 @@ public class Playlist {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings("unused")
+  @SuppressWarnings( "unused" )
   public Playlist() {
   }
 
@@ -361,7 +361,7 @@ public class Playlist {
    *
    * @return A list of {@link MediaFile} elements
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service.
    */
   public List<? extends MediaFile> getMediaFiles(Client client, long since, String set) throws IOException {
     ensurePlaylistForRequest();
@@ -373,7 +373,7 @@ public class Playlist {
 
     if ( set != null ) {
       String setParam = MediaFiles.PARAM_SET + "=" + set;
-      setParam =  url.contains( "?" ) ? "&" : "?" + setParam;
+      setParam = url.contains( "?" ) ? "&" : "?" + setParam;
       url += setParam;
     }
 
@@ -499,10 +499,25 @@ public class Playlist {
     // writing this library does not support DELETE methods with content-length != 0.
     // Trying to change this to a valid HttpContent type for request will result in an exception.
     String url = ModelUtil.interpolate( REMOVE_MEDIA_FILES_PATH, getToken() ) + "?utf8=true";
-    for (String tk : tokens) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
+    for ( String tk : tokens ) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
 
     client.doDELETE( url );
     return this;
+  }
+
+
+  /**
+   * Returns known file fingerprints for this playlist. Available only for local and cloud playlist tokens.
+   * <p/>
+   * Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.
+   *
+   * @return A list of {@link MediaFile} elements
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   */
+  public List<? extends MediaFile> getFingerprints(Client client) throws IOException {
+    HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ) );
+    return rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles();
   }
 
 

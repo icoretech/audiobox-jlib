@@ -20,26 +20,41 @@ import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.exceptions.FileAlreadyUploaded;
 import fm.audiobox.core.exceptions.ResourceNotFoundException;
 import fm.audiobox.core.models.MediaFile;
+import fm.audiobox.core.models.MediaFiles;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
-import fm.audiobox.tests.unit.base.AudioBoxTests;
 import fm.audiobox.tests.mocks.MockHttp;
+import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Media files tests.
+ */
 public class MediaFilesTests extends AudioBoxTests {
 
+  /**
+   * Test load media file should fail if wrong token given.
+   *
+   * @throws IOException the iO exception
+   */
   @Test( expected = ResourceNotFoundException.class )
   public void testLoadMediaFileShouldFailIfWrongTokenGiven() throws IOException {
     MediaFile.load( c, "AAA" );
   }
 
 
+  /**
+   * Test load media file should succeed with right token.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testLoadMediaFileShouldSucceedWithRightToken() throws IOException {
     MediaFile mf = MediaFile.load( c, "c_ddcf6876debeb3cb365bcc" );
@@ -81,31 +96,31 @@ public class MediaFilesTests extends AudioBoxTests {
     assertEquals( "", mf.getAudioCodec() );
     assertEquals( "44100", mf.getAudioSampleRate() );
 
-    mf.setArtist("String");
-    mf.setAlbum("String");
-    mf.setGenre("String");
-    mf.setReleaseYear(2000);
-    mf.setTitle("String");
-    mf.setPosition(99);
-    mf.setLoved(true);
-    mf.setDiscNumber(2);
-    mf.setArtwork("String");
-    mf.setAlbumArtist("String");
-    mf.setComposer("String");
-    mf.setComment("String");
+    mf.setArtist( "String" );
+    mf.setAlbum( "String" );
+    mf.setGenre( "String" );
+    mf.setReleaseYear( 2000 );
+    mf.setTitle( "String" );
+    mf.setPosition( 99 );
+    mf.setLoved( true );
+    mf.setDiscNumber( 2 );
+    mf.setArtwork( "String" );
+    mf.setAlbumArtist( "String" );
+    mf.setComposer( "String" );
+    mf.setComment( "String" );
 
-    assertEquals("String", mf.getArtist());
-    assertEquals("String", mf.getAlbum());
-    assertEquals("String", mf.getGenre());
-    assertEquals(2000, mf.getReleaseYear());
-    assertEquals("String", mf.getTitle());
-    assertEquals(99, mf.getPosition());
-    assertEquals(true, mf.isLoved());
-    assertEquals(2, mf.getDiscNumber());
-    assertEquals("String", mf.getArtwork());
-    assertEquals("String", mf.getAlbumArtist());
-    assertEquals("String", mf.getComposer());
-    assertEquals("String", mf.getComment());
+    assertEquals( "String", mf.getArtist() );
+    assertEquals( "String", mf.getAlbum() );
+    assertEquals( "String", mf.getGenre() );
+    assertEquals( 2000, mf.getReleaseYear() );
+    assertEquals( "String", mf.getTitle() );
+    assertEquals( 99, mf.getPosition() );
+    assertEquals( true, mf.isLoved() );
+    assertEquals( 2, mf.getDiscNumber() );
+    assertEquals( "String", mf.getArtwork() );
+    assertEquals( "String", mf.getAlbumArtist() );
+    assertEquals( "String", mf.getComposer() );
+    assertEquals( "String", mf.getComment() );
   }
 
 
@@ -195,4 +210,141 @@ public class MediaFilesTests extends AudioBoxTests {
 
   }
 
+
+  /**
+   * Test multi destroy.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testMultiDestroy() throws IOException {
+    List<String> tokens = new ArrayList<>();
+    tokens.add( "aaa" );
+    tokens.add( "bbb" );
+    tokens.add( "ccc" );
+    tokens.add( "ddd" );
+    tokens.add( "eee" );
+    assertTrue( MediaFiles.destroyAll( c, tokens ) );
+  }
+
+
+  /**
+   * Test scrobble.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testScrobble() throws IOException {
+    Playlist pls = c.getPlaylist( "000_custom" );
+    List<? extends MediaFile> mfs = pls.getMediaFiles( c );
+    assertNotNull( mfs );
+    assertFalse( mfs.isEmpty() );
+
+    MediaFile m = mfs.get( 0 );
+    assertNotNull( m );
+    assertNotNull( m.getToken() );
+
+    assertEquals( m, m.scrobble( c ) );
+  }
+
+
+  /**
+   * Test love.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testLove() throws IOException {
+    Playlist pls = c.getPlaylist( "000_custom" );
+    List<? extends MediaFile> mfs = pls.getMediaFiles( c );
+    assertNotNull( mfs );
+    assertFalse( mfs.isEmpty() );
+
+    MediaFile m = mfs.get( 0 );
+    assertNotNull( m );
+    assertNotNull( m.getToken() );
+
+    assertEquals( m, m.love( c ) );
+    assertTrue( m.isLoved() );
+  }
+
+
+  /**
+   * Test unlove.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testUnove() throws IOException {
+    Playlist pls = c.getPlaylist( "000_custom" );
+    List<? extends MediaFile> mfs = pls.getMediaFiles( c );
+    assertNotNull( mfs );
+    assertFalse( mfs.isEmpty() );
+
+    MediaFile m = mfs.get( 0 );
+    assertNotNull( m );
+    assertNotNull( m.getToken() );
+
+    assertEquals( m, m.unlove( c ) );
+    assertFalse( m.isLoved() );
+  }
+
+
+  /**
+   * Test toggle love.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testToggleLove() throws IOException {
+    Playlist pls = c.getPlaylist( "000_custom" );
+    List<? extends MediaFile> mfs = pls.getMediaFiles( c );
+    assertNotNull( mfs );
+    assertFalse( mfs.isEmpty() );
+
+    MediaFile m = mfs.get( 0 );
+    assertNotNull( m );
+    assertNotNull( m.getToken() );
+
+    boolean isLoved = m.isLoved();
+    assertEquals( m, m.toggleLove( c ) );
+    assertNotEquals( isLoved, m.isLoved() );
+    m.toggleLove( c );
+    assertEquals( isLoved, m.isLoved() );
+  }
+
+
+  /**
+   * Test update.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testUpdate() throws IOException {
+    Playlist pls = c.getPlaylist( "000_custom" );
+    List<? extends MediaFile> mfs = pls.getMediaFiles( c );
+    assertNotNull( mfs );
+    assertFalse( mfs.isEmpty() );
+
+    MediaFile m = mfs.get( 0 );
+    assertNotNull( m );
+    assertNotNull( m.getToken() );
+    MediaFile m2 = m.update( c ).reload( c );
+    assertNotSame( m2, m );
+  }
+
+
+  /**
+   * Test lyrics.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testLyrics() throws IOException {
+    MediaFile m = MediaFile.load(c, "c_1813602a05000a1756b914");
+    String lyrics = m.getLyrics( c );
+    assertNotNull( lyrics );
+    // Second time should not make a request
+    assertSame( lyrics, m.getLyrics( c ) );
+  }
 }
