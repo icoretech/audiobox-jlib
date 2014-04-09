@@ -24,7 +24,7 @@ import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
-import fm.audiobox.core.utils.Credential;
+import com.google.api.client.auth.Credential;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.core.utils.PlainTextContent;
