@@ -414,7 +414,7 @@ public class MediaFile {
    */
   public static MediaFile load(Client client, String token) throws IOException {
     HttpResponse rsp = client.doGET( ModelUtil.interpolate( PATH, token ) );
-    return rsp.parseAs( MediaFileWrapper.class ).getMediaFile();
+    return rsp.parseAs( client.getConf().getMediaFileWrapperClass() ).getMediaFile();
   }
 
 

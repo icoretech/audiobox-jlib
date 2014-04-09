@@ -89,13 +89,14 @@ public class AudioBoxTests {
 
       JacksonFactory jf = new JacksonFactory();
 
-      Configuration config = new Configuration( env )
+      Configuration config = new Configuration()
           .setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) )
           .setApiKey( fixtures.getString( "authentication.client_id" ) )
           .setApiSecret( fixtures.getString( "authentication.client_secret" ) )
           .setHttpTransport( MockHttp.getTransport() )
           .setJsonFactory( jf );
 
+      config.setEnvironment( env );
       c = new Client( config );
     } catch ( ConfigurationException | IOException e ) {
       fail( e.getMessage() );

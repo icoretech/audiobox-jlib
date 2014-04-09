@@ -62,7 +62,7 @@ public class Configuration {
 
   private Class<? extends Artists> artistsWrapperClass;
 
-  private Class<? extends MediaFile> mediaFileClass;
+  private Class<? extends MediaFileWrapper> mediaFileClass;
 
 
   /**
@@ -114,7 +114,7 @@ public class Configuration {
     setAlbumsWrapperClass( Albums.class );
     setGenresWrapperClass( Genres.class );
     setArtistsWrapperClass( Artists.class );
-    setMediaFileClass( MediaFile.class );
+    setMediaFileClass( MediaFileWrapper.class );
   }
 
 
@@ -237,11 +237,11 @@ public class Configuration {
    * <p/>
    * Use this configuration method to set your own class to use for media file parsing.
    * <p/>
-   * Default is {@link fm.audiobox.core.models.MediaFile}.
+   * Default is {@link fm.audiobox.core.models.MediaFileWrapper}.
    *
    * @param klass the class to use for artists parsing.
    */
-  public Configuration setMediaFileClass(Class<? extends MediaFile> klass) {
+  public Configuration setMediaFileClass(Class<? extends MediaFileWrapper> klass) {
     this.mediaFileClass = klass;
     return this;
   }
@@ -377,7 +377,7 @@ public class Configuration {
    *
    * @return the class to use for media file parsing.
    */
-  public Class<? extends MediaFile> getMediaFileClass() {
+  public Class<? extends MediaFileWrapper> getMediaFileWrapperClass() {
     return this.mediaFileClass;
   }
 

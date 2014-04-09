@@ -36,16 +36,6 @@ public class Errors extends GenericJson {
 
 
   /**
-   * Gets errors (generic type).
-   *
-   * @return the errors
-   */
-  public Errors getErrors() {
-    return this;
-  }
-
-
-  /**
    * Gets error description.
    *
    * @return the error description
@@ -67,10 +57,10 @@ public class Errors extends GenericJson {
 
   @Override
   public String toString() {
-    if ( error == null ) {
+    if ( getError() == null ) {
       return StringUtils.EMPTY;
     } else {
-      return error + ": " + error_description;
+      return getError() + ": " + getErrorDescription();
     }
   }
 }
