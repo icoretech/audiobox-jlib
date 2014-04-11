@@ -76,7 +76,7 @@ public class ClientTests extends AudioBoxTests {
       c.getUser();
       fail( "AuthorizationException expected" );
     } catch ( AuthorizationException e ) {
-      assertEquals( "invalid_grant: invalid refresh token", e.getMessage() );
+      assertEquals( "invalid_grant: invalid refresh token\n", e.getMessage() );
     } catch ( Exception e ) {
       fail( "AuthorizationException expected, got " + e.getClass().getCanonicalName() );
     }
@@ -94,5 +94,21 @@ public class ClientTests extends AudioBoxTests {
     c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
   }
 
+
+  @Test
+  public void testAuthExceptionOnApiCall() throws IOException {
+    try {
+      c.getConf().setHttpTransport( MockHttp.getInvalidRefreshTokenHttpTransport() );
+      c.getPlaylists();
+      fail("AuthorizationException should be thrown");
+    } catch ( Exception e ) {
+      e.printStackTrace();
+      assertTrue( e instanceof AuthorizationException);
+      AuthorizationException ae = (AuthorizationException) e;
+      assertNotNull(ae.getErrors());
+      assertEquals( "invalid_grant: invalid refresh token\n", ae.getMessage() );
+    }
+
+  }
 
 }

@@ -381,13 +381,14 @@ public class Client {
         method = HttpMethods.POST;
       }
       */
+      try {
+        HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
+        validateResponse( response );
+        return response;
 
-      HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
-      validateResponse( response );
-      return response;
-
-    } catch ( AudioBoxException e ) {
-      throw e; // Relaunch exception
+      } catch ( AudioBoxException e ) {
+        throw e; // Relaunch exception
+      }
 
     } catch ( TokenResponseException e ) {
       throw new AuthorizationException( e );
@@ -486,10 +487,10 @@ public class Client {
    *
    * @throws AudioBoxException in case of 402, 403, 404, 409, 422, 500 or 503 response codes.
    */
-  private void validateResponse(HttpResponse response) throws AudioBoxException {
+  private void validateResponse(HttpResponse response) throws IOException {
     switch ( response.getStatusCode() ) {
       case HttpStatus.SC_BAD_REQUEST: // 400
-        throw new AuthorizationException( response );
+        throw TokenResponseException.from( getConf().getJsonFactory(), response );
 
       case HttpStatus.SC_PAYMENT_REQUIRED: // 402
       case HttpStatus.SC_FORBIDDEN: // 403

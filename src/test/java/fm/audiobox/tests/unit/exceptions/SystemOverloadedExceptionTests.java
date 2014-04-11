@@ -26,8 +26,16 @@ import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
 
+/**
+ * The type System overloaded exception tests.
+ */
 public class SystemOverloadedExceptionTests extends AudioBoxTests {
 
+  /**
+   * Test system overloaded exception.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testSystemOverloadedException() throws IOException {
     try {
@@ -42,8 +50,14 @@ public class SystemOverloadedExceptionTests extends AudioBoxTests {
     }
   }
 
+
+  /**
+   * Test void system overloaded exception.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
-  public void testVoiSystemOverloadedException() throws IOException {
+  public void testVoidSystemOverloadedException() throws IOException {
     SystemOverloadedException e = new SystemOverloadedException( null );
     assertEquals( -1, e.getRetryAfterInSeconds() );
   }
