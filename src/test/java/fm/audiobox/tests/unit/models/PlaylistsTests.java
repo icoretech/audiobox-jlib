@@ -149,6 +149,7 @@ public class PlaylistsTests extends AudioBoxTests {
     Playlist p = new Playlist( "Dropbox" );
     try {
       p.create( c );
+      fail("Should raise exception");
     } catch ( ValidationException e ) {
 
       assertEquals( e.toString(), e.getMessage() );
@@ -172,8 +173,10 @@ public class PlaylistsTests extends AudioBoxTests {
   public void testPlaylistCreationWithNoReturnBody() throws IOException {
     Playlist p = new Playlist( "Dropbox" );
     try {
+      c.getConf().setHttpTransport( MockHttp.getTransport( 404, "" ) );
       p.create( c );
-    } catch ( ValidationException e ) {
+      fail("Should raise exception");
+    } catch ( ResourceNotFoundException e ) {
       assertEquals( HttpStatus.SC_NOT_FOUND, e.getErrorCode() );
 
     } catch ( Exception e ) {
@@ -245,13 +248,8 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testLocalPlaylistVisibility() throws IOException {
-    try {
-      Playlist local = c.getPlaylist( "000_local" );
-      assertTrue( local.toggleVisibility( c ) );
-    } catch ( SyncException e ) {
-      assertEquals( e.getErrorCode(), HttpStatus.SC_UNPROCESSABLE_ENTITY );
-      logger.info( "[ OK ] local drive not syncable: " + e.getMessage() );
-    }
+    Playlist local = c.getPlaylist( "000_local" );
+    assertTrue( local.toggleVisibility( c ) );
   }
 
 
@@ -352,11 +350,7 @@ public class PlaylistsTests extends AudioBoxTests {
   @Test
   public void testSkydrivePlaylistSync() throws IOException {
     Playlist skydrive = c.getPlaylist( "000_skydrive" );
-    try {
-      assertTrue( skydrive.sync( c ) );
-    } catch ( SyncException e ) {
-      fail( e.getMessage() );
-    }
+    assertTrue( skydrive.sync( c ) );
   }
 
 
@@ -368,11 +362,7 @@ public class PlaylistsTests extends AudioBoxTests {
   @Test
   public void testBoxPlaylistSync() throws IOException {
     Playlist box = c.getPlaylist( "000_box" );
-    try {
-      assertTrue( box.sync( c ) );
-    } catch ( SyncException e ) {
-      fail( e.getMessage() );
-    }
+    assertTrue( box.sync( c ) );
   }
 
 
@@ -384,11 +374,7 @@ public class PlaylistsTests extends AudioBoxTests {
   @Test
   public void testGdrivePlaylistSync() throws IOException {
     Playlist gdrive = c.getPlaylist( "000_gdrive" );
-    try {
-      assertTrue( gdrive.sync( c ) );
-    } catch ( SyncException e ) {
-      fail( e.getMessage() );
-    }
+    assertTrue( gdrive.sync( c ) );
   }
 
 
@@ -400,11 +386,7 @@ public class PlaylistsTests extends AudioBoxTests {
   @Test
   public void testYoutubePlaylistSync() throws IOException {
     Playlist youtube = c.getPlaylist( "000_youtube" );
-    try {
-      assertTrue( youtube.sync( c ) );
-    } catch ( SyncException e ) {
-      fail( e.getMessage() );
-    }
+    assertTrue( youtube.sync( c ) );
   }
 
 
@@ -675,6 +657,7 @@ public class PlaylistsTests extends AudioBoxTests {
     t.add( "c_ddcf6876debeb3cb365bcc" );
     try {
       p.removeMediaFiles( c, t );
+      fail("Should raise exception");
     } catch ( Exception e ) {
       assertTrue( e instanceof IllegalStateException );
       assertEquals( "Playlist must be remotely created before performing the requested action.", e.getMessage() );

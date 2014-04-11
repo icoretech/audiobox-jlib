@@ -46,6 +46,7 @@ public class RemoteMessageExceptionsTests extends AudioBoxTests {
     HttpResponse rsp = c.doGET( "/api/v1/malformed.json" );
     try {
       rsp.parseAs( MediaFile.class );
+      fail("Should fail parsing");
     } catch ( JsonParseException e ) {
       RemoteMessageException ex = new RemoteMessageException( rsp );
       assertEquals( "fm.audiobox.core.exceptions.RemoteMessageException: Client got a remote error (200) but no message was given.\n", ex.getMessage() );
