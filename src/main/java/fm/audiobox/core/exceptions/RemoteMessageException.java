@@ -40,6 +40,8 @@ public class RemoteMessageException extends AudioBoxException {
 
   private int statusCode = HttpStatusCodes.STATUS_CODE_UNAUTHORIZED;
 
+  private static final int NO_RESPONSE = -1;
+
   private Errors errors;
 
 
@@ -49,29 +51,7 @@ public class RemoteMessageException extends AudioBoxException {
    * @param response the response
    */
   public RemoteMessageException(HttpResponse response) {
-    this( RemoteMessageException.parseErrors( response ), response.getStatusCode() );
-  }
-
-
-  /**
-   * Instantiates a new Validation exception.
-   *
-   * @param errors the errors mapping
-   */
-  public RemoteMessageException(Errors errors) {
-    this( RemoteMessageException.firstErrorToString( errors ), errors );
-  }
-
-
-  /**
-   * Instantiates a new Validation exception.
-   *
-   * @param message the message
-   * @param errors  the errors mapping
-   */
-  public RemoteMessageException(String message, Errors errors) {
-    super( message );
-    this.errors = errors;
+    this( RemoteMessageException.parseErrors( response ), response != null ? response.getStatusCode() : NO_RESPONSE );
   }
 
 
@@ -82,7 +62,8 @@ public class RemoteMessageException extends AudioBoxException {
    * @param statusCode the status code
    */
   public RemoteMessageException(Errors errors, int statusCode) {
-    this( errors );
+    super( RemoteMessageException.firstErrorToString( errors ) );
+    this.errors = errors;
     this.statusCode = statusCode;
   }
 
@@ -130,7 +111,6 @@ public class RemoteMessageException extends AudioBoxException {
    * Transforms error mapping into strings.
    *
    * @param errors the errors mapping
-   *
    * @return the string
    */
   public static String errorsToString(Errors errors) {
@@ -148,7 +128,6 @@ public class RemoteMessageException extends AudioBoxException {
    * Transform error set into a string.
    *
    * @param error an error in form of a {@link java.util.Map.Entry}
-   *
    * @return a single string containing the error.
    */
   private static String errorToString(Map.Entry<String, Object> error) {
@@ -167,7 +146,6 @@ public class RemoteMessageException extends AudioBoxException {
    * Parse errors.
    *
    * @param response the response
-   *
    * @return the errors
    */
   private static Errors parseErrors(HttpResponse response) {
@@ -176,7 +154,7 @@ public class RemoteMessageException extends AudioBoxException {
     } catch ( Exception e ) {
       logger.warn( "Here's the 'Maytag(tm) repair man', we got something not expected: " + e.getMessage() );
       // Catchall, preserve status message
-      return buildEmptyErrors( response == null ? 0 : response.getStatusCode() );
+      return buildEmptyErrors( response == null ? NO_RESPONSE : response.getStatusCode() );
     }
   }
 
@@ -196,17 +174,21 @@ public class RemoteMessageException extends AudioBoxException {
 
 
   /**
-   * First error to string.
+   * Gets the first error and transforms it into a human readable string.
    *
-   * @param errors the errors
-   *
-   * @return the string
+   * @param errors the errors object
+   * @return the message string or empty string if none found.
    */
   private static String firstErrorToString(Errors errors) {
-    if ( errors != null )
-      for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
-        return errorToString( error );
-      }
-    return null;
+
+    if ( errors == null ) {
+      errors = RemoteMessageException.buildEmptyErrors( 0 );
+    }
+
+    for ( Map.Entry<String, Object> error : errors.getUnknownKeys().entrySet() ) {
+      return errorToString( error );
+    }
+
+    return StringUtils.EMPTY;
   }
 }

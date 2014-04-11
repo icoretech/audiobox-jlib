@@ -14,7 +14,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Gradle: config-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-validator-1.4.0" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: commons-lang3-3.3.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: java-object-diff-0.13.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-logging-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-beanutils-1.8.3" level="project" />
@@ -40,6 +39,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: logback-core-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: slf4j-api-1.7.7" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: jul-to-slf4j-1.7.7" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: commons-lang3-3.3.2" level="project" />
   </component>
 </module>
 
