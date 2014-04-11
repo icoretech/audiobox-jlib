@@ -17,6 +17,7 @@
 package fm.audiobox.core;
 
 
+import com.google.api.client.auth.Credential;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
@@ -24,7 +25,6 @@ import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
-import com.google.api.client.auth.Credential;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.core.utils.PlainTextContent;
@@ -373,26 +373,9 @@ public class Client {
    * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
    */
   private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
-    try {
-
-      /*
-      if ( HttpMethods.DELETE.equals( method ) ) {
-        path += "?_method=" + method;
-        method = HttpMethods.POST;
-      }
-      */
-      try {
-        HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
-        validateResponse( response );
-        return response;
-
-      } catch ( AudioBoxException e ) {
-        throw e; // Relaunch exception
-      }
-
-    } catch ( TokenResponseException e ) {
-      throw new AuthorizationException( e );
-    }
+    HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
+    validateResponse( response );
+    return response;
   }
 
 
@@ -490,7 +473,8 @@ public class Client {
   private void validateResponse(HttpResponse response) throws IOException {
     switch ( response.getStatusCode() ) {
       case HttpStatus.SC_BAD_REQUEST: // 400
-        throw TokenResponseException.from( getConf().getJsonFactory(), response );
+        //throw TokenResponseException.from( getConf().getJsonFactory(), response );
+        throw new AuthorizationException( response );
 
       case HttpStatus.SC_PAYMENT_REQUIRED: // 402
       case HttpStatus.SC_FORBIDDEN: // 403

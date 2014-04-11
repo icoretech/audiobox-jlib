@@ -76,7 +76,7 @@ public class ClientTests extends AudioBoxTests {
       c.getUser();
       fail( "AuthorizationException expected" );
     } catch ( AuthorizationException e ) {
-      assertEquals( "invalid_grant: invalid refresh token\n", e.getMessage() );
+      assertEquals( "invalid_grant: invalid refresh token", e.getMessage() );
     } catch ( Exception e ) {
       fail( "AuthorizationException expected, got " + e.getClass().getCanonicalName() );
     }
@@ -106,7 +106,8 @@ public class ClientTests extends AudioBoxTests {
       assertTrue( e instanceof AuthorizationException);
       AuthorizationException ae = (AuthorizationException) e;
       assertNotNull(ae.getErrors());
-      assertEquals( "invalid_grant: invalid refresh token\n", ae.getMessage() );
+      assertEquals( "invalid_grant", ae.getErrors().getError() );
+      assertEquals( "invalid refresh token", ae.getErrors().getErrorDescription() );
     }
 
   }

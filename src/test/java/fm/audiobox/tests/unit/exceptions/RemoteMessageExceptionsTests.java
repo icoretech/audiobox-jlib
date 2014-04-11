@@ -19,6 +19,7 @@ package fm.audiobox.tests.unit.exceptions;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.google.api.client.http.HttpResponse;
+import fm.audiobox.core.exceptions.Errors;
 import fm.audiobox.core.exceptions.RemoteMessageException;
 import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.tests.mocks.MockHttp;
@@ -95,6 +96,6 @@ public class RemoteMessageExceptionsTests extends AudioBoxTests {
       assertTrue( e instanceof RemoteMessageException );
       assertEquals( "fm.audiobox.core.exceptions.RemoteMessageException: Client got a remote error (500) but no message was given.\n", e.getMessage() );
     }
-
   }
+
 }

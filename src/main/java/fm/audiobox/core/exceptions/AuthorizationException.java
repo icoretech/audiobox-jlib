@@ -19,6 +19,7 @@ package fm.audiobox.core.exceptions;
 
 import com.google.api.client.auth.oauth2.TokenErrorResponse;
 import com.google.api.client.auth.oauth2.TokenResponseException;
+import com.google.api.client.http.HttpResponse;
 
 
 /**
@@ -31,6 +32,16 @@ import com.google.api.client.auth.oauth2.TokenResponseException;
  * credential.
  */
 public class AuthorizationException extends RemoteMessageException {
+
+  /**
+   * Instantiates a new Authorization exception.
+   *
+   * @param response the response that thrown the exception
+   */
+  public AuthorizationException(HttpResponse response) {
+    super( response );
+  }
+
 
   /**
    * Instantiates a new Authorization exception.

@@ -152,6 +152,7 @@ public class RemoteMessageException extends AudioBoxException {
     try {
       return response.parseAs( Errors.class );
     } catch ( Exception e ) {
+      e.printStackTrace();
       logger.warn( "Here's the 'Maytag(tm) repair man', we got something not expected: " + e.getMessage() );
       if (response != null) {
         logger.warn( "Response message: " + response.getStatusMessage() );
