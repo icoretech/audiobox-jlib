@@ -28,11 +28,18 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 
+/**
+ * The type Remote message exceptions tests.
+ */
 public class RemoteMessageExceptionsTests extends AudioBoxTests {
 
+  /**
+   * Test remote exception.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testRemoteException() throws IOException {
     HttpResponse rsp = c.doGET( "/api/v1/malformed.json" );
@@ -45,6 +52,11 @@ public class RemoteMessageExceptionsTests extends AudioBoxTests {
   }
 
 
+  /**
+   * Test null errors.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testNullErrors() throws IOException {
     RemoteMessageException rme = new RemoteMessageException( null, HttpStatus.SC_INTERNAL_SERVER_ERROR );
@@ -52,6 +64,12 @@ public class RemoteMessageExceptionsTests extends AudioBoxTests {
     assertEquals( "fm.audiobox.core.exceptions.RemoteMessageException: Client got a remote error (500) but no message was given.\n", rme.getMessage() );
   }
 
+
+  /**
+   * Test null response.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testNullResponse() throws IOException {
     RemoteMessageException rme = new RemoteMessageException( null );
