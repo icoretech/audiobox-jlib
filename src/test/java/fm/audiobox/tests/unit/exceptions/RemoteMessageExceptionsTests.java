@@ -21,13 +21,14 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.google.api.client.http.HttpResponse;
 import fm.audiobox.core.exceptions.RemoteMessageException;
 import fm.audiobox.core.models.MediaFile;
+import fm.audiobox.tests.mocks.MockHttp;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 /**
@@ -60,7 +61,7 @@ public class RemoteMessageExceptionsTests extends AudioBoxTests {
   @Test
   public void testNullErrors() throws IOException {
     RemoteMessageException rme = new RemoteMessageException( null, HttpStatus.SC_INTERNAL_SERVER_ERROR );
-    logger.info(rme.getMessage());
+    logger.info( rme.getMessage() );
     assertEquals( "fm.audiobox.core.exceptions.RemoteMessageException: Client got a remote error (500) but no message was given.\n", rme.getMessage() );
   }
 
@@ -73,7 +74,26 @@ public class RemoteMessageExceptionsTests extends AudioBoxTests {
   @Test
   public void testNullResponse() throws IOException {
     RemoteMessageException rme = new RemoteMessageException( null );
-    logger.info(rme.getMessage());
+    logger.info( rme.getMessage() );
     assertEquals( "fm.audiobox.core.exceptions.RemoteMessageException: Client got a remote error (-1) but no message was given.\n", rme.getMessage() );
+  }
+
+
+  /**
+   * Test server error.
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  public void testServerError() throws IOException {
+    try {
+      c.getConf().setHttpTransport( MockHttp.getTransport( 500, "500" ) );
+      c.getPlaylists();
+      fail( "Should rise errors" );
+    } catch ( Exception e ) {
+      assertTrue( e instanceof RemoteMessageException );
+      assertEquals( "fm.audiobox.core.exceptions.RemoteMessageException: Client got a remote error (500) but no message was given.\n", e.getMessage() );
+    }
+
   }
 }

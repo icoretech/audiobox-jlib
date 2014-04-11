@@ -26,6 +26,9 @@ import com.google.api.client.http.HttpResponse;
  */
 public class SystemOverloadedException extends RemoteMessageException {
 
+  private String retryAfter;
+
+
   /**
    * Instantiates a new SystemOverloadedException exception.
    *
@@ -33,5 +36,28 @@ public class SystemOverloadedException extends RemoteMessageException {
    */
   public SystemOverloadedException(HttpResponse response) {
     super( response );
+    if (response != null) {
+      this.retryAfter = response.getHeaders().getRetryAfter();
+    }
+  }
+
+
+  /**
+   * Gets the number in seconds in form of a string of the period to wait in order to try the next request.
+   *
+   * @return the retry after time in seconds in form of a string
+   */
+  public String getRetryAfter() {
+    return this.retryAfter;
+  }
+
+
+  /**
+   * Gets the number in second of the period to wait in order to try the next request.
+   *
+   * @return the retry after time in seconds
+   */
+  public int getRetryAfterInSeconds() {
+    return getRetryAfter() != null ? Integer.parseInt( this.retryAfter, 10 ) : -1;
   }
 }

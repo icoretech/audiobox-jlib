@@ -139,6 +139,14 @@ public class MockHttp {
               result.setReasonPhrase( "Not Found" );
             }
 
+            if (HttpStatus.SC_INTERNAL_SERVER_ERROR == result.getStatusCode()) {
+              result.setReasonPhrase( "Internal Server Error" );
+            }
+
+            if (HttpStatus.SC_SERVICE_UNAVAILABLE == result.getStatusCode()) {
+              result.setReasonPhrase( "Service Unavailable" );
+              result.addHeader( "Retry-After", "10" );
+            }
 
             return result;
           }
