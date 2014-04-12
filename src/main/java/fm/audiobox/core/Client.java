@@ -28,8 +28,6 @@ import fm.audiobox.core.models.*;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.core.utils.PlainTextContent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
@@ -51,8 +49,6 @@ public class Client {
 
   private Configuration conf;
 
-  private Logger logger = LoggerFactory.getLogger( Client.class.getSimpleName() );
-
   private DataStore<StoredCredential> userDb;
 
   private static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
@@ -63,7 +59,7 @@ public class Client {
 
   private JsonObjectParser jsonObjectParser;
 
-  private static final String META_VERB_PARAM = "_method";
+  private HttpHeaders defaultHeaders;
 
 
   /**
@@ -80,6 +76,8 @@ public class Client {
     this.userDb = StoredCredential.getDefaultDataStore( conf.getDataStoreFactory() );
     this.refreshListener = new DataStoreCredentialRefreshListener( ACCOUNT_TOKENS, getConf().getDataStoreFactory() );
     this.jsonObjectParser = new JsonObjectParser( getConf().getJsonFactory() );
+    this.defaultHeaders = new HttpHeaders();
+    this.defaultHeaders.setUserAgent( getConf().getUserAgent() );
   }
 
 
@@ -113,7 +111,13 @@ public class Client {
           password );
 
       ptr.setClientAuthentication( new BasicAuthentication( getConf().getApiKey(), getConf().getApiSecret() ) );
-
+      ptr.setRequestInitializer( new HttpRequestInitializer() {
+        @Override
+        public void initialize(HttpRequest request) throws IOException {
+          request.setSuppressUserAgentSuffix( true );
+          request.setHeaders( defaultHeaders );
+        }
+      } );
       TokenResponse response = ptr.execute();
 
       StoredCredential sc = new StoredCredential( ( Credential ) createCredentialWithRefreshToken( response ) );
@@ -395,6 +399,8 @@ public class Client {
         c.initialize( request );
         request.setParser( parser == null ? jsonObjectParser : parser );
         request.setThrowExceptionOnExecuteError( false );
+        request.setSuppressUserAgentSuffix( true );
+        request.setHeaders( defaultHeaders );
       }
     } );
   }
@@ -473,7 +479,6 @@ public class Client {
   private void validateResponse(HttpResponse response) throws IOException {
     switch ( response.getStatusCode() ) {
       case HttpStatus.SC_BAD_REQUEST: // 400
-        //throw TokenResponseException.from( getConf().getJsonFactory(), response );
         throw new AuthorizationException( response );
 
       case HttpStatus.SC_PAYMENT_REQUIRED: // 402

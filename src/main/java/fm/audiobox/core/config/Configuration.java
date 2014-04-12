@@ -36,6 +36,10 @@ import javax.naming.ConfigurationException;
  */
 public class Configuration {
 
+  private static final String APP_NAME_PLACEHOLDER = ":appname:";
+
+  private static final String VERSION_PLACEHOLDER = ":appversion:";
+
   private String apiKey;
 
   private String apiSecret;
@@ -64,6 +68,12 @@ public class Configuration {
 
   private Class<? extends MediaFileWrapper> mediaFileClass;
 
+  private String userAgent;
+
+  private String applicationName;
+
+  private String version;
+
 
   /**
    * AudioBox environments.
@@ -89,16 +99,17 @@ public class Configuration {
   /**
    * Initiates a new Configuration ready for production.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public Configuration() {
-    this(Env.production);
+    this( Env.production );
   }
 
 
   /**
    * Initiates a new Configuration.
    *
-   * @param environment the {@link fm.audiobox.core.config.Configuration.Env environment} to use.
+   * @param environment the
+   * to use.
    */
   public Configuration(Env environment) {
 
@@ -115,6 +126,15 @@ public class Configuration {
     setGenresWrapperClass( Genres.class );
     setArtistsWrapperClass( Artists.class );
     setMediaFileClass( MediaFileWrapper.class );
+
+    userAgent = "AudioBox.fm (Java; " +
+        System.getProperty( "os.name" ) + " " +
+        System.getProperty( "os.arch" ) + "; " +
+        System.getProperty( "user.language" ) + "; " +
+        System.getProperty( "java.runtime.version" ) + ") " +
+        System.getProperty( "java.vm.name" ) + "/" +
+        System.getProperty( "java.vm.version" ) +
+        " " + APP_NAME_PLACEHOLDER + "/" + VERSION_PLACEHOLDER;
   }
 
 
@@ -122,6 +142,7 @@ public class Configuration {
    * Sets api key.
    *
    * @param apiKey the api key
+   * @return the api key
    */
   public Configuration setApiKey(String apiKey) {
     this.apiKey = apiKey;
@@ -133,6 +154,7 @@ public class Configuration {
    * Sets api secret.
    *
    * @param apiSecret the api secret
+   * @return the api secret
    */
   public Configuration setApiSecret(String apiSecret) {
     this.apiSecret = apiSecret;
@@ -144,6 +166,7 @@ public class Configuration {
    * Sets http transport.
    *
    * @param httpTransport the http transport
+   * @return the http transport
    */
   public Configuration setHttpTransport(HttpTransport httpTransport) {
     this.httpTransport = httpTransport;
@@ -155,6 +178,7 @@ public class Configuration {
    * Sets json factory.
    *
    * @param jsonFactory the json factory
+   * @return the json factory
    */
   public Configuration setJsonFactory(JsonFactory jsonFactory) {
     this.jsonFactory = jsonFactory;
@@ -166,6 +190,7 @@ public class Configuration {
    * Sets data store factory.
    *
    * @param dataStoreFactory the data store factory
+   * @return the data store factory
    */
   public Configuration setDataStoreFactory(DataStoreFactory dataStoreFactory) {
     this.db = dataStoreFactory;
@@ -181,6 +206,7 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.MediaFiles}.
    *
    * @param klass the class to use for media files parsing.
+   * @return the media files wrapper class
    */
   public Configuration setMediaFilesWrapperClass(Class<? extends MediaFiles> klass) {
     this.mediaFilesWrapperClass = klass;
@@ -196,6 +222,7 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.Albums}.
    *
    * @param klass the class to use for albums parsing.
+   * @return the albums wrapper class
    */
   public Configuration setAlbumsWrapperClass(Class<? extends Albums> klass) {
     this.albumsWrapperClass = klass;
@@ -211,6 +238,7 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.Genres}.
    *
    * @param klass the class to use for genres parsing.
+   * @return the genres wrapper class
    */
   public Configuration setGenresWrapperClass(Class<? extends Genres> klass) {
     this.genresWrapperClass = klass;
@@ -226,11 +254,13 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.Artists}.
    *
    * @param klass the class to use for artists parsing.
+   * @return the artists wrapper class
    */
   public Configuration setArtistsWrapperClass(Class<? extends Artists> klass) {
     this.artistsWrapperClass = klass;
     return this;
   }
+
 
   /**
    * Sets the media file class.
@@ -240,6 +270,7 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.MediaFileWrapper}.
    *
    * @param klass the class to use for artists parsing.
+   * @return the media file class
    */
   public Configuration setMediaFileClass(Class<? extends MediaFileWrapper> klass) {
     this.mediaFileClass = klass;
@@ -251,11 +282,13 @@ public class Configuration {
    * Changes the AudioBox environment (only useful in API development mode).
    * <p/>
    * Do not use this method if you are working on a production application.
+   * @param environment the environment
    */
   @Deprecated
   public void setEnvironment(Env environment) {
     this.environment = environment;
   }
+
 
   /**
    * Gets data store factory.
@@ -271,7 +304,6 @@ public class Configuration {
    * Gets environment configuration.
    *
    * @param environment the environment
-   *
    * @return the environment configuration
    */
   public Config getEnvironmentConfiguration(Env environment) {
@@ -409,6 +441,61 @@ public class Configuration {
    */
   public Class<? extends Artists> getArtistsWrapperClass() {
     return this.artistsWrapperClass;
+  }
+
+
+  /**
+   * Gets user agent.
+   *
+   * @return the user agent
+   */
+  public String getUserAgent() {
+    userAgent = userAgent
+        .replace( APP_NAME_PLACEHOLDER, getApplicationName() )
+        .replace( VERSION_PLACEHOLDER, getVersion() );
+    return userAgent;
+  }
+
+
+  /**
+   * Gets application name.
+   *
+   * @return the application name
+   */
+  public String getApplicationName() {
+    return applicationName;
+  }
+
+
+  /**
+   * Sets application name.
+   *
+   * @param applicationName the application name
+   */
+  public Configuration setApplicationName(String applicationName) {
+    this.applicationName = applicationName;
+    return this;
+  }
+
+
+  /**
+   * Gets version.
+   *
+   * @return the version
+   */
+  public String getVersion() {
+    return version;
+  }
+
+
+  /**
+   * Sets version.
+   *
+   * @param version the version
+   */
+  public Configuration setVersion(String version) {
+    this.version = version;
+    return this;
   }
 
 

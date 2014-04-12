@@ -94,7 +94,9 @@ public class AudioBoxTests {
           .setApiKey( fixtures.getString( "authentication.client_id" ) )
           .setApiSecret( fixtures.getString( "authentication.client_secret" ) )
           .setHttpTransport( MockHttp.getTransport() )
-          .setJsonFactory( jf );
+          .setJsonFactory( jf )
+          .setApplicationName( "Tests" )
+          .setVersion( "1.0" );
 
       config.setEnvironment( env );
       c = new Client( config );
