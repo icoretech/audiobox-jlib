@@ -4,6 +4,9 @@ This library is not yet ready for production.
 ## Introduction
 `audiobox-jlib` is a simple library to control [AudioBox](https://audiobox.fm) account through its powerful API.
 
+
+[![Build Status](https://travis-ci.org/icoretech/audiobox-jlib.svg?branch=master)](https://travis-ci.org/icoretech/audiobox-jlib)
+
 ## Minimum requirements
 * Java 1.7
 * Android Build Tools 19+ (for android projects)
