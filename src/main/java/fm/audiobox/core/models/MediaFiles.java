@@ -17,11 +17,8 @@
 package fm.audiobox.core.models;
 
 
-import com.google.api.client.http.json.JsonHttpContent;
-import com.google.api.client.util.GenericData;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
-import fm.audiobox.core.utils.ModelUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,6 +28,10 @@ import java.util.List;
  * Used to get a list of all media files in a specific user's playlist.
  */
 public class MediaFiles {
+
+  /*
+   TODO: PUT /api/v1/media_files/multiupdate.json?tokens[]=
+   */
 
 
   /**
@@ -85,7 +86,9 @@ public class MediaFiles {
    *
    * @return the boolean
    *
-   * @throws IOException the iO exception
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public static final boolean destroyAll(Client client, List<String> tokens) throws IOException {
     String url = DESTROY_MEDIA_FILES_PATH + "?utf8=true";

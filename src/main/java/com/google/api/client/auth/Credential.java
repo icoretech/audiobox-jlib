@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 
 /**
  * This credentials are a fix of Google Credential, since
- * the regular expression used fo bearer check is actually wrong.
+ * the regular expression used for bearer check is actually wrong.
  * <p/>
  * See: https://code.google.com/p/google-oauth-java-client/issues/detail?id=88&colspec=Milestone%20Priority%20Component%20Type%20Summary%20ID%20Status%20Owner
  * <p/>

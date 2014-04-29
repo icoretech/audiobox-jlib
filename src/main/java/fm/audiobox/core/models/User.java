@@ -377,7 +377,9 @@ public class User {
    *
    * @return true if operation succeed throws an exception if something goes wrong
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean savePreferences(Client client) throws IOException {
     client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), new UserWrapper(this)) );

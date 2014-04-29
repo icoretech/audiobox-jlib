@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Genres wrapper model.
  * <p/>
- * This is a simple wrapper model to handle genre-regrouped media files.
+ * This is a simple wrapper model to handle genre-grouped media files.
  */
 public class Genres {
 

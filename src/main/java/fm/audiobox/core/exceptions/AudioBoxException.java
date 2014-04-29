@@ -30,7 +30,7 @@ import java.io.IOException;
  * This kind of exceptions are typically thrown when a problem with the remote service occurs.
  * </p>
  * <p/>
- * Managed remote handled errors are:
+ * Handled remote errors are:
  * <dl>
  * <dt>HTTP Status 402:</dt>
  * <dd>Action requires a valid subscription ({@link fm.audiobox.core.exceptions.ForbiddenException}).</dd>
@@ -39,7 +39,7 @@ import java.io.IOException;
  * <dt>HTTP Status 404:</dt>
  * <dd>Resource not found or immutable ({@link fm.audiobox.core.exceptions.ResourceNotFoundException}).</dd>
  * <dt>HTTP Status 409:</dt>
- * <dd>Conflict occurred ({@link fm.audiobox.core.exceptions.ForbiddenException}).</dd>
+ * <dd>Conflict occurred ({@link fm.audiobox.core.exceptions.FileAlreadyUploaded}).</dd>
  * <dt>HTTP Status 422:</dt>
  * <dd>Validation errors ({@link fm.audiobox.core.exceptions.ValidationException}).</dd>
  * <dt>HTTP Status 503:</dt>

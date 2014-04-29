@@ -23,7 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This exception is thrown whenever an error occurs while trying to sync with the remote service.
+ * This exception is thrown whenever an error occurs while trying to
+ * {@link fm.audiobox.core.models.Playlist#sync(fm.audiobox.core.Client) sync a playlist} with the remote service.
  * <p/>
  * Errors in this case indicates a state with AudioBox account:
  * <ul>

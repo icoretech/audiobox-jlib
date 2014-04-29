@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Albums wrapper model.
  * <p/>
- * This is a simple wrapper model to handle album-regrouped media files.
+ * This is a simple wrapper model to handle album-grouped media files.
  */
 public class Albums {
 

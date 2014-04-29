@@ -367,7 +367,7 @@ public class MediaFile {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings("unused")
+  @SuppressWarnings( "unused" )
   public MediaFile() {
   }
 
@@ -411,6 +411,9 @@ public class MediaFile {
    * @return the requested media file
    *
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
+   * @throws java.io.IOException                                   if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public static MediaFile load(Client client, String token) throws IOException {
     HttpResponse rsp = client.doGET( ModelUtil.interpolate( PATH, token ) );
@@ -426,9 +429,12 @@ public class MediaFile {
    * @return the requested media file
    *
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
+   * @throws java.io.IOException                                   if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public MediaFile reload(Client client) throws IOException {
-    return MediaFile.load(client, getToken());
+    return MediaFile.load( client, getToken() );
   }
 
 
@@ -439,7 +445,9 @@ public class MediaFile {
    *
    * @return the media file in order to chain other calls.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public MediaFile update(Client client) throws IOException {
     client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
@@ -463,7 +471,9 @@ public class MediaFile {
    *
    * @return true if the operation succeeds.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean destroy(Client client) throws IOException {
     HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
@@ -482,7 +492,9 @@ public class MediaFile {
    *
    * @return the media file in order to chain other calls.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public MediaFile scrobble(Client client) throws IOException {
     client.doPOST( ModelUtil.interpolate( SCROBBLE_PATH, getToken() ) );
@@ -497,7 +509,9 @@ public class MediaFile {
    *
    * @return the lyrics or null
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public String getLyrics(Client client) throws IOException {
 
@@ -527,7 +541,9 @@ public class MediaFile {
    *
    * @return the media file in order to chain other calls.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public MediaFile love(Client client) throws IOException {
     setPreferred( client, LOVE_PATH );
@@ -550,7 +566,9 @@ public class MediaFile {
    *
    * @return the media file in order to chain other calls.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public MediaFile unlove(Client client) throws IOException {
     setPreferred( client, UNLOVE_PATH );
@@ -570,7 +588,9 @@ public class MediaFile {
    *
    * @return the media file in order to chain other calls.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public MediaFile toggleLove(Client client) throws IOException {
     setPreferred( client, TOGGLE_LOVE_PATH );
@@ -1044,7 +1064,9 @@ public class MediaFile {
    *
    * @return true if the operation succeeds.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException in case of 404 or 503 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   private boolean setPreferred(Client client, String path) throws IOException {
     client.doPOST( ModelUtil.interpolate( path, getToken() ) );

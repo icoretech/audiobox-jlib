@@ -37,13 +37,91 @@ import java.util.List;
 
 
 /**
- * TODO: On MediaFiles:
+ * {@link Client} is the main object of this library and allows you to perform requests and
+ * operations on AudioBox.
+ * <p/>
+ * AudioBox let developers access to API in order to build any kind of modern applications,
+ * libraries and integrations on top of the platform.
+ * <br/>
+ * AudioBox exposes basic and special API endpoints aimed at fast iteration of code and easiness.
+ * <p/>
+ * All the HTTP/HTTPS are performed using the JSON data format and content type.
+ * <p/>
+ * This library supports the OAuth2 Resource Owner Password Credentials Grant Type, thus, in order to
+ * work with it, you first need to register your application here (you need a valid AudioBox account):
+ * <p/>
+ * <a href="https://audiobox.fm/oauth2/applications">https://audiobox.fm/oauth2/applications</a>
+ * <p/>
+ * Once you registered your application you have to properly configure the client as follows:
+ * <code><pre>
+ * Configuration config = new Configuration()
+ *   .setApiKey( "[Your Consumer Key]" )
+ *   .setApiSecret( "[Your Consumer Secret]" );
+ * </pre></code>
+ * Through the {@link fm.audiobox.core.config.Configuration} object you can configure many aspects
+ * of the library behaviors; some are trivial such as application name, version, etc. and
+ * other are more complex such as HttpTransport or JSON parser.
+ * <p/>
+ * This library does not offer a data store for credentials storage out of the box. You should provide
+ * one like FileDataStoreFactory, MemoryDataStoreFactory or implementing one
+ * by extending the {@link com.google.api.client.util.store.AbstractDataStoreFactory}.
+ * <br/>
+ * This data store is used to store credentials so you should be really carefully with it.
+ * <p/>
+ * To set it use the configuration:
+ * <code><pre>
+ *  config.setDataStoreFactory( new MyDataStoreFactory() );
+ * </pre></code>
+ * Since this library wants to be as much agnostic as possible regarding the HTTP client and
+ * the JSON parser libraries you should set them at this moment by choosing amongst:
+ * <p/>
  * <ul>
- * <li>PUT /api/v1/media_files/multiupdate.json?tokens[]=</li>
+ * <li><strong>NetHttpTransport:</strong> based on HttpURLConnection that is found in all Java SDKs, and thus usually the simplest choice.</li>
+ * <li><strong>ApacheHttpTransport:</strong> based on the popular Apache HttpClient that allows for more customization.</li>
+ * <li><strong>UrlFetchTransport:</strong> based on URL Fetch Java API in the Google App Engine SDK</li>
  * </ul>
  * <p/>
- * TODO: review exceptions javadoc: for each method explain the IO exception given.
- * TODO: better credential specifications.
+ * as HTTP transport, and:
+ * <p/>
+ * <ul>
+ * <li><strong>JacksonFactory:</strong> based on the popular Jackson library which is considered the fastest in terms of parsing/serialization speed</li>
+ * <li><strong>GsonFactory:</strong> based on the Google GSON library which is a lighter-weight option (small size) that is pretty fast also (though not quite as fast as Jackson)</li>
+ * <li><strong>AndroidJsonFactory:</strong> based on the JSON library built-in to Android Honeycomb (SDK 3.0) or higher that is identical to the Google GSON library</li>
+ * </ul>
+ * <p/>
+ * as JSON parser library.
+ * <p/>
+ * There are no defaults that's why you must provide them through the configuration:
+ * <code><pre>
+ *  config
+ *    .setHttpTransport( new NetHttpTransport() )
+ *    .setJsonFactory( new JacksonFactory() );
+ * </pre></code>
+ * <p/>
+ * This is the basic configuration and once the setup is completed you can create your
+ * Client, authorize the application and start performing any kind of operation supported
+ * by AudioBox API through it:
+ * <code><pre>
+ *   Client client = new Client( config );
+ *   client.authorize( "username", "password" );
+ *   List&lt;Playlist&gt; playlists = client.getPlaylists();
+ *   ...
+ * </pre></code>
+ * <p/>
+ * <strong>NOTE:</strong> {@link Client#authorize(String, String)} is only needed once
+ * to get and store the OAuth2 grant token; password is never (and it never should be) stored.
+ * <p/>
+ * <strong>NOTE:</strong> grant tokens may expires at any time. A request against AudioBox with
+ * an expired token will result in an
+ * {@link fm.audiobox.core.exceptions.AuthorizationException AuthorizationException}.
+ * Your application should be ready to trap it in order to present a new login form.
+ * <p/>
+ * <br/>
+ * <br/>
+ * For a complete list of API endpoints you can consult the AudioBox API handbook at this address:
+ * <p/>
+ * <a href="http://audiobox.fm/apidocs">http://audiobox.fm/apidocs</a>
+ * <p/>
  */
 public class Client {
 
@@ -68,7 +146,7 @@ public class Client {
    * @param conf the conf
    *
    * @throws ConfigurationException the configuration exception
-   * @throws ConfigurationException the configuration exception
+   * @throws java.io.IOException    if any problem occurs with the configured data store factory
    */
   public Client(Configuration conf) throws ConfigurationException, IOException {
     conf.checkConfiguration();
@@ -92,14 +170,18 @@ public class Client {
 
 
   /**
-   * Authorize token response.
+   * Starts the authorization flow.
+   * <p/>
+   * Given a username and a password if the request succeed this method will store the
+   * grant token for future requests and return the response.
    *
    * @param username the username
    * @param password the password
    *
-   * @return the token response, may be null in case of any IOExceptions
+   * @return the token response, may be null
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws AuthorizationException in case the authorization fails.
+   * @throws java.io.IOException    if any connection or configured data store problems occurs.
    */
   public TokenResponse authorize(String username, String password) throws IOException {
     try {
@@ -112,6 +194,7 @@ public class Client {
 
       ptr.setClientAuthentication( new BasicAuthentication( getConf().getApiKey(), getConf().getApiSecret() ) );
       ptr.setRequestInitializer( new HttpRequestInitializer() {
+
         @Override
         public void initialize(HttpRequest request) throws IOException {
           request.setSuppressUserAgentSuffix( true );
@@ -131,11 +214,13 @@ public class Client {
 
 
   /**
-   * Returns information about the currently logged in user.
+   * Returns information about the authorized user.
    *
-   * @return the user
+   * @return the {@link fm.audiobox.core.models.User user}
    *
-   * @throws AudioBoxException the audio box exception
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public User getUser() throws IOException {
     HttpResponse rsp = doGET( UserWrapper.getPath() );
@@ -146,9 +231,11 @@ public class Client {
   /**
    * Gets user's playlists.
    *
-   * @return the playlists
+   * @return a {@link java.util.List} of {@link fm.audiobox.core.models.Playlist playlists}
    *
-   * @throws AudioBoxException the audio box exception
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<Playlist> getPlaylists() throws IOException {
     HttpResponse rsp = doGET( Playlists.getPath() );
@@ -157,16 +244,19 @@ public class Client {
 
 
   /**
-   * Gets the specified playlist.
+   * Gets the token-specified playlist.
    * Triggers Smart Playlist compilation if the requested playlist is a SmartPlaylist.
    * <br/>
-   * NOTE: this method will always perform a request against AudioBox servers.
+   * <strong>NOTE:</strong> this method will always perform a request against AudioBox servers, for this reason be
+   * smart and try to apply some sort of cache strategy.
    *
    * @param token the token of the playlist to get.
    *
-   * @return the playlist
+   * @return the specified {@link fm.audiobox.core.models.Playlist playlist}
    *
-   * @throws AudioBoxException the audio box exception
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist getPlaylist(String token) throws IOException {
     HttpResponse rsp = doGET( ModelUtil.interpolate( Playlist.getPath(), token ) );
@@ -177,9 +267,11 @@ public class Client {
   /**
    * Gets user's notifications.
    *
-   * @return the notifications
+   * @return the {@link fm.audiobox.core.models.Notifications notifications}
    *
-   * @throws AudioBoxException the audio box exception
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Notifications getNotifications() throws IOException {
     HttpResponse rsp = doGET( Notifications.getPath() );
@@ -188,28 +280,30 @@ public class Client {
 
 
   /**
-   * Uploads media files in AudioBox Cloud.
+   * Uploads media files to AudioBox Cloud.
    * <p/>
    * If the subscription is not valid {@link fm.audiobox.core.exceptions.ForbiddenException} is thrown.
    * If a media file already exists on AudioBox Cloud {@link fm.audiobox.core.exceptions.FileAlreadyUploaded} is thrown.
    * <p/>
-   * Other errors might include {@link fm.audiobox.core.exceptions.ValidationException},
+   * Other errors may include {@link fm.audiobox.core.exceptions.ValidationException},
    * {@link fm.audiobox.core.exceptions.SystemOverloadedException} or {@link fm.audiobox.core.exceptions.RemoteMessageException}
    * with additional information in the exception body.
    * <p/>
    * The application should ensure to accept those errors and retry accordingly after few minutes.
    * <p/>
-   * On successful upload the server returns a 202 with additional information in the response's body,
-   * including the token assigned to a single media file.
+   * On successful upload the server returns a new {@link MediaFile} with additional information,
+   * including the token assigned to the newly uploaded media file.
    * <p/>
    * Files uploaded through this method will go directly into the CloudPlaylist.
    * </p>
    *
    * @param file the file to upload on AudioBox
    *
-   * @return true if upload succeed, false or throws exception on any other case.
+   * @return a {@link fm.audiobox.core.models.MediaFile} containing additional information
    *
-   * @throws IOException if 422, 503 or 500 errors occurs (additional information in the exception body).
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public MediaFile upload(final File file) throws IOException {
 
@@ -226,13 +320,15 @@ public class Client {
 
 
   /**
-   * Perform signed GET requests and returns the response.
+   * Performs {@link Client#authorize(String, String) signed} GET requests and returns the response.
    *
-   * @param path the url to make the request against
+   * @param path the AudioBox API path where to make the request to.
    *
    * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doGET(String path) throws IOException {
     return doGET( path, null );
@@ -240,14 +336,16 @@ public class Client {
 
 
   /**
-   * Perform signed GET requests and returns the response.
+   * Performs {@link Client#authorize(String, String) signed} GET requests and returns the response.
    *
-   * @param path   the path
-   * @param parser the parser
+   * @param path   the AudioBox API path where to make the request to.
+   * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
    *
-   * @return the http response
+   * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doGET(String path, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.GET, path, null, parser );
@@ -255,14 +353,16 @@ public class Client {
 
 
   /**
-   * Perform signed PUT requests and returns the response.
+   * Performs {@link Client#authorize(String, String) signed} PUT requests and returns the response.
    *
-   * @param path the url to make the request against
-   * @param data the data to send with the post request
+   * @param path the AudioBox API path where to make the request to.
+   * @param data the data to send with the request
    *
    * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doPUT(String path, HttpContent data) throws IOException {
     return doPUT( path, data, null );
@@ -270,15 +370,17 @@ public class Client {
 
 
   /**
-   * Perform signed PUT requests and returns the response.
+   * Performs {@link Client#authorize(String, String) signed} PUT requests and returns the response.
    *
-   * @param path   the path
-   * @param data   the data
-   * @param parser the parser
+   * @param path   the AudioBox API path where to make the request to.
+   * @param data   the data to send with the request
+   * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
    *
-   * @return the http response
+   * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.PUT, path, data, parser );
@@ -286,13 +388,15 @@ public class Client {
 
 
   /**
-   * Performs a DELETE request to the given path.
+   * Performs {@link Client#authorize(String, String) signed} DELETE requests to the given path.
    *
-   * @param path the url
+   * @param path the AudioBox API path where to make the request to.
    *
-   * @return the http response
+   * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doDELETE(String path) throws IOException {
     return doDELETE( path, null );
@@ -300,14 +404,16 @@ public class Client {
 
 
   /**
-   * Performs a DELETE request to the given path.
+   * Performs {@link Client#authorize(String, String) signed} DELETE requests to the given path.
    *
-   * @param path   the path
-   * @param parser the parser
+   * @param path   the AudioBox API path where to make the request to.
+   * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
    *
-   * @return the http response
+   * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doDELETE(String path, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.DELETE, path, null, parser );
@@ -315,13 +421,15 @@ public class Client {
 
 
   /**
-   * Perform signed POST requests and returns the response.
+   * Performs {@link Client#authorize(String, String) signed} POST requests and returns the response.
    *
-   * @param path the url to make the request against
+   * @param path the AudioBox API path where to make the request to.
    *
    * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doPOST(String path) throws IOException {
     return doPOST( path, null, null );
@@ -329,14 +437,16 @@ public class Client {
 
 
   /**
-   * Perform signed POST requests and returns the response.
+   * Performs {@link Client#authorize(String, String) signed} POST requests and returns the response.
    *
-   * @param path the url to make the request against
-   * @param data the data to send with the post request
+   * @param path the AudioBox API path where to make the request to.
+   * @param data the data to send with the request
    *
    * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doPOST(String path, HttpContent data) throws IOException {
     return doPOST( path, data, null );
@@ -344,15 +454,17 @@ public class Client {
 
 
   /**
-   * Perform signed POST requests and returns the response.
+   * Performs {@link Client#authorize(String, String) signed} POST requests and returns the response.
    *
-   * @param path   the path
-   * @param data   the data
-   * @param parser the parser
+   * @param path   the AudioBox API path where to make the request to.
+   * @param data   the data to send with the request
+   * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
    *
-   * @return the http response
+   * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws IOException {
     return doRequest( HttpMethods.POST, path, data, parser );
@@ -365,16 +477,18 @@ public class Client {
 
 
   /**
-   * Do request.
+   * Executes the configured request by calling AudioBox API services.
    *
    * @param method the method to use
-   * @param path   the path to call
-   * @param data   the data to send
+   * @param path   the AudioBox API path where to make the request to.
+   * @param data   the data to send with the request
    * @param parser the parser to use for the resulting object
    *
-   * @return the http response
+   * @return the http response, may be null if any error occurs during the request.
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
     HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
@@ -386,7 +500,7 @@ public class Client {
   /**
    * Gets request factory.
    *
-   * @param parser the parser
+   * @param parser the parser to use for the resulting object
    *
    * @return the request factory
    */
@@ -426,6 +540,8 @@ public class Client {
    * Create credential with refresh token.
    *
    * @return the credential
+   *
+   * @throws java.io.IOException if any problem occurs with the configured data store.
    */
   private HttpRequestInitializer createCredentialWithRefreshToken() throws IOException {
     return createCredentialWithRefreshToken( getStoredCredential() );
@@ -463,6 +579,8 @@ public class Client {
    * Gets stored credential.
    *
    * @return the stored credential
+   *
+   * @throws java.io.IOException if any problem occurs with the configured data store.
    */
   private StoredCredential getStoredCredential() throws IOException {
     return userDb.get( ACCOUNT_TOKENS );
@@ -474,7 +592,7 @@ public class Client {
    *
    * @param response the response to validate
    *
-   * @throws AudioBoxException in case of 402, 403, 404, 409, 422, 500 or 503 response codes.
+   * @throws AudioBoxException in case of 400, 402, 403, 404, 409, 422, 500 or 503 response codes.
    */
   private void validateResponse(HttpResponse response) throws IOException {
     switch ( response.getStatusCode() ) {

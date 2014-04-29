@@ -21,9 +21,9 @@ import com.google.api.client.util.Key;
 import java.util.List;
 
 /**
- * Represent a regrouped media files by album.
+ * Container class for a collection of {@link MediaFile} grouped by album.
  * <p/>
- * Also includes the same media file entities in other collection views, sorted by the media files' position attribute.
+ * It includes media file sorted by the media files' position attribute.
  */
 public class Album {
 

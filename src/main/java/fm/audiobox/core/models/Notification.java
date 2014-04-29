@@ -18,7 +18,6 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
-import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.utils.ModelUtil;
 
 import java.io.IOException;
@@ -101,7 +100,9 @@ public class Notification {
    *
    * @return true if deletion succeeds
    *
-   * @throws AudioBoxException in case of 401, 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Notification delete(Client client) throws IOException {
     client.doDELETE( ModelUtil.interpolate( Notification.getPath(), getId() ) );

@@ -56,7 +56,7 @@ public class RemoteMessageException extends AudioBoxException {
 
 
   /**
-   * Instantiates a new Validation exception.
+   * Instantiates a new Remote message exception.
    *
    * @param errors     the errors
    * @param statusCode the status code

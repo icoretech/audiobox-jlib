@@ -191,7 +191,9 @@ public class Playlist {
    *
    * @return a new instance of the saved Playlist if success or null if any error occurs
    *
-   * @throws AudioBoxException in case of 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist create(Client client) throws IOException {
     validateForRequest( false );
@@ -218,6 +220,9 @@ public class Playlist {
    * @throws fm.audiobox.core.exceptions.ForbiddenException        if no valid subscription found
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if playlist is not found or immutable
    * @throws fm.audiobox.core.exceptions.ValidationException       if playlist data is not valid (ex: name already taken)
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
+   * @throws java.io.IOException                                   if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist update(Client client) throws IOException {
     ensurePlaylistForRequest();
@@ -235,7 +240,9 @@ public class Playlist {
    *
    * @return true if operation succeeds
    *
-   * @throws AudioBoxException in case of 401, 402, 403, 404 or 422 response codes.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean destroy(Client client) throws IOException {
     ensurePlaylistForRequest();
@@ -256,7 +263,10 @@ public class Playlist {
    *
    * @return true if operation succeeds.
    *
-   * @throws SyncException if any problem occurs.
+   * @throws SyncException                                 if any problem occurs.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean sync(Client client) throws IOException {
     ensurePlaylistForRequest();
@@ -288,7 +298,9 @@ public class Playlist {
    *
    * @return true if operation succeeds.
    *
-   * @throws IOException if any problem occurs.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean toggleVisibility(Client client) throws IOException {
     ensurePlaylistForRequest();
@@ -305,7 +317,9 @@ public class Playlist {
    *
    * @return A list of {@link MediaFile} elements
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getMediaFiles(Client client) throws IOException {
     return getMediaFiles( client, 0 );
@@ -323,7 +337,9 @@ public class Playlist {
    *
    * @return A list of {@link MediaFile} elements
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getMediaFiles(Client client, long since) throws IOException {
     return getMediaFiles( client, since, null );
@@ -361,7 +377,9 @@ public class Playlist {
    *
    * @return A list of {@link MediaFile} elements
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getMediaFiles(Client client, long since, String set) throws IOException {
     ensurePlaylistForRequest();
@@ -396,7 +414,9 @@ public class Playlist {
    *
    * @return grouped {@link fm.audiobox.core.models.Albums} data.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Albums getAlbums(Client client) throws IOException {
     return getGroupedCollection( client, client.getConf().getAlbumsWrapperClass(), Albums.getPath( this.token ) );
@@ -417,7 +437,9 @@ public class Playlist {
    *
    * @return grouped {@link fm.audiobox.core.models.Albums} data.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Genres getGenres(Client client) throws IOException {
     return getGroupedCollection( client, client.getConf().getGenresWrapperClass(), Genres.getPath( this.token ) );
@@ -438,7 +460,9 @@ public class Playlist {
    *
    * @return grouped {@link fm.audiobox.core.models.Albums} data.
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Artists getArtists(Client client) throws IOException {
     return getGroupedCollection( client, client.getConf().getArtistsWrapperClass(), Artists.getPath( this.token ) );
@@ -458,7 +482,9 @@ public class Playlist {
    *
    * @throws java.lang.IllegalStateException                       if the playlist is not persisted yet.
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the playlist not found or not of type CustomPlaylist.
-   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of AudioBoxException occurs.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
+   * @throws java.io.IOException                                   if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist addMediaFiles(Client client, List<String> tokens) throws IOException {
 
@@ -489,7 +515,9 @@ public class Playlist {
    *
    * @throws java.lang.IllegalStateException                       if the playlist is not persisted yet.
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the playlist not found or not of type CustomPlaylist.
-   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of AudioBoxException occurs.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
+   * @throws java.io.IOException                                   if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist removeMediaFiles(Client client, List<String> tokens) throws IOException {
 
@@ -513,7 +541,9 @@ public class Playlist {
    *
    * @return A list of {@link MediaFile} elements
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs with subscription or the service itself
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getFingerprints(Client client) throws IOException {
     HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ) );
@@ -825,7 +855,9 @@ public class Playlist {
    * @param klass  the class to use for response parsing
    * @param path   the path to call
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any problem occurs.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   private <T> T getGroupedCollection(Client client, Class<T> klass, String path) throws IOException {
     ensurePlaylistForRequest();

@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Artists wrapper model.
  * <p/>
- * This is a simple wrapper model to handle artist-regrouped media files.
+ * This is a simple wrapper model to handle artist-grouped media files.
  */
 public class Artists {
 

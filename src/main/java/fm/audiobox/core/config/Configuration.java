@@ -30,9 +30,20 @@ import javax.naming.ConfigurationException;
 
 
 /**
- * This is the main configuration for the AudioBox client.
+ * Through this class you can control several behavior of the client such as HTTP client or JSON parser libraries.
  * <p/>
- * All configurable parameters are here.
+ * There are the mandatory fields that must be set in order to set up the client:
+ * <ul>
+ * <li>{@link fm.audiobox.core.config.Configuration#setApiKey(String) API Key}</li>
+ * <li>{@link fm.audiobox.core.config.Configuration#setApiSecret(String) API Secret}</li>
+ * <li>{@link fm.audiobox.core.config.Configuration#setDataStoreFactory(com.google.api.client.util.store.DataStoreFactory) Data Store Factory}</li>
+ * <li>{@link fm.audiobox.core.config.Configuration#setHttpTransport(com.google.api.client.http.HttpTransport) HTTP Transport}</li>
+ * <li>{@link fm.audiobox.core.config.Configuration#setJsonFactory(com.google.api.client.json.JsonFactory) JSON Factory}</li>
+ * </ul>
+ * <p/>
+ * Not configuring these parameters will result in a {@link javax.naming.ConfigurationException}.
+ * <p/>
+ * <strong>TIP:</strong> Setter methods of this class are chainable.
  */
 public class Configuration {
 
@@ -85,7 +96,7 @@ public class Configuration {
     production,
 
     /**
-     * Staging if the environment to use for experimental features and future APIs.
+     * The environment to use for experimental features and future APIs.
      */
     staging,
 
@@ -99,7 +110,6 @@ public class Configuration {
   /**
    * Initiates a new Configuration ready for production.
    */
-  @SuppressWarnings("unused")
   public Configuration() {
     this( Env.production );
   }
@@ -109,7 +119,7 @@ public class Configuration {
    * Initiates a new Configuration.
    *
    * @param environment the
-   * to use.
+   *                    to use.
    */
   public Configuration(Env environment) {
 
@@ -127,6 +137,10 @@ public class Configuration {
     setArtistsWrapperClass( Artists.class );
     setMediaFileClass( MediaFileWrapper.class );
 
+    // Used for default user agent
+    setApplicationName( "AudioBox-JLib" );
+    setVersion( "1.0" );
+
     userAgent = "AudioBox.fm (Java; " +
         System.getProperty( "os.name" ) + " " +
         System.getProperty( "os.arch" ) + "; " +
@@ -139,10 +153,14 @@ public class Configuration {
 
 
   /**
-   * Sets api key.
+   * Sets the API Consumer Key.
+   * <p/>
+   * To get one register your application here:
+   * <a href="https://audiobox.fm/oauth2/applications">https://audiobox.fm/oauth2/applications</a>
    *
-   * @param apiKey the api key
-   * @return the api key
+   * @param apiKey the API Consumer Key
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setApiKey(String apiKey) {
     this.apiKey = apiKey;
@@ -151,10 +169,14 @@ public class Configuration {
 
 
   /**
-   * Sets api secret.
+   * Sets the API Consumer Secret.
+   * <p/>
+   * To get one register your application here:
+   * <a href="https://audiobox.fm/oauth2/applications">https://audiobox.fm/oauth2/applications</a>
    *
-   * @param apiSecret the api secret
-   * @return the api secret
+   * @param apiSecret the API Consumer Secret
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setApiSecret(String apiSecret) {
     this.apiSecret = apiSecret;
@@ -163,10 +185,18 @@ public class Configuration {
 
 
   /**
-   * Sets http transport.
+   * Sets the HTTP transport.
+   * <p/>
+   * Should be one of:
+   * <ul>
+   * <li><strong>NetHttpTransport:</strong> based on HttpURLConnection that is found in all Java SDKs, and thus usually the simplest choice.</li>
+   * <li><strong>ApacheHttpTransport:</strong> based on the popular Apache HttpClient that allows for more customization.</li>
+   * <li><strong>UrlFetchTransport:</strong> based on URL Fetch Java API in the Google App Engine SDK</li>
+   * </ul>
    *
    * @param httpTransport the http transport
-   * @return the http transport
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setHttpTransport(HttpTransport httpTransport) {
     this.httpTransport = httpTransport;
@@ -175,10 +205,18 @@ public class Configuration {
 
 
   /**
-   * Sets json factory.
+   * Sets the JSON factory.
+   * <p/>
+   * Should be one of:
+   * <ul>
+   * <li><strong>JacksonFactory:</strong> based on the popular Jackson library which is considered the fastest in terms of parsing/serialization speed</li>
+   * <li><strong>GsonFactory:</strong> based on the Google GSON library which is a lighter-weight option (small size) that is pretty fast also (though not quite as fast as Jackson)</li>
+   * <li><strong>AndroidJsonFactory:</strong> based on the JSON library built-in to Android Honeycomb (SDK 3.0) or higher that is identical to the Google GSON library</li>
+   * </ul>
    *
    * @param jsonFactory the json factory
-   * @return the json factory
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setJsonFactory(JsonFactory jsonFactory) {
     this.jsonFactory = jsonFactory;
@@ -187,10 +225,14 @@ public class Configuration {
 
 
   /**
-   * Sets data store factory.
+   * Sets the data store factory.
+   * <p/>
+   * You should provide one like FileDataStoreFactory, MemoryDataStoreFactory or implementing one
+   * by extending the {@link com.google.api.client.util.store.AbstractDataStoreFactory}.
    *
    * @param dataStoreFactory the data store factory
-   * @return the data store factory
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setDataStoreFactory(DataStoreFactory dataStoreFactory) {
     this.db = dataStoreFactory;
@@ -206,7 +248,8 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.MediaFiles}.
    *
    * @param klass the class to use for media files parsing.
-   * @return the media files wrapper class
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setMediaFilesWrapperClass(Class<? extends MediaFiles> klass) {
     this.mediaFilesWrapperClass = klass;
@@ -222,7 +265,8 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.Albums}.
    *
    * @param klass the class to use for albums parsing.
-   * @return the albums wrapper class
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setAlbumsWrapperClass(Class<? extends Albums> klass) {
     this.albumsWrapperClass = klass;
@@ -238,7 +282,8 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.Genres}.
    *
    * @param klass the class to use for genres parsing.
-   * @return the genres wrapper class
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setGenresWrapperClass(Class<? extends Genres> klass) {
     this.genresWrapperClass = klass;
@@ -254,7 +299,8 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.Artists}.
    *
    * @param klass the class to use for artists parsing.
-   * @return the artists wrapper class
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setArtistsWrapperClass(Class<? extends Artists> klass) {
     this.artistsWrapperClass = klass;
@@ -270,7 +316,8 @@ public class Configuration {
    * Default is {@link fm.audiobox.core.models.MediaFileWrapper}.
    *
    * @param klass the class to use for artists parsing.
-   * @return the media file class
+   *
+   * @return the {@link Configuration}
    */
   public Configuration setMediaFileClass(Class<? extends MediaFileWrapper> klass) {
     this.mediaFileClass = klass;
@@ -282,11 +329,39 @@ public class Configuration {
    * Changes the AudioBox environment (only useful in API development mode).
    * <p/>
    * Do not use this method if you are working on a production application.
-   * @param environment the environment
+   *
+   * @return the {@link Configuration}
    */
   @Deprecated
-  public void setEnvironment(Env environment) {
+  public Configuration setEnvironment(Env environment) {
     this.environment = environment;
+    return this;
+  }
+
+
+  /**
+   * Sets the  application name.
+   *
+   * @param applicationName the application name
+   *
+   * @return the {@link Configuration}
+   */
+  public Configuration setApplicationName(String applicationName) {
+    this.applicationName = applicationName;
+    return this;
+  }
+
+
+  /**
+   * Sets your application version.
+   *
+   * @param version the version string
+   *
+   * @return the {@link Configuration}
+   */
+  public Configuration setVersion(String version) {
+    this.version = version;
+    return this;
   }
 
 
@@ -304,6 +379,7 @@ public class Configuration {
    * Gets environment configuration.
    *
    * @param environment the environment
+   *
    * @return the environment configuration
    */
   public Config getEnvironmentConfiguration(Env environment) {
@@ -345,9 +421,9 @@ public class Configuration {
 
 
   /**
-   * Gets api key.
+   * Gets the API Consumer Key.
    *
-   * @return the api key
+   * @return the API Consumer Key
    */
   public String getApiKey() {
     return apiKey;
@@ -355,9 +431,9 @@ public class Configuration {
 
 
   /**
-   * Gets api secret.
+   * Gets the API Consumer Secret.
    *
-   * @return the api secret
+   * @return the API Consumer Secret
    */
   public String getApiSecret() {
     return apiSecret;
@@ -365,7 +441,7 @@ public class Configuration {
 
 
   /**
-   * Gets environment.
+   * Gets the {@link fm.audiobox.core.config.Configuration.Env environment}.
    *
    * @return the environment
    */
@@ -375,9 +451,9 @@ public class Configuration {
 
 
   /**
-   * Gets http transport.
+   * Gets HTTP transport.
    *
-   * @return the http transport
+   * @return the HTTP transport
    */
   public HttpTransport getHttpTransport() {
     return httpTransport;
@@ -385,9 +461,9 @@ public class Configuration {
 
 
   /**
-   * Gets json factory.
+   * Gets JSON factory.
    *
-   * @return the json factory
+   * @return the JSON factory
    */
   public JsonFactory getJsonFactory() {
     return jsonFactory;
@@ -445,7 +521,7 @@ public class Configuration {
 
 
   /**
-   * Gets user agent.
+   * Gets the user agent.
    *
    * @return the user agent
    */
@@ -458,23 +534,12 @@ public class Configuration {
 
 
   /**
-   * Gets application name.
+   * Gets the application name.
    *
    * @return the application name
    */
   public String getApplicationName() {
     return applicationName;
-  }
-
-
-  /**
-   * Sets application name.
-   *
-   * @param applicationName the application name
-   */
-  public Configuration setApplicationName(String applicationName) {
-    this.applicationName = applicationName;
-    return this;
   }
 
 
@@ -485,17 +550,6 @@ public class Configuration {
    */
   public String getVersion() {
     return version;
-  }
-
-
-  /**
-   * Sets version.
-   *
-   * @param version the version
-   */
-  public Configuration setVersion(String version) {
-    this.version = version;
-    return this;
   }
 
 
