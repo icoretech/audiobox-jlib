@@ -1,14 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
-apply plugin: 'git-dependencies'
 
 buildscript {
     repositories {
         mavenCentral()
-    }
-    dependencies {
-        classpath "org.batcha.gradle.plugins:git-dependencies:0.2"
     }
 }
 
@@ -29,8 +25,8 @@ jacocoTestReport {
 }
 
 compileJava {
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
 }
 
 configurations {
@@ -77,12 +73,8 @@ dependencies {
     compile     group: 'com.typesafe', name: 'config', version: '1.2.+'
 
     // Http
-    compile     'com.google.http-client:google-http-client:1.17.0-rc'
-    compile     'com.google.oauth-client:google-oauth-client:1.17.0-rc'
-    // compile('com.google.oauth-client:google-oauth-client:1.18.0-rc-SNAPSHOT') {
-    //     ext.git = 'git@github.com:Keytwo/google-oauth-java-client.git'
-    //     ext.gitVersion = 'master'
-    // }
+    compile     'com.google.http-client:google-http-client:1.18.0-rc'
+    compile     'com.google.oauth-client:google-oauth-client:1.18.0-rc'
 
     // Common utils
     compile     'commons-validator:commons-validator:+'
@@ -93,7 +85,7 @@ dependencies {
     // Testing
     testCompile 'junit:junit:4.11+'
     testCompile 'org.mockito:mockito-core:1.9.5'
-    testCompile 'com.google.http-client:google-http-client-jackson2:1.17.0-rc'
+    testCompile 'com.google.http-client:google-http-client-jackson2:1.18.0-rc'
 
     // Test logging
     testCompile 'ch.qos.logback:logback-classic:1.+'
@@ -108,7 +100,7 @@ dependencies {
 
 
     // JavaDoc
-    jaxDoclet("com.google.doclava:doclava:1.0.6")
+    jaxDoclet("com.google.doclava:doclava:1.+")
 }
 
 task generateDoclava(type: Javadoc) {
