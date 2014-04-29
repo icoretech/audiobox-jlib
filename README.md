@@ -1,3 +1,6 @@
+# PLEASE NOTE
+This library is not yet ready for production.
+
 ## Introduction
 `audiobox-jlib` is a simple library to control [AudioBox](https://audiobox.fm) account through its powerful API.
 
