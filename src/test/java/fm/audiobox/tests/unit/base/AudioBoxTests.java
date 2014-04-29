@@ -51,7 +51,7 @@ public class AudioBoxTests {
 
   protected Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
 
-  protected Config fixtures = ConfigFactory.load( "fixtures" );
+  protected Config fixtures = ConfigFactory.load( "travis" );
 
   protected Client c;
 
