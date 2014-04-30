@@ -3,11 +3,22 @@ jdk: oraclejdk7
 branches:
   only:
     - master
+env
+  global:
+  - secure: "lI2jvbi6nCIkSV8cIgDWOd/Bne5POOc2HYutHs3SBFsbQNUFIzltQfQsGoYJz4PtPGCPTNWOM9KrMshj8y2n1Yw9q3XU0Wa1SSHn37RNNvvdEhjkbh7UIhgA4RI8dGJ4XZoQ6sGN+kb3Zegv+3ODyP3L8M7+wYfKt/pbRzh28Xg="
+
+before_install:
+- export TERM=dumb
 install:
   - TERM=dumb ./gradlew assemble
 script:
   - TERM=dumb ./gradlew check
+
+after_success:
+- .utility/push-docs-to-gh-pages.sh
+
 notifications:
   hipchat:
     rooms:
       secure: "pBN3RmnE4xV4r5Wk80s8a2FhAoZ/tyLho6JTdCmDhII/gyH7nRmS0MrP8iCpt9ARexO1/ih3AzDJSnd0WA1fNXhWgKK8CdcsjRcnIVZ7isrp6hj53ak9w9xHUBajCTbnq2rcPfQO7kR8BTh/D4zDj6DO6yBHk6+lGUN0vfrjsbM="
+

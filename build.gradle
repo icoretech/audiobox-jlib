@@ -98,4 +98,6 @@ task getVersion << {
     println version
 }
 
+javadoc.dependsOn 'generateDoclava'
+
 apply from: 'gradle/idea.gradle'

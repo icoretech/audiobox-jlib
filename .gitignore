@@ -5,12 +5,10 @@
 # OS files
 .DS_Store
 .directory
-.gradle
 *.session
 
 # IDE files
 .loadpath
-.idea
 .metadata
 */.settings
 */.classpath
@@ -23,11 +21,20 @@ target
 # Build files
 *.class
 *.out
-build
-out
 */bin
 manifest.mf
 */nbproject/
 */build.xml
 **/target
 /src/test/resources/fixtures.conf
+
+# IntelliJ #
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# Gradle
+.gradle/
+build/
