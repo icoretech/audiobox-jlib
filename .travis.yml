@@ -3,7 +3,7 @@ jdk: oraclejdk7
 branches:
   only:
     - master
-env
+env:
   global:
   - secure: "lI2jvbi6nCIkSV8cIgDWOd/Bne5POOc2HYutHs3SBFsbQNUFIzltQfQsGoYJz4PtPGCPTNWOM9KrMshj8y2n1Yw9q3XU0Wa1SSHn37RNNvvdEhjkbh7UIhgA4RI8dGJ4XZoQ6sGN+kb3Zegv+3ODyP3L8M7+wYfKt/pbRzh28Xg="
 
