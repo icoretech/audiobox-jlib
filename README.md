@@ -1,5 +1,8 @@
 # PLEASE NOTE
-This library is not yet ready for production.
+This library is not yet ready for production. It is actually under heavy development and still requires some refactor.
+It does not work on the actual API specifications, if you need a java library that works with the actual API please use
+the old [AudioBox.fm-JavaLib](https://github.com/icoretech/AudioBox.fm-JavaLib).
+
 
 ## Introduction
 `audiobox-jlib` is a simple library to control [AudioBox](https://audiobox.fm) account through its powerful API.
