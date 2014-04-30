@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 buildscript {
     repositories {
@@ -40,7 +42,67 @@ sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
 group = 'fm.audiobox'
-version = '1.0-SNAPSHOT'
+version = '1.0.0'
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            pom.project {
+                name 'audiobox-jlib'
+                packaging 'jar'
+                description 'Next generation Java library for AudioBox API'
+                url 'https://github.com/icoretech/audiobox-jlib'
+
+                scm {
+                    url 'scm:git@github.com:icoretech/audiobox-jlib.git'
+                    connection 'scm:git@github.com:icoretech/audiobox-jlib.git'
+                    developerConnection 'scm:git@github.com:icoretech/audiobox-jlib.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'keytwo'
+                        name 'Valerio Chiodino'
+                    }
+                }
+            }
+        }
+    }
+}
 
 idea {
 
