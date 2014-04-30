@@ -1,0 +1,50 @@
+package com.typesafe.config;
+public interface Config
+  extends com.typesafe.config.ConfigMergeable
+{
+public abstract  com.typesafe.config.ConfigObject root();
+public abstract  com.typesafe.config.ConfigOrigin origin();
+public abstract  com.typesafe.config.Config withFallback(com.typesafe.config.ConfigMergeable arg0);
+public abstract  com.typesafe.config.Config resolve();
+public abstract  com.typesafe.config.Config resolve(com.typesafe.config.ConfigResolveOptions arg0);
+public abstract  boolean isResolved();
+public abstract  com.typesafe.config.Config resolveWith(com.typesafe.config.Config arg0);
+public abstract  com.typesafe.config.Config resolveWith(com.typesafe.config.Config arg0, com.typesafe.config.ConfigResolveOptions arg1);
+public abstract  void checkValid(com.typesafe.config.Config arg0, java.lang.String... arg1);
+public abstract  boolean hasPath(java.lang.String arg0);
+public abstract  boolean isEmpty();
+public abstract  java.util.Set<java.util.Map.Entry<java.lang.String, com.typesafe.config.ConfigValue>> entrySet();
+public abstract  boolean getBoolean(java.lang.String arg0);
+public abstract  java.lang.Number getNumber(java.lang.String arg0);
+public abstract  int getInt(java.lang.String arg0);
+public abstract  long getLong(java.lang.String arg0);
+public abstract  double getDouble(java.lang.String arg0);
+public abstract  java.lang.String getString(java.lang.String arg0);
+public abstract  com.typesafe.config.ConfigObject getObject(java.lang.String arg0);
+public abstract  com.typesafe.config.Config getConfig(java.lang.String arg0);
+public abstract  java.lang.Object getAnyRef(java.lang.String arg0);
+public abstract  com.typesafe.config.ConfigValue getValue(java.lang.String arg0);
+public abstract  java.lang.Long getBytes(java.lang.String arg0);
+public abstract  java.lang.Long getMilliseconds(java.lang.String arg0);
+public abstract  java.lang.Long getNanoseconds(java.lang.String arg0);
+public abstract  long getDuration(java.lang.String arg0, java.util.concurrent.TimeUnit arg1);
+public abstract  com.typesafe.config.ConfigList getList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Boolean> getBooleanList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Number> getNumberList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Integer> getIntList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Long> getLongList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Double> getDoubleList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.String> getStringList(java.lang.String arg0);
+public abstract  java.util.List<? extends com.typesafe.config.ConfigObject> getObjectList(java.lang.String arg0);
+public abstract  java.util.List<? extends com.typesafe.config.Config> getConfigList(java.lang.String arg0);
+public abstract  java.util.List<? extends java.lang.Object> getAnyRefList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Long> getBytesList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Long> getMillisecondsList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Long> getNanosecondsList(java.lang.String arg0);
+public abstract  java.util.List<java.lang.Long> getDurationList(java.lang.String arg0, java.util.concurrent.TimeUnit arg1);
+public abstract  com.typesafe.config.Config withOnlyPath(java.lang.String arg0);
+public abstract  com.typesafe.config.Config withoutPath(java.lang.String arg0);
+public abstract  com.typesafe.config.Config atPath(java.lang.String arg0);
+public abstract  com.typesafe.config.Config atKey(java.lang.String arg0);
+public abstract  com.typesafe.config.Config withValue(java.lang.String arg0, com.typesafe.config.ConfigValue arg1);
+}
