@@ -43,6 +43,18 @@ If your project is under maven add this under the dependency management section:
     </dependency>
 
 
+If your project uses gradle add this line in your dependency clojure:
+
+    dependencies {
+      ...
+      compile 'fm.audiobox:audiobox-jlib:1.0.0'
+      ...
+    }
+
+
+Alternatively add [this jar](https://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=fm.audiobox&a=audiobox-jlib&v=LATEST)
+to your project classpath.
+
 ### 2. Register your application
 
 1. Subscribe an AudioBox account [here](https://audiobox.fm/account/sign_up).
