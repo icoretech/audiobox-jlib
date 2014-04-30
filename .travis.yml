@@ -7,3 +7,7 @@ install:
   - TERM=dumb ./gradlew assemble
 script:
   - TERM=dumb ./gradlew check
+notifications:
+  hipchat:
+    rooms:
+      secure: "pBN3RmnE4xV4r5Wk80s8a2FhAoZ/tyLho6JTdCmDhII/gyH7nRmS0MrP8iCpt9ARexO1/ih3AzDJSnd0WA1fNXhWgKK8CdcsjRcnIVZ7isrp6hj53ak9w9xHUBajCTbnq2rcPfQO7kR8BTh/D4zDj6DO6yBHk6+lGUN0vfrjsbM="
