@@ -1,30 +1,27 @@
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'jacoco'
-apply plugin: 'maven'
-apply plugin: 'signing'
 
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
     }
-}
-
-jacoco {
-    toolVersion = "0.6.5.201403032054"
-}
-
-jacocoTestReport {
-    group = "reporting"
-    description = "Generate Jacoco coverage reports after running tests."
-    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
-    reports {
-        xml.enabled true
-        html.enabled true
-        csv.enabled false
-        html.destination "${buildDir}/jacocoHtml"
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.7'
     }
 }
+
+repositories {
+    mavenCentral()
+}
+
+if (hasProperty('sonatypeUsername')) {
+    apply from: 'gradle/publish.gradle'
+}
+
+apply from: 'gradle/jacoco.gradle'
+
+defaultTasks 'build'
 
 compileJava {
     sourceCompatibility = JavaVersion.VERSION_1_7
@@ -35,99 +32,6 @@ configurations {
     jaxDoclet
     compile
     runtime
-}
-
-
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
-
-group = 'fm.audiobox'
-version = '1.0.0'
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from 'build/docs/javadoc'
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-artifacts {
-    archives jar
-    archives javadocJar
-    archives sourcesJar
-}
-
-if (hasProperty('sonatypeUsername')) {
-
-    signing {
-        sign configurations.archives
-    }
-
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                }
-
-                pom.project {
-                    name 'audiobox-jlib'
-                    packaging 'jar'
-                    description 'Next generation Java library for AudioBox API'
-                    url 'https://github.com/icoretech/audiobox-jlib'
-
-                    scm {
-                        url 'scm:git@github.com:icoretech/audiobox-jlib.git'
-                        connection 'scm:git@github.com:icoretech/audiobox-jlib.git'
-                        developerConnection 'scm:git@github.com:icoretech/audiobox-jlib.git'
-                    }
-
-                    licenses {
-                        license {
-                            name 'The Apache Software License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                            distribution 'repo'
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id 'keytwo'
-                            name 'Valerio Chiodino'
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-idea {
-
-    module {
-
-        //if you love browsing Javadoc
-        downloadJavadoc = true
-
-        //and hate reading sources :)
-        downloadSources = true
-    }
-
-    project {
-        jdkName = '1.7'
-
-        languageLevel = '1.7'
-    }
-}
-
-repositories {
-    mavenLocal()
-    mavenCentral()
 }
 
 dependencies {
@@ -163,7 +67,6 @@ dependencies {
     testCompile  'org.apache.commons:commons-io:1.3+'
     testCompile  'nl.jqno.equalsverifier:equalsverifier:1.4+'
 
-
     // JavaDoc
     jaxDoclet("com.google.doclava:doclava:1.+")
 }
@@ -176,8 +79,6 @@ task generateDoclava(type: Javadoc) {
     maxMemory = "1024m"
     classpath = configurations.compile
     destinationDir = file("${project.docsDir}/apidocs")
-
-
     title = ""
 
     options {
@@ -192,3 +93,9 @@ task generateDoclava(type: Javadoc) {
         addStringOption("templatedir", "${rootDir}/src/javadoc")
     }
 }
+
+task getVersion << {
+    println version
+}
+
+apply from: 'gradle/idea.gradle'
