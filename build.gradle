@@ -64,39 +64,41 @@ signing {
     sign configurations.archives
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+if (hasProperty('sonatypeUsername')) {
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            pom.project {
-                name 'audiobox-jlib'
-                packaging 'jar'
-                description 'Next generation Java library for AudioBox API'
-                url 'https://github.com/icoretech/audiobox-jlib'
-
-                scm {
-                    url 'scm:git@github.com:icoretech/audiobox-jlib.git'
-                    connection 'scm:git@github.com:icoretech/audiobox-jlib.git'
-                    developerConnection 'scm:git@github.com:icoretech/audiobox-jlib.git'
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: sonatypeUsername, password: sonatypePassword)
                 }
 
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        distribution 'repo'
+                pom.project {
+                    name 'audiobox-jlib'
+                    packaging 'jar'
+                    description 'Next generation Java library for AudioBox API'
+                    url 'https://github.com/icoretech/audiobox-jlib'
+
+                    scm {
+                        url 'scm:git@github.com:icoretech/audiobox-jlib.git'
+                        connection 'scm:git@github.com:icoretech/audiobox-jlib.git'
+                        developerConnection 'scm:git@github.com:icoretech/audiobox-jlib.git'
                     }
-                }
 
-                developers {
-                    developer {
-                        id 'keytwo'
-                        name 'Valerio Chiodino'
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'keytwo'
+                            name 'Valerio Chiodino'
+                        }
                     }
                 }
             }
