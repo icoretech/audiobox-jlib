@@ -10,7 +10,7 @@ env:
 install:
   - TERM=dumb ./gradlew assemble
 script:
-  - TERM=dumb ./gradlew check
+  - TERM=dumb ./gradlew check javadoc --info --stacktrace
 
 after_success:
 - .utility/push-docs-to-gh-pages.sh
