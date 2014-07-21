@@ -73,7 +73,7 @@ Configuration config = new Configuration()
 ```
 
 
-Through the [Configuration](http://ci.icorete.ch/job/AudioBox-Jlib/javadoc/reference/fm/audiobox/core/config/Configuration.html)
+Through the [Configuration](http://icoretech.github.io/audiobox-jlib/apidocs/reference/fm/audiobox/core/config/Configuration.html)
 object you can configure many aspects of the library behaviors; some are trivial such as application name, version, etc.
 and other are more complex such as HttpTransport or JSON parser.
 
@@ -164,7 +164,7 @@ m.update(client);
 ```
 
 
-To know more about this library checkout the [JavaDoc](http://ci.icorete.ch/job/AudioBox-Jlib/javadoc/reference/packages.html).
+To know more about this library checkout the [JavaDoc](http://icoretech.github.io/audiobox-jlib/apidocs/reference/fm/audiobox/core/Client.html).
 
 
 ## Use cases
@@ -173,7 +173,7 @@ To know more about this library checkout the [JavaDoc](http://ci.icorete.ch/job/
 
 ## Contribute
 * Get familiar with the philosophy of the library design.
-* [Check for open issues](https://bitbucket.org/keytwo/audiobox-jlib/issues?status=new&status=open) or open a new issue to fill a bug or a feature request.
+* [Check for open issues](https://github.com/icoretech/audiobox-jlib/issues?state=open) or open a new issue to fill a bug or a feature request.
 * Fork the audiobox-jlib on Github and make your changes.
 * Write some tests which show that the bug was fixed or that the feature works as expected.
 * Send a pull request to get changes merged and published.
