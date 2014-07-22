@@ -208,7 +208,8 @@ public class Client {
 
       return response;
     } catch ( TokenResponseException e ) {
-      throw new AuthorizationException( e );
+      handleException( new AuthorizationException( e ) );
+      return null;
     }
   }
 
@@ -597,31 +598,54 @@ public class Client {
    * @throws AudioBoxException in case of 400, 402, 403, 404, 409, 422, 500 or 503 response codes.
    */
   private void validateResponse(HttpResponse response) throws IOException {
-    switch ( response.getStatusCode() ) {
-      case HttpStatus.SC_BAD_REQUEST: // 400
-        throw new AuthorizationException( response );
+    try {
 
-      case HttpStatus.SC_PAYMENT_REQUIRED: // 402
-      case HttpStatus.SC_FORBIDDEN: // 403
-        throw new ForbiddenException( response );
+      switch ( response.getStatusCode() ) {
+        case HttpStatus.SC_BAD_REQUEST: // 400
+          throw new AuthorizationException( response );
 
-      case HttpStatus.SC_NOT_FOUND: // 404
-        // Due to technical issues 404 is also given for not editable resources.
-        throw new ResourceNotFoundException( response );
+        case HttpStatus.SC_PAYMENT_REQUIRED: // 402
+        case HttpStatus.SC_FORBIDDEN: // 403
+          throw new ForbiddenException( response );
 
-      case HttpStatus.SC_CONFLICT: // 409 (uploads)
-        throw new FileAlreadyUploaded( response );
+        case HttpStatus.SC_NOT_FOUND: // 404
+          // Due to technical issues 404 is also given for not editable resources.
+          throw new ResourceNotFoundException( response );
 
-      case HttpStatus.SC_UNPROCESSABLE_ENTITY: // 422
-        throw new ValidationException( response );
+        case HttpStatus.SC_CONFLICT: // 409 (uploads)
+          throw new FileAlreadyUploaded( response );
 
-      case HttpStatus.SC_INTERNAL_SERVER_ERROR: // 500
-        throw new RemoteMessageException( response );
+        case HttpStatus.SC_UNPROCESSABLE_ENTITY: // 422
+          throw new ValidationException( response );
 
-      case HttpStatus.SC_SERVICE_UNAVAILABLE: // 503
-        throw new SystemOverloadedException( response );
+        case HttpStatus.SC_INTERNAL_SERVER_ERROR: // 500
+          throw new RemoteMessageException( response );
 
+        case HttpStatus.SC_SERVICE_UNAVAILABLE: // 503
+          throw new SystemOverloadedException( response );
+
+      }
+
+    } catch ( AudioBoxException e ) {
+      handleException( e );
     }
+  }
+
+
+  /**
+   * Handles with {@link fm.audiobox.core.exceptions.ExceptionHandler} any given
+   * {@link fm.audiobox.core.exceptions.AudioBoxException}
+   *
+   * @param e the exception to handle
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if exception is not handled by an ExceptionHandler
+   */
+  private void handleException(AudioBoxException e) throws AudioBoxException {
+    ExceptionHandler eh = this.getConf().getExceptionHandler();
+    if ( eh != null && eh.onException( e ) ) {
+      return;
+    }
+    throw e;
   }
 
 

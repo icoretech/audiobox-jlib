@@ -23,6 +23,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import fm.audiobox.core.exceptions.ExceptionHandler;
 import fm.audiobox.core.models.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -84,6 +85,8 @@ public class Configuration {
   private String applicationName;
 
   private String version;
+
+  private ExceptionHandler eh;
 
 
   /**
@@ -366,6 +369,16 @@ public class Configuration {
 
 
   /**
+   * Sets a custom {@link ExceptionHandler}
+   *
+   * @param handler the ExceptionHandler to use for next (and subsequent) request.
+   */
+  public synchronized void setExceptionHandler(ExceptionHandler handler) {
+    this.eh = handler;
+  }
+
+
+  /**
    * Gets data store factory.
    *
    * @return the data store factory
@@ -550,6 +563,15 @@ public class Configuration {
    */
   public String getVersion() {
     return version;
+  }
+
+
+  /**
+   * Gets the configured {@link fm.audiobox.core.exceptions.ExceptionHandler}
+   * @return the {@link fm.audiobox.core.exceptions.ExceptionHandler}
+   */
+  public synchronized ExceptionHandler getExceptionHandler() {
+    return this.eh;
   }
 
 
