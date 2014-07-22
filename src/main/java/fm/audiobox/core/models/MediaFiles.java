@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Used to get a list of all media files in a specific user's playlist.
  */
-public class MediaFiles {
+public class MediaFiles extends Model {
 
   /*
    TODO: PUT /api/v1/media_files/multiupdate.json?tokens[]=

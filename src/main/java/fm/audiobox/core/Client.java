@@ -215,6 +215,8 @@ public class Client {
 
   /**
    * Returns information about the authorized user.
+   * <br/>
+   * <strong>NOTE:</strong> this method always performs a request, use it wisely
    *
    * @return the {@link fm.audiobox.core.models.User user}
    *

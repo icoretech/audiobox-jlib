@@ -26,7 +26,7 @@ import java.util.List;
  * <p/>
  * This is a simple wrapper model to handle album-grouped media files.
  */
-public class Albums {
+public class Albums extends Model {
 
   private static final String PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/albums.json";
 

@@ -114,7 +114,7 @@ import java.io.IOException;
  * <dd>string, readonly. Indicates the sample rate in case of AudioFile or the first audio track in a VideoFile.</dd>
  * </dl>
  */
-public class MediaFile {
+public class MediaFile extends Model {
 
 
   /**

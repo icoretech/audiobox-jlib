@@ -29,7 +29,7 @@ import java.util.List;
  * <dd>Number of the page. Default, non-changeable limit is 30 notifications per page.</dd>
  * </dl>
  */
-public class Notifications {
+public class Notifications extends Model {
 
   private static final String PATH = "/api/v1/notifications.json";
 

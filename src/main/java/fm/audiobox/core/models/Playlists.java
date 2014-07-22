@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Used to get a list of all the playlist in the user's account.
  */
-public class Playlists {
+public class Playlists extends Model {
 
   private static final String PATH = "/api/v1/playlists.json";
 

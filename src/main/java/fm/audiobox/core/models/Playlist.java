@@ -88,7 +88,7 @@ import java.util.List;
  * <dd>
  * </dl>
  */
-public class Playlist {
+public class Playlist extends Model {
 
   private static final String PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + ".json";
 

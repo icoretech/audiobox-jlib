@@ -26,7 +26,7 @@ import java.util.List;
  * <p/>
  * This is a simple wrapper model to handle genre-grouped media files.
  */
-public class Genres {
+public class Genres extends Model {
 
   private static final String PATH = "/api/v1/playlists/" + ModelUtil.TOKEN_PLACEHOLDER + "/media_files/genres.json";
 

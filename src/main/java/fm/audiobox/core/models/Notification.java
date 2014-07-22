@@ -28,7 +28,7 @@ import java.io.IOException;
  * <p/>
  * There are four different notification levels: `error`, `success`, `info` and `warning`.
  */
-public class Notification {
+public class Notification extends Model {
 
   private static final String PATH = "/api/v1/notifications/" + ModelUtil.ID_PLACEHOLDER + ".json";
 

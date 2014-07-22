@@ -393,7 +393,7 @@ public class Configuration {
   /**
    * Gets env base url.
    *
-   * @return the env base url
+   * @return the env base url (no trailing slash)
    */
   public String getEnvBaseUrl() {
 

@@ -26,7 +26,7 @@ import java.util.List;
  * <p/>
  * It includes media file sorted by the media files' album and position attribute.
  */
-public class Artist {
+public class Artist extends Model {
 
   @Key
   private String token;

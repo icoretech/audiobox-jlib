@@ -29,7 +29,7 @@ import com.google.api.client.util.Key;
  * <p/>
  * Such attributes are automatically set by the system and cannot be changed manually.
  */
-public class Permissions {
+public class Permissions extends Model {
 
   @Key
   private boolean player;

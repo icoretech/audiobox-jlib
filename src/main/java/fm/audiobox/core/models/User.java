@@ -73,7 +73,7 @@ import java.io.IOException;
  * </dd>
  * </dl>
  */
-public class User {
+public class User extends Model {
 
   @Key
   private long id;

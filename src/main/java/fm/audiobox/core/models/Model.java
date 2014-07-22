@@ -16,24 +16,35 @@
 
 package fm.audiobox.core.models;
 
-import com.google.api.client.util.Key;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * This class is used as simple {@link fm.audiobox.core.models.MediaFile} wrapper
- * for those JSON parser that do not support root elements.
+ * This class is the prototype of each model and defines model's common behaviors.
  */
-public class MediaFileWrapper extends Model {
+public abstract class Model {
 
-  @Key
-  private MediaFile media_file;
+  private final Map<String, Object> PROPS = new HashMap<>( 4 );
 
 
   /**
-   * Gets the {@link fm.audiobox.core.models.MediaFile}.
+   * Sets a property to the model
    *
-   * @return the wrapped media file
+   * @param key the key to store the value to.
+   * @param value the value to set.
    */
-  public MediaFile getMediaFile() {
-    return media_file;
+  public final void setProp(String key, Object value) {
+    PROPS.put(key, value);
+  }
+
+
+  /**
+   * Gets the requested property or null.
+   *
+   * @param key the key where the value was previously stored.
+   * @return the requested object.
+   */
+  public final Object getProp(String key) {
+    return PROPS.get( key );
   }
 }

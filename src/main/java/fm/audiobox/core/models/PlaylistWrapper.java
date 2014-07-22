@@ -22,7 +22,7 @@ import com.google.api.client.util.Key;
  * This class is used as simple {@link fm.audiobox.core.models.Playlist} wrapper
  * for those JSON parser that do not support root elements.
  */
-public class PlaylistWrapper {
+public class PlaylistWrapper extends Model {
 
   @Key
   private Playlist playlist;

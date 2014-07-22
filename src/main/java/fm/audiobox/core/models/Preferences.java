@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * General preferences of the user, mostly used in the Cloud Web Player.
  */
-public class Preferences {
+public class Preferences extends Model {
 
   public static final String PATH = "/api/v1/preferences.json";
 

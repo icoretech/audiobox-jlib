@@ -23,7 +23,7 @@ import com.google.api.client.util.Key;
  * <p/>
  * Such attributes are automatically set by the system and cannot be changed manually.
  */
-public class ExternalTokens {
+public class ExternalTokens extends Model {
 
   @Key
   private boolean dropbox;

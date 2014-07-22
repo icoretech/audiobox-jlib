@@ -22,7 +22,7 @@ import com.google.api.client.util.Key;
  * This class is used as simple {@link User} wrapper
  * for those JSON parser that do not support root elements.
  */
-public class UserWrapper {
+public class UserWrapper extends Model {
 
   private static final String PATH = "/api/v1/user.json";
 

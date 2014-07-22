@@ -23,7 +23,7 @@ import com.google.api.client.util.Key;
  * Bytes long values showing the storage used for each supported
  * storage service and the amount of data that has been streamed.
  */
-public class Stats {
+public class Stats extends Model {
 
   @Key
   private long total_play_count;
