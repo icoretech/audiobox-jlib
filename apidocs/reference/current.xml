@@ -539,6 +539,17 @@
 <parameter name="environment" type="fm.audiobox.core.config.Configuration.Env">
 </parameter>
 </method>
+<method name="getExceptionHandler"
+ return="fm.audiobox.core.exceptions.ExceptionHandler"
+ abstract="false"
+ native="false"
+ synchronized="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="getGenresWrapperClass"
  return="java.lang.Class&lt;? extends fm.audiobox.core.models.Genres&gt;"
  abstract="false"
@@ -705,6 +716,19 @@
  visibility="public"
 >
 <parameter name="environment" type="fm.audiobox.core.config.Configuration.Env">
+</parameter>
+</method>
+<method name="setExceptionHandler"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handler" type="fm.audiobox.core.exceptions.ExceptionHandler">
 </parameter>
 </method>
 <method name="setGenresWrapperClass"
@@ -973,6 +997,27 @@
 >
 </method>
 </class>
+<interface name="ExceptionHandler"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onException"
+ return="boolean"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="e" type="fm.audiobox.core.exceptions.AudioBoxException">
+</parameter>
+</method>
+</interface>
 <class name="FileAlreadyUploaded"
  extends="fm.audiobox.core.exceptions.RemoteMessageException"
  abstract="false"

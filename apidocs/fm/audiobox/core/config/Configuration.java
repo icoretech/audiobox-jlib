@@ -22,6 +22,7 @@ public  fm.audiobox.core.config.Configuration setMediaFileClass(java.lang.Class<
 public  fm.audiobox.core.config.Configuration setEnvironment(fm.audiobox.core.config.Configuration.Env environment) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setApplicationName(java.lang.String applicationName) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setVersion(java.lang.String version) { throw new RuntimeException("Stub!"); }
+public synchronized  void setExceptionHandler(fm.audiobox.core.exceptions.ExceptionHandler handler) { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.util.store.DataStoreFactory getDataStoreFactory() { throw new RuntimeException("Stub!"); }
 public  com.typesafe.config.Config getEnvironmentConfiguration(fm.audiobox.core.config.Configuration.Env environment) { throw new RuntimeException("Stub!"); }
 public  java.lang.String getEnvBaseUrl() { throw new RuntimeException("Stub!"); }
@@ -39,5 +40,6 @@ public  java.lang.Class<? extends fm.audiobox.core.models.Artists> getArtistsWra
 public  java.lang.String getUserAgent() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getApplicationName() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getVersion() { throw new RuntimeException("Stub!"); }
+public synchronized  fm.audiobox.core.exceptions.ExceptionHandler getExceptionHandler() { throw new RuntimeException("Stub!"); }
 public  void checkConfiguration() throws javax.naming.ConfigurationException { throw new RuntimeException("Stub!"); }
 }

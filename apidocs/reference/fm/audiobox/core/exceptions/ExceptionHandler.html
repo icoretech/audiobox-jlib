@@ -58,7 +58,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico" />
 <title>
 
-  fm.audiobox.core.exceptions Details
+  ExceptionHandler
 
 
 </title>
@@ -166,13 +166,13 @@
               
     <li><h2>Interfaces</h2>
       <ul>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/ExceptionHandler.html">ExceptionHandler</a></li>
+          <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/ExceptionHandler.html">ExceptionHandler</a></li>
       </ul>
     </li>
               
     <li><h2>Classes</h2>
       <ul>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/Errors.html">Errors</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/Errors.html">Errors</a></li>
       </ul>
     </li>
               
@@ -180,15 +180,15 @@
               
     <li><h2>Exceptions</h2>
       <ul>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></li>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/AuthorizationException.html">AuthorizationException</a></li>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/FileAlreadyUploaded.html">FileAlreadyUploaded</a></li>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/ForbiddenException.html">ForbiddenException</a></li>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/RemoteMessageException.html">RemoteMessageException</a></li>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/ResourceNotFoundException.html">ResourceNotFoundException</a></li>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/SyncException.html">SyncException</a></li>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/SystemOverloadedException.html">SystemOverloadedException</a></li>
-        <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/ValidationException.html">ValidationException</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/AuthorizationException.html">AuthorizationException</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/FileAlreadyUploaded.html">FileAlreadyUploaded</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/ForbiddenException.html">ForbiddenException</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/RemoteMessageException.html">RemoteMessageException</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/ResourceNotFoundException.html">ResourceNotFoundException</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/SyncException.html">SyncException</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/SystemOverloadedException.html">SystemOverloadedException</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/exceptions/ValidationException.html">ValidationException</a></li>
       </ul>
     </li>
               
@@ -226,6 +226,14 @@
 <div class="g-unit" id="doc-content">
 
 <div id="api-info-block">
+
+
+
+
+<div class="sum-details-links">
+
+
+</div><!-- end sum-details-links -->
 <div class="api-level">
   
 
@@ -234,26 +242,246 @@
   
 
 </div>
-</div>
+</div><!-- end api-info-block -->
+
+
+<!-- ======== START OF CLASS DATA ======== -->
 
 <div id="jd-header">
-  package
-  <h1>fm.audiobox.core.exceptions</b></h1>
-  <div class="jd-nav">
-      <a class="jd-navlink" href="package-summary.html">Classes</a> | Description
-  </div>
+    public
+     
+     
+    
+    interface
+<h1>ExceptionHandler</h1>
+
+
+
+  
+  
+  
+
+
 </div><!-- end header -->
 
 <div id="naMessage"></div>
 
 <div id="jd-content" class="api apilevel-">
+<table class="jd-inheritance-table">
+
+
+    <tr>
+         	
+        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.exceptions.ExceptionHandler</td>
+    </tr>
+    
+
+</table>
+
+
+
+
+
+
+
 <div class="jd-descr">
-<p></p>
+
+
+<h2>Class Overview</h2>
+<p>An exception handler is used to perform further operations when an
+ <code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code> is thrown.
+ <p>
+ You can set your ExceptionHandler via <code><a href="../../../../fm/audiobox/core/config/Configuration.html#setExceptionHandler(fm.audiobox.core.exceptions.ExceptionHandler)">setExceptionHandler(ExceptionHandler)</a></code>.
+ </p>
+ <p>
+ Classes that implements an ExceptionHandler must respond to <code>onException</code> method that passes an
+ AudioBoxException as argument.
+ </p>
+ <p>
+ If the return value of <code>onException</code> is <code>true</code> then the exception is considered "handled" and
+ no further actions will be taken. If <code>false</code> is returned then the exception is thrown to upper stack.
+ </p>
+</p>
+
+
+
+
+
+</div><!-- jd-descr -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="jd-descr">
+
+
+<h2>Summary</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            abstract
+            
+            
+            
+            
+            boolean
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/exceptions/ExceptionHandler.html#onException(fm.audiobox.core.exceptions.AudioBoxException)">onException</a></span>(<a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a> e)
+        
+        <div class="jd-descrdiv">This method implementation must return <code>true</code> if the given <code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code>
+ was handled, <code>false</code> otherwise.</div>
+  
+  </td></tr>
+
+
+
+</table>
+
+
+
+
+
+
+
+</div><!-- jd-descr (summary) -->
+
+<!-- Details -->
+
+
+
+
+
+
+
+
+<!-- XML Attributes -->
+
+
+<!-- Enum Values -->
+
+
+<!-- Constants -->
+
+
+<!-- Fields -->
+
+
+<!-- Public ctors -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<!-- Protected ctors -->
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+<!-- Public methdos -->
+
+<h2>Public Methods</h2>
+
+
+
+<a id="onException(fm.audiobox.core.exceptions.AudioBoxException)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        boolean
+      </span>
+      <span class="sympad">onException</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a> e)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>This method implementation must return <code>true</code> if the given <code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code>
+ was handled, <code>false</code> otherwise.
+ <p>
+ If the <code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code> was not handled then the exception is thrown to
+ the next level.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the exception is handled, false otherwise.
+</li></ul>
+  </div>
+
+    </div>
 </div>
 
 
-</div><!-- end jd-content -->
-</div> <!-- end doc-content -->
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+
+
+
+<!-- ========= END OF CLASS DATA ========= -->
+<a id="navbar_top"></a>
+
+
+</div> <!-- jd-content -->
+
+</div><!-- end doc-content -->
 
 </div> <!-- end body-content --> 
 
