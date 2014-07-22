@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class Stats
+  extends fm.audiobox.core.models.Model
 {
 public  Stats() { throw new RuntimeException("Stub!"); }
 public  long getTotalPlayCount() { throw new RuntimeException("Stub!"); }

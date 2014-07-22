@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class UserWrapper
+  extends fm.audiobox.core.models.Model
 {
 public  UserWrapper() { throw new RuntimeException("Stub!"); }
 public  UserWrapper(fm.audiobox.core.models.User user) { throw new RuntimeException("Stub!"); }

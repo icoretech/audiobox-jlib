@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class ExternalTokens
+  extends fm.audiobox.core.models.Model
 {
 public  ExternalTokens() { throw new RuntimeException("Stub!"); }
 public  boolean isDropboxEnabled() { throw new RuntimeException("Stub!"); }

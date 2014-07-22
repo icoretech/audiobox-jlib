@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class User
+  extends fm.audiobox.core.models.Model
 {
 public  User() { throw new RuntimeException("Stub!"); }
 public  long getId() { throw new RuntimeException("Stub!"); }

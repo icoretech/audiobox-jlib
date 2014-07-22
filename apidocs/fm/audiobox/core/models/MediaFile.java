@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class MediaFile
+  extends fm.audiobox.core.models.Model
 {
 public  MediaFile() { throw new RuntimeException("Stub!"); }
 public static  java.lang.String getPath() { throw new RuntimeException("Stub!"); }

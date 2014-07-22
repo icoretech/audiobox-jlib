@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class Album
+  extends fm.audiobox.core.models.Model
 {
 public  Album() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getToken() { throw new RuntimeException("Stub!"); }

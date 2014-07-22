@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class Playlist
+  extends fm.audiobox.core.models.Model
 {
 public  Playlist() { throw new RuntimeException("Stub!"); }
 public  Playlist(java.lang.String name) { throw new RuntimeException("Stub!"); }

@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class Genres
+  extends fm.audiobox.core.models.Model
 {
 public  Genres() { throw new RuntimeException("Stub!"); }
 public static  java.lang.String getPath(java.lang.String playlistToken) { throw new RuntimeException("Stub!"); }

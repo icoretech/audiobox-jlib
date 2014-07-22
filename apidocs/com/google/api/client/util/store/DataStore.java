@@ -1,5 +1,4 @@
 package com.google.api.client.util.store;
-@com.google.api.client.util.Beta()
 public interface DataStore<V extends java.io.Serializable>
 {
 public abstract  com.google.api.client.util.store.DataStoreFactory getDataStoreFactory();

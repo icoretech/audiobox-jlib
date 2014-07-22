@@ -1178,7 +1178,7 @@
 <package name="fm.audiobox.core.models"
 >
 <class name="Album"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -1261,7 +1261,7 @@
 </method>
 </class>
 <class name="Albums"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -1312,7 +1312,7 @@
 </field>
 </class>
 <class name="Artist"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -1362,7 +1362,7 @@
 </method>
 </class>
 <class name="Artists"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -1413,7 +1413,7 @@
 </field>
 </class>
 <class name="ExternalTokens"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -1551,7 +1551,7 @@
 </method>
 </class>
 <class name="Genre"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -1601,7 +1601,7 @@
 </method>
 </class>
 <class name="Genres"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -1652,7 +1652,7 @@
 </field>
 </class>
 <class name="MediaFile"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -2687,7 +2687,7 @@
 </field>
 </class>
 <class name="MediaFileWrapper"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -2715,7 +2715,7 @@
 </method>
 </class>
 <class name="MediaFiles"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -2802,8 +2802,53 @@
 >
 </field>
 </class>
-<class name="Notification"
+<class name="Model"
  extends="java.lang.Object"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Model"
+ type="fm.audiobox.core.models.Model"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="getProp"
+ return="java.lang.Object"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="key" type="java.lang.String">
+</parameter>
+</method>
+<method name="setProp"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="key" type="java.lang.String">
+</parameter>
+<parameter name="value" type="java.lang.Object">
+</parameter>
+</method>
+</class>
+<class name="Notification"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -2890,7 +2935,7 @@
 </method>
 </class>
 <class name="Notifications"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -2951,7 +2996,7 @@
 </method>
 </class>
 <class name="Permissions"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -3144,7 +3189,7 @@
 </method>
 </class>
 <class name="Playlist"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -3599,7 +3644,7 @@
 </method>
 </class>
 <class name="PlaylistWrapper"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -3627,7 +3672,7 @@
 </method>
 </class>
 <class name="Playlists"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -3926,7 +3971,7 @@
 </field>
 </class>
 <class name="Preferences"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -4217,7 +4262,7 @@
 </field>
 </class>
 <class name="Stats"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -4465,7 +4510,7 @@
 </method>
 </class>
 <class name="User"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"
@@ -4728,7 +4773,7 @@
 </method>
 </class>
 <class name="UserWrapper"
- extends="java.lang.Object"
+ extends="fm.audiobox.core.models.Model"
  abstract="false"
  static="false"
  final="false"

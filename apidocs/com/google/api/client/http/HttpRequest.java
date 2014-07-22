@@ -53,6 +53,6 @@ public  java.util.concurrent.Future<com.google.api.client.http.HttpResponse> exe
 public  boolean handleRedirect(int arg0, com.google.api.client.http.HttpHeaders arg1) { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.util.Sleeper getSleeper() { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpRequest setSleeper(com.google.api.client.util.Sleeper arg0) { throw new RuntimeException("Stub!"); }
-public static final java.lang.String VERSION = "1.18.0-rc";
-public static final java.lang.String USER_AGENT_SUFFIX = "Google-HTTP-Java-Client/1.18.0-rc (gzip)";
+public static final java.lang.String VERSION = "1.19.0";
+public static final java.lang.String USER_AGENT_SUFFIX = "Google-HTTP-Java-Client/1.19.0 (gzip)";
 }

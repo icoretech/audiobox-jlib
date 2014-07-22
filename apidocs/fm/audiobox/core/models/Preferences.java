@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class Preferences
+  extends fm.audiobox.core.models.Model
 {
 public  Preferences() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getColor() { throw new RuntimeException("Stub!"); }

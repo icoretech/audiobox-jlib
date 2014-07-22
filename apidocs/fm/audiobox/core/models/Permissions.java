@@ -1,5 +1,6 @@
 package fm.audiobox.core.models;
 public class Permissions
+  extends fm.audiobox.core.models.Model
 {
 public  Permissions() { throw new RuntimeException("Stub!"); }
 public  boolean hasPlayer() { throw new RuntimeException("Stub!"); }
