@@ -17,7 +17,6 @@
 package fm.audiobox.core;
 
 
-import com.google.api.client.auth.Credential;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
@@ -227,7 +226,7 @@ public class Client {
    */
   public User getUser() throws IOException {
     HttpResponse rsp = doGET( UserWrapper.getPath() );
-    return rsp.parseAs( UserWrapper.class ).getUser();
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( UserWrapper.class ).getUser() : null;
   }
 
 
@@ -242,7 +241,7 @@ public class Client {
    */
   public List<Playlist> getPlaylists() throws IOException {
     HttpResponse rsp = doGET( Playlists.getPath() );
-    return rsp.parseAs( Playlists.class ).getPlaylists();
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( Playlists.class ).getPlaylists() : null;
   }
 
 
@@ -263,7 +262,7 @@ public class Client {
    */
   public Playlist getPlaylist(String token) throws IOException {
     HttpResponse rsp = doGET( ModelUtil.interpolate( Playlist.getPath(), token ) );
-    return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( PlaylistWrapper.class ).getPlaylist() : null;
   }
 
 
@@ -278,7 +277,7 @@ public class Client {
    */
   public Notifications getNotifications() throws IOException {
     HttpResponse rsp = doGET( Notifications.getPath() );
-    return rsp.parseAs( Notifications.class );
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( Notifications.class ) : null;
   }
 
 
@@ -318,7 +317,7 @@ public class Client {
     multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
 
     HttpResponse rsp = doPOST( UPLOAD_PATH, multipart );
-    return rsp.parseAs( MediaFileWrapper.class ).getMediaFile();
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
   }
 
 
