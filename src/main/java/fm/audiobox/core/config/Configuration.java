@@ -115,6 +115,22 @@ public class Configuration {
 
 
   /**
+   * AudioBox transports
+   */
+  public enum Transports {
+    /**
+     * Default transport where requests are made
+     */
+    api,
+
+    /**
+     * Desktop clients transport
+     */
+    daemon
+  }
+
+
+  /**
    * Initiates a new Configuration ready for production.
    */
   public Configuration() {
@@ -125,8 +141,7 @@ public class Configuration {
   /**
    * Initiates a new Configuration.
    *
-   * @param environment the
-   *                    to use.
+   * @param environment the to use.
    */
   public Configuration(Env environment) {
 
@@ -431,17 +446,19 @@ public class Configuration {
 
 
   /**
-   * Gets env base url.
+   * Gets env base url based on the queried transport.
+   *
+   * @param transport the transport to query
    *
    * @return the env base url (no trailing slash)
    */
-  public String getEnvBaseUrl() {
+  public String getEnvBaseUrl(Transports transport) {
 
     Config envConf = getEnvironmentConfiguration( getEnvironment() );
 
-    String protocol = envConf.getString( "api.protocol" );
-    String host = envConf.getString( "api.host" );
-    String port = envConf.getString( "api.port" );
+    String protocol = envConf.getString( transport + ".protocol" );
+    String host = envConf.getString( transport + ".host" );
+    String port = envConf.getString( transport + ".port" );
 
     return protocol + "://" + host + ":" + port;
   }
@@ -454,7 +471,7 @@ public class Configuration {
    */
   public GenericUrl getEnvTokenUrl() {
     if ( tokenUrl == null ) {
-      tokenUrl = new GenericUrl( getEnvBaseUrl() + getEnvironmentConfiguration( getEnvironment() ).getString( "api.oauth.tokenPath" ) );
+      tokenUrl = new GenericUrl( getEnvBaseUrl( Transports.api ) + getEnvironmentConfiguration( getEnvironment() ).getString( "api.oauth.tokenPath" ) );
     }
     return tokenUrl;
   }

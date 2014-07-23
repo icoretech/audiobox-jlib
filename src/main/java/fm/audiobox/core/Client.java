@@ -20,6 +20,7 @@ package fm.audiobox.core;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
+import de.danielbechler.util.Strings;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
@@ -27,10 +28,14 @@ import fm.audiobox.core.store.CredentialDataStore;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.core.utils.PlainTextContent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.ConfigurationException;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URLConnection;
 import java.util.List;
 
@@ -128,6 +133,8 @@ import java.util.List;
  */
 public class Client {
 
+  protected Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
+
   private Configuration conf;
 
   private CredentialDataStore userDb;
@@ -215,6 +222,64 @@ public class Client {
       handleException( new AuthorizationException( e ) );
       return null;
     }
+  }
+
+
+  /**
+   * This method returns {@code true} if AudioBox Desktop application is active on any computer.
+   *
+   * @return {@code true} if AudioBox Desktop application is active on any computer. {@code false} if not
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
+   */
+  public boolean isDaemonRunning() throws IOException {
+    String remoteIp = remoteDaemonIp();
+    return remoteIp != null && !Strings.isEmpty( remoteIp );
+  }
+
+
+  /**
+   * This methods returns the {@code remote ip address} of AudioBox Desktop application
+   *
+   * @return the {@code remote ip address}
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
+   */
+  public String remoteDaemonIp() throws IOException {
+
+    HttpResponse rsp = doRequestWithTransport( HttpMethods.GET, "/daemon/keepalive", null, null, Configuration.Transports.daemon );
+    BufferedReader br = null;
+    StringBuilder sb = new StringBuilder();
+
+    try {
+      br = new BufferedReader( new InputStreamReader( rsp.getContent() ) );
+      String address;
+      while ( ( address = br.readLine() ) != null ) {
+        sb.append( address );
+      }
+
+    } catch ( IOException e ) {
+
+      logger.error( e.getMessage() );
+
+    } finally {
+
+      if ( br != null ) {
+        try {
+          br.close();
+
+        } catch ( IOException e ) {
+          logger.error( e.getMessage() );
+
+        }
+      }
+    }
+
+    return sb.toString();
   }
 
 
@@ -498,7 +563,30 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
-    HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl() + path ), data ).execute();
+    return doRequestWithTransport( method, path, data, parser, null );
+  }
+
+
+  /**
+   * Executes the configured request by calling AudioBox API services.
+   *
+   * @param method   the method to use
+   * @param path     the AudioBox API path where to make the request to.
+   * @param data     the data to send with the request
+   * @param parser   the parser to use for the resulting object
+   * @param transport the {@link fm.audiobox.core.config.Configuration.Transports Transport} to query
+   *
+   * @return the http response, may be null if any error occurs during the request.
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
+   */
+  private HttpResponse doRequestWithTransport(String method, String path, HttpContent data, JsonObjectParser parser, Configuration.Transports transport) throws IOException {
+    if ( transport == null ) {
+      transport = Configuration.Transports.api;
+    }
+    HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl( transport ) + path ), data ).execute();
     validateResponse( response );
     return response;
   }

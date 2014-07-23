@@ -149,7 +149,7 @@ public class ConfigurationTests extends AudioBoxTests {
       c.setApiKey( fixtures.getString( "authentication.client_id" ) );
       c.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
       c.setCredentialDataStore( new FileCredentialStore( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
-      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ((FileCredentialStore)c.getCredentialDataStore()).getDB());
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ( ( FileCredentialStore ) c.getCredentialDataStore() ).getDB() );
       c.setCredentialRefreshListener( crl );
       c.checkConfiguration();
     } catch ( ConfigurationException e ) {
@@ -175,7 +175,7 @@ public class ConfigurationTests extends AudioBoxTests {
       c.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
       c.setCredentialDataStore( new FileCredentialStore( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
       c.setHttpTransport( new NetHttpTransport() );
-      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ((FileCredentialStore)c.getCredentialDataStore()).getDB());
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ( ( FileCredentialStore ) c.getCredentialDataStore() ).getDB() );
       c.setCredentialRefreshListener( crl );
       c.checkConfiguration();
     } catch ( ConfigurationException e ) {
@@ -195,7 +195,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeProdInProd() {
     Configuration c = new Configuration( Configuration.Env.production );
     assertSame( c.getEnvironment(), Configuration.Env.production );
-    assertEquals( "https://audiobox.fm:443", c.getEnvBaseUrl() );
+    assertEquals( "https://audiobox.fm:443", c.getEnvBaseUrl( Configuration.Transports.api ) );
   }
 
 
@@ -206,7 +206,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeStagingInStaging() {
     Configuration c = new Configuration( Configuration.Env.staging );
     assertSame( c.getEnvironment(), Configuration.Env.staging );
-    assertEquals( "https://staging.audiobox.fm:443", c.getEnvBaseUrl() );
+    assertEquals( "https://staging.audiobox.fm:443", c.getEnvBaseUrl( Configuration.Transports.api ) );
   }
 
 
@@ -217,7 +217,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeDevInDev() {
     Configuration c = new Configuration( Configuration.Env.development );
     assertSame( c.getEnvironment(), Configuration.Env.development );
-    assertEquals( "http://dev.audiobox.fm:5000", c.getEnvBaseUrl() );
+    assertEquals( "http://dev.audiobox.fm:5000", c.getEnvBaseUrl( Configuration.Transports.api ) );
   }
 
 
