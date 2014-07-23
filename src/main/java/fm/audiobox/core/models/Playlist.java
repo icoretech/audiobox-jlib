@@ -198,7 +198,7 @@ public class Playlist extends Model {
   public Playlist create(Client client) throws IOException {
     validateForRequest( false );
     HttpResponse rsp = client.doPOST( Playlists.getPath(), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
-    return rsp.parseAs( PlaylistWrapper.class ).getPlaylist();
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( PlaylistWrapper.class ).getPlaylist() : null;
   }
 
 
@@ -396,7 +396,7 @@ public class Playlist extends Model {
     }
 
     HttpResponse rsp = client.doGET( url );
-    return rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles();
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
 
@@ -547,7 +547,7 @@ public class Playlist extends Model {
    */
   public List<? extends MediaFile> getFingerprints(Client client) throws IOException {
     HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ) );
-    return rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles();
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
 
@@ -862,7 +862,7 @@ public class Playlist extends Model {
   private <T> T getGroupedCollection(Client client, Class<T> klass, String path) throws IOException {
     ensurePlaylistForRequest();
     HttpResponse rsp = client.doGET( path );
-    return rsp.parseAs( klass );
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( klass ) : null;
   }
 
 

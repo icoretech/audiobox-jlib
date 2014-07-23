@@ -417,7 +417,7 @@ public class MediaFile extends Model {
    */
   public static MediaFile load(Client client, String token) throws IOException {
     HttpResponse rsp = client.doGET( ModelUtil.interpolate( PATH, token ) );
-    return rsp.parseAs( client.getConf().getMediaFileWrapperClass() ).getMediaFile();
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFileWrapperClass() ).getMediaFile() : null;
   }
 
 
@@ -520,8 +520,8 @@ public class MediaFile extends Model {
     }
 
     HttpResponse rsp = client.doGET( ModelUtil.interpolate( LYRICS_PATH, getToken() ) );
-    MediaFile m = rsp.parseAs( MediaFileWrapper.class ).getMediaFile();
-    this.lyrics = m.getLyricsField();
+    MediaFile m = rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
+    this.lyrics = m != null ? m.getLyricsField() : null;
 
     return this.lyrics;
   }
