@@ -155,6 +155,8 @@
     <li class="api apilevel-">
   <a href="../../../fm/audiobox/core/models/package-summary.html">fm.audiobox.core.models</a></li>
     <li class="api apilevel-">
+  <a href="../../../fm/audiobox/core/store/package-summary.html">fm.audiobox.core.store</a></li>
+    <li class="api apilevel-">
   <a href="../../../fm/audiobox/core/utils/package-summary.html">fm.audiobox.core.utils</a></li>
               </ul><br/>
             </div> <!-- end packages -->
@@ -226,11 +228,14 @@ Summary:
 
 
 
+  <a href="#constants">Constants</a>
+  
 
 
 
 
-  <a href="#pubctors">Ctors</a>
+
+  &#124; <a href="#pubctors">Ctors</a>
   
 
 
@@ -339,14 +344,18 @@ Summary:
  other are more complex such as HttpTransport or JSON parser.
  <p/>
  This library does not offer a data store for credentials storage out of the box. You should provide
- one like FileDataStoreFactory, MemoryDataStoreFactory or implementing one
- by extending the com.google.api.client.util.store.AbstractDataStoreFactory.
+ an implementation of the <code><a href="../../../fm/audiobox/core/store/CredentialDataStore.html">CredentialDataStore</a></code>.
  <br/>
- This data store is used to store credentials so you should be really carefully with it.
+ This data store should be used to store credentials so you should be really carefully with it.
  <p/>
  To set it use the configuration:
  <code><pre>
-  config.setDataStoreFactory( new MyDataStoreFactory() );
+  config.setCredentialDataStore( new MyCredentialDataStore() );
+ </pre></code>
+ To comply with OAuth standard you also have to provide a com.google.api.client.auth.oauth2.CredentialRefreshListener
+ in order to keep tokens up to date.
+ <code><pre>
+   config.setCredentialRefreshListener( new MyCredentialRefreshListener() );
  </pre></code>
  Since this library wants to be as much agnostic as possible regarding the HTTP client and
  the JSON parser libraries you should set them at this moment by choosing amongst:
@@ -436,6 +445,23 @@ Summary:
 
 
 
+
+
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="constants" class="jd-sumtable"><tr><th colspan="12">Constants</th></tr>
+
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../fm/audiobox/core/Client.html#ACCOUNT_TOKENS">ACCOUNT_TOKENS</a></td>
+        <td class="jd-descrcol" width="100%">The key under which tokens are stored in the DataStore
+</td>
+    </tr>
+    
+    
+
+</table>
 
 
 
@@ -1009,6 +1035,53 @@ From class
 
 
 <!-- Constants -->
+
+
+<!-- ========= ENUM CONSTANTS DETAIL ======== -->
+<h2>Constants</h2>
+
+
+
+
+<a id="ACCOUNT_TOKENS"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        String
+      </span>
+        ACCOUNT_TOKENS
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The key under which tokens are stored in the DataStore
+</p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                "_audiobox_account_tokens"
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
 
 
 <!-- Fields -->

@@ -13,7 +13,8 @@ public  fm.audiobox.core.config.Configuration setApiKey(java.lang.String apiKey)
 public  fm.audiobox.core.config.Configuration setApiSecret(java.lang.String apiSecret) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setHttpTransport(com.google.api.client.http.HttpTransport httpTransport) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setJsonFactory(com.google.api.client.json.JsonFactory jsonFactory) { throw new RuntimeException("Stub!"); }
-public  fm.audiobox.core.config.Configuration setDataStoreFactory(com.google.api.client.util.store.DataStoreFactory dataStoreFactory) { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.config.Configuration setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore credentialDataStore) { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.config.Configuration setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener refreshListener) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setMediaFilesWrapperClass(java.lang.Class<? extends fm.audiobox.core.models.MediaFiles> klass) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setAlbumsWrapperClass(java.lang.Class<? extends fm.audiobox.core.models.Albums> klass) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setGenresWrapperClass(java.lang.Class<? extends fm.audiobox.core.models.Genres> klass) { throw new RuntimeException("Stub!"); }
@@ -23,7 +24,8 @@ public  fm.audiobox.core.config.Configuration setEnvironment(fm.audiobox.core.co
 public  fm.audiobox.core.config.Configuration setApplicationName(java.lang.String applicationName) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setVersion(java.lang.String version) { throw new RuntimeException("Stub!"); }
 public synchronized  void setExceptionHandler(fm.audiobox.core.exceptions.ExceptionHandler handler) { throw new RuntimeException("Stub!"); }
-public  com.google.api.client.util.store.DataStoreFactory getDataStoreFactory() { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.store.CredentialDataStore getCredentialDataStore() { throw new RuntimeException("Stub!"); }
+public  com.google.api.client.auth.oauth2.CredentialRefreshListener getRefreshListener() { throw new RuntimeException("Stub!"); }
 public  com.typesafe.config.Config getEnvironmentConfiguration(fm.audiobox.core.config.Configuration.Env environment) { throw new RuntimeException("Stub!"); }
 public  java.lang.String getEnvBaseUrl() { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.GenericUrl getEnvTokenUrl() { throw new RuntimeException("Stub!"); }

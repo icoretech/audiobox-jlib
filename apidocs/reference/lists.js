@@ -40,9 +40,11 @@ var DATA = [
       { id:38, label:"fm.audiobox.core.models.Stats", link:"fm/audiobox/core/models/Stats.html", type:"class" },
       { id:39, label:"fm.audiobox.core.models.User", link:"fm/audiobox/core/models/User.html", type:"class" },
       { id:40, label:"fm.audiobox.core.models.UserWrapper", link:"fm/audiobox/core/models/UserWrapper.html", type:"class" },
-      { id:41, label:"fm.audiobox.core.utils", link:"fm/audiobox/core/utils/package-summary.html", type:"package" },
-      { id:42, label:"fm.audiobox.core.utils.HttpStatus", link:"fm/audiobox/core/utils/HttpStatus.html", type:"class" },
-      { id:43, label:"fm.audiobox.core.utils.ModelUtil", link:"fm/audiobox/core/utils/ModelUtil.html", type:"class" },
-      { id:44, label:"fm.audiobox.core.utils.PlainTextContent", link:"fm/audiobox/core/utils/PlainTextContent.html", type:"class" }
+      { id:41, label:"fm.audiobox.core.store", link:"fm/audiobox/core/store/package-summary.html", type:"package" },
+      { id:42, label:"fm.audiobox.core.store.CredentialDataStore", link:"fm/audiobox/core/store/CredentialDataStore.html", type:"class" },
+      { id:43, label:"fm.audiobox.core.utils", link:"fm/audiobox/core/utils/package-summary.html", type:"package" },
+      { id:44, label:"fm.audiobox.core.utils.HttpStatus", link:"fm/audiobox/core/utils/HttpStatus.html", type:"class" },
+      { id:45, label:"fm.audiobox.core.utils.ModelUtil", link:"fm/audiobox/core/utils/ModelUtil.html", type:"class" },
+      { id:46, label:"fm.audiobox.core.utils.PlainTextContent", link:"fm/audiobox/core/utils/PlainTextContent.html", type:"class" }
 
     ];

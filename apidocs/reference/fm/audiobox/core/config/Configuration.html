@@ -155,6 +155,8 @@
     <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/models/package-summary.html">fm.audiobox.core.models</a></li>
     <li class="api apilevel-">
+  <a href="../../../../fm/audiobox/core/store/package-summary.html">fm.audiobox.core.store</a></li>
+    <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/utils/package-summary.html">fm.audiobox.core.utils</a></li>
               </ul><br/>
             </div> <!-- end packages -->
@@ -327,7 +329,8 @@ Summary:
  <ul>
  <li><code><a href="../../../../fm/audiobox/core/config/Configuration.html#setApiKey(java.lang.String)">API Key</a></code></li>
  <li><code><a href="../../../../fm/audiobox/core/config/Configuration.html#setApiSecret(java.lang.String)">API Secret</a></code></li>
- <li><code><a href="../../../../fm/audiobox/core/config/Configuration.html#setDataStoreFactory(com.google.api.client.util.store.DataStoreFactory)">Data Store Factory</a></code></li>
+ <li><code><a href="../../../../fm/audiobox/core/config/Configuration.html#setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore)">setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore)</a></code></li>
+ <li><code><a href="../../../../fm/audiobox/core/config/Configuration.html#setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener)">setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener)</a></code></li>
  <li><code><a href="../../../../fm/audiobox/core/config/Configuration.html#setHttpTransport(com.google.api.client.http.HttpTransport)">HTTP Transport</a></code></li>
  <li><code><a href="../../../../fm/audiobox/core/config/Configuration.html#setJsonFactory(com.google.api.client.json.JsonFactory)">JSON Factory</a></code></li>
  </ul>
@@ -576,10 +579,10 @@ Summary:
             
             
             
-            DataStoreFactory
+            <a href="../../../../fm/audiobox/core/store/CredentialDataStore.html">CredentialDataStore</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getDataStoreFactory()">getDataStoreFactory</a></span>()
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getCredentialDataStore()">getCredentialDataStore</a></span>()
         
         <div class="jd-descrdiv">Gets data store factory.</div>
   
@@ -774,6 +777,24 @@ Summary:
             
             
             
+            CredentialRefreshListener
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getRefreshListener()">getRefreshListener</a></span>()
+        
+        <div class="jd-descrdiv">Gets the credential refresh listener.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             String
         </td>
         <td class="jd-linkcol" width="100%">
@@ -785,7 +806,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -803,7 +824,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -821,7 +842,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -839,7 +860,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -857,7 +878,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -875,7 +896,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -893,6 +914,24 @@ Summary:
 
 
 	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../fm/audiobox/core/config/Configuration.html">Configuration</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore)">setCredentialDataStore</a></span>(<a href="../../../../fm/audiobox/core/store/CredentialDataStore.html">CredentialDataStore</a> credentialDataStore)
+        
+        <div class="jd-descrdiv">Sets the data store factory.</div>
+  
+  </td></tr>
+
+
+	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
@@ -903,9 +942,9 @@ Summary:
             <a href="../../../../fm/audiobox/core/config/Configuration.html">Configuration</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#setDataStoreFactory(com.google.api.client.util.store.DataStoreFactory)">setDataStoreFactory</a></span>(DataStoreFactory dataStoreFactory)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener)">setCredentialRefreshListener</a></span>(CredentialRefreshListener refreshListener)
         
-        <div class="jd-descrdiv">Sets the data store factory.</div>
+        <div class="jd-descrdiv">Sets the credential refresh listener for the OAuth dance.</div>
   
   </td></tr>
 
@@ -1614,7 +1653,7 @@ From class
 </div>
 
 
-<a id="getDataStoreFactory()"></a>
+<a id="getCredentialDataStore()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1624,9 +1663,9 @@ From class
          
          
          
-        DataStoreFactory
+        <a href="../../../../fm/audiobox/core/store/CredentialDataStore.html">CredentialDataStore</a>
       </span>
-      <span class="sympad">getDataStoreFactory</span>
+      <span class="sympad">getCredentialDataStore</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -2019,6 +2058,42 @@ From class
 </div>
 
 
+<a id="getRefreshListener()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        CredentialRefreshListener
+      </span>
+      <span class="sympad">getRefreshListener</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the credential refresh listener.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the configured com.google.api.client.auth.oauth2.CredentialRefreshListener
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="getUserAgent()"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -2330,7 +2405,7 @@ From class
 </div>
 
 
-<a id="setDataStoreFactory(com.google.api.client.util.store.DataStoreFactory)"></a>
+<a id="setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2342,8 +2417,8 @@ From class
          
         <a href="../../../../fm/audiobox/core/config/Configuration.html">Configuration</a>
       </span>
-      <span class="sympad">setDataStoreFactory</span>
-      <span class="normal">(DataStoreFactory dataStoreFactory)</span>
+      <span class="sympad">setCredentialDataStore</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/store/CredentialDataStore.html">CredentialDataStore</a> credentialDataStore)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2363,8 +2438,53 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>dataStoreFactory</th>
+          <th>credentialDataStore</th>
           <td>the data store factory</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the <code><a href="../../../../fm/audiobox/core/config/Configuration.html">Configuration</a></code>
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../fm/audiobox/core/config/Configuration.html">Configuration</a>
+      </span>
+      <span class="sympad">setCredentialRefreshListener</span>
+      <span class="normal">(CredentialRefreshListener refreshListener)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the credential refresh listener for the OAuth dance.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>refreshListener</th>
+          <td>the com.google.api.client.auth.oauth2.CredentialRefreshListener to set</td>
         </tr>
       </table>
   </div>

@@ -343,6 +343,17 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<field name="ACCOUNT_TOKENS"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;_audiobox_account_tokens&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 </class>
 </package>
 <package name="fm.audiobox.core.config"
@@ -441,8 +452,8 @@
  visibility="public"
 >
 </method>
-<method name="getDataStoreFactory"
- return="com.google.api.client.util.store.DataStoreFactory"
+<method name="getCredentialDataStore"
+ return="fm.audiobox.core.store.CredentialDataStore"
  abstract="false"
  native="false"
  synchronized="false"
@@ -564,6 +575,17 @@
  visibility="public"
 >
 </method>
+<method name="getRefreshListener"
+ return="com.google.api.client.auth.oauth2.CredentialRefreshListener"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="getUserAgent"
  return="java.lang.String"
  abstract="false"
@@ -651,7 +673,7 @@
 <parameter name="klass" type="java.lang.Class&lt;? extends fm.audiobox.core.models.Artists&gt;">
 </parameter>
 </method>
-<method name="setDataStoreFactory"
+<method name="setCredentialDataStore"
  return="fm.audiobox.core.config.Configuration"
  abstract="false"
  native="false"
@@ -661,7 +683,20 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="dataStoreFactory" type="com.google.api.client.util.store.DataStoreFactory">
+<parameter name="credentialDataStore" type="fm.audiobox.core.store.CredentialDataStore">
+</parameter>
+</method>
+<method name="setCredentialRefreshListener"
+ return="fm.audiobox.core.config.Configuration"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="refreshListener" type="com.google.api.client.auth.oauth2.CredentialRefreshListener">
 </parameter>
 </method>
 <method name="setEnvironment"
@@ -4825,6 +4860,49 @@
 >
 </method>
 </class>
+</package>
+<package name="fm.audiobox.core.store"
+>
+<interface name="CredentialDataStore"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getCredentials"
+ return="com.google.api.client.auth.oauth2.StoredCredential"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="label" type="java.lang.String">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="saveCredentials"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="label" type="java.lang.String">
+</parameter>
+<parameter name="credential" type="com.google.api.client.auth.oauth2.Credential">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</interface>
 </package>
 <package name="fm.audiobox.core.utils"
 >

@@ -18,4 +18,5 @@ public  com.google.api.client.http.HttpResponse doDELETE(java.lang.String path, 
 public  com.google.api.client.http.HttpResponse doPOST(java.lang.String path) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doPOST(java.lang.String path, com.google.api.client.http.HttpContent data) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doPOST(java.lang.String path, com.google.api.client.http.HttpContent data, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static final java.lang.String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 }
