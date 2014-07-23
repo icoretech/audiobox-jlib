@@ -17,7 +17,6 @@
 package fm.audiobox.core;
 
 
-import com.google.api.client.auth.Credential;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
@@ -129,7 +128,8 @@ public class Client {
 
   private DataStore<StoredCredential> userDb;
 
-  private static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
+  /** The key under which tokens are stored in the DataStore */
+  public static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 
   private static final String UPLOAD_PATH = "/api/v1/upload";
 
