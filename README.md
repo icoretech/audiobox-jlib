@@ -79,16 +79,23 @@ and other are more complex such as HttpTransport or JSON parser.
 
 
 This library does not offer a data store for credentials storage out of the box. You should provide
-one like FileDataStoreFactory, MemoryDataStoreFactory or implementing one
-by extending the [AbstractDataStoreFactory](https://code.google.com/p/google-http-java-client/source/browse/google-http-client/src/main/java/com/google/api/client/util/store/AbstractDataStoreFactory.java).
+an implementation of the [CredentialDataStore](http://icoretech.github.io/audiobox-jlib/apidocs/reference/fm/audiobox/core/store/CredentialDataStore.html).
 This data store is used to store credentials so you should be really carefully with it.
 
 To set it use the configuration:
 
 ```java
-config.setDataStoreFactory( new MyDataStoreFactory() );
+config.setCredentialDataStore( new MyCredentialDataStore() );
 ```
 
+
+To comply with OAuth standard you also have to provide a [CredentialRefreshListener](https://code.google.com/p/google-oauth-java-client/source/browse/google-oauth-client/src/main/java/com/google/api/client/auth/oauth2/CredentialRefreshListener.java)
+in order to keep tokens up to date.
+
+```java
+config.setCredentialRefreshListener( new MyCredentialRefreshListener() );
+```
+ 
 
 Since this library wants to be as much agnostic as possible regarding the HTTP client and
 the JSON parser libraries you should set them at this moment by choosing amongst:
@@ -135,11 +142,13 @@ an AuthorizationException. Your application should be ready to trap it in order 
 Now that the client is configured and authorized we can browse and perform any API-supported operation on AudioBox:
 
 Get user information:
+
 ```java
 client.getUser();
 ```
 
 Get user's playlists:
+
 ```java
 client.getPlaylists();
 ```

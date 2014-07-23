@@ -20,10 +20,10 @@ package fm.audiobox.core;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
-import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
+import fm.audiobox.core.store.CredentialDataStore;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.core.utils.PlainTextContent;
@@ -62,14 +62,18 @@ import java.util.List;
  * other are more complex such as HttpTransport or JSON parser.
  * <p/>
  * This library does not offer a data store for credentials storage out of the box. You should provide
- * one like FileDataStoreFactory, MemoryDataStoreFactory or implementing one
- * by extending the {@link com.google.api.client.util.store.AbstractDataStoreFactory}.
+ * an implementation of the {@link fm.audiobox.core.store.CredentialDataStore}.
  * <br/>
- * This data store is used to store credentials so you should be really carefully with it.
+ * This data store should be used to store credentials so you should be really carefully with it.
  * <p/>
  * To set it use the configuration:
  * <code><pre>
- *  config.setDataStoreFactory( new MyDataStoreFactory() );
+ *  config.setCredentialDataStore( new MyCredentialDataStore() );
+ * </pre></code>
+ * To comply with OAuth standard you also have to provide a {@link com.google.api.client.auth.oauth2.CredentialRefreshListener}
+ * in order to keep tokens up to date.
+ * <code><pre>
+ *   config.setCredentialRefreshListener( new MyCredentialRefreshListener() );
  * </pre></code>
  * Since this library wants to be as much agnostic as possible regarding the HTTP client and
  * the JSON parser libraries you should set them at this moment by choosing amongst:
@@ -126,14 +130,16 @@ public class Client {
 
   private Configuration conf;
 
-  private DataStore<StoredCredential> userDb;
+  private CredentialDataStore userDb;
 
-  /** The key under which tokens are stored in the DataStore */
+  /**
+   * The key under which tokens are stored in the DataStore
+   */
   public static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 
   private static final String UPLOAD_PATH = "/api/v1/upload";
 
-  private DataStoreCredentialRefreshListener refreshListener;
+  private CredentialRefreshListener refreshListener;
 
   private JsonObjectParser jsonObjectParser;
 
@@ -151,8 +157,8 @@ public class Client {
   public Client(Configuration conf) throws ConfigurationException, IOException {
     conf.checkConfiguration();
     this.conf = conf;
-    this.userDb = StoredCredential.getDefaultDataStore( conf.getDataStoreFactory() );
-    this.refreshListener = new DataStoreCredentialRefreshListener( ACCOUNT_TOKENS, getConf().getDataStoreFactory() );
+    this.userDb = conf.getCredentialDataStore();
+    this.refreshListener = conf.getRefreshListener();
     this.jsonObjectParser = new JsonObjectParser( getConf().getJsonFactory() );
     this.defaultHeaders = new HttpHeaders();
     this.defaultHeaders.setUserAgent( getConf().getUserAgent() );
@@ -202,9 +208,7 @@ public class Client {
         }
       } );
       TokenResponse response = ptr.execute();
-
-      StoredCredential sc = new StoredCredential( ( Credential ) createCredentialWithRefreshToken( response ) );
-      userDb.set( ACCOUNT_TOKENS, sc );
+      userDb.saveCredentials( ACCOUNT_TOKENS, ( Credential ) createCredentialWithRefreshToken( response ) );
 
       return response;
     } catch ( TokenResponseException e ) {
@@ -586,7 +590,7 @@ public class Client {
    * @throws java.io.IOException if any problem occurs with the configured data store.
    */
   private StoredCredential getStoredCredential() throws IOException {
-    return userDb.get( ACCOUNT_TOKENS );
+    return userDb.getCredentials( ACCOUNT_TOKENS );
   }
 
 

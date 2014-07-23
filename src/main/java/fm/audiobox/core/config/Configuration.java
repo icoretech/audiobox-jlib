@@ -17,14 +17,15 @@
 package fm.audiobox.core.config;
 
 
+import com.google.api.client.auth.oauth2.CredentialRefreshListener;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.util.store.DataStoreFactory;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.exceptions.ExceptionHandler;
 import fm.audiobox.core.models.*;
+import fm.audiobox.core.store.CredentialDataStore;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.naming.ConfigurationException;
@@ -37,7 +38,8 @@ import javax.naming.ConfigurationException;
  * <ul>
  * <li>{@link fm.audiobox.core.config.Configuration#setApiKey(String) API Key}</li>
  * <li>{@link fm.audiobox.core.config.Configuration#setApiSecret(String) API Secret}</li>
- * <li>{@link fm.audiobox.core.config.Configuration#setDataStoreFactory(com.google.api.client.util.store.DataStoreFactory) Data Store Factory}</li>
+ * <li>{@link fm.audiobox.core.config.Configuration#setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore)}</li>
+ * <li>{@link fm.audiobox.core.config.Configuration#setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener)}</li>
  * <li>{@link fm.audiobox.core.config.Configuration#setHttpTransport(com.google.api.client.http.HttpTransport) HTTP Transport}</li>
  * <li>{@link fm.audiobox.core.config.Configuration#setJsonFactory(com.google.api.client.json.JsonFactory) JSON Factory}</li>
  * </ul>
@@ -68,7 +70,9 @@ public class Configuration {
 
   private GenericUrl tokenUrl;
 
-  private DataStoreFactory db;
+  private CredentialDataStore db;
+
+  private CredentialRefreshListener refreshListener;
 
   private Class<? extends MediaFiles> mediaFilesWrapperClass;
 
@@ -233,12 +237,25 @@ public class Configuration {
    * You should provide one like FileDataStoreFactory, MemoryDataStoreFactory or implementing one
    * by extending the {@link com.google.api.client.util.store.AbstractDataStoreFactory}.
    *
-   * @param dataStoreFactory the data store factory
+   * @param credentialDataStore the data store factory
    *
    * @return the {@link Configuration}
    */
-  public Configuration setDataStoreFactory(DataStoreFactory dataStoreFactory) {
-    this.db = dataStoreFactory;
+  public Configuration setCredentialDataStore(CredentialDataStore credentialDataStore) {
+    this.db = credentialDataStore;
+    return this;
+  }
+
+
+  /**
+   * Sets the credential refresh listener for the OAuth dance.
+   *
+   * @param refreshListener the {@link com.google.api.client.auth.oauth2.CredentialRefreshListener} to set
+   *
+   * @return the {@link fm.audiobox.core.config.Configuration}
+   */
+  public Configuration setCredentialRefreshListener(CredentialRefreshListener refreshListener) {
+    this.refreshListener = refreshListener;
     return this;
   }
 
@@ -383,8 +400,18 @@ public class Configuration {
    *
    * @return the data store factory
    */
-  public DataStoreFactory getDataStoreFactory() {
+  public CredentialDataStore getCredentialDataStore() {
     return db;
+  }
+
+
+  /**
+   * Gets the credential refresh listener.
+   *
+   * @return the configured {@link com.google.api.client.auth.oauth2.CredentialRefreshListener}
+   */
+  public CredentialRefreshListener getRefreshListener() {
+    return this.refreshListener;
   }
 
 
@@ -568,6 +595,7 @@ public class Configuration {
 
   /**
    * Gets the configured {@link fm.audiobox.core.exceptions.ExceptionHandler}
+   *
    * @return the {@link fm.audiobox.core.exceptions.ExceptionHandler}
    */
   public synchronized ExceptionHandler getExceptionHandler() {
@@ -592,8 +620,12 @@ public class Configuration {
       throw new ConfigurationException( "Client ID is missing, please provide one." );
     }
 
-    if ( getDataStoreFactory() == null ) {
-      throw new ConfigurationException( "Data store must be set." );
+    if ( getCredentialDataStore() == null ) {
+      throw new ConfigurationException( "Credential data store must be set." );
+    }
+
+    if ( getRefreshListener() == null ) {
+      throw new ConfigurationException( "Credential refresh listener must be set." );
     }
 
     if ( getHttpTransport() == null ) {

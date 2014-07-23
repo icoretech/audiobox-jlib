@@ -17,9 +17,12 @@
 package fm.audiobox.tests.unit.config;
 
 
+import com.google.api.client.auth.oauth2.CredentialRefreshListener;
+import com.google.api.client.auth.oauth2.DataStoreCredentialRefreshListener;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.util.store.FileDataStoreFactory;
+import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.tests.support.FileCredentialStore;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
 
@@ -104,8 +107,31 @@ public class ConfigurationTests extends AudioBoxTests {
       c.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
       c.checkConfiguration();
     } catch ( ConfigurationException e ) {
-      assertEquals( "Data store must be set.", e.getMessage() );
+      assertEquals( "Credential data store must be set.", e.getMessage() );
       return;
+    }
+    fail( "Exception message was not the one expected" );
+  }
+
+
+  /**
+   * Test should rise configuration exception on missing data store.
+   *
+   * @throws ConfigurationException the configuration exception
+   */
+  @Test
+  public void testShouldRiseConfigurationExceptionOnMissingRefreshListener() throws ConfigurationException {
+    Configuration c = new Configuration( Configuration.Env.development );
+    try {
+      c.setApiKey( fixtures.getString( "authentication.client_id" ) );
+      c.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
+      c.setCredentialDataStore( new FileCredentialStore( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
+      c.checkConfiguration();
+    } catch ( ConfigurationException e ) {
+      assertEquals( "Credential refresh listener must be set.", e.getMessage() );
+      return;
+    } catch ( IOException e ) {
+      fail( e.getMessage() );
     }
     fail( "Exception message was not the one expected" );
   }
@@ -122,7 +148,9 @@ public class ConfigurationTests extends AudioBoxTests {
     try {
       c.setApiKey( fixtures.getString( "authentication.client_id" ) );
       c.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      c.setDataStoreFactory( new FileDataStoreFactory( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
+      c.setCredentialDataStore( new FileCredentialStore( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ((FileCredentialStore)c.getCredentialDataStore()).getDB());
+      c.setCredentialRefreshListener( crl );
       c.checkConfiguration();
     } catch ( ConfigurationException e ) {
       assertEquals( "Http transport type must be set", e.getMessage() );
@@ -145,8 +173,10 @@ public class ConfigurationTests extends AudioBoxTests {
     try {
       c.setApiKey( fixtures.getString( "authentication.client_id" ) );
       c.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
-      c.setDataStoreFactory( new FileDataStoreFactory( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
+      c.setCredentialDataStore( new FileCredentialStore( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
       c.setHttpTransport( new NetHttpTransport() );
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ((FileCredentialStore)c.getCredentialDataStore()).getDB());
+      c.setCredentialRefreshListener( crl );
       c.checkConfiguration();
     } catch ( ConfigurationException e ) {
       assertEquals( "JSON factory must be set", e.getMessage() );
@@ -197,8 +227,8 @@ public class ConfigurationTests extends AudioBoxTests {
   @Test
   public void testEnvEnum() {
     assertEquals( 3, Configuration.Env.values().length );
-    assertEquals( Configuration.Env.development, Configuration.Env.valueOf("development") );
-    assertEquals( Configuration.Env.staging, Configuration.Env.valueOf("staging") );
-    assertEquals( Configuration.Env.production, Configuration.Env.valueOf("production") );
+    assertEquals( Configuration.Env.development, Configuration.Env.valueOf( "development" ) );
+    assertEquals( Configuration.Env.staging, Configuration.Env.valueOf( "staging" ) );
+    assertEquals( Configuration.Env.production, Configuration.Env.valueOf( "production" ) );
   }
 }

@@ -16,15 +16,17 @@
 
 package fm.audiobox.tests.unit.base;
 
+import com.google.api.client.auth.oauth2.CredentialRefreshListener;
+import com.google.api.client.auth.oauth2.DataStoreCredentialRefreshListener;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.tests.mocks.MockHttp;
+import fm.audiobox.tests.support.FileCredentialStore;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -51,7 +53,7 @@ public class AudioBoxTests {
 
   protected Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
 
-  protected Config fixtures = ConfigFactory.load( "travis" );
+  protected Config fixtures = ConfigFactory.load( "travis.conf" );
 
   protected Client c;
 
@@ -90,13 +92,16 @@ public class AudioBoxTests {
       JacksonFactory jf = new JacksonFactory();
 
       Configuration config = new Configuration()
-          .setDataStoreFactory( new FileDataStoreFactory( DATA_STORE_DIR ) )
+          .setCredentialDataStore( new FileCredentialStore( DATA_STORE_DIR ) )
           .setApiKey( fixtures.getString( "authentication.client_id" ) )
           .setApiSecret( fixtures.getString( "authentication.client_secret" ) )
           .setHttpTransport( MockHttp.getTransport() )
           .setJsonFactory( jf )
           .setApplicationName( "Tests" )
           .setVersion( "1.0" );
+
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ((FileCredentialStore)config.getCredentialDataStore()).getDB());
+      config.setCredentialRefreshListener( crl );
 
       config.setEnvironment( env );
       c = new Client( config );

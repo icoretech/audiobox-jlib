@@ -22,6 +22,7 @@ import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.exceptions.AuthorizationException;
 import fm.audiobox.tests.mocks.MockHttp;
+import fm.audiobox.tests.support.FileCredentialStore;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
 
@@ -70,7 +71,7 @@ public class ClientTests extends AudioBoxTests {
   @Test
   public void testStoredCredentialWithWrongRefreshToken() throws IOException {
     c.getConf().setHttpTransport( MockHttp.getInvalidRefreshTokenHttpTransport() );
-    DataStore<StoredCredential> udb = StoredCredential.getDefaultDataStore( c.getConf().getDataStoreFactory() );
+    DataStore<StoredCredential> udb = (( FileCredentialStore) c.getConf().getCredentialDataStore() ).getDB();
     assertFalse( "Data store should not be empty", udb.isEmpty() );
     try {
       c.getUser();
