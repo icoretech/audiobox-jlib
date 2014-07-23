@@ -1,7 +1,5 @@
 var NAVTREE_DATA =
-[ [ "com.google.api.client.auth", "com/google/api/client/auth/package-summary.html", [ [ "Classes", null, [ [ "Credential", "com/google/api/client/auth/Credential.html", null, "" ], [ "Credential.Builder", "com/google/api/client/auth/Credential.Builder.html", null, "" ] ]
-, "" ] ]
-, "" ], [ "com.google.api.client.http", "com/google/api/client/http/package-summary.html", [ [ "Classes", null, [ [ "MultipartFormDataContent", "com/google/api/client/http/MultipartFormDataContent.html", null, "" ] ]
+[ [ "com.google.api.client.http", "com/google/api/client/http/package-summary.html", [ [ "Classes", null, [ [ "MultipartFormDataContent", "com/google/api/client/http/MultipartFormDataContent.html", null, "" ] ]
 , "" ] ]
 , "" ], [ "fm.audiobox.core", "fm/audiobox/core/package-summary.html", [ [ "Classes", null, [ [ "Client", "fm/audiobox/core/Client.html", null, "" ] ]
 , "" ] ]

@@ -1,4 +1,3 @@
-com.google.api.client.auth
 com.google.api.client.http
 fm.audiobox.core
 fm.audiobox.core.config

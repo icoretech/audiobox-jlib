@@ -1,45 +1,4 @@
 <api>
-<package name="com.google.api.client.auth"
->
-<class name="Credential"
- extends="com.google.api.client.auth.oauth2.Credential"
- abstract="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<constructor name="Credential"
- type="com.google.api.client.auth.Credential"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="builder" type="com.google.api.client.auth.Credential.Builder">
-</parameter>
-</constructor>
-</class>
-<class name="Credential.Builder"
- extends="com.google.api.client.auth.oauth2.Credential.Builder"
- abstract="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<constructor name="Credential.Builder"
- type="com.google.api.client.auth.Credential.Builder"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="method" type="com.google.api.client.auth.oauth2.Credential.AccessMethod">
-</parameter>
-</constructor>
-</class>
-</package>
 <package name="com.google.api.client.http"
 >
 <class name="MultipartFormDataContent"
