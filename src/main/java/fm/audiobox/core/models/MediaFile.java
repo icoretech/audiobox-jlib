@@ -19,10 +19,14 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
+import com.google.api.client.util.IOUtils;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.utils.ModelUtil;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 
@@ -116,6 +120,7 @@ import java.io.IOException;
  */
 public class MediaFile extends Model {
 
+  public static final int CHUNK = 1024;
 
   /**
    * GET, PUT, DELETE
@@ -435,6 +440,19 @@ public class MediaFile extends Model {
    */
   public MediaFile reload(Client client) throws IOException {
     return MediaFile.load( client, getToken() );
+  }
+
+
+  /**
+   * Downloads the media to specified file
+   * @param client the {@link Client} to use for the request
+   *
+   */
+  public File download(Client client, File file) throws IOException {
+    HttpResponse rsp = client.doGET( ModelUtil.interpolate( getDownloadPath(), token ));
+    FileOutputStream fos = new FileOutputStream( file );
+    IOUtils.copy( rsp.getContent(), fos );
+    return file;
   }
 
 
