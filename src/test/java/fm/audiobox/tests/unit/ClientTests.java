@@ -19,7 +19,6 @@ package fm.audiobox.tests.unit;
 
 import com.google.api.client.auth.oauth2.StoredCredential;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.util.store.DataStore;
 import fm.audiobox.core.exceptions.AuthorizationException;
 import fm.audiobox.tests.mocks.MockHttp;

@@ -94,7 +94,16 @@ public class RemoteMessageExceptionsTests extends AudioBoxTests {
       fail( "Should rise errors" );
     } catch ( Exception e ) {
       assertTrue( e instanceof RemoteMessageException );
-      assertEquals( "fm.audiobox.core.exceptions.RemoteMessageException: Client got a remote error (500) but no message was given.\n", e.getMessage() );
+      assertEquals( "Internal Server Error: <!DOCTYPE html>\n" +
+          "<html lang='en' xml:lang='en'>\n" +
+          "  <head>\n" +
+          "    <title>Error</title>\n" +
+          "  </head>\n" +
+          "  <body>\n" +
+          "  ERROR\n" +
+          "  </body>\n" +
+          "</html>\n" +
+          "\n", e.getMessage() );
     }
   }
 

@@ -19,8 +19,12 @@ package fm.audiobox.core.exceptions;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpStatusCodes;
+import com.google.api.client.util.LoggingByteArrayOutputStream;
+import com.google.api.client.util.LoggingInputStream;
+import fm.audiobox.core.utils.Io;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,6 +115,7 @@ public class RemoteMessageException extends AudioBoxException {
    * Transforms error mapping into strings.
    *
    * @param errors the errors mapping
+   *
    * @return the string
    */
   public static String errorsToString(Errors errors) {
@@ -128,6 +133,7 @@ public class RemoteMessageException extends AudioBoxException {
    * Transform error set into a string.
    *
    * @param error an error in form of a {@link java.util.Map.Entry}
+   *
    * @return a single string containing the error.
    */
   private static String errorToString(Map.Entry<String, Object> error) {
@@ -146,16 +152,30 @@ public class RemoteMessageException extends AudioBoxException {
    * Parse errors.
    *
    * @param response the response
+   *
    * @return the errors
    */
   private static Errors parseErrors(HttpResponse response) {
     try {
       return response.parseAs( Errors.class );
     } catch ( Exception e ) {
-      e.printStackTrace();
-      logger.warn( "Here's the 'Maytag(tm) repair man', we got something not expected: " + e.getMessage() );
-      if (response != null) {
-        logger.warn( "Response message: " + response.getStatusMessage() );
+      logger.warn( "Here's the 'Maytag(tm) repair man', we got something not expect, see below." );
+      logger.warn( e.getMessage() );
+      if ( response != null && response.getStatusMessage() != null ) {
+        try {
+          // Try to recover error message
+          LoggingInputStream lis = ( LoggingInputStream ) response.getContent();
+          LoggingByteArrayOutputStream log = lis.getLogStream();
+          Errors es = new Errors();
+
+          es.setError( response.getStatusMessage() );
+          es.setErrorDescription( log.toString() );
+          return es;
+
+        } catch ( IOException e1 ) {
+          logger.error( "Response message: " + response.getStatusMessage() );
+          e1.printStackTrace();
+        }
       }
 
       // Catchall, preserve status message
@@ -182,6 +202,7 @@ public class RemoteMessageException extends AudioBoxException {
    * Gets the first error and transforms it into a human readable string.
    *
    * @param errors the errors object
+   *
    * @return the message string or empty string if none found.
    */
   private static String firstErrorToString(Errors errors) {

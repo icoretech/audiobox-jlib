@@ -24,10 +24,7 @@ import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.utils.ModelUtil;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 
 /**
@@ -448,11 +445,10 @@ public class MediaFile extends Model {
    * @param client the {@link Client} to use for the request
    *
    */
-  public File download(Client client, File file) throws IOException {
+  public OutputStream download(Client client, OutputStream out, boolean closeInputStream) throws IOException {
     HttpResponse rsp = client.doGET( ModelUtil.interpolate( getDownloadPath(), token ));
-    FileOutputStream fos = new FileOutputStream( file );
-    IOUtils.copy( rsp.getContent(), fos );
-    return file;
+    IOUtils.copy( rsp.getContent(), out, closeInputStream );
+    return out;
   }
 
 

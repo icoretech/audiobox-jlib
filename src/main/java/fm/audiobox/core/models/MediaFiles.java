@@ -90,7 +90,7 @@ public class MediaFiles extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static final boolean destroyAll(Client client, List<String> tokens) throws IOException {
+  public static boolean destroyAll(Client client, List<String> tokens) throws IOException {
     String url = DESTROY_MEDIA_FILES_PATH + "?utf8=true";
     for (String tk : tokens) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
     client.doDELETE( url );

@@ -36,12 +36,32 @@ public class Errors extends GenericJson {
 
 
   /**
+   * Sets error description.
+   *
+   * @param errorDescription the error description
+   */
+  public void setErrorDescription(String errorDescription) {
+    this.error_description = errorDescription;
+  }
+
+
+  /**
    * Gets error description.
    *
    * @return the error description
    */
   public String getErrorDescription() {
     return error_description;
+  }
+
+
+  /**
+   * Sets error.
+   *
+   * @param error the error
+   */
+  public void setError(String error) {
+    this.error = error;
   }
 
 

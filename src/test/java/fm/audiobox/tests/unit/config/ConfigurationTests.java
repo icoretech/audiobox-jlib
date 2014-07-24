@@ -195,7 +195,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeProdInProd() {
     Configuration c = new Configuration( Configuration.Env.production );
     assertSame( c.getEnvironment(), Configuration.Env.production );
-    assertEquals( "https://audiobox.fm:443", c.getEnvBaseUrl( Configuration.Transports.api ) );
+    assertEquals( "https://audiobox.fm:443", c.getEnvBaseUrl( Configuration.Channels.api ) );
   }
 
 
@@ -206,7 +206,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeStagingInStaging() {
     Configuration c = new Configuration( Configuration.Env.staging );
     assertSame( c.getEnvironment(), Configuration.Env.staging );
-    assertEquals( "https://staging.audiobox.fm:443", c.getEnvBaseUrl( Configuration.Transports.api ) );
+    assertEquals( "https://staging.audiobox.fm:443", c.getEnvBaseUrl( Configuration.Channels.api ) );
   }
 
 
@@ -217,7 +217,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeDevInDev() {
     Configuration c = new Configuration( Configuration.Env.development );
     assertSame( c.getEnvironment(), Configuration.Env.development );
-    assertEquals( "http://dev.audiobox.fm:5000", c.getEnvBaseUrl( Configuration.Transports.api ) );
+    assertEquals( "http://dev.audiobox.fm:5000", c.getEnvBaseUrl( Configuration.Channels.api ) );
   }
 
 

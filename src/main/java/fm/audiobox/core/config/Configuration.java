@@ -25,6 +25,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.exceptions.ExceptionHandler;
 import fm.audiobox.core.models.*;
+import fm.audiobox.core.net.UploadProgressListener;
 import fm.audiobox.core.store.CredentialDataStore;
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,12 +37,12 @@ import javax.naming.ConfigurationException;
  * <p/>
  * There are the mandatory fields that must be set in order to set up the client:
  * <ul>
- * <li>{@link fm.audiobox.core.config.Configuration#setApiKey(String) API Key}</li>
- * <li>{@link fm.audiobox.core.config.Configuration#setApiSecret(String) API Secret}</li>
- * <li>{@link fm.audiobox.core.config.Configuration#setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore)}</li>
- * <li>{@link fm.audiobox.core.config.Configuration#setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener)}</li>
- * <li>{@link fm.audiobox.core.config.Configuration#setHttpTransport(com.google.api.client.http.HttpTransport) HTTP Transport}</li>
- * <li>{@link fm.audiobox.core.config.Configuration#setJsonFactory(com.google.api.client.json.JsonFactory) JSON Factory}</li>
+ * <li>{@link Configuration#setApiKey(String) API Key}</li>
+ * <li>{@link Configuration#setApiSecret(String) API Secret}</li>
+ * <li>{@link Configuration#setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore)}</li>
+ * <li>{@link Configuration#setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener)}</li>
+ * <li>{@link Configuration#setHttpTransport(com.google.api.client.http.HttpTransport) HTTP Transport}</li>
+ * <li>{@link Configuration#setJsonFactory(com.google.api.client.json.JsonFactory) JSON Factory}</li>
  * </ul>
  * <p/>
  * Not configuring these parameters will result in a {@link javax.naming.ConfigurationException}.
@@ -92,6 +93,8 @@ public class Configuration {
 
   private ExceptionHandler eh;
 
+  private UploadProgressListener uploadProgressListener;
+
 
   /**
    * AudioBox environments.
@@ -115,18 +118,23 @@ public class Configuration {
 
 
   /**
-   * AudioBox transports
+   * AudioBox channels
    */
-  public enum Transports {
+  public enum Channels {
     /**
-     * Default transport where requests are made
+     * Default channel where requests are made
      */
     api,
 
     /**
-     * Desktop clients transport
+     * Desktop clients channel
      */
-    daemon
+    daemon,
+
+    /**
+     * Upload channel
+     */
+    upload
   }
 
 
@@ -272,6 +280,16 @@ public class Configuration {
   public Configuration setCredentialRefreshListener(CredentialRefreshListener refreshListener) {
     this.refreshListener = refreshListener;
     return this;
+  }
+
+
+  /**
+   * Sets upload progress listener.
+   *
+   * @param uploadProgressListener the {@link fm.audiobox.core.net.UploadProgressListener} to set.
+   */
+  public void setUploadProgressListener(UploadProgressListener uploadProgressListener) {
+    this.uploadProgressListener = uploadProgressListener;
   }
 
 
@@ -431,6 +449,16 @@ public class Configuration {
 
 
   /**
+   * Gets upload progress listener.
+   *
+   * @return the upload progress listener
+   */
+  public UploadProgressListener getUploadProgressListener() {
+    return uploadProgressListener;
+  }
+
+
+  /**
    * Gets environment configuration.
    *
    * @param environment the environment
@@ -446,19 +474,19 @@ public class Configuration {
 
 
   /**
-   * Gets env base url based on the queried transport.
+   * Gets env base url based on the queried channel.
    *
-   * @param transport the transport to query
+   * @param channel the channel to query
    *
    * @return the env base url (no trailing slash)
    */
-  public String getEnvBaseUrl(Transports transport) {
+  public String getEnvBaseUrl(Channels channel) {
 
     Config envConf = getEnvironmentConfiguration( getEnvironment() );
 
-    String protocol = envConf.getString( transport + ".protocol" );
-    String host = envConf.getString( transport + ".host" );
-    String port = envConf.getString( transport + ".port" );
+    String protocol = envConf.getString( channel + ".protocol" );
+    String host = envConf.getString( channel + ".host" );
+    String port = envConf.getString( channel + ".port" );
 
     return protocol + "://" + host + ":" + port;
   }
@@ -471,7 +499,7 @@ public class Configuration {
    */
   public GenericUrl getEnvTokenUrl() {
     if ( tokenUrl == null ) {
-      tokenUrl = new GenericUrl( getEnvBaseUrl( Transports.api ) + getEnvironmentConfiguration( getEnvironment() ).getString( "api.oauth.tokenPath" ) );
+      tokenUrl = new GenericUrl( getEnvBaseUrl( Channels.api ) + getEnvironmentConfiguration( getEnvironment() ).getString( "api.oauth.tokenPath" ) );
     }
     return tokenUrl;
   }
