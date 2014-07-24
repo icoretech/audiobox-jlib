@@ -58,7 +58,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico" />
 <title>
 
-  Configuration.Env
+  Configuration.Transports
 
 
 </title>
@@ -174,8 +174,8 @@
               
     <li><h2>Enums</h2>
       <ul>
-          <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></li>
-          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></li>
+          <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a></li>
       </ul>
     </li>
               
@@ -291,7 +291,7 @@ Summary:
     final 
     
     enum
-<h1>Configuration.Env</h1>
+<h1>Configuration.Transports</h1>
 
 
 
@@ -338,7 +338,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.config.Configuration.Env</td>
+        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.config.Configuration.Transports</td>
     </tr>
     
 
@@ -354,7 +354,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>AudioBox environments.
+<p>AudioBox transports
 </p>
 
 
@@ -398,23 +398,18 @@ Summary:
 
     
     <tr class="alt-color api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>&nbsp;</td>
-        <td class="jd-linkcol">development&nbsp;</td>
-        <td class="jd-descrcol" width="100%">The test and the development environment.&nbsp;</td>
+        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>&nbsp;</td>
+        <td class="jd-linkcol">api&nbsp;</td>
+        <td class="jd-descrcol" width="100%">Default transport where requests are made
+&nbsp;</td>
     </tr>
     
     
     <tr class=" api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>&nbsp;</td>
-        <td class="jd-linkcol">production&nbsp;</td>
-        <td class="jd-descrcol" width="100%">The AudioBox production environment, use this as default or in release builds.&nbsp;</td>
-    </tr>
-    
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>&nbsp;</td>
-        <td class="jd-linkcol">staging&nbsp;</td>
-        <td class="jd-descrcol" width="100%">The environment to use for experimental features and future APIs.&nbsp;</td>
+        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>&nbsp;</td>
+        <td class="jd-linkcol">daemon&nbsp;</td>
+        <td class="jd-descrcol" width="100%">Desktop clients transport
+&nbsp;</td>
     </tr>
     
     
@@ -450,10 +445,10 @@ Summary:
             
             static
             
-            <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
+            <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html#valueOf(java.lang.String)">valueOf</a></span>(String name)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html#valueOf(java.lang.String)">valueOf</a></span>(String name)
         
   </td></tr>
 
@@ -466,10 +461,10 @@ Summary:
             final
             static
             
-            <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Env[]</a>
+            <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Transports[]</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html#values()">values</a></span>()
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html#values()">values</a></span>()
         
   </td></tr>
 
@@ -962,7 +957,7 @@ From interface
 
 
 
-<a id="development"></a>
+<a id="api"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -970,9 +965,9 @@ From interface
         public 
         static 
         final 
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
+        <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>
       </span>
-        development
+        api
     </h4>
       <div class="api-level">
         
@@ -984,7 +979,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The test and the development environment.
+  <div class="jd-tagdata jd-tagdescr"><p>Default transport where requests are made
 </p></div>
 
     
@@ -993,7 +988,7 @@ From interface
 
 
 
-<a id="production"></a>
+<a id="daemon"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1001,9 +996,9 @@ From interface
         public 
         static 
         final 
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
+        <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>
       </span>
-        production
+        daemon
     </h4>
       <div class="api-level">
         
@@ -1015,38 +1010,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The AudioBox production environment, use this as default or in release builds.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<a id="staging"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
-      </span>
-        staging
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The environment to use for experimental features and future APIs.
+  <div class="jd-tagdata jd-tagdescr"><p>Desktop clients transport
 </p></div>
 
     
@@ -1088,7 +1052,7 @@ From interface
          
          
          
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
+        <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>
       </span>
       <span class="sympad">valueOf</span>
       <span class="normal">(String name)</span>
@@ -1119,7 +1083,7 @@ From interface
         final 
          
          
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Env[]</a>
+        <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Transports[]</a>
       </span>
       <span class="sympad">values</span>
       <span class="normal">()</span>

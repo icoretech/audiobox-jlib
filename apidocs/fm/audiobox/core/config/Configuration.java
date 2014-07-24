@@ -7,6 +7,11 @@ development(),
 production(),
 staging();
 }
+public static enum Transports
+{
+api(),
+daemon();
+}
 public  Configuration() { throw new RuntimeException("Stub!"); }
 public  Configuration(fm.audiobox.core.config.Configuration.Env environment) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setApiKey(java.lang.String apiKey) { throw new RuntimeException("Stub!"); }
@@ -27,7 +32,7 @@ public synchronized  void setExceptionHandler(fm.audiobox.core.exceptions.Except
 public  fm.audiobox.core.store.CredentialDataStore getCredentialDataStore() { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.auth.oauth2.CredentialRefreshListener getRefreshListener() { throw new RuntimeException("Stub!"); }
 public  com.typesafe.config.Config getEnvironmentConfiguration(fm.audiobox.core.config.Configuration.Env environment) { throw new RuntimeException("Stub!"); }
-public  java.lang.String getEnvBaseUrl() { throw new RuntimeException("Stub!"); }
+public  java.lang.String getEnvBaseUrl(fm.audiobox.core.config.Configuration.Transports transport) { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.GenericUrl getEnvTokenUrl() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getApiKey() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getApiSecret() { throw new RuntimeException("Stub!"); }

@@ -328,6 +328,32 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<method name="isDaemonRunning"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="remoteDaemonIp"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
 <method name="upload"
  return="fm.audiobox.core.models.MediaFile"
  abstract="false"
@@ -352,6 +378,16 @@
  final="true"
  deprecated="not deprecated"
  visibility="public"
+>
+</field>
+<field name="logger"
+ type="org.slf4j.Logger"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
 >
 </field>
 </class>
@@ -473,6 +509,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="transport" type="fm.audiobox.core.config.Configuration.Transports">
+</parameter>
 </method>
 <method name="getEnvTokenUrl"
  return="com.google.api.client.http.GenericUrl"
@@ -827,6 +865,39 @@
 </method>
 <method name="values"
  return="fm.audiobox.core.config.Configuration.Env[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="Configuration.Transports"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="fm.audiobox.core.config.Configuration.Transports"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="fm.audiobox.core.config.Configuration.Transports[]"
  abstract="false"
  native="false"
  synchronized="false"

@@ -4,7 +4,7 @@ var NAVTREE_DATA =
 , "" ], [ "fm.audiobox.core", "fm/audiobox/core/package-summary.html", [ [ "Classes", null, [ [ "Client", "fm/audiobox/core/Client.html", null, "" ] ]
 , "" ] ]
 , "" ], [ "fm.audiobox.core.config", "fm/audiobox/core/config/package-summary.html", [ [ "Classes", null, [ [ "Configuration", "fm/audiobox/core/config/Configuration.html", null, "" ] ]
-, "" ], [ "Enums", null, [ [ "Configuration.Env", "fm/audiobox/core/config/Configuration.Env.html", null, "" ] ]
+, "" ], [ "Enums", null, [ [ "Configuration.Env", "fm/audiobox/core/config/Configuration.Env.html", null, "" ], [ "Configuration.Transports", "fm/audiobox/core/config/Configuration.Transports.html", null, "" ] ]
 , "" ] ]
 , "" ], [ "fm.audiobox.core.exceptions", "fm/audiobox/core/exceptions/package-summary.html", [ [ "Interfaces", null, [ [ "ExceptionHandler", "fm/audiobox/core/exceptions/ExceptionHandler.html", null, "" ] ]
 , "" ], [ "Classes", null, [ [ "Errors", "fm/audiobox/core/exceptions/Errors.html", null, "" ] ]

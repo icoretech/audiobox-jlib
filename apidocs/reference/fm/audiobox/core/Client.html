@@ -233,6 +233,9 @@ Summary:
 
 
 
+  &#124; <a href="#lfields">Fields</a>
+  
+
 
 
   &#124; <a href="#pubctors">Ctors</a>
@@ -469,6 +472,26 @@ Summary:
 
 
 
+<!-- =========== FIELD SUMMARY =========== -->
+<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
+
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol">
+          protected
+          
+          
+          Logger</td>
+          <td class="jd-linkcol"><a href="../../../fm/audiobox/core/Client.html#logger">logger</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+
+</table>
+
+
 
 
 
@@ -665,7 +688,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent)">doPUT</a></span>(String path, HttpContent data)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)">doPUT</a></span>(String path, HttpContent data, JsonObjectParser parser)
         
         <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</div>
   
@@ -683,7 +706,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)">doPUT</a></span>(String path, HttpContent data, JsonObjectParser parser)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent)">doPUT</a></span>(String path, HttpContent data)
         
         <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</div>
   
@@ -776,6 +799,42 @@ Summary:
         <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#getUser()">getUser</a></span>()
         
         <div class="jd-descrdiv">Returns information about the authorized user.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            boolean
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#isDaemonRunning()">isDaemonRunning</a></span>()
+        
+        <div class="jd-descrdiv">This method returns <code>true</code> if AudioBox Desktop application is active on any computer.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            String
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#remoteDaemonIp()">remoteDaemonIp</a></span>()
+        
+        <div class="jd-descrdiv">This methods returns the <code>remote ip address</code> of AudioBox Desktop application</div>
   
   </td></tr>
 
@@ -1085,6 +1144,43 @@ From class
 
 
 <!-- Fields -->
+
+
+<!-- ========= FIELD DETAIL ======== -->
+<h2>Fields</h2>
+
+
+
+
+<a id="logger"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Logger
+      </span>
+        logger
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
 
 
 <!-- Public ctors -->
@@ -1683,72 +1779,6 @@ From class
 </div>
 
 
-<a id="doPUT(java.lang.String, com.google.api.client.http.HttpContent)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        HttpResponse
-      </span>
-      <span class="sympad">doPUT</span>
-      <span class="normal">(String path, HttpContent data)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>path</th>
-          <td>the AudioBox API path where to make the request to.</td>
-        </tr>
-        <tr>
-          <th>data</th>
-          <td>the data to send with the request</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the http response, may be null if any error occurs during the request.</li></ul>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
-            <td>if any of the remote error exception is detected.</td>
-        </tr>  
-        <tr>
-            <th>IOException</td>
-            <td>if any connection problem occurs.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
-      </ul>
-  </div>
-
-    </div>
-</div>
-
-
 <a id="doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1789,6 +1819,72 @@ From class
         <tr>
           <th>parser</th>
           <td>the com.google.api.client.json.JsonObjectParser to use to parse the response.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the http response, may be null if any error occurs during the request.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="doPUT(java.lang.String, com.google.api.client.http.HttpContent)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        HttpResponse
+      </span>
+      <span class="sympad">doPUT</span>
+      <span class="normal">(String path, HttpContent data)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>path</th>
+          <td>the AudioBox API path where to make the request to.</td>
+        </tr>
+        <tr>
+          <th>data</th>
+          <td>the data to send with the request</td>
         </tr>
       </table>
   </div>
@@ -2058,6 +2154,112 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the <code><a href="../../../fm/audiobox/core/models/User.html">user</a></code></li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="isDaemonRunning()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isDaemonRunning</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>This method returns <code>true</code> if AudioBox Desktop application is active on any computer.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li><code>true</code> if AudioBox Desktop application is active on any computer. <code>false</code> if not</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="remoteDaemonIp()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">remoteDaemonIp</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>This methods returns the <code>remote ip address</code> of AudioBox Desktop application</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the <code>remote ip address</code></li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>

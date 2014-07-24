@@ -175,6 +175,7 @@
     <li><h2>Enums</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a></li>
       </ul>
     </li>
               
@@ -382,6 +383,19 @@ Summary:
         enum</td>
       <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></td>
       <td class="jd-descrcol" width="100%">AudioBox environments.&nbsp;</td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+      <td class="jd-typecol">
+        
+         
+         
+        
+        enum</td>
+      <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a></td>
+      <td class="jd-descrcol" width="100%">AudioBox transports
+&nbsp;</td>
     </tr>
     
     
@@ -600,9 +614,9 @@ Summary:
             String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getEnvBaseUrl()">getEnvBaseUrl</a></span>()
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getEnvBaseUrl(fm.audiobox.core.config.Configuration.Transports)">getEnvBaseUrl</a></span>(<a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a> transport)
         
-        <div class="jd-descrdiv">Gets env base url.</div>
+        <div class="jd-descrdiv">Gets env base url based on the queried transport.</div>
   
   </td></tr>
 
@@ -1406,8 +1420,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>environment</th>
-          <td>the
-                    to use.
+          <td>the to use.
 </td>
         </tr>
       </table>
@@ -1689,7 +1702,7 @@ From class
 </div>
 
 
-<a id="getEnvBaseUrl()"></a>
+<a id="getEnvBaseUrl(fm.audiobox.core.config.Configuration.Transports)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1702,7 +1715,7 @@ From class
         String
       </span>
       <span class="sympad">getEnvBaseUrl</span>
-      <span class="normal">()</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a> transport)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1714,7 +1727,16 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Gets env base url.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Gets env base url based on the queried transport.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>transport</th>
+          <td>the transport to query</td>
+        </tr>
+      </table>
+  </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the env base url (no trailing slash)
