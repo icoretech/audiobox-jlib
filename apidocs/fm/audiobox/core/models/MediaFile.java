@@ -8,6 +8,7 @@ public  java.lang.String getStreamPath() { throw new RuntimeException("Stub!"); 
 public  java.lang.String getDownloadPath() { throw new RuntimeException("Stub!"); }
 public static  fm.audiobox.core.models.MediaFile load(fm.audiobox.core.Client client, java.lang.String token) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.MediaFile reload(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.io.File download(fm.audiobox.core.Client client, java.io.File file) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.MediaFile update(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  boolean destroy(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.MediaFile scrobble(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
@@ -59,6 +60,7 @@ public  java.lang.String getVideoContainer() { throw new RuntimeException("Stub!
 public  java.lang.String getAudioBitrate() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getAudioCodec() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getAudioSampleRate() { throw new RuntimeException("Stub!"); }
+public static final int CHUNK = 1024;
 protected java.lang.String type;
 protected java.lang.String token;
 protected java.lang.String artist;

@@ -1792,6 +1792,23 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<method name="download"
+ return="java.io.File"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+<parameter name="file" type="java.io.File">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
 <method name="getAlbum"
  return="java.lang.String"
  abstract="false"
@@ -2455,6 +2472,17 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<field name="CHUNK"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="1024"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 <field name="album"
  type="java.lang.String"
  transient="false"
