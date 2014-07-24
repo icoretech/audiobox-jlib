@@ -25,6 +25,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.exceptions.FileAlreadyUploaded;
 import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.net.UploadProgressListener;
 import fm.audiobox.core.store.CredentialDataStore;
@@ -109,12 +110,6 @@ public class AudioBoxTests {
     }
   }
 
-
-  /**
-   * Test upload [WORK IN PROGRESS].
-   *
-   * @throws IOException the iO exception
-   */
   @Test
   @Ignore
   public void testUploadSuccess() throws IOException {
@@ -134,9 +129,54 @@ public class AudioBoxTests {
     } );
 
     MediaFile m = c.upload( file );
-    assertNotNull( m );
-    assertEquals( "c_ddcf6876debeb3cb365bcc.mp3", m.getFilename() );
+    assertEquals( file.getAbsolutePath(), m.getRemotePath() );
+    assertTrue( "File must be destroyed", m.destroy( c ) );
+
   }
+
+  /**
+   * Test upload [WORK IN PROGRESS].
+   *
+   * @throws IOException the iO exception
+   */
+  @Test
+  @Ignore
+  public void testUploadFailure() throws IOException {
+
+    File file = new File( this.getClass().getResource( "/mpthreetest.mp3" ).getFile() );
+    assertNotNull( file );
+    assertTrue( file.exists() );
+
+    c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    c.getConf().setHttpTransport( new NetHttpTransport() );
+    c.getConf().setUploadProgressListener( new UploadProgressListener() {
+      @Override
+      public void onProgressUpdate(long total, long current) {
+        assertTrue( "Current progress cannot be bigger than total", total >= current );
+        logger.info( "Total: " + total + " | Actual: " + current );
+      }
+    } );
+
+    // First upload should succeed
+    MediaFile m = c.upload( file );
+    assertEquals( file.getAbsolutePath(), m.getRemotePath() );
+
+    try {
+      // Second upload must fail
+      c.upload( file );
+      fail("Exception should be thrown");
+
+    } catch ( Exception e ) {
+      assertTrue( e instanceof FileAlreadyUploaded );
+
+    } finally {
+      assertTrue( "File must be destroyed", m.destroy( c ) );
+
+    }
+
+  }
+
+
 
 
   /**
