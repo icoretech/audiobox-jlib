@@ -58,7 +58,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico" />
 <title>
 
-  Configuration.Transports
+  Configuration.Channels
 
 
 </title>
@@ -155,6 +155,8 @@
     <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/models/package-summary.html">fm.audiobox.core.models</a></li>
     <li class="api apilevel-">
+  <a href="../../../../fm/audiobox/core/net/package-summary.html">fm.audiobox.core.net</a></li>
+    <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/store/package-summary.html">fm.audiobox.core.store</a></li>
     <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/utils/package-summary.html">fm.audiobox.core.utils</a></li>
@@ -174,8 +176,8 @@
               
     <li><h2>Enums</h2>
       <ul>
+          <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></li>
-          <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a></li>
       </ul>
     </li>
               
@@ -291,7 +293,7 @@ Summary:
     final 
     
     enum
-<h1>Configuration.Transports</h1>
+<h1>Configuration.Channels</h1>
 
 
 
@@ -338,7 +340,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.config.Configuration.Transports</td>
+        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.config.Configuration.Channels</td>
     </tr>
     
 
@@ -354,7 +356,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>AudioBox transports
+<p>AudioBox channels
 </p>
 
 
@@ -398,17 +400,25 @@ Summary:
 
     
     <tr class="alt-color api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>&nbsp;</td>
+        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a>&nbsp;</td>
         <td class="jd-linkcol">api&nbsp;</td>
-        <td class="jd-descrcol" width="100%">Default transport where requests are made
+        <td class="jd-descrcol" width="100%">Default channel where requests are made
 &nbsp;</td>
     </tr>
     
     
     <tr class=" api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>&nbsp;</td>
+        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a>&nbsp;</td>
         <td class="jd-linkcol">daemon&nbsp;</td>
-        <td class="jd-descrcol" width="100%">Desktop clients transport
+        <td class="jd-descrcol" width="100%">Desktop clients channel
+&nbsp;</td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a>&nbsp;</td>
+        <td class="jd-linkcol">upload&nbsp;</td>
+        <td class="jd-descrcol" width="100%">Upload channel
 &nbsp;</td>
     </tr>
     
@@ -445,10 +455,10 @@ Summary:
             
             static
             
-            <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>
+            <a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html#valueOf(java.lang.String)">valueOf</a></span>(String name)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html#valueOf(java.lang.String)">valueOf</a></span>(String name)
         
   </td></tr>
 
@@ -461,10 +471,10 @@ Summary:
             final
             static
             
-            <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Transports[]</a>
+            <a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Channels[]</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html#values()">values</a></span>()
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html#values()">values</a></span>()
         
   </td></tr>
 
@@ -965,7 +975,7 @@ From interface
         public 
         static 
         final 
-        <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>
+        <a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a>
       </span>
         api
     </h4>
@@ -979,7 +989,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Default transport where requests are made
+  <div class="jd-tagdata jd-tagdescr"><p>Default channel where requests are made
 </p></div>
 
     
@@ -996,7 +1006,7 @@ From interface
         public 
         static 
         final 
-        <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>
+        <a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a>
       </span>
         daemon
     </h4>
@@ -1010,7 +1020,38 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Desktop clients transport
+  <div class="jd-tagdata jd-tagdescr"><p>Desktop clients channel
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<a id="upload"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        <a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a>
+      </span>
+        upload
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Upload channel
 </p></div>
 
     
@@ -1052,7 +1093,7 @@ From interface
          
          
          
-        <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a>
+        <a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a>
       </span>
       <span class="sympad">valueOf</span>
       <span class="normal">(String name)</span>
@@ -1083,7 +1124,7 @@ From interface
         final 
          
          
-        <a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Transports[]</a>
+        <a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Channels[]</a>
       </span>
       <span class="sympad">values</span>
       <span class="normal">()</span>

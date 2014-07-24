@@ -7,10 +7,11 @@ development(),
 production(),
 staging();
 }
-public static enum Transports
+public static enum Channels
 {
 api(),
-daemon();
+daemon(),
+upload();
 }
 public  Configuration() { throw new RuntimeException("Stub!"); }
 public  Configuration(fm.audiobox.core.config.Configuration.Env environment) { throw new RuntimeException("Stub!"); }
@@ -20,6 +21,7 @@ public  fm.audiobox.core.config.Configuration setHttpTransport(com.google.api.cl
 public  fm.audiobox.core.config.Configuration setJsonFactory(com.google.api.client.json.JsonFactory jsonFactory) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setCredentialDataStore(fm.audiobox.core.store.CredentialDataStore credentialDataStore) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setCredentialRefreshListener(com.google.api.client.auth.oauth2.CredentialRefreshListener refreshListener) { throw new RuntimeException("Stub!"); }
+public  void setUploadProgressListener(fm.audiobox.core.net.UploadProgressListener uploadProgressListener) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setMediaFilesWrapperClass(java.lang.Class<? extends fm.audiobox.core.models.MediaFiles> klass) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setAlbumsWrapperClass(java.lang.Class<? extends fm.audiobox.core.models.Albums> klass) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.config.Configuration setGenresWrapperClass(java.lang.Class<? extends fm.audiobox.core.models.Genres> klass) { throw new RuntimeException("Stub!"); }
@@ -31,8 +33,9 @@ public  fm.audiobox.core.config.Configuration setVersion(java.lang.String versio
 public synchronized  void setExceptionHandler(fm.audiobox.core.exceptions.ExceptionHandler handler) { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.store.CredentialDataStore getCredentialDataStore() { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.auth.oauth2.CredentialRefreshListener getRefreshListener() { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.net.UploadProgressListener getUploadProgressListener() { throw new RuntimeException("Stub!"); }
 public  com.typesafe.config.Config getEnvironmentConfiguration(fm.audiobox.core.config.Configuration.Env environment) { throw new RuntimeException("Stub!"); }
-public  java.lang.String getEnvBaseUrl(fm.audiobox.core.config.Configuration.Transports transport) { throw new RuntimeException("Stub!"); }
+public  java.lang.String getEnvBaseUrl(fm.audiobox.core.config.Configuration.Channels channel) { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.GenericUrl getEnvTokenUrl() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getApiKey() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getApiSecret() { throw new RuntimeException("Stub!"); }

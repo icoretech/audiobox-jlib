@@ -509,7 +509,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="transport" type="fm.audiobox.core.config.Configuration.Transports">
+<parameter name="channel" type="fm.audiobox.core.config.Configuration.Channels">
 </parameter>
 </method>
 <method name="getEnvTokenUrl"
@@ -615,6 +615,17 @@
 </method>
 <method name="getRefreshListener"
  return="com.google.api.client.auth.oauth2.CredentialRefreshListener"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getUploadProgressListener"
+ return="fm.audiobox.core.net.UploadProgressListener"
  abstract="false"
  native="false"
  synchronized="false"
@@ -828,6 +839,19 @@
 <parameter name="klass" type="java.lang.Class&lt;? extends fm.audiobox.core.models.MediaFiles&gt;">
 </parameter>
 </method>
+<method name="setUploadProgressListener"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="uploadProgressListener" type="fm.audiobox.core.net.UploadProgressListener">
+</parameter>
+</method>
 <method name="setVersion"
  return="fm.audiobox.core.config.Configuration"
  abstract="false"
@@ -840,6 +864,39 @@
 >
 <parameter name="version" type="java.lang.String">
 </parameter>
+</method>
+</class>
+<class name="Configuration.Channels"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="fm.audiobox.core.config.Configuration.Channels"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="fm.audiobox.core.config.Configuration.Channels[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
 </method>
 </class>
 <class name="Configuration.Env"
@@ -865,39 +922,6 @@
 </method>
 <method name="values"
  return="fm.audiobox.core.config.Configuration.Env[]"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-</class>
-<class name="Configuration.Transports"
- extends="java.lang.Enum"
- abstract="false"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-<method name="valueOf"
- return="fm.audiobox.core.config.Configuration.Transports"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="name" type="java.lang.String">
-</parameter>
-</method>
-<method name="values"
- return="fm.audiobox.core.config.Configuration.Transports[]"
  abstract="false"
  native="false"
  synchronized="false"
@@ -1060,6 +1084,32 @@
  deprecated="not deprecated"
  visibility="public"
 >
+</method>
+<method name="setError"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="error" type="java.lang.String">
+</parameter>
+</method>
+<method name="setErrorDescription"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="errorDescription" type="java.lang.String">
+</parameter>
 </method>
 </class>
 <interface name="ExceptionHandler"
@@ -1793,7 +1843,7 @@
 </exception>
 </method>
 <method name="download"
- return="java.io.File"
+ return="java.io.OutputStream"
  abstract="false"
  native="false"
  synchronized="false"
@@ -1804,7 +1854,9 @@
 >
 <parameter name="client" type="fm.audiobox.core.Client">
 </parameter>
-<parameter name="file" type="java.io.File">
+<parameter name="out" type="java.io.OutputStream">
+</parameter>
+<parameter name="closeInputStream" type="boolean">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
 </exception>
@@ -2874,7 +2926,7 @@
  native="false"
  synchronized="false"
  static="true"
- final="true"
+ final="false"
  deprecated="not deprecated"
  visibility="public"
 >
@@ -4960,6 +5012,32 @@
 </method>
 </class>
 </package>
+<package name="fm.audiobox.core.net"
+>
+<interface name="UploadProgressListener"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onProgressUpdate"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="total" type="long">
+</parameter>
+<parameter name="current" type="long">
+</parameter>
+</method>
+</interface>
+</package>
 <package name="fm.audiobox.core.store"
 >
 <interface name="CredentialDataStore"
@@ -5541,6 +5619,150 @@
 >
 </field>
 </interface>
+<class name="Io"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Io"
+ type="fm.audiobox.core.utils.Io"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="contentToString"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="inputStream" type="java.io.InputStream">
+</parameter>
+</method>
+</class>
+<class name="MD5Checksum"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="MD5Checksum"
+ type="fm.audiobox.core.utils.MD5Checksum"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="checkSum"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="is" type="java.io.InputStream">
+</parameter>
+<exception name="NoSuchAlgorithmException" type="java.security.NoSuchAlgorithmException">
+</exception>
+</method>
+</class>
+<class name="MediaContent"
+ extends="com.google.api.client.http.AbstractInputStreamContent"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="MediaContent"
+ type="fm.audiobox.core.utils.MediaContent"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="type" type="java.lang.String">
+</parameter>
+<parameter name="file" type="java.io.File">
+</parameter>
+<exception name="FileNotFoundException" type="java.io.FileNotFoundException">
+</exception>
+</constructor>
+<method name="getFile"
+ return="java.io.File"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getInputStream"
+ return="java.io.InputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="FileNotFoundException" type="java.io.FileNotFoundException">
+</exception>
+</method>
+<method name="getLength"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="retrySupported"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="setUploadProgressListener"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="uploadProgressListener" type="fm.audiobox.core.net.UploadProgressListener">
+</parameter>
+</method>
+</class>
 <class name="ModelUtil"
  extends="java.lang.Object"
  abstract="false"
@@ -5723,6 +5945,88 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+</class>
+<class name="ProgressInputStream"
+ extends="java.io.FileInputStream"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ProgressInputStream"
+ type="fm.audiobox.core.utils.ProgressInputStream"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="in" type="java.io.File">
+</parameter>
+<parameter name="maxNumBytes" type="long">
+</parameter>
+<exception name="FileNotFoundException" type="java.io.FileNotFoundException">
+</exception>
+</constructor>
+<method name="addPropertyChangeListener"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="l" type="java.beans.PropertyChangeListener">
+</parameter>
+</method>
+<method name="getMaxNumBytes"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getTotalNumBytesRead"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="removePropertyChangeListener"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="l" type="java.beans.PropertyChangeListener">
+</parameter>
+</method>
+<field name="TOTAL_NUM_BYTE_READ"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;totalNumBytesRead&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 </class>
 </package>
 </api>

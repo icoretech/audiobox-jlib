@@ -155,6 +155,8 @@
     <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/models/package-summary.html">fm.audiobox.core.models</a></li>
     <li class="api apilevel-">
+  <a href="../../../../fm/audiobox/core/net/package-summary.html">fm.audiobox.core.net</a></li>
+    <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/store/package-summary.html">fm.audiobox.core.store</a></li>
     <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/utils/package-summary.html">fm.audiobox.core.utils</a></li>
@@ -174,8 +176,8 @@
               
     <li><h2>Enums</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></li>
-          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a></li>
       </ul>
     </li>
               
@@ -381,8 +383,9 @@ Summary:
          
         
         enum</td>
-      <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></td>
-      <td class="jd-descrcol" width="100%">AudioBox environments.&nbsp;</td>
+      <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a></td>
+      <td class="jd-descrcol" width="100%">AudioBox channels
+&nbsp;</td>
     </tr>
     
     
@@ -393,9 +396,8 @@ Summary:
          
         
         enum</td>
-      <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a></td>
-      <td class="jd-descrcol" width="100%">AudioBox transports
-&nbsp;</td>
+      <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></td>
+      <td class="jd-descrcol" width="100%">AudioBox environments.&nbsp;</td>
     </tr>
     
     
@@ -614,9 +616,9 @@ Summary:
             String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getEnvBaseUrl(fm.audiobox.core.config.Configuration.Transports)">getEnvBaseUrl</a></span>(<a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a> transport)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getEnvBaseUrl(fm.audiobox.core.config.Configuration.Channels)">getEnvBaseUrl</a></span>(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)
         
-        <div class="jd-descrdiv">Gets env base url based on the queried transport.</div>
+        <div class="jd-descrdiv">Gets env base url based on the queried channel.</div>
   
   </td></tr>
 
@@ -809,6 +811,24 @@ Summary:
             
             
             
+            <a href="../../../../fm/audiobox/core/net/UploadProgressListener.html">UploadProgressListener</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getUploadProgressListener()">getUploadProgressListener</a></span>()
+        
+        <div class="jd-descrdiv">Gets upload progress listener.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             String
         </td>
         <td class="jd-linkcol" width="100%">
@@ -820,7 +840,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -838,7 +858,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -856,7 +876,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -874,7 +894,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -892,7 +912,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -910,7 +930,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -928,7 +948,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -946,7 +966,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -964,7 +984,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -982,7 +1002,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             synchronized
@@ -1000,7 +1020,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1018,7 +1038,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1036,7 +1056,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1054,7 +1074,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1072,7 +1092,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1085,6 +1105,24 @@ Summary:
         <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#setMediaFilesWrapperClass(java.lang.Class<? extends fm.audiobox.core.models.MediaFiles>)">setMediaFilesWrapperClass</a></span>(Class&lt;?&nbsp;extends&nbsp;<a href="../../../../fm/audiobox/core/models/MediaFiles.html">MediaFiles</a>&gt; klass)
         
         <div class="jd-descrdiv">Sets the media files wrapper class.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#setUploadProgressListener(fm.audiobox.core.net.UploadProgressListener)">setUploadProgressListener</a></span>(<a href="../../../../fm/audiobox/core/net/UploadProgressListener.html">UploadProgressListener</a> uploadProgressListener)
+        
+        <div class="jd-descrdiv">Sets upload progress listener.</div>
   
   </td></tr>
 
@@ -1702,7 +1740,7 @@ From class
 </div>
 
 
-<a id="getEnvBaseUrl(fm.audiobox.core.config.Configuration.Transports)"></a>
+<a id="getEnvBaseUrl(fm.audiobox.core.config.Configuration.Channels)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1715,7 +1753,7 @@ From class
         String
       </span>
       <span class="sympad">getEnvBaseUrl</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/config/Configuration.Transports.html">Configuration.Transports</a> transport)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1727,13 +1765,13 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Gets env base url based on the queried transport.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Gets env base url based on the queried channel.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>transport</th>
-          <td>the transport to query</td>
+          <th>channel</th>
+          <td>the channel to query</td>
         </tr>
       </table>
   </div>
@@ -2109,6 +2147,42 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the configured com.google.api.client.auth.oauth2.CredentialRefreshListener
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getUploadProgressListener()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../fm/audiobox/core/net/UploadProgressListener.html">UploadProgressListener</a>
+      </span>
+      <span class="sympad">getUploadProgressListener</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets upload progress listener.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the upload progress listener
 </li></ul>
   </div>
 
@@ -2844,6 +2918,47 @@ From class
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the <code><a href="../../../../fm/audiobox/core/config/Configuration.html">Configuration</a></code>
 </li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setUploadProgressListener(fm.audiobox.core.net.UploadProgressListener)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setUploadProgressListener</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/net/UploadProgressListener.html">UploadProgressListener</a> uploadProgressListener)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets upload progress listener.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>uploadProgressListener</th>
+          <td>the <code><a href="../../../../fm/audiobox/core/net/UploadProgressListener.html">UploadProgressListener</a></code> to set.
+</td>
+        </tr>
+      </table>
   </div>
 
     </div>

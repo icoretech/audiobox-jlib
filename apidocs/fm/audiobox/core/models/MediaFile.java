@@ -8,7 +8,7 @@ public  java.lang.String getStreamPath() { throw new RuntimeException("Stub!"); 
 public  java.lang.String getDownloadPath() { throw new RuntimeException("Stub!"); }
 public static  fm.audiobox.core.models.MediaFile load(fm.audiobox.core.Client client, java.lang.String token) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.MediaFile reload(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.io.File download(fm.audiobox.core.Client client, java.io.File file) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.io.OutputStream download(fm.audiobox.core.Client client, java.io.OutputStream out, boolean closeInputStream) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.MediaFile update(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  boolean destroy(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.MediaFile scrobble(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
