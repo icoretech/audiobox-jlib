@@ -16,7 +16,6 @@
 
 package fm.audiobox.tests.integration.network;
 
-import com.google.api.client.http.javanet.NetHttpTransport;
 import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
@@ -51,7 +50,6 @@ public class DownloadTests extends AudioBoxTests {
   @Ignore
   public void testDownloadSuccess() throws IOException {
     c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
-    c.getConf().setHttpTransport( new NetHttpTransport() );
     List<Playlist> pls = c.getPlaylists();
     Playlist p = ModelUtil.findPlaylistByType( pls, Playlists.PLAYLIST_CLOUD );
 
@@ -84,7 +82,6 @@ public class DownloadTests extends AudioBoxTests {
   @Ignore
   public void testDownloadProgress() throws IOException {
     c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
-    c.getConf().setHttpTransport( new NetHttpTransport() );
     List<Playlist> pls = c.getPlaylists();
     Playlist p = ModelUtil.findPlaylistByType( pls, Playlists.PLAYLIST_CLOUD );
 

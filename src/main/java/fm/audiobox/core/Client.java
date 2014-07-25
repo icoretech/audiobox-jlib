@@ -20,7 +20,6 @@ package fm.audiobox.core;
 import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
-import de.danielbechler.util.Strings;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
@@ -30,6 +29,7 @@ import fm.audiobox.core.store.CredentialDataStore;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.Io;
 import fm.audiobox.core.utils.ModelUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.naming.ConfigurationException;
 import java.io.File;
@@ -238,8 +238,7 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean isDaemonRunning() throws IOException {
-    String remoteIp = remoteDaemonIp();
-    return remoteIp != null && !Strings.isEmpty( remoteIp );
+    return StringUtils.isNotBlank( remoteDaemonIp() );
   }
 
 
@@ -254,7 +253,7 @@ public class Client {
    */
   public String remoteDaemonIp() throws IOException {
     HttpResponse rsp = doRequestToChannel( HttpMethods.GET, "/daemon/keepalive", null, null, Configuration.Channels.daemon );
-    return Io.contentToString( rsp.getContent() );
+    return rsp.isSuccessStatusCode() ? Io.contentToString( rsp.getContent() ) : StringUtils.EMPTY;
   }
 
 

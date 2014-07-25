@@ -138,9 +138,11 @@ public class AudioBoxTests {
    */
   @SuppressWarnings( "unused" )
   protected void prepareForStaging() throws IOException {
-
+    fixtures = ConfigFactory.load( "fixtures" );
     c.getConf().setEnvironment( Configuration.Env.staging );
     c.getConf().setHttpTransport( new NetHttpTransport() );
+    c.getConf().setApiKey( fixtures.getString( "authentication.staging.client_id" ) );
+    c.getConf().setApiSecret( fixtures.getString( "authentication.staging.client_secret" ) );
     c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
   }
 
@@ -153,9 +155,11 @@ public class AudioBoxTests {
    */
   @SuppressWarnings( "unused" )
   protected void prepareForLocalDevelopment() throws IOException {
-
+    fixtures = ConfigFactory.load( "fixtures" );
     c.getConf().setEnvironment( Configuration.Env.development );
     c.getConf().setHttpTransport( new NetHttpTransport() );
+    c.getConf().setApiKey( fixtures.getString( "authentication.local.client_id" ) );
+    c.getConf().setApiSecret( fixtures.getString( "authentication.local.client_secret" ) );
     c.authorize( fixtures.getString( "authentication.local.email" ), fixtures.getString( "authentication.local.password" ) );
   }
 

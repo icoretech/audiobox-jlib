@@ -80,10 +80,11 @@ public class MockHttp {
             String fileName = responseFilePath;
 
             if ( fileName == null ) {
-              Pattern p = Pattern.compile( "^(.*\\:(80|443|5000))?(.*/api/v1)?/" );
+              Pattern p = Pattern.compile( "^(.*\\:(80|443|3000|5000))?(.*/api/v1)?/" );
               Matcher m = p.matcher( url );
               fileName = m.replaceAll( "" );
             }
+
 
             Pattern queryString = Pattern.compile( "\\?.*$" );
             Matcher qStringMatcher = queryString.matcher( fileName );
@@ -102,7 +103,7 @@ public class MockHttp {
 
             result.setContentType( Json.MEDIA_TYPE );
 
-            if ( !hasQueryString && !fileName.endsWith( ".json" ) ) {
+            if ( !hasQueryString && !fileName.endsWith( ".json" ) && !fileName.contains( "daemon" )) {
               fileName += ".json";
             }
 
@@ -201,6 +202,16 @@ public class MockHttp {
     } else {
       return getTransport( HttpStatus.SC_CREATED, "upload_202" );
     }
+  }
+
+
+  /**
+   * Gets daemon not running transport.
+   *
+   * @return the daemon not running transport
+   */
+  public static HttpTransport getDaemonNotRunningTransport() {
+    return getTransport( HttpStatus.SC_BAD_GATEWAY, "daemon/keepalive_not_ready");
   }
 
 }
