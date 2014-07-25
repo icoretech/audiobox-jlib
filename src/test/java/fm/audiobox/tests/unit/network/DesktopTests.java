@@ -32,11 +32,22 @@ import static org.junit.Assert.assertTrue;
  */
 public class DesktopTests extends AudioBoxTests {
 
+  /**
+   * Test daemon running.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testDaemonRunning() throws IOException {
     assertTrue( c.isDaemonRunning() );
   }
 
+
+  /**
+   * Test daemon not running.
+   *
+   * @throws IOException the iO exception
+   */
   @Test
   public void testDaemonNotRunning() throws IOException {
     c.getConf().setHttpTransport( MockHttp.getDaemonNotRunningTransport() );
