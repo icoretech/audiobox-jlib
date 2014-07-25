@@ -23,6 +23,7 @@ import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.models.MediaFiles;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
+import fm.audiobox.core.net.Upload;
 import fm.audiobox.tests.mocks.MockHttp;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
@@ -150,7 +151,8 @@ public class MediaFilesTests extends AudioBoxTests {
     assertTrue( file.exists() );
 
     c.getConf().setHttpTransport( MockHttp.getUploadTransport( false ) );
-    MediaFile m = c.upload( file );
+    Upload u = c.newUpload( file );
+    MediaFile m = u.start();
     assertNotNull( m );
     assertEquals( "c_ddcf6876debeb3cb365bcc.mp3", m.getFilename() );
   }
@@ -169,7 +171,8 @@ public class MediaFilesTests extends AudioBoxTests {
     assertTrue( file.exists() );
 
     c.getConf().setHttpTransport( MockHttp.getUploadTransport( true ) );
-    assertNotNull( c.upload( file ) );
+    Upload u = c.newUpload( file );
+    assertNotNull( u.start() );
   }
 
 
@@ -186,7 +189,8 @@ public class MediaFilesTests extends AudioBoxTests {
     assertTrue( file.exists() );
 
     c.getConf().setHttpTransport( MockHttp.getUploadTransport( false ) );
-    MediaFile mf = c.upload( file );
+    Upload u = c.newUpload( file );
+    MediaFile mf = u.start();
 
     assertNotNull( mf );
 

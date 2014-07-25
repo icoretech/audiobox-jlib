@@ -24,6 +24,7 @@ import de.danielbechler.util.Strings;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
+import fm.audiobox.core.net.Upload;
 import fm.audiobox.core.store.CredentialDataStore;
 import fm.audiobox.core.utils.*;
 import org.slf4j.Logger;
@@ -140,10 +141,6 @@ public class Client {
    */
   public static final String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 
-  private static final String MAGIC_UPLOAD_HEADER = "x-uploading-md5";
-
-  private static final String UPLOAD_PATH = "/api/v1/upload";
-
   private CredentialRefreshListener refreshListener;
 
   private JsonObjectParser jsonObjectParser;
@@ -177,6 +174,16 @@ public class Client {
    */
   public Configuration getConf() {
     return conf;
+  }
+
+
+  /**
+   * Gets global request headers
+   *
+   * @return the default headers
+   */
+  public HttpHeaders getDefaultHeaders() {
+    return defaultHeaders;
   }
 
 
@@ -322,61 +329,23 @@ public class Client {
 
 
   /**
-   * Uploads media files to AudioBox Cloud.
-   * <p/>
-   * If the subscription is not valid {@link fm.audiobox.core.exceptions.ForbiddenException} is thrown.
-   * If a media file already exists on AudioBox Cloud {@link fm.audiobox.core.exceptions.FileAlreadyUploaded} is thrown.
-   * <p/>
-   * Other errors may include {@link fm.audiobox.core.exceptions.ValidationException},
-   * {@link fm.audiobox.core.exceptions.SystemOverloadedException} or {@link fm.audiobox.core.exceptions.RemoteMessageException}
-   * with additional information in the exception body.
-   * <p/>
-   * The application should ensure to accept those errors and retry accordingly after few minutes.
-   * <p/>
-   * On successful upload the server returns a new {@link MediaFile} with additional information,
-   * including the token assigned to the newly uploaded media file.
-   * <p/>
-   * Files uploaded through this method will go directly into the CloudPlaylist.
+   * Builds a new {@link fm.audiobox.core.net.Upload} ready to start.
+   * <p>
+   * You can still set a listener. If you do not provide an {@link fm.audiobox.core.net.UploadProgressListener}
+   * the global one will set as default (if configured).
    * </p>
    *
    * @param file the file to upload on AudioBox
    *
-   * @return a {@link fm.audiobox.core.models.MediaFile} containing additional information
+   * @return a {@link fm.audiobox.core.net.Upload} ready to {@link fm.audiobox.core.net.Upload#start()}
    *
-   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public MediaFile upload(final File file) throws IOException {
-
-    try {
-      MediaContent fileContent = new MediaContent( URLConnection.guessContentTypeFromName( file.getAbsolutePath() ), file );
-      if ( getConf().getUploadProgressListener() != null ) {
-        fileContent.setUploadProgressListener( getConf().getUploadProgressListener() );
-      }
-
-      try {
-        //MessageDigest md = MessageDigest.getInstance( "MD5" );
-        String md5 = MD5Checksum.checkSum( new FileInputStream( file ) );
-        defaultHeaders.set( MAGIC_UPLOAD_HEADER, md5 );
-      } catch ( NoSuchAlgorithmException e ) {
-        logger.warn( "Unable to perform magic upload due to lack of MD5 algorithm. Proceeding with whole upload process." );
-      }
-
-      HttpContent pathContent = new PlainTextContent( file.getAbsolutePath() );
-
-      MultipartFormDataContent multipart = new MultipartFormDataContent();
-      multipart.addPart( new MultipartContent.Part( pathContent ), "remote_path", null );
-      multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
-
-      HttpResponse rsp = doRequestToChannel( HttpMethods.POST, UPLOAD_PATH, multipart, null, Configuration.Channels.upload );
-      return rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
-
-
-    } finally {
-      defaultHeaders.remove( MAGIC_UPLOAD_HEADER );
+  public Upload newUpload(final File file) {
+    Upload u = new Upload( this, file );
+    if ( getConf().getUploadProgressListener() != null ) {
+      u.setListener( getConf().getUploadProgressListener() );
     }
-
+    return u;
   }
 
 
@@ -532,11 +501,6 @@ public class Client {
   }
 
 
-  /* ================ */
-  /*  Private methods */
-  /* ================ */
-
-
   /**
    * Executes the configured request by calling AudioBox API services.
    *
@@ -551,7 +515,7 @@ public class Client {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  private HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
+  public HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
     return doRequestToChannel( method, path, data, parser, null );
   }
 
@@ -571,7 +535,7 @@ public class Client {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  private HttpResponse doRequestToChannel(String method, String path, HttpContent data, JsonObjectParser parser, Configuration.Channels channel) throws IOException {
+  public HttpResponse doRequestToChannel(String method, String path, HttpContent data, JsonObjectParser parser, Configuration.Channels channel) throws IOException {
     if ( channel == null ) {
       channel = Configuration.Channels.api;
     }
@@ -579,6 +543,14 @@ public class Client {
     validateResponse( response );
     return response;
   }
+
+
+
+  /* ================ */
+  /*  Private methods */
+  /* ================ */
+
+
 
 
   /**

@@ -27,6 +27,7 @@ import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.exceptions.FileAlreadyUploaded;
 import fm.audiobox.core.models.MediaFile;
+import fm.audiobox.core.net.Upload;
 import fm.audiobox.core.net.UploadProgressListener;
 import fm.audiobox.core.store.CredentialDataStore;
 import fm.audiobox.tests.mocks.MockHttp;
@@ -128,7 +129,8 @@ public class AudioBoxTests {
       }
     } );
 
-    MediaFile m = c.upload( file );
+    Upload u = c.newUpload( file );
+    MediaFile m = u.start();
     assertEquals( file.getAbsolutePath(), m.getRemotePath() );
     assertTrue( "File must be destroyed", m.destroy( c ) );
 
@@ -158,12 +160,14 @@ public class AudioBoxTests {
     } );
 
     // First upload should succeed
-    MediaFile m = c.upload( file );
+    Upload u = c.newUpload( file );
+    MediaFile m = u.start();
     assertEquals( file.getAbsolutePath(), m.getRemotePath() );
 
     try {
       // Second upload must fail
-      c.upload( file );
+      u = c.newUpload( file );
+      u.start();
       fail("Exception should be thrown");
 
     } catch ( Exception e ) {
