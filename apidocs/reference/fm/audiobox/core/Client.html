@@ -723,6 +723,42 @@ Summary:
             
             
             
+            HttpResponse
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doRequest(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)">doRequest</a></span>(String method, String path, HttpContent data, JsonObjectParser parser)
+        
+        <div class="jd-descrdiv">Executes the configured request by calling AudioBox API services.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            HttpResponse
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doRequestToChannel(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, fm.audiobox.core.config.Configuration.Channels)">doRequestToChannel</a></span>(String method, String path, HttpContent data, JsonObjectParser parser, <a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)
+        
+        <div class="jd-descrdiv">Executes the configured request by calling AudioBox API services.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             <a href="../../../fm/audiobox/core/config/Configuration.html">Configuration</a>
         </td>
         <td class="jd-linkcol" width="100%">
@@ -741,6 +777,24 @@ Summary:
             
             
             
+            HttpHeaders
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#getDefaultHeaders()">getDefaultHeaders</a></span>()
+        
+        <div class="jd-descrdiv">Gets global request headers</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             <a href="../../../fm/audiobox/core/models/Notifications.html">Notifications</a>
         </td>
         <td class="jd-linkcol" width="100%">
@@ -752,7 +806,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -770,7 +824,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -788,7 +842,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -806,7 +860,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -819,6 +873,24 @@ Summary:
         <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#isDaemonRunning()">isDaemonRunning</a></span>()
         
         <div class="jd-descrdiv">This method returns <code>true</code> if AudioBox Desktop application is active on any computer.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../fm/audiobox/core/net/Upload.html">Upload</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#newUpload(java.io.File)">newUpload</a></span>(File file)
+        
+        <div class="jd-descrdiv">Builds a new <code><a href="../../../fm/audiobox/core/net/Upload.html">Upload</a></code> ready to start.</div>
   
   </td></tr>
 
@@ -837,24 +909,6 @@ Summary:
         <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#remoteDaemonIp()">remoteDaemonIp</a></span>()
         
         <div class="jd-descrdiv">This methods returns the <code>remote ip address</code> of AudioBox Desktop application</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            <a href="../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#upload(java.io.File)">upload</a></span>(File file)
-        
-        <div class="jd-descrdiv">Uploads media files to AudioBox Cloud.</div>
   
   </td></tr>
 
@@ -1917,6 +1971,158 @@ From class
 </div>
 
 
+<a id="doRequest(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        HttpResponse
+      </span>
+      <span class="sympad">doRequest</span>
+      <span class="normal">(String method, String path, HttpContent data, JsonObjectParser parser)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Executes the configured request by calling AudioBox API services.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>method</th>
+          <td>the method to use</td>
+        </tr>
+        <tr>
+          <th>path</th>
+          <td>the AudioBox API path where to make the request to.</td>
+        </tr>
+        <tr>
+          <th>data</th>
+          <td>the data to send with the request</td>
+        </tr>
+        <tr>
+          <th>parser</th>
+          <td>the parser to use for the resulting object</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the http response, may be null if any error occurs during the request.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="doRequestToChannel(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, fm.audiobox.core.config.Configuration.Channels)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        HttpResponse
+      </span>
+      <span class="sympad">doRequestToChannel</span>
+      <span class="normal">(String method, String path, HttpContent data, JsonObjectParser parser, <a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Executes the configured request by calling AudioBox API services.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>method</th>
+          <td>the method to use</td>
+        </tr>
+        <tr>
+          <th>path</th>
+          <td>the AudioBox API path where to make the request to.</td>
+        </tr>
+        <tr>
+          <th>data</th>
+          <td>the data to send with the request</td>
+        </tr>
+        <tr>
+          <th>parser</th>
+          <td>the parser to use for the resulting object</td>
+        </tr>
+        <tr>
+          <th>channel</th>
+          <td>the <code><a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Channel</a></code> to query</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the http response, may be null if any error occurs during the request.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="getConf()"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1946,6 +2152,42 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the configuration
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getDefaultHeaders()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        HttpHeaders
+      </span>
+      <span class="sympad">getDefaultHeaders</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets global request headers</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the default headers
 </li></ul>
   </div>
 
@@ -2233,6 +2475,56 @@ From class
 </div>
 
 
+<a id="newUpload(java.io.File)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../fm/audiobox/core/net/Upload.html">Upload</a>
+      </span>
+      <span class="sympad">newUpload</span>
+      <span class="normal">(File file)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Builds a new <code><a href="../../../fm/audiobox/core/net/Upload.html">Upload</a></code> ready to start.
+ <p>
+ You can still set a listener. If you do not provide an <code><a href="../../../fm/audiobox/core/net/UploadProgressListener.html">UploadProgressListener</a></code>
+ the global one will set as default (if configured).
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>file</th>
+          <td>the file to upload on AudioBox</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a <code><a href="../../../fm/audiobox/core/net/Upload.html">Upload</a></code> ready to <code><a href="../../../fm/audiobox/core/net/Upload.html#start()">start()</a></code>
+
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="remoteDaemonIp()"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -2262,83 +2554,6 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the <code>remote ip address</code></li></ul>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
-            <td>if any of the remote error exception is detected.</td>
-        </tr>  
-        <tr>
-            <th>IOException</td>
-            <td>if any connection problem occurs.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
-      </ul>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="upload(java.io.File)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
-      </span>
-      <span class="sympad">upload</span>
-      <span class="normal">(File file)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Uploads media files to AudioBox Cloud.
- <p/>
- If the subscription is not valid <code><a href="../../../fm/audiobox/core/exceptions/ForbiddenException.html">ForbiddenException</a></code> is thrown.
- If a media file already exists on AudioBox Cloud <code><a href="../../../fm/audiobox/core/exceptions/FileAlreadyUploaded.html">FileAlreadyUploaded</a></code> is thrown.
- <p/>
- Other errors may include <code><a href="../../../fm/audiobox/core/exceptions/ValidationException.html">ValidationException</a></code>,
- <code><a href="../../../fm/audiobox/core/exceptions/SystemOverloadedException.html">SystemOverloadedException</a></code> or <code><a href="../../../fm/audiobox/core/exceptions/RemoteMessageException.html">RemoteMessageException</a></code>
- with additional information in the exception body.
- <p/>
- The application should ensure to accept those errors and retry accordingly after few minutes.
- <p/>
- On successful upload the server returns a new <code><a href="../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></code> with additional information,
- including the token assigned to the newly uploaded media file.
- <p/>
- Files uploaded through this method will go directly into the CloudPlaylist.
- </p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>file</th>
-          <td>the file to upload on AudioBox</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a <code><a href="../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></code> containing additional information</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>

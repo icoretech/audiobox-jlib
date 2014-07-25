@@ -263,8 +263,63 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<method name="doRequest"
+ return="com.google.api.client.http.HttpResponse"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="method" type="java.lang.String">
+</parameter>
+<parameter name="path" type="java.lang.String">
+</parameter>
+<parameter name="data" type="com.google.api.client.http.HttpContent">
+</parameter>
+<parameter name="parser" type="com.google.api.client.json.JsonObjectParser">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="doRequestToChannel"
+ return="com.google.api.client.http.HttpResponse"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="method" type="java.lang.String">
+</parameter>
+<parameter name="path" type="java.lang.String">
+</parameter>
+<parameter name="data" type="com.google.api.client.http.HttpContent">
+</parameter>
+<parameter name="parser" type="com.google.api.client.json.JsonObjectParser">
+</parameter>
+<parameter name="channel" type="fm.audiobox.core.config.Configuration.Channels">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
 <method name="getConf"
  return="fm.audiobox.core.config.Configuration"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDefaultHeaders"
+ return="com.google.api.client.http.HttpHeaders"
  abstract="false"
  native="false"
  synchronized="false"
@@ -341,21 +396,8 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
-<method name="remoteDaemonIp"
- return="java.lang.String"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="upload"
- return="fm.audiobox.core.models.MediaFile"
+<method name="newUpload"
+ return="fm.audiobox.core.net.Upload"
  abstract="false"
  native="false"
  synchronized="false"
@@ -366,6 +408,17 @@
 >
 <parameter name="file" type="java.io.File">
 </parameter>
+</method>
+<method name="remoteDaemonIp"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
@@ -5014,6 +5067,97 @@
 </package>
 <package name="fm.audiobox.core.net"
 >
+<class name="Download"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Download"
+ type="fm.audiobox.core.net.Download"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+</class>
+<class name="Upload"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Upload"
+ type="fm.audiobox.core.net.Upload"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+<parameter name="file" type="java.io.File">
+</parameter>
+</constructor>
+<constructor name="Upload"
+ type="fm.audiobox.core.net.Upload"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+<parameter name="file" type="java.io.File">
+</parameter>
+<parameter name="listener" type="fm.audiobox.core.net.UploadProgressListener">
+</parameter>
+</constructor>
+<method name="getListener"
+ return="fm.audiobox.core.net.UploadProgressListener"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="setListener"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="listener" type="fm.audiobox.core.net.UploadProgressListener">
+</parameter>
+</method>
+<method name="start"
+ return="fm.audiobox.core.models.MediaFile"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+<exception name="IllegalStateException" type="java.lang.IllegalStateException">
+</exception>
+</method>
+</class>
 <interface name="UploadProgressListener"
  abstract="true"
  static="false"
