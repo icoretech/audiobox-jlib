@@ -9,9 +9,9 @@ public  fm.audiobox.core.models.Playlist update(fm.audiobox.core.Client client) 
 public  boolean destroy(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  boolean sync(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  boolean toggleVisibility(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<? extends fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<? extends fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client, long since) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<? extends fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client, long since, java.lang.String set) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client, long since) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client, long since, java.lang.String set) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.Albums getAlbums(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.Genres getGenres(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.Artists getArtists(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }

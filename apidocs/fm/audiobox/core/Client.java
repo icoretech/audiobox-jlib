@@ -12,6 +12,7 @@ public  java.util.List<fm.audiobox.core.models.Playlist> getPlaylists() throws j
 public  fm.audiobox.core.models.Playlist getPlaylist(java.lang.String token) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.Notifications getNotifications() throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.net.Upload newUpload(java.io.File file) { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.net.Upload newUpload(java.io.File file, fm.audiobox.core.net.NetworkProgressListener listener) { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doGET(java.lang.String path) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doGET(java.lang.String path, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doPUT(java.lang.String path, com.google.api.client.http.HttpContent data) throws java.io.IOException { throw new RuntimeException("Stub!"); }
@@ -23,6 +24,5 @@ public  com.google.api.client.http.HttpResponse doPOST(java.lang.String path, co
 public  com.google.api.client.http.HttpResponse doPOST(java.lang.String path, com.google.api.client.http.HttpContent data, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doRequest(java.lang.String method, java.lang.String path, com.google.api.client.http.HttpContent data, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doRequestToChannel(java.lang.String method, java.lang.String path, com.google.api.client.http.HttpContent data, com.google.api.client.json.JsonObjectParser parser, fm.audiobox.core.config.Configuration.Channels channel) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-protected org.slf4j.Logger logger;
 public static final java.lang.String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 }

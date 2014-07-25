@@ -409,6 +409,21 @@
 <parameter name="file" type="java.io.File">
 </parameter>
 </method>
+<method name="newUpload"
+ return="fm.audiobox.core.net.Upload"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="file" type="java.io.File">
+</parameter>
+<parameter name="listener" type="fm.audiobox.core.net.NetworkProgressListener">
+</parameter>
+</method>
 <method name="remoteDaemonIp"
  return="java.lang.String"
  abstract="false"
@@ -431,16 +446,6 @@
  final="true"
  deprecated="not deprecated"
  visibility="public"
->
-</field>
-<field name="logger"
- type="org.slf4j.Logger"
- transient="false"
- volatile="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="protected"
 >
 </field>
 </class>
@@ -656,7 +661,7 @@
 >
 </method>
 <method name="getMediaFilesWrapperClass"
- return="java.lang.Class&lt;? extends fm.audiobox.core.models.MediaFiles&gt;"
+ return="java.lang.Class&lt;fm.audiobox.core.models.MediaFiles&gt;"
  abstract="false"
  native="false"
  synchronized="false"
@@ -668,17 +673,6 @@
 </method>
 <method name="getRefreshListener"
  return="com.google.api.client.auth.oauth2.CredentialRefreshListener"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="getUploadProgressListener"
- return="fm.audiobox.core.net.UploadProgressListener"
  abstract="false"
  native="false"
  synchronized="false"
@@ -720,7 +714,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="klass" type="java.lang.Class&lt;? extends fm.audiobox.core.models.Albums&gt;">
+<parameter name="klass" type="java.lang.Class&lt;fm.audiobox.core.models.Albums&gt;">
 </parameter>
 </method>
 <method name="setApiKey"
@@ -772,7 +766,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="klass" type="java.lang.Class&lt;? extends fm.audiobox.core.models.Artists&gt;">
+<parameter name="klass" type="java.lang.Class&lt;fm.audiobox.core.models.Artists&gt;">
 </parameter>
 </method>
 <method name="setCredentialDataStore"
@@ -837,7 +831,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="klass" type="java.lang.Class&lt;? extends fm.audiobox.core.models.Genres&gt;">
+<parameter name="klass" type="java.lang.Class&lt;fm.audiobox.core.models.Genres&gt;">
 </parameter>
 </method>
 <method name="setHttpTransport"
@@ -876,7 +870,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="klass" type="java.lang.Class&lt;? extends fm.audiobox.core.models.MediaFileWrapper&gt;">
+<parameter name="klass" type="java.lang.Class&lt;fm.audiobox.core.models.MediaFileWrapper&gt;">
 </parameter>
 </method>
 <method name="setMediaFilesWrapperClass"
@@ -889,20 +883,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="klass" type="java.lang.Class&lt;? extends fm.audiobox.core.models.MediaFiles&gt;">
-</parameter>
-</method>
-<method name="setUploadProgressListener"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="uploadProgressListener" type="fm.audiobox.core.net.UploadProgressListener">
+<parameter name="klass" type="java.lang.Class&lt;fm.audiobox.core.models.MediaFiles&gt;">
 </parameter>
 </method>
 <method name="setVersion"
@@ -1909,7 +1890,24 @@
 </parameter>
 <parameter name="out" type="java.io.OutputStream">
 </parameter>
-<parameter name="closeInputStream" type="boolean">
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="download"
+ return="java.io.OutputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+<parameter name="out" type="java.io.OutputStream">
+</parameter>
+<parameter name="listener" type="fm.audiobox.core.net.NetworkProgressListener">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
 </exception>
@@ -2577,17 +2575,6 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
-<field name="CHUNK"
- type="int"
- transient="false"
- volatile="false"
- value="1024"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
 <field name="album"
  type="java.lang.String"
  transient="false"
@@ -2991,7 +2978,7 @@
 </exception>
 </method>
 <method name="getMediaFiles"
- return="java.util.List&lt;? extends fm.audiobox.core.models.MediaFile&gt;"
+ return="java.util.List&lt;fm.audiobox.core.models.MediaFile&gt;"
  abstract="false"
  native="false"
  synchronized="false"
@@ -3578,7 +3565,7 @@
 </exception>
 </method>
 <method name="getMediaFiles"
- return="java.util.List&lt;? extends fm.audiobox.core.models.MediaFile&gt;"
+ return="java.util.List&lt;fm.audiobox.core.models.MediaFile&gt;"
  abstract="false"
  native="false"
  synchronized="false"
@@ -3593,7 +3580,7 @@
 </exception>
 </method>
 <method name="getMediaFiles"
- return="java.util.List&lt;? extends fm.audiobox.core.models.MediaFile&gt;"
+ return="java.util.List&lt;fm.audiobox.core.models.MediaFile&gt;"
  abstract="false"
  native="false"
  synchronized="false"
@@ -3610,7 +3597,7 @@
 </exception>
 </method>
 <method name="getMediaFiles"
- return="java.util.List&lt;? extends fm.audiobox.core.models.MediaFile&gt;"
+ return="java.util.List&lt;fm.audiobox.core.models.MediaFile&gt;"
  abstract="false"
  native="false"
  synchronized="false"
@@ -5082,8 +5069,63 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="inputStream" type="java.io.InputStream">
+</parameter>
+<parameter name="outputStream" type="java.io.OutputStream">
+</parameter>
+<parameter name="listener" type="fm.audiobox.core.net.NetworkProgressListener">
+</parameter>
+<parameter name="length" type="long">
+</parameter>
 </constructor>
+<method name="setDownloadProgressListener"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="listener" type="fm.audiobox.core.net.NetworkProgressListener">
+</parameter>
+</method>
+<method name="start"
+ return="java.io.OutputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 </class>
+<interface name="NetworkProgressListener"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onProgressUpdate"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="total" type="long">
+</parameter>
+<parameter name="current" type="long">
+</parameter>
+</method>
+</interface>
 <class name="Upload"
  extends="java.lang.Object"
  abstract="false"
@@ -5115,11 +5157,11 @@
 </parameter>
 <parameter name="file" type="java.io.File">
 </parameter>
-<parameter name="listener" type="fm.audiobox.core.net.UploadProgressListener">
+<parameter name="listener" type="fm.audiobox.core.net.NetworkProgressListener">
 </parameter>
 </constructor>
 <method name="getListener"
- return="fm.audiobox.core.net.UploadProgressListener"
+ return="fm.audiobox.core.net.NetworkProgressListener"
  abstract="false"
  native="false"
  synchronized="false"
@@ -5139,7 +5181,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="listener" type="fm.audiobox.core.net.UploadProgressListener">
+<parameter name="listener" type="fm.audiobox.core.net.NetworkProgressListener">
 </parameter>
 </method>
 <method name="start"
@@ -5158,29 +5200,6 @@
 </exception>
 </method>
 </class>
-<interface name="UploadProgressListener"
- abstract="true"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<method name="onProgressUpdate"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="total" type="long">
-</parameter>
-<parameter name="current" type="long">
-</parameter>
-</method>
-</interface>
 </package>
 <package name="fm.audiobox.core.store"
 >
@@ -5903,7 +5922,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="uploadProgressListener" type="fm.audiobox.core.net.UploadProgressListener">
+<parameter name="networkProgressListener" type="fm.audiobox.core.net.NetworkProgressListener">
 </parameter>
 </method>
 </class>
