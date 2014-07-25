@@ -16,7 +16,7 @@
 
 package fm.audiobox.core.net;
 
-public interface UploadProgressListener {
+public interface NetworkProgressListener {
 
   public void onProgressUpdate(long total, long current);
 

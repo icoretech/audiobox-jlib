@@ -321,7 +321,7 @@ public class Playlist extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public List<? extends MediaFile> getMediaFiles(Client client) throws IOException {
+  public List<MediaFile> getMediaFiles(Client client) throws IOException {
     return getMediaFiles( client, 0 );
   }
 
@@ -341,7 +341,7 @@ public class Playlist extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public List<? extends MediaFile> getMediaFiles(Client client, long since) throws IOException {
+  public List<MediaFile> getMediaFiles(Client client, long since) throws IOException {
     return getMediaFiles( client, since, null );
   }
 
@@ -381,7 +381,7 @@ public class Playlist extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public List<? extends MediaFile> getMediaFiles(Client client, long since, String set) throws IOException {
+  public List<MediaFile> getMediaFiles(Client client, long since, String set) throws IOException {
     ensurePlaylistForRequest();
 
     String url = getMediaFilesPath();

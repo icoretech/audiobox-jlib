@@ -40,7 +40,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Upload {
 
-  private enum State { ready, started, completed }
+  private enum State {ready, started, completed}
 
   private static final Logger logger = LoggerFactory.getLogger( Upload.class );
 
@@ -50,31 +50,32 @@ public class Upload {
 
   private File file;
 
-  private UploadProgressListener listener;
+  private NetworkProgressListener listener;
 
   private Client client;
 
   private State state = State.ready;
 
+
   /**
    * Instantiates a new Upload.
    *
    * @param client the client
-   * @param file the file to upload on AudioBox
+   * @param file   the file to upload on AudioBox
    */
   public Upload(Client client, File file) {
-    this(client, file, null);
+    this( client, file, null );
   }
 
 
   /**
    * Instantiates a new Upload.
    *
-   * @param client the client
-   * @param file the file to upload on AudioBox
+   * @param client   the client
+   * @param file     the file to upload on AudioBox
    * @param listener the listener
    */
-  public Upload(Client client, File file, UploadProgressListener listener) {
+  public Upload(Client client, File file, NetworkProgressListener listener) {
     this.file = file;
     this.listener = listener;
     this.client = client;
@@ -86,7 +87,7 @@ public class Upload {
    *
    * @return the listener
    */
-  public UploadProgressListener getListener() {
+  public NetworkProgressListener getListener() {
     return listener;
   }
 
@@ -96,7 +97,7 @@ public class Upload {
    *
    * @param listener the listener
    */
-  public void setListener(UploadProgressListener listener) {
+  public void setListener(NetworkProgressListener listener) {
     this.listener = listener;
   }
 
@@ -128,8 +129,8 @@ public class Upload {
    */
   public MediaFile start() throws IOException, IllegalStateException {
 
-    if (this.state != State.ready) {
-      throw new IllegalStateException( "Upload is already started or completed.");
+    if ( this.state != State.ready ) {
+      throw new IllegalStateException( "Upload is already started or completed." );
     }
 
     this.state = State.started;
@@ -137,7 +138,7 @@ public class Upload {
     try {
       MediaContent fileContent = new MediaContent( URLConnection.guessContentTypeFromName( file.getAbsolutePath() ), file );
       if ( getListener() != null ) {
-        fileContent.setUploadProgressListener( getListener()  );
+        fileContent.setUploadProgressListener( getListener() );
       }
 
       try {
@@ -162,7 +163,6 @@ public class Upload {
     }
 
   }
-
 
 
 }

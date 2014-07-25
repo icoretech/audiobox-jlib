@@ -17,11 +17,15 @@
 package fm.audiobox.core.models;
 
 
+import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.IOUtils;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
+import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.net.Download;
+import fm.audiobox.core.net.NetworkProgressListener;
 import fm.audiobox.core.utils.ModelUtil;
 
 import java.io.*;
@@ -116,8 +120,6 @@ import java.io.*;
  * </dl>
  */
 public class MediaFile extends Model {
-
-  public static final int CHUNK = 1024;
 
   /**
    * GET, PUT, DELETE
@@ -369,7 +371,7 @@ public class MediaFile extends Model {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public MediaFile() {
   }
 
@@ -400,7 +402,7 @@ public class MediaFile extends Model {
    * @return the download path
    */
   public String getDownloadPath() {
-    return ModelUtil.interpolate( DOWNLOAD_PATH, getToken() );
+    return ModelUtil.interpolate( DOWNLOAD_PATH, getFilename() );
   }
 
 
@@ -441,14 +443,35 @@ public class MediaFile extends Model {
 
 
   /**
-   * Downloads the media to specified file
-   * @param client the {@link Client} to use for the request
+   * Downloads the media to specified {@link java.io.OutputStream}
    *
+   * @param client the client
+   * @param out    the out
+   *
+   * @return the same given {@link java.io.OutputStream} instance with downloaded data
+   *
+   * @throws IOException if any network communication or IO occurs
    */
-  public OutputStream download(Client client, OutputStream out, boolean closeInputStream) throws IOException {
-    HttpResponse rsp = client.doGET( ModelUtil.interpolate( getDownloadPath(), token ));
-    IOUtils.copy( rsp.getContent(), out, closeInputStream );
-    return out;
+  public OutputStream download(Client client, OutputStream out) throws IOException {
+    return this.download( client, out, null );
+  }
+
+
+  /**
+   * Downloads the media to specified {@link java.io.OutputStream}
+   *
+   * @param client   the to use for the request
+   * @param out      the desired {@link java.io.OutputStream} where to store the downloaded data
+   * @param listener a {@link fm.audiobox.core.net.NetworkProgressListener} for monitoring download progress
+   *
+   * @return the same given {@link java.io.OutputStream} instance with downloaded data
+   *
+   * @throws IOException if any network communication or IO occurs
+   */
+  public OutputStream download(Client client, OutputStream out, NetworkProgressListener listener) throws IOException {
+    HttpResponse rsp = client.doRequestToChannel( HttpMethods.GET, ModelUtil.interpolate( getDownloadPath(), token ), null, null, Configuration.Channels.upload );
+    Download d = new Download( rsp.getContent(), out, listener, rsp.getHeaders().getContentLength() );
+    return d.start();
   }
 
 

@@ -62,7 +62,7 @@ public class MediaFilesTests extends AudioBoxTests {
 
     assertNotNull( mf );
     assertEquals( "/api/v1/stream/c_ddcf6876debeb3cb365bcc", mf.getStreamPath() );
-    assertEquals( "/api/v1/download/c_ddcf6876debeb3cb365bcc", mf.getDownloadPath() );
+    assertEquals( "/api/v1/download/c_ddcf6876debeb3cb365bcc.mp3", mf.getDownloadPath() );
     assertEquals( "Lyrics not available", mf.getLyrics( c ) );
     assertEquals( "AudioFile", mf.getType() );
     assertEquals( "c_ddcf6876debeb3cb365bcc", mf.getToken() );

@@ -63,7 +63,7 @@ public class MediaFiles extends Model {
    * The parsed media files list
    */
   @Key("media_files")
-  protected List<? extends MediaFile> media_files;
+  protected List<MediaFile> media_files;
 
 
   /**
@@ -71,7 +71,7 @@ public class MediaFiles extends Model {
    *
    * @return the playlists collection.
    */
-  public List<? extends MediaFile> getMediaFiles() {
+  public List<MediaFile> getMediaFiles() {
     return media_files;
   }
 

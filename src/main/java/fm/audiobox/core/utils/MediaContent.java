@@ -18,12 +18,11 @@ package fm.audiobox.core.utils;
 
 import com.google.api.client.http.AbstractInputStreamContent;
 import com.google.api.client.util.Preconditions;
-import fm.audiobox.core.net.UploadProgressListener;
+import fm.audiobox.core.net.NetworkProgressListener;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -36,7 +35,7 @@ public class MediaContent extends AbstractInputStreamContent {
 
   private ProgressInputStream pis;
 
-  private UploadProgressListener upl;
+  private NetworkProgressListener upl;
 
 
   /**
@@ -58,10 +57,10 @@ public class MediaContent extends AbstractInputStreamContent {
   /**
    * Sets upload progress listener.
    *
-   * @param uploadProgressListener the upload progress listener
+   * @param networkProgressListener the upload progress listener
    */
-  public void setUploadProgressListener(UploadProgressListener uploadProgressListener) {
-    this.upl = uploadProgressListener;
+  public void setUploadProgressListener(NetworkProgressListener networkProgressListener) {
+    this.upl = networkProgressListener;
     this.pis.addPropertyChangeListener( new PropertyChangeListener() {
       @Override
       public void propertyChange(PropertyChangeEvent evt) {

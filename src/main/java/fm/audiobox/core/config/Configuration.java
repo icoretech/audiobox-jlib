@@ -25,7 +25,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.exceptions.ExceptionHandler;
 import fm.audiobox.core.models.*;
-import fm.audiobox.core.net.UploadProgressListener;
+import fm.audiobox.core.net.NetworkProgressListener;
 import fm.audiobox.core.store.CredentialDataStore;
 import org.apache.commons.lang3.StringUtils;
 
@@ -75,15 +75,15 @@ public class Configuration {
 
   private CredentialRefreshListener refreshListener;
 
-  private Class<? extends MediaFiles> mediaFilesWrapperClass;
+  private Class<MediaFiles> mediaFilesWrapperClass;
 
-  private Class<? extends Albums> albumsWrapperClass;
+  private Class<Albums> albumsWrapperClass;
 
-  private Class<? extends Genres> genresWrapperClass;
+  private Class<Genres> genresWrapperClass;
 
-  private Class<? extends Artists> artistsWrapperClass;
+  private Class<Artists> artistsWrapperClass;
 
-  private Class<? extends MediaFileWrapper> mediaFileClass;
+  private Class<MediaFileWrapper> mediaFileClass;
 
   private String userAgent;
 
@@ -92,8 +92,6 @@ public class Configuration {
   private String version;
 
   private ExceptionHandler eh;
-
-  private UploadProgressListener uploadProgressListener;
 
 
   /**
@@ -284,16 +282,6 @@ public class Configuration {
 
 
   /**
-   * Sets upload progress listener.
-   *
-   * @param uploadProgressListener the {@link fm.audiobox.core.net.UploadProgressListener} to set.
-   */
-  public void setUploadProgressListener(UploadProgressListener uploadProgressListener) {
-    this.uploadProgressListener = uploadProgressListener;
-  }
-
-
-  /**
    * Sets the media files wrapper class.
    * <p/>
    * Use this configuration method to set your own class to use as media files parser.
@@ -304,7 +292,7 @@ public class Configuration {
    *
    * @return the {@link Configuration}
    */
-  public Configuration setMediaFilesWrapperClass(Class<? extends MediaFiles> klass) {
+  public Configuration setMediaFilesWrapperClass(Class<MediaFiles> klass) {
     this.mediaFilesWrapperClass = klass;
     return this;
   }
@@ -321,7 +309,7 @@ public class Configuration {
    *
    * @return the {@link Configuration}
    */
-  public Configuration setAlbumsWrapperClass(Class<? extends Albums> klass) {
+  public Configuration setAlbumsWrapperClass(Class<Albums> klass) {
     this.albumsWrapperClass = klass;
     return this;
   }
@@ -338,7 +326,7 @@ public class Configuration {
    *
    * @return the {@link Configuration}
    */
-  public Configuration setGenresWrapperClass(Class<? extends Genres> klass) {
+  public Configuration setGenresWrapperClass(Class<Genres> klass) {
     this.genresWrapperClass = klass;
     return this;
   }
@@ -355,7 +343,7 @@ public class Configuration {
    *
    * @return the {@link Configuration}
    */
-  public Configuration setArtistsWrapperClass(Class<? extends Artists> klass) {
+  public Configuration setArtistsWrapperClass(Class<Artists> klass) {
     this.artistsWrapperClass = klass;
     return this;
   }
@@ -372,7 +360,7 @@ public class Configuration {
    *
    * @return the {@link Configuration}
    */
-  public Configuration setMediaFileClass(Class<? extends MediaFileWrapper> klass) {
+  public Configuration setMediaFileClass(Class<MediaFileWrapper> klass) {
     this.mediaFileClass = klass;
     return this;
   }
@@ -445,16 +433,6 @@ public class Configuration {
    */
   public CredentialRefreshListener getRefreshListener() {
     return this.refreshListener;
-  }
-
-
-  /**
-   * Gets upload progress listener.
-   *
-   * @return the upload progress listener
-   */
-  public UploadProgressListener getUploadProgressListener() {
-    return uploadProgressListener;
   }
 
 
@@ -560,7 +538,7 @@ public class Configuration {
    *
    * @return the class to use for media files parsing.
    */
-  public Class<? extends MediaFiles> getMediaFilesWrapperClass() {
+  public Class<MediaFiles> getMediaFilesWrapperClass() {
     return this.mediaFilesWrapperClass;
   }
 
