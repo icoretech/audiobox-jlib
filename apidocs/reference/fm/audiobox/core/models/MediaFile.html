@@ -388,19 +388,19 @@ Summary:
  <dd>string, readwrite. Album name, automatically set depending on the Cloud Drive in use if not set.</dd>
  <dt><strong>genre:</strong></dt>
  <dd>string, readwrite. Genre name, automatically set depending on the Cloud Drive in use if not set.</dd>
- <dt><strong>release_year:</strong></dt>
+ <dt><strong>releaseYear:</strong></dt>
  <dd>integer, readwrite. Four integers, represents the year when the Media File has been released.</dd>
  <dt><strong>title:</strong></dt>
  <dd>string, readwrite. The title of this Media File.</dd>
- <dt><strong>album_artist:</strong></dt>
+ <dt><strong>albumArtist:</strong></dt>
  <dd>string, readwrite. Album Artist name. Useful to differentiate between compilations.</dd>
  <dt><strong>composer:</strong></dt>
  <dd>string, readwrite. Composer name.</dd>
  <dt><strong>comment:</strong></dt>
  <dd>string, readwrite. Custom comment.</dd>
- <dt><strong>len_str:</strong></dt>
+ <dt><strong>lenlenStrtr:</strong></dt>
  <dd>string, readonly. Formatted as "3:04" to ease display in views. Represents the duration of the media file.</dd>
- <dt><strong>len_int:</strong></dt>
+ <dt><strong>lenInt:</strong></dt>
  <dd>integer, readonly. Represents the duration in seconds of the media file.</dd>
  <dt><strong>position:</strong></dt>
  <dd>integer, readwrite. Represents the position this Media File occupy in a collection/album (track's number).</dd>
@@ -408,15 +408,15 @@ Summary:
  <dd>string, readonly. File name indicating where the file has been stored on our systems.</dd>
  <dt><strong>loved:</strong></dt>
  <dd>boolean, readwrite. Indicates if this Media File is 'loved' by its owner or not. Default is false.</dd>
- <dt><strong>disc_number:</strong></dt>
+ <dt><strong>discNumber:</strong></dt>
  <dd>integer, readwrite. Represents the number of the disc in a multi collection set.</dd>
  <dt><strong>mime:</strong></dt>
  <dd>string, readonly. Formatted such as "audio/mpeg", represents the recognized mime type for this file. This value can help some client to better recognize the type of file to be streamed.</dd>
- <dt><strong>remote_path:</strong></dt>
+ <dt><strong>remotePath:</strong></dt>
  <dd>string, readonly. Used along with some Cloud Drives to help the platform identifying where this file is stored for retrieval.</dd>
  <dt><strong>source:</strong></dt>
  <dd>string, readonly. Represents where this Media File comes from. Possible values are: 'cloud', 'local', 'dropbox', 'skydrive', 'box', 'gdrive', 'youtube', 'soundcloud', 'ubuntu'.</dd>
- <dt><strong>share_token:</strong></dt>
+ <dt><strong>shareToken:</strong></dt>
  <dd>string, readonly. Shared token across multiple Media Files with the same artist/album combo that builds up a Share URL, such as: http://audiobox.fm/share/cfa4b55e1736415b491147f041b95392.</dd>
  <dt><strong>artwork:</strong></dt>
  <dd>
@@ -428,23 +428,23 @@ Summary:
  <dd>integer, readonly. Physical size of the Media File, in bytes.</dd>
  <dt><strong>hash:</strong></dt>
  <dd>string, readonly. MD5 Hash of the Media File.</dd>
- <dt><strong>video_bitrate:</strong></dt>
+ <dt><strong>videoBitrate:</strong></dt>
  <dd>string, readonly. Indicates the bitrate in case of VideoFile.</dd>
- <dt><strong>video_codec:</strong></dt>
+ <dt><strong>videoCodec:</strong></dt>
  <dd>string, readonly. Indicates the codec in case of VideoFile.</dd>
- <dt><strong>video_resolution:</strong></dt>
+ <dt><strong>videoResolution:</strong></dt>
  <dd>string, readonly. Indicates the resolution in case of VideoFile.</dd>
- <dt><strong>video_fps:</strong></dt>
+ <dt><strong>videoFps:</strong></dt>
  <dd>string, readonly. Indicates the frame per second in case of VideoFile.</dd>
- <dt><strong>video_aspect:</strong></dt>
+ <dt><strong>videoAspect:</strong></dt>
  <dd>string, readonly. Indicates the aspect ratio in case of VideoFile.</dd>
- <dt><strong>video_container:</strong></dt>
+ <dt><strong>videoContainer:</strong></dt>
  <dd>string, readonly. Indicates the container in case of VideoFile.</dd>
- <dt><strong>audio_bitrate:</strong></dt>
+ <dt><strong>audioBitrate:</strong></dt>
  <dd>string, readonly. Indicates the bitrate in case of AudioFile or the first audio track in a VideoFile.</dd>
- <dt><strong>audio_codec:</strong></dt>
+ <dt><strong>audioCodec:</strong></dt>
  <dd>string, readonly. Indicates the codec in case of AudioFile or the first audio track in a VideoFile.</dd>
- <dt><strong>audio_sample_rate:</strong></dt>
+ <dt><strong>audioSampleRate:</strong></dt>
  <dd>string, readonly. Indicates the sample rate in case of AudioFile or the first audio track in a VideoFile.</dd>
  </dl>
 </p>
@@ -514,7 +514,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#album_artist">album_artist</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#albumArtist">albumArtist</a></td>
           <td class="jd-descrcol" width="100%">The Album artist.</td>
       </tr>
       
@@ -547,7 +547,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#audio_bitrate">audio_bitrate</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#audioBitrate">audioBitrate</a></td>
           <td class="jd-descrcol" width="100%">The Audio bitrate.</td>
       </tr>
       
@@ -558,7 +558,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#audio_codec">audio_codec</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#audioCodec">audioCodec</a></td>
           <td class="jd-descrcol" width="100%">The Audio codec.</td>
       </tr>
       
@@ -569,7 +569,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#audio_sample_rate">audio_sample_rate</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#audioSampleRate">audioSampleRate</a></td>
           <td class="jd-descrcol" width="100%">The Audio sample rate.</td>
       </tr>
       
@@ -602,7 +602,7 @@ Summary:
           
           
           int</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#disc_number">disc_number</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#discNumber">discNumber</a></td>
           <td class="jd-descrcol" width="100%">The Disc number.</td>
       </tr>
       
@@ -646,7 +646,7 @@ Summary:
           
           
           int</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#len_int">len_int</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#lenInt">lenInt</a></td>
           <td class="jd-descrcol" width="100%">The duration in seconds.</td>
       </tr>
       
@@ -657,7 +657,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#len_str">len_str</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#lenStr">lenStr</a></td>
           <td class="jd-descrcol" width="100%">The duration string formatted.</td>
       </tr>
       
@@ -690,7 +690,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#media_file_name">media_file_name</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#mediaFileName">mediaFileName</a></td>
           <td class="jd-descrcol" width="100%">The Media file name.</td>
       </tr>
       
@@ -723,7 +723,7 @@ Summary:
           
           
           int</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#release_year">release_year</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#releaseYear">releaseYear</a></td>
           <td class="jd-descrcol" width="100%">The Release year.</td>
       </tr>
       
@@ -734,7 +734,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#remote_path">remote_path</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#remotePath">remotePath</a></td>
           <td class="jd-descrcol" width="100%">The Remote path.</td>
       </tr>
       
@@ -745,7 +745,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#share_token">share_token</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#shareToken">shareToken</a></td>
           <td class="jd-descrcol" width="100%">The Share token.</td>
       </tr>
       
@@ -811,7 +811,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#video_aspect">video_aspect</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#videoAspect">videoAspect</a></td>
           <td class="jd-descrcol" width="100%">The Video aspect ratio.</td>
       </tr>
       
@@ -822,7 +822,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#video_bitrate">video_bitrate</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#videoBitrate">videoBitrate</a></td>
           <td class="jd-descrcol" width="100%">The Video bitrate.</td>
       </tr>
       
@@ -833,7 +833,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#video_codec">video_codec</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#videoCodec">videoCodec</a></td>
           <td class="jd-descrcol" width="100%">The Video codec.</td>
       </tr>
       
@@ -844,7 +844,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#video_container">video_container</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#videoContainer">videoContainer</a></td>
           <td class="jd-descrcol" width="100%">The Video container.</td>
       </tr>
       
@@ -855,7 +855,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#video_fps">video_fps</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#videoFps">videoFps</a></td>
           <td class="jd-descrcol" width="100%">The Video FPS.</td>
       </tr>
       
@@ -866,7 +866,7 @@ Summary:
           
           
           String</td>
-          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#video_resolution">video_resolution</a></td>
+          <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFile.html#videoResolution">videoResolution</a></td>
           <td class="jd-descrcol" width="100%">The Video resolution.</td>
       </tr>
       
@@ -1776,6 +1776,60 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setAudioBitrate(java.lang.String)">setAudioBitrate</a></span>(String audioBitrate)
+        
+        <div class="jd-descrdiv">Sets audio bitrate.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setAudioCodec(java.lang.String)">setAudioCodec</a></span>(String audioCodec)
+        
+        <div class="jd-descrdiv">Sets audio codec.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setAudioSampleRate(java.lang.String)">setAudioSampleRate</a></span>(String audioSampleRate)
+        
+        <div class="jd-descrdiv">Sets audio sample rate.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setComment(java.lang.String)">setComment</a></span>(String comment)
         
         <div class="jd-descrdiv">Sets comment.</div>
@@ -1784,7 +1838,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1802,7 +1856,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1815,6 +1869,24 @@ Summary:
         <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setDiscNumber(int)">setDiscNumber</a></span>(int discNumber)
         
         <div class="jd-descrdiv">Sets disc number.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setFilename(java.lang.String)">setFilename</a></span>(String filename)
+        
+        <div class="jd-descrdiv">Sets filename.</div>
   
   </td></tr>
 
@@ -1848,9 +1920,117 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setHash(java.lang.String)">setHash</a></span>(String hash)
+        
+        <div class="jd-descrdiv">Sets hash.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setLenInt(int)">setLenInt</a></span>(int lenInt)
+        
+        <div class="jd-descrdiv">Sets len int.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setLenStr(java.lang.String)">setLenStr</a></span>(String lenStr)
+        
+        <div class="jd-descrdiv">Sets length in string format</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setLoved(boolean)">setLoved</a></span>(boolean loved)
         
         <div class="jd-descrdiv">Sets loved.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setLyrics(java.lang.String)">setLyrics</a></span>(String lyrics)
+        
+        <div class="jd-descrdiv">Sets lyrics.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setMediaFileName(java.lang.String)">setMediaFileName</a></span>(String mediaFileName)
+        
+        <div class="jd-descrdiv">Sets media file name.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setMime(java.lang.String)">setMime</a></span>(String mime)
+        
+        <div class="jd-descrdiv">Sets mime.</div>
   
   </td></tr>
 
@@ -1902,9 +2082,225 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setRemotePath(java.lang.String)">setRemotePath</a></span>(String remotePath)
+        
+        <div class="jd-descrdiv">Sets remote path.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setShareToken(java.lang.String)">setShareToken</a></span>(String shareToken)
+        
+        <div class="jd-descrdiv">Sets share token.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setSize(long)">setSize</a></span>(long size)
+        
+        <div class="jd-descrdiv">Sets size.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setSource(java.lang.String)">setSource</a></span>(String source)
+        
+        <div class="jd-descrdiv">Sets source.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setTitle(java.lang.String)">setTitle</a></span>(String title)
         
         <div class="jd-descrdiv">Sets title.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setToken(java.lang.String)">setToken</a></span>(String token)
+        
+        <div class="jd-descrdiv">Sets token.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setType(java.lang.String)">setType</a></span>(String type)
+        
+        <div class="jd-descrdiv">Sets type.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setVideoAspect(java.lang.String)">setVideoAspect</a></span>(String videoAspect)
+        
+        <div class="jd-descrdiv">Sets video aspect.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setVideoBitrate(java.lang.String)">setVideoBitrate</a></span>(String videoBitrate)
+        
+        <div class="jd-descrdiv">Sets video bitrate.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setVideoCodec(java.lang.String)">setVideoCodec</a></span>(String videoCodec)
+        
+        <div class="jd-descrdiv">Sets video codec.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setVideoContainer(java.lang.String)">setVideoContainer</a></span>(String videoContainer)
+        
+        <div class="jd-descrdiv">Sets video container.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setVideoFps(java.lang.String)">setVideoFps</a></span>(String videoFps)
+        
+        <div class="jd-descrdiv">Sets video fps.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#setVideoResolution(java.lang.String)">setVideoResolution</a></span>(String videoResolution)
+        
+        <div class="jd-descrdiv">Sets video resolution.</div>
   
   </td></tr>
 
@@ -2306,7 +2702,7 @@ From class
 
 
 
-<a id="album_artist"></a>
+<a id="albumArtist"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2316,7 +2712,7 @@ From class
          
         String
       </span>
-        album_artist
+        albumArtist
     </h4>
       <div class="api-level">
         
@@ -2399,7 +2795,7 @@ From class
 
 
 
-<a id="audio_bitrate"></a>
+<a id="audioBitrate"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2409,7 +2805,7 @@ From class
          
         String
       </span>
-        audio_bitrate
+        audioBitrate
     </h4>
       <div class="api-level">
         
@@ -2430,7 +2826,7 @@ From class
 
 
 
-<a id="audio_codec"></a>
+<a id="audioCodec"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2440,7 +2836,7 @@ From class
          
         String
       </span>
-        audio_codec
+        audioCodec
     </h4>
       <div class="api-level">
         
@@ -2461,7 +2857,7 @@ From class
 
 
 
-<a id="audio_sample_rate"></a>
+<a id="audioSampleRate"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2471,7 +2867,7 @@ From class
          
         String
       </span>
-        audio_sample_rate
+        audioSampleRate
     </h4>
       <div class="api-level">
         
@@ -2554,7 +2950,7 @@ From class
 
 
 
-<a id="disc_number"></a>
+<a id="discNumber"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2564,7 +2960,7 @@ From class
          
         int
       </span>
-        disc_number
+        discNumber
     </h4>
       <div class="api-level">
         
@@ -2678,7 +3074,7 @@ From class
 
 
 
-<a id="len_int"></a>
+<a id="lenInt"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2688,7 +3084,7 @@ From class
          
         int
       </span>
-        len_int
+        lenInt
     </h4>
       <div class="api-level">
         
@@ -2709,7 +3105,7 @@ From class
 
 
 
-<a id="len_str"></a>
+<a id="lenStr"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2719,7 +3115,7 @@ From class
          
         String
       </span>
-        len_str
+        lenStr
     </h4>
       <div class="api-level">
         
@@ -2802,7 +3198,7 @@ From class
 
 
 
-<a id="media_file_name"></a>
+<a id="mediaFileName"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2812,7 +3208,7 @@ From class
          
         String
       </span>
-        media_file_name
+        mediaFileName
     </h4>
       <div class="api-level">
         
@@ -2895,7 +3291,7 @@ From class
 
 
 
-<a id="release_year"></a>
+<a id="releaseYear"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2905,7 +3301,7 @@ From class
          
         int
       </span>
-        release_year
+        releaseYear
     </h4>
       <div class="api-level">
         
@@ -2926,7 +3322,7 @@ From class
 
 
 
-<a id="remote_path"></a>
+<a id="remotePath"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2936,7 +3332,7 @@ From class
          
         String
       </span>
-        remote_path
+        remotePath
     </h4>
       <div class="api-level">
         
@@ -2957,7 +3353,7 @@ From class
 
 
 
-<a id="share_token"></a>
+<a id="shareToken"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2967,7 +3363,7 @@ From class
          
         String
       </span>
-        share_token
+        shareToken
     </h4>
       <div class="api-level">
         
@@ -3143,7 +3539,7 @@ From class
 
 
 
-<a id="video_aspect"></a>
+<a id="videoAspect"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3153,7 +3549,7 @@ From class
          
         String
       </span>
-        video_aspect
+        videoAspect
     </h4>
       <div class="api-level">
         
@@ -3174,7 +3570,7 @@ From class
 
 
 
-<a id="video_bitrate"></a>
+<a id="videoBitrate"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3184,7 +3580,7 @@ From class
          
         String
       </span>
-        video_bitrate
+        videoBitrate
     </h4>
       <div class="api-level">
         
@@ -3205,7 +3601,7 @@ From class
 
 
 
-<a id="video_codec"></a>
+<a id="videoCodec"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3215,7 +3611,7 @@ From class
          
         String
       </span>
-        video_codec
+        videoCodec
     </h4>
       <div class="api-level">
         
@@ -3236,7 +3632,7 @@ From class
 
 
 
-<a id="video_container"></a>
+<a id="videoContainer"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3246,7 +3642,7 @@ From class
          
         String
       </span>
-        video_container
+        videoContainer
     </h4>
       <div class="api-level">
         
@@ -3267,7 +3663,7 @@ From class
 
 
 
-<a id="video_fps"></a>
+<a id="videoFps"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3277,7 +3673,7 @@ From class
          
         String
       </span>
-        video_fps
+        videoFps
     </h4>
       <div class="api-level">
         
@@ -3298,7 +3694,7 @@ From class
 
 
 
-<a id="video_resolution"></a>
+<a id="videoResolution"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3308,7 +3704,7 @@ From class
          
         String
       </span>
-        video_resolution
+        videoResolution
     </h4>
       <div class="api-level">
         
@@ -3427,7 +3823,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
       </table>
   </div>
@@ -3444,13 +3841,13 @@ From class
         </tr>  
         <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -3493,17 +3890,20 @@ From class
         </tr>
         <tr>
           <th>out</th>
-          <td>the desired java.io.OutputStream where to store the downloaded data</td>
+          <td>the desired
+                 where to store the downloaded data</td>
         </tr>
         <tr>
           <th>listener</th>
-          <td>a <code><a href="../../../../fm/audiobox/core/net/NetworkProgressListener.html">NetworkProgressListener</a></code> for monitoring download progress</td>
+          <td>a
+                 for monitoring download progress</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the same given java.io.OutputStream instance with downloaded data</li></ul>
+      <ul class="nolist"><li>the same given
+ instance with downloaded data</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -3561,7 +3961,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the same given java.io.OutputStream instance with downloaded data</li></ul>
+      <ul class="nolist"><li>the same given
+ instance with downloaded data</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -4185,7 +4586,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
       </table>
   </div>
@@ -4202,13 +4604,13 @@ From class
         </tr>  
         <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -4934,7 +5336,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
         <tr>
           <th>token</th>
@@ -4954,18 +5357,14 @@ From class
             <td>if the requested media was not found on AudioBox.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
-            <td>if any of the remote error exception is detected.</td>
-        </tr>  
-        <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -5011,7 +5410,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
       </table>
   </div>
@@ -5028,13 +5428,13 @@ From class
         </tr>  
         <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -5073,7 +5473,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
       </table>
   </div>
@@ -5089,18 +5490,14 @@ From class
             <td>if the requested media was not found on AudioBox.</td>
         </tr>  
         <tr>
-            <th><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
-            <td>if any of the remote error exception is detected.</td>
-        </tr>  
-        <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -5143,7 +5540,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
       </table>
   </div>
@@ -5160,13 +5558,13 @@ From class
         </tr>  
         <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -5338,6 +5736,129 @@ From class
 </div>
 
 
+<a id="setAudioBitrate(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAudioBitrate</span>
+      <span class="normal">(String audioBitrate)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets audio bitrate.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>audioBitrate</th>
+          <td>the audio bitrate
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setAudioCodec(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAudioCodec</span>
+      <span class="normal">(String audioCodec)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets audio codec.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>audioCodec</th>
+          <td>the audio codec
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setAudioSampleRate(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAudioSampleRate</span>
+      <span class="normal">(String audioSampleRate)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets audio sample rate.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>audioSampleRate</th>
+          <td>the audio sample rate
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="setComment(java.lang.String)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -5461,6 +5982,47 @@ From class
 </div>
 
 
+<a id="setFilename(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setFilename</span>
+      <span class="normal">(String filename)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets filename.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>filename</th>
+          <td>the filename
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="setGenre(java.lang.String)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -5502,6 +6064,129 @@ From class
 </div>
 
 
+<a id="setHash(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setHash</span>
+      <span class="normal">(String hash)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets hash.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>hash</th>
+          <td>the hash
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setLenInt(int)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setLenInt</span>
+      <span class="normal">(int lenInt)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets len int.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>lenInt</th>
+          <td>the len int
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setLenStr(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setLenStr</span>
+      <span class="normal">(String lenStr)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets length in string format</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>lenStr</th>
+          <td>the media duration in string format
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="setLoved(boolean)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -5534,6 +6219,129 @@ From class
         <tr>
           <th>loved</th>
           <td>the loved
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setLyrics(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setLyrics</span>
+      <span class="normal">(String lyrics)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets lyrics.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>lyrics</th>
+          <td>the lyrics
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setMediaFileName(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setMediaFileName</span>
+      <span class="normal">(String mediaFileName)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets media file name.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>mediaFileName</th>
+          <td>the media file name
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setMime(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setMime</span>
+      <span class="normal">(String mime)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets mime.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>mime</th>
+          <td>the mime
 </td>
         </tr>
       </table>
@@ -5625,6 +6433,170 @@ From class
 </div>
 
 
+<a id="setRemotePath(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setRemotePath</span>
+      <span class="normal">(String remotePath)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets remote path.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>remotePath</th>
+          <td>the remote path
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setShareToken(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setShareToken</span>
+      <span class="normal">(String shareToken)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets share token.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>shareToken</th>
+          <td>the share token
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setSize(long)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setSize</span>
+      <span class="normal">(long size)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets size.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>size</th>
+          <td>the size
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setSource(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setSource</span>
+      <span class="normal">(String source)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets source.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>source</th>
+          <td>the source
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="setTitle(java.lang.String)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -5657,6 +6629,334 @@ From class
         <tr>
           <th>title</th>
           <td>the title
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setToken(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setToken</span>
+      <span class="normal">(String token)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets token.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>token</th>
+          <td>the token
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setType(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setType</span>
+      <span class="normal">(String type)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets type.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>type</th>
+          <td>the type
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setVideoAspect(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setVideoAspect</span>
+      <span class="normal">(String videoAspect)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets video aspect.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>videoAspect</th>
+          <td>the video aspect
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setVideoBitrate(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setVideoBitrate</span>
+      <span class="normal">(String videoBitrate)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets video bitrate.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>videoBitrate</th>
+          <td>the video bitrate
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setVideoCodec(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setVideoCodec</span>
+      <span class="normal">(String videoCodec)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets video codec.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>videoCodec</th>
+          <td>the video codec
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setVideoContainer(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setVideoContainer</span>
+      <span class="normal">(String videoContainer)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets video container.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>videoContainer</th>
+          <td>the video container
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setVideoFps(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setVideoFps</span>
+      <span class="normal">(String videoFps)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets video fps.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>videoFps</th>
+          <td>the video fps
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setVideoResolution(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setVideoResolution</span>
+      <span class="normal">(String videoResolution)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets video resolution.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>videoResolution</th>
+          <td>the video resolution
 </td>
         </tr>
       </table>
@@ -5701,7 +7001,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
       </table>
   </div>
@@ -5718,13 +7019,13 @@ From class
         </tr>  
         <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -5770,7 +7071,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
       </table>
   </div>
@@ -5787,13 +7089,13 @@ From class
         </tr>  
         <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -5832,7 +7134,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+          <td>the
+               to use for the request</td>
         </tr>
       </table>
   </div>
@@ -5849,13 +7152,13 @@ From class
         </tr>  
         <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 

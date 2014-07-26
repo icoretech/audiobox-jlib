@@ -61,38 +61,60 @@ public  java.lang.String getVideoContainer() { throw new RuntimeException("Stub!
 public  java.lang.String getAudioBitrate() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getAudioCodec() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getAudioSampleRate() { throw new RuntimeException("Stub!"); }
+public  void setType(java.lang.String type) { throw new RuntimeException("Stub!"); }
+public  void setToken(java.lang.String token) { throw new RuntimeException("Stub!"); }
+public  void setLenStr(java.lang.String lenStr) { throw new RuntimeException("Stub!"); }
+public  void setLenInt(int lenInt) { throw new RuntimeException("Stub!"); }
+public  void setFilename(java.lang.String filename) { throw new RuntimeException("Stub!"); }
+public  void setMediaFileName(java.lang.String mediaFileName) { throw new RuntimeException("Stub!"); }
+public  void setMime(java.lang.String mime) { throw new RuntimeException("Stub!"); }
+public  void setRemotePath(java.lang.String remotePath) { throw new RuntimeException("Stub!"); }
+public  void setSource(java.lang.String source) { throw new RuntimeException("Stub!"); }
+public  void setShareToken(java.lang.String shareToken) { throw new RuntimeException("Stub!"); }
+public  void setSize(long size) { throw new RuntimeException("Stub!"); }
+public  void setHash(java.lang.String hash) { throw new RuntimeException("Stub!"); }
+public  void setVideoBitrate(java.lang.String videoBitrate) { throw new RuntimeException("Stub!"); }
+public  void setVideoCodec(java.lang.String videoCodec) { throw new RuntimeException("Stub!"); }
+public  void setVideoResolution(java.lang.String videoResolution) { throw new RuntimeException("Stub!"); }
+public  void setVideoFps(java.lang.String videoFps) { throw new RuntimeException("Stub!"); }
+public  void setVideoAspect(java.lang.String videoAspect) { throw new RuntimeException("Stub!"); }
+public  void setVideoContainer(java.lang.String videoContainer) { throw new RuntimeException("Stub!"); }
+public  void setAudioBitrate(java.lang.String audioBitrate) { throw new RuntimeException("Stub!"); }
+public  void setAudioCodec(java.lang.String audioCodec) { throw new RuntimeException("Stub!"); }
+public  void setAudioSampleRate(java.lang.String audioSampleRate) { throw new RuntimeException("Stub!"); }
+public  void setLyrics(java.lang.String lyrics) { throw new RuntimeException("Stub!"); }
 protected java.lang.String type;
 protected java.lang.String token;
 protected java.lang.String artist;
 protected java.lang.String album;
 protected java.lang.String genre;
-protected int release_year;
+protected int releaseYear;
 protected java.lang.String title;
-protected java.lang.String len_str;
-protected int len_int;
+protected java.lang.String lenStr;
+protected int lenInt;
 protected int position;
 protected java.lang.String filename;
-protected java.lang.String media_file_name;
+protected java.lang.String mediaFileName;
 protected boolean loved;
-protected int disc_number;
+protected int discNumber;
 protected java.lang.String mime;
-protected java.lang.String remote_path;
+protected java.lang.String remotePath;
 protected java.lang.String source;
-protected java.lang.String share_token;
+protected java.lang.String shareToken;
 protected java.lang.String artwork;
 protected long size;
-protected java.lang.String album_artist;
+protected java.lang.String albumArtist;
 protected java.lang.String hash;
 protected java.lang.String composer;
 protected java.lang.String comment;
-protected java.lang.String video_bitrate;
-protected java.lang.String video_codec;
-protected java.lang.String video_resolution;
-protected java.lang.String video_fps;
-protected java.lang.String video_aspect;
-protected java.lang.String video_container;
-protected java.lang.String audio_bitrate;
-protected java.lang.String audio_codec;
-protected java.lang.String audio_sample_rate;
+protected java.lang.String videoBitrate;
+protected java.lang.String videoCodec;
+protected java.lang.String videoResolution;
+protected java.lang.String videoFps;
+protected java.lang.String videoAspect;
+protected java.lang.String videoContainer;
+protected java.lang.String audioBitrate;
+protected java.lang.String audioCodec;
+protected java.lang.String audioSampleRate;
 protected java.lang.String lyrics;
 }

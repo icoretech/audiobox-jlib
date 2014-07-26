@@ -34,6 +34,14 @@ public  fm.audiobox.core.models.Playlist setVisible(boolean visible) { throw new
 public  boolean isLastAccessed() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getUpdatedAt() { throw new RuntimeException("Stub!"); }
 public  boolean isSyncable() { throw new RuntimeException("Stub!"); }
+public  void setToken(java.lang.String token) { throw new RuntimeException("Stub!"); }
+public  void setSystemName(java.lang.String systemName) { throw new RuntimeException("Stub!"); }
+public  void setType(java.lang.String type) { throw new RuntimeException("Stub!"); }
+public  void setMediaFilesCount(long mediaFilesCount) { throw new RuntimeException("Stub!"); }
+public  void setOffline(boolean offline) { throw new RuntimeException("Stub!"); }
+public  void setLastAccessed(boolean lastAccessed) { throw new RuntimeException("Stub!"); }
+public  void setUpdatedAt(java.lang.String updatedAt) { throw new RuntimeException("Stub!"); }
+public  void setSyncable(boolean syncable) { throw new RuntimeException("Stub!"); }
 public final  boolean equals(java.lang.Object other) { throw new RuntimeException("Stub!"); }
 public final  int hashCode() { throw new RuntimeException("Stub!"); }
 }
