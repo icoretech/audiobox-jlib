@@ -20,7 +20,6 @@ package fm.audiobox.core.models;
 import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
-import com.google.api.client.util.IOUtils;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
@@ -59,19 +58,19 @@ import java.io.*;
  * <dd>string, readwrite. Album name, automatically set depending on the Cloud Drive in use if not set.</dd>
  * <dt><strong>genre:</strong></dt>
  * <dd>string, readwrite. Genre name, automatically set depending on the Cloud Drive in use if not set.</dd>
- * <dt><strong>release_year:</strong></dt>
+ * <dt><strong>releaseYear:</strong></dt>
  * <dd>integer, readwrite. Four integers, represents the year when the Media File has been released.</dd>
  * <dt><strong>title:</strong></dt>
  * <dd>string, readwrite. The title of this Media File.</dd>
- * <dt><strong>album_artist:</strong></dt>
+ * <dt><strong>albumArtist:</strong></dt>
  * <dd>string, readwrite. Album Artist name. Useful to differentiate between compilations.</dd>
  * <dt><strong>composer:</strong></dt>
  * <dd>string, readwrite. Composer name.</dd>
  * <dt><strong>comment:</strong></dt>
  * <dd>string, readwrite. Custom comment.</dd>
- * <dt><strong>len_str:</strong></dt>
+ * <dt><strong>lenlenStrtr:</strong></dt>
  * <dd>string, readonly. Formatted as "3:04" to ease display in views. Represents the duration of the media file.</dd>
- * <dt><strong>len_int:</strong></dt>
+ * <dt><strong>lenInt:</strong></dt>
  * <dd>integer, readonly. Represents the duration in seconds of the media file.</dd>
  * <dt><strong>position:</strong></dt>
  * <dd>integer, readwrite. Represents the position this Media File occupy in a collection/album (track's number).</dd>
@@ -79,15 +78,15 @@ import java.io.*;
  * <dd>string, readonly. File name indicating where the file has been stored on our systems.</dd>
  * <dt><strong>loved:</strong></dt>
  * <dd>boolean, readwrite. Indicates if this Media File is 'loved' by its owner or not. Default is false.</dd>
- * <dt><strong>disc_number:</strong></dt>
+ * <dt><strong>discNumber:</strong></dt>
  * <dd>integer, readwrite. Represents the number of the disc in a multi collection set.</dd>
  * <dt><strong>mime:</strong></dt>
  * <dd>string, readonly. Formatted such as "audio/mpeg", represents the recognized mime type for this file. This value can help some client to better recognize the type of file to be streamed.</dd>
- * <dt><strong>remote_path:</strong></dt>
+ * <dt><strong>remotePath:</strong></dt>
  * <dd>string, readonly. Used along with some Cloud Drives to help the platform identifying where this file is stored for retrieval.</dd>
  * <dt><strong>source:</strong></dt>
  * <dd>string, readonly. Represents where this Media File comes from. Possible values are: 'cloud', 'local', 'dropbox', 'skydrive', 'box', 'gdrive', 'youtube', 'soundcloud', 'ubuntu'.</dd>
- * <dt><strong>share_token:</strong></dt>
+ * <dt><strong>shareToken:</strong></dt>
  * <dd>string, readonly. Shared token across multiple Media Files with the same artist/album combo that builds up a Share URL, such as: http://audiobox.fm/share/cfa4b55e1736415b491147f041b95392.</dd>
  * <dt><strong>artwork:</strong></dt>
  * <dd>
@@ -99,23 +98,23 @@ import java.io.*;
  * <dd>integer, readonly. Physical size of the Media File, in bytes.</dd>
  * <dt><strong>hash:</strong></dt>
  * <dd>string, readonly. MD5 Hash of the Media File.</dd>
- * <dt><strong>video_bitrate:</strong></dt>
+ * <dt><strong>videoBitrate:</strong></dt>
  * <dd>string, readonly. Indicates the bitrate in case of VideoFile.</dd>
- * <dt><strong>video_codec:</strong></dt>
+ * <dt><strong>videoCodec:</strong></dt>
  * <dd>string, readonly. Indicates the codec in case of VideoFile.</dd>
- * <dt><strong>video_resolution:</strong></dt>
+ * <dt><strong>videoResolution:</strong></dt>
  * <dd>string, readonly. Indicates the resolution in case of VideoFile.</dd>
- * <dt><strong>video_fps:</strong></dt>
+ * <dt><strong>videoFps:</strong></dt>
  * <dd>string, readonly. Indicates the frame per second in case of VideoFile.</dd>
- * <dt><strong>video_aspect:</strong></dt>
+ * <dt><strong>videoAspect:</strong></dt>
  * <dd>string, readonly. Indicates the aspect ratio in case of VideoFile.</dd>
- * <dt><strong>video_container:</strong></dt>
+ * <dt><strong>videoContainer:</strong></dt>
  * <dd>string, readonly. Indicates the container in case of VideoFile.</dd>
- * <dt><strong>audio_bitrate:</strong></dt>
+ * <dt><strong>audioBitrate:</strong></dt>
  * <dd>string, readonly. Indicates the bitrate in case of AudioFile or the first audio track in a VideoFile.</dd>
- * <dt><strong>audio_codec:</strong></dt>
+ * <dt><strong>audioCodec:</strong></dt>
  * <dd>string, readonly. Indicates the codec in case of AudioFile or the first audio track in a VideoFile.</dd>
- * <dt><strong>audio_sample_rate:</strong></dt>
+ * <dt><strong>audioSampleRate:</strong></dt>
  * <dd>string, readonly. Indicates the sample rate in case of AudioFile or the first audio track in a VideoFile.</dd>
  * </dl>
  */
@@ -194,8 +193,8 @@ public class MediaFile extends Model {
   /**
    * The Release year.
    */
-  @Key
-  protected int release_year;
+  @Key( "release_year" )
+  protected int releaseYear;
 
   /**
    * The Title.
@@ -206,14 +205,14 @@ public class MediaFile extends Model {
   /**
    * The duration string formatted.
    */
-  @Key
-  protected String len_str;
+  @Key( "len_str" )
+  protected String lenStr;
 
   /**
    * The duration in seconds.
    */
-  @Key
-  protected int len_int;
+  @Key( "len_int" )
+  protected int lenInt;
 
   /**
    * The Position.
@@ -230,8 +229,8 @@ public class MediaFile extends Model {
   /**
    * The Media file name.
    */
-  @Key
-  protected String media_file_name; // Used when upload succeeds.
+  @Key( "media_file_name" )
+  protected String mediaFileName; // Used when upload succeeds.
 
   /**
    * The Loved.
@@ -242,8 +241,8 @@ public class MediaFile extends Model {
   /**
    * The Disc number.
    */
-  @Key
-  protected int disc_number;
+  @Key( "disc_number" )
+  protected int discNumber;
 
   /**
    * The Mime.
@@ -254,8 +253,8 @@ public class MediaFile extends Model {
   /**
    * The Remote path.
    */
-  @Key
-  protected String remote_path;
+  @Key( "remote_path" )
+  protected String remotePath;
 
   /**
    * The Source.
@@ -266,8 +265,8 @@ public class MediaFile extends Model {
   /**
    * The Share token.
    */
-  @Key
-  protected String share_token;
+  @Key( "share_token" )
+  protected String shareToken;
 
   /**
    * The Artwork.
@@ -284,8 +283,8 @@ public class MediaFile extends Model {
   /**
    * The Album artist.
    */
-  @Key
-  protected String album_artist;
+  @Key( "album_artist" )
+  protected String albumArtist;
 
   /**
    * The Hash.
@@ -308,56 +307,56 @@ public class MediaFile extends Model {
   /**
    * The Video bitrate.
    */
-  @Key
-  protected String video_bitrate;
+  @Key( "video_bitrate" )
+  protected String videoBitrate;
 
   /**
    * The Video codec.
    */
-  @Key
-  protected String video_codec;
+  @Key( "video_codec" )
+  protected String videoCodec;
 
   /**
    * The Video resolution.
    */
-  @Key
-  protected String video_resolution;
+  @Key( "video_resolution" )
+  protected String videoResolution;
 
   /**
    * The Video FPS.
    */
-  @Key
-  protected String video_fps;
+  @Key( "video_fps" )
+  protected String videoFps;
 
   /**
    * The Video aspect ratio.
    */
-  @Key
-  protected String video_aspect;
+  @Key( "video_aspect" )
+  protected String videoAspect;
 
   /**
    * The Video container.
    */
-  @Key
-  protected String video_container;
+  @Key( "video_container" )
+  protected String videoContainer;
 
   /**
    * The Audio bitrate.
    */
-  @Key
-  protected String audio_bitrate;
+  @Key( "audio_bitrate" )
+  protected String audioBitrate;
 
   /**
    * The Audio codec.
    */
-  @Key
-  protected String audio_codec;
+  @Key( "audio_codec" )
+  protected String audioCodec;
 
   /**
    * The Audio sample rate.
    */
-  @Key
-  protected String audio_sample_rate;
+  @Key( "audio_sample_rate" )
+  protected String audioSampleRate;
 
   /**
    * The Lyrics.
@@ -371,7 +370,7 @@ public class MediaFile extends Model {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings("unused")
+  @SuppressWarnings( "unused" )
   public MediaFile() {
   }
 
@@ -409,15 +408,14 @@ public class MediaFile extends Model {
   /**
    * Load a single media file.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    * @param token  the token that uniquely identify the media file
    *
    * @return the requested media file
    *
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
-   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
-   * @throws java.io.IOException                                   if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public static MediaFile load(Client client, String token) throws IOException {
     HttpResponse rsp = client.doGET( ModelUtil.interpolate( PATH, token ) );
@@ -428,14 +426,13 @@ public class MediaFile extends Model {
   /**
    * (Re)load a new instance of the same media file.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    *
    * @return the requested media file
    *
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
-   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
-   * @throws java.io.IOException                                   if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public MediaFile reload(Client client) throws IOException {
     return MediaFile.load( client, getToken() );
@@ -448,7 +445,8 @@ public class MediaFile extends Model {
    * @param client the client
    * @param out    the out
    *
-   * @return the same given {@link java.io.OutputStream} instance with downloaded data
+   * @return the same given
+   * instance with downloaded data
    *
    * @throws IOException if any network communication or IO occurs
    */
@@ -461,10 +459,13 @@ public class MediaFile extends Model {
    * Downloads the media to specified {@link java.io.OutputStream}
    *
    * @param client   the to use for the request
-   * @param out      the desired {@link java.io.OutputStream} where to store the downloaded data
-   * @param listener a {@link fm.audiobox.core.net.NetworkProgressListener} for monitoring download progress
+   * @param out      the desired
+   *                 where to store the downloaded data
+   * @param listener a
+   *                 for monitoring download progress
    *
-   * @return the same given {@link java.io.OutputStream} instance with downloaded data
+   * @return the same given
+   * instance with downloaded data
    *
    * @throws IOException if any network communication or IO occurs
    */
@@ -478,13 +479,13 @@ public class MediaFile extends Model {
   /**
    * Handle a single media file update.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    *
    * @return the media file in order to chain other calls.
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public MediaFile update(Client client) throws IOException {
     client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
@@ -504,13 +505,13 @@ public class MediaFile extends Model {
    * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
    * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    *
    * @return true if the operation succeeds.
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public boolean destroy(Client client) throws IOException {
     HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
@@ -525,13 +526,13 @@ public class MediaFile extends Model {
    * <p/>
    * Triggers different actions in the system, such as Scrobbling to Last.fm and much more.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    *
    * @return the media file in order to chain other calls.
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public MediaFile scrobble(Client client) throws IOException {
     client.doPOST( ModelUtil.interpolate( SCROBBLE_PATH, getToken() ) );
@@ -542,13 +543,13 @@ public class MediaFile extends Model {
   /**
    * Loads the media file lyrics from AudioBox.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    *
    * @return the lyrics or null
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public String getLyrics(Client client) throws IOException {
 
@@ -574,13 +575,13 @@ public class MediaFile extends Model {
    * <p/>
    * Last.fm will see a track as loved, Facebook as liked, Google Drive as starred, and so on.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    *
    * @return the media file in order to chain other calls.
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public MediaFile love(Client client) throws IOException {
     setPreferred( client, LOVE_PATH );
@@ -599,13 +600,13 @@ public class MediaFile extends Model {
    * <p/>
    * Last.fm will see a track as unloved, Facebook as unliked, Google Drive as not starred, and so on.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    *
    * @return the media file in order to chain other calls.
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public MediaFile unlove(Client client) throws IOException {
     setPreferred( client, UNLOVE_PATH );
@@ -621,13 +622,13 @@ public class MediaFile extends Model {
    * <p/>
    * Preserve all the features of the love and unlove endpoints.
    *
-   * @param client the {@link Client} to use for the request
+   * @param client the
+   *               to use for the request
    *
    * @return the media file in order to chain other calls.
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public MediaFile toggleLove(Client client) throws IOException {
     setPreferred( client, TOGGLE_LOVE_PATH );
@@ -722,7 +723,7 @@ public class MediaFile extends Model {
    * @return the release year
    */
   public int getReleaseYear() {
-    return this.release_year;
+    return this.releaseYear;
   }
 
 
@@ -732,7 +733,7 @@ public class MediaFile extends Model {
    * @param releaseYear the release year
    */
   public void setReleaseYear(int releaseYear) {
-    this.release_year = releaseYear;
+    this.releaseYear = releaseYear;
   }
 
 
@@ -762,7 +763,7 @@ public class MediaFile extends Model {
    * @return the len str
    */
   public String getLenStr() {
-    return this.len_str;
+    return this.lenStr;
   }
 
 
@@ -772,7 +773,7 @@ public class MediaFile extends Model {
    * @return the len int
    */
   public int getLenInt() {
-    return this.len_int;
+    return this.lenInt;
   }
 
 
@@ -802,7 +803,7 @@ public class MediaFile extends Model {
    * @return the filename
    */
   public String getFilename() {
-    return this.filename == null ? this.media_file_name : this.filename;
+    return this.filename == null ? this.mediaFileName : this.filename;
   }
 
 
@@ -832,7 +833,7 @@ public class MediaFile extends Model {
    * @return the disc number
    */
   public int getDiscNumber() {
-    return this.disc_number;
+    return this.discNumber;
   }
 
 
@@ -842,7 +843,7 @@ public class MediaFile extends Model {
    * @param discNumber the disc number
    */
   public void setDiscNumber(int discNumber) {
-    this.disc_number = discNumber;
+    this.discNumber = discNumber;
   }
 
 
@@ -863,7 +864,7 @@ public class MediaFile extends Model {
    * @return the remote path
    */
   public String getRemotePath() {
-    return this.remote_path;
+    return this.remotePath;
   }
 
 
@@ -885,7 +886,7 @@ public class MediaFile extends Model {
    * @return the share token
    */
   public String getShareToken() {
-    return this.share_token;
+    return this.shareToken;
   }
 
 
@@ -925,7 +926,7 @@ public class MediaFile extends Model {
    * @return the album artist
    */
   public String getAlbumArtist() {
-    return this.album_artist;
+    return this.albumArtist;
   }
 
 
@@ -935,7 +936,7 @@ public class MediaFile extends Model {
    * @param albumArtist the album artist
    */
   public void setAlbumArtist(String albumArtist) {
-    this.album_artist = albumArtist;
+    this.albumArtist = albumArtist;
   }
 
 
@@ -995,7 +996,7 @@ public class MediaFile extends Model {
    * @return the video bitrate
    */
   public String getVideoBitrate() {
-    return this.video_bitrate;
+    return this.videoBitrate;
   }
 
 
@@ -1005,7 +1006,7 @@ public class MediaFile extends Model {
    * @return the video codec
    */
   public String getVideoCodec() {
-    return this.video_codec;
+    return this.videoCodec;
   }
 
 
@@ -1015,7 +1016,7 @@ public class MediaFile extends Model {
    * @return the video resolution
    */
   public String getVideoResolution() {
-    return this.video_resolution;
+    return this.videoResolution;
   }
 
 
@@ -1025,7 +1026,7 @@ public class MediaFile extends Model {
    * @return the video fps
    */
   public String getVideoFps() {
-    return this.video_fps;
+    return this.videoFps;
   }
 
 
@@ -1035,7 +1036,7 @@ public class MediaFile extends Model {
    * @return the video aspect
    */
   public String getVideoAspect() {
-    return this.video_aspect;
+    return this.videoAspect;
   }
 
 
@@ -1045,7 +1046,7 @@ public class MediaFile extends Model {
    * @return the video container
    */
   public String getVideoContainer() {
-    return this.video_container;
+    return this.videoContainer;
   }
 
 
@@ -1055,7 +1056,7 @@ public class MediaFile extends Model {
    * @return the audio bitrate
    */
   public String getAudioBitrate() {
-    return this.audio_bitrate;
+    return this.audioBitrate;
   }
 
 
@@ -1065,7 +1066,7 @@ public class MediaFile extends Model {
    * @return the audio codec
    */
   public String getAudioCodec() {
-    return this.audio_codec;
+    return this.audioCodec;
   }
 
 
@@ -1075,11 +1076,231 @@ public class MediaFile extends Model {
    * @return the audio sample rate
    */
   public String getAudioSampleRate() {
-    return this.audio_sample_rate;
+    return this.audioSampleRate;
   }
 
 
-  /* =============== */
+  /**
+   * Sets type.
+   *
+   * @param type the type
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
+
+
+  /**
+   * Sets token.
+   *
+   * @param token the token
+   */
+  public void setToken(String token) {
+    this.token = token;
+  }
+
+
+  /**
+   * Sets length in string format
+   *
+   * @param lenStr the media duration in string format
+   */
+  public void setLenStr(String lenStr) {
+    this.lenStr = lenStr;
+  }
+
+
+  /**
+   * Sets len int.
+   *
+   * @param lenInt the len int
+   */
+  public void setLenInt(int lenInt) {
+    this.lenInt = lenInt;
+  }
+
+
+  /**
+   * Sets filename.
+   *
+   * @param filename the filename
+   */
+  public void setFilename(String filename) {
+    this.filename = filename;
+  }
+
+
+  /**
+   * Sets media file name.
+   *
+   * @param mediaFileName the media file name
+   */
+  public void setMediaFileName(String mediaFileName) {
+    this.mediaFileName = mediaFileName;
+  }
+
+
+  /**
+   * Sets mime.
+   *
+   * @param mime the mime
+   */
+  public void setMime(String mime) {
+    this.mime = mime;
+  }
+
+
+  /**
+   * Sets remote path.
+   *
+   * @param remotePath the remote path
+   */
+  public void setRemotePath(String remotePath) {
+    this.remotePath = remotePath;
+  }
+
+
+  /**
+   * Sets source.
+   *
+   * @param source the source
+   */
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+
+  /**
+   * Sets share token.
+   *
+   * @param shareToken the share token
+   */
+  public void setShareToken(String shareToken) {
+    this.shareToken = shareToken;
+  }
+
+
+  /**
+   * Sets size.
+   *
+   * @param size the size
+   */
+  public void setSize(long size) {
+    this.size = size;
+  }
+
+
+  /**
+   * Sets hash.
+   *
+   * @param hash the hash
+   */
+  public void setHash(String hash) {
+    this.hash = hash;
+  }
+
+
+  /**
+   * Sets video bitrate.
+   *
+   * @param videoBitrate the video bitrate
+   */
+  public void setVideoBitrate(String videoBitrate) {
+    this.videoBitrate = videoBitrate;
+  }
+
+
+  /**
+   * Sets video codec.
+   *
+   * @param videoCodec the video codec
+   */
+  public void setVideoCodec(String videoCodec) {
+    this.videoCodec = videoCodec;
+  }
+
+
+  /**
+   * Sets video resolution.
+   *
+   * @param videoResolution the video resolution
+   */
+  public void setVideoResolution(String videoResolution) {
+    this.videoResolution = videoResolution;
+  }
+
+
+  /**
+   * Sets video fps.
+   *
+   * @param videoFps the video fps
+   */
+  public void setVideoFps(String videoFps) {
+    this.videoFps = videoFps;
+  }
+
+
+  /**
+   * Sets video aspect.
+   *
+   * @param videoAspect the video aspect
+   */
+  public void setVideoAspect(String videoAspect) {
+    this.videoAspect = videoAspect;
+  }
+
+
+  /**
+   * Sets video container.
+   *
+   * @param videoContainer the video container
+   */
+  public void setVideoContainer(String videoContainer) {
+    this.videoContainer = videoContainer;
+  }
+
+
+  /**
+   * Sets audio bitrate.
+   *
+   * @param audioBitrate the audio bitrate
+   */
+  public void setAudioBitrate(String audioBitrate) {
+    this.audioBitrate = audioBitrate;
+  }
+
+
+  /**
+   * Sets audio codec.
+   *
+   * @param audioCodec the audio codec
+   */
+  public void setAudioCodec(String audioCodec) {
+    this.audioCodec = audioCodec;
+  }
+
+
+  /**
+   * Sets audio sample rate.
+   *
+   * @param audioSampleRate the audio sample rate
+   */
+  public void setAudioSampleRate(String audioSampleRate) {
+    this.audioSampleRate = audioSampleRate;
+  }
+
+
+  /**
+   * Sets lyrics.
+   *
+   * @param lyrics the lyrics
+   */
+  public void setLyrics(String lyrics) {
+    this.lyrics = lyrics;
+  }
+
+
+/* =============== */
   /* Private methods */
   /* =============== */
 

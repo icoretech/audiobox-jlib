@@ -25,6 +25,29 @@ import com.google.api.client.util.Key;
  */
 public class ExternalTokens extends Model {
 
+  public static final String DROPBOX = "dropbox";
+
+  public static final String GDRIVE = "gdrive";
+
+  public static final String SKYDRIVE = "skydrive";
+
+  public static final String SOUNDCLOUD = "soundcloud";
+
+  public static final String YOUTUBE = "youtube";
+
+  public static final String BOX = "box";
+
+  public static final String LASTFM = "lastfm";
+
+  public static final String TWITCHTV = "twitchtv";
+
+  public static final String FACEBOOK = "facebook";
+
+  public static final String TWITTER = "twitter";
+
+  public static final String UBUNTU = "ubuntu";
+
+
   @Key
   private boolean dropbox;
 

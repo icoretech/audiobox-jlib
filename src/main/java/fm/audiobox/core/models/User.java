@@ -75,6 +75,36 @@ import java.io.IOException;
  */
 public class User extends Model {
 
+
+  public static final String REAL_NAME = "real_name";
+
+  public static final String TIME_ZONE = "time_zone";
+
+  public static final String ACCEPTED_EXTENSIONS = "accepted_extensions";
+
+  public static final String ACCEPTED_FORMATS = "accepted_formats";
+
+  public static final String COUNTRY = "country";
+
+  public static final String PLAYLISTS_COUNT = "playlists_count";
+
+  public static final String TOTAL_PLAY_COUNT = "total_play_count";
+
+  public static final String MEDIA_FILES_COUNT = "media_files_count";
+
+  public static final String SUBSCRIPTION_STATE = "subscription_state";
+
+  public static final String COMET_CHANNEL = "comet_channel";
+
+  public static final String PLAN = "plan";
+
+  public static final String CREATED_AT = "created_at";
+
+  public static final String UPDATED_AT = "updated_at";
+
+  public static final String OFFLINE_PLAYLIST = "offline_playlist";
+
+
   @Key
   private long id;
 
@@ -382,7 +412,7 @@ public class User extends Model {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean savePreferences(Client client) throws IOException {
-    client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), new UserWrapper(this)) );
+    client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), new UserWrapper( this ) ) );
     return true;
   }
 

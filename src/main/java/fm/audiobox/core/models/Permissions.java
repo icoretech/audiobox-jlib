@@ -31,6 +31,39 @@ import com.google.api.client.util.Key;
  */
 public class Permissions extends Model {
 
+  public static final String PLAYER = "player";
+
+  public static final String LOCAL = "local";
+
+  public static final String CLOUD = "cloud";
+
+  public static final String DROPBOX = "dropbox";
+
+  public static final String GDRIVE = "gdrive";
+
+  public static final String SKYDRIVE = "skydrive";
+
+  public static final String SOUNDCLOUD = "soundcloud";
+
+  public static final String YOUTUBE = "youtube";
+
+  public static final String BOX = "box";
+
+  public static final String LASTFM = "lastfm";
+
+  public static final String TWITCHTV = "twitchtv";
+
+  public static final String FACEBOOK = "facebook";
+
+  public static final String TWITTER = "twitter";
+
+  public static final String LYRICS = "lyrics";
+
+  public static final String SONGKICK = "songkick";
+
+  public static final String UBUNTU = "ubuntu";
+
+
   @Key
   private boolean player;
 

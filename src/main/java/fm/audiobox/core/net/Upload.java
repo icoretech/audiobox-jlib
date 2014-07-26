@@ -151,7 +151,7 @@ public class Upload {
       HttpContent pathContent = new PlainTextContent( file.getAbsolutePath() );
 
       MultipartFormDataContent multipart = new MultipartFormDataContent();
-      multipart.addPart( new MultipartContent.Part( pathContent ), "remote_path", null );
+      multipart.addPart( new MultipartContent.Part( pathContent ), "remotePath", null );
       multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
 
       HttpResponse rsp = client.doRequestToChannel( HttpMethods.POST, UPLOAD_PATH, multipart, null, Configuration.Channels.upload );

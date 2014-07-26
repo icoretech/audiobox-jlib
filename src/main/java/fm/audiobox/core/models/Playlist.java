@@ -125,14 +125,14 @@ public class Playlist extends Model {
   @Key
   private String name;
 
-  @Key
-  private String system_name;
+  @Key("system_name")
+  private String systemName;
 
   @Key
   private String type;
 
-  @Key
-  private long media_files_count;
+  @Key("media_files_count")
+  private long mediaFilesCount;
 
   @Key
   private long position;
@@ -146,11 +146,11 @@ public class Playlist extends Model {
   @Key
   private boolean visible;
 
-  @Key
-  private boolean last_accessed;
+  @Key("last_accessed")
+  private boolean lastAccessed;
 
-  @Key
-  private String updated_at;
+  @Key("updated_at")
+  private String updatedAt;
 
   @Key
   private boolean syncable;
@@ -603,7 +603,7 @@ public class Playlist extends Model {
    * @return the system name
    */
   public String getSystemName() {
-    return this.system_name;
+    return this.systemName;
   }
 
 
@@ -623,7 +623,7 @@ public class Playlist extends Model {
    * @return the media files count
    */
   public long getMediaFilesCount() {
-    return this.media_files_count;
+    return this.mediaFilesCount;
   }
 
 
@@ -709,7 +709,7 @@ public class Playlist extends Model {
    * @return true if this was the last accessed playlist
    */
   public boolean isLastAccessed() {
-    return this.last_accessed;
+    return this.lastAccessed;
   }
 
 
@@ -722,7 +722,7 @@ public class Playlist extends Model {
    * @return the UTC String of the last update on this playlist
    */
   public String getUpdatedAt() {
-    return this.updated_at;
+    return this.updatedAt;
   }
 
 
@@ -733,6 +733,86 @@ public class Playlist extends Model {
    */
   public boolean isSyncable() {
     return this.syncable;
+  }
+
+
+  /**
+   * Sets token.
+   *
+   * @param token the token
+   */
+  public void setToken(String token) {
+    this.token = token;
+  }
+
+
+  /**
+   * Sets system name.
+   *
+   * @param systemName the system name
+   */
+  public void setSystemName(String systemName) {
+    this.systemName = systemName;
+  }
+
+
+  /**
+   * Sets type.
+   *
+   * @param type the type
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
+
+
+  /**
+   * Sets media files count.
+   *
+   * @param mediaFilesCount the media files count
+   */
+  public void setMediaFilesCount(long mediaFilesCount) {
+    this.mediaFilesCount = mediaFilesCount;
+  }
+
+
+  /**
+   * Sets offline.
+   *
+   * @param offline the offline
+   */
+  public void setOffline(boolean offline) {
+    this.offline = offline;
+  }
+
+
+  /**
+   * Sets as last accessed.
+   *
+   * @param lastAccessed true if the playlist was the last accessed.
+   */
+  public void setLastAccessed(boolean lastAccessed) {
+    this.lastAccessed = lastAccessed;
+  }
+
+
+  /**
+   * Sets updated at.
+   *
+   * @param updatedAt last time updated
+   */
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+
+  /**
+   * Sets syncable.
+   *
+   * @param syncable the syncable
+   */
+  public void setSyncable(boolean syncable) {
+    this.syncable = syncable;
   }
 
 
@@ -751,8 +831,8 @@ public class Playlist extends Model {
       eq = o.getToken() == null;
     }
 
-    if ( this.updated_at != null ) {
-      eq = eq && this.updated_at.equals( o.getUpdatedAt() );
+    if ( this.updatedAt != null ) {
+      eq = eq && this.updatedAt.equals( o.getUpdatedAt() );
     } else {
       eq = o.getUpdatedAt() == null;
     }
@@ -768,8 +848,8 @@ public class Playlist extends Model {
 
     if ( this.token != null )
       hashCode = hashCode * 37 + this.token.hashCode();
-    if ( this.updated_at != null )
-      hashCode = hashCode * 37 + this.updated_at.hashCode();
+    if ( this.updatedAt != null )
+      hashCode = hashCode * 37 + this.updatedAt.hashCode();
 
     return hashCode;
   }
