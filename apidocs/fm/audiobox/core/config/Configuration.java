@@ -34,6 +34,7 @@ public  fm.audiobox.core.store.CredentialDataStore getCredentialDataStore() { th
 public  com.google.api.client.auth.oauth2.CredentialRefreshListener getRefreshListener() { throw new RuntimeException("Stub!"); }
 public  com.typesafe.config.Config getEnvironmentConfiguration(fm.audiobox.core.config.Configuration.Env environment) { throw new RuntimeException("Stub!"); }
 public  java.lang.String getEnvBaseUrl(fm.audiobox.core.config.Configuration.Channels channel) { throw new RuntimeException("Stub!"); }
+public  java.lang.String getEnvHost(fm.audiobox.core.config.Configuration.Channels channel) { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.GenericUrl getEnvTokenUrl() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getApiKey() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getApiSecret() { throw new RuntimeException("Stub!"); }

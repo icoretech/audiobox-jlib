@@ -570,6 +570,19 @@
 <parameter name="channel" type="fm.audiobox.core.config.Configuration.Channels">
 </parameter>
 </method>
+<method name="getEnvHost"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="channel" type="fm.audiobox.core.config.Configuration.Channels">
+</parameter>
+</method>
 <method name="getEnvTokenUrl"
  return="com.google.api.client.http.GenericUrl"
  abstract="false"
