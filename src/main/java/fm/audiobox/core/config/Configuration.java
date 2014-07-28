@@ -463,10 +463,23 @@ public class Configuration {
     Config envConf = getEnvironmentConfiguration( getEnvironment() );
 
     String protocol = envConf.getString( channel + ".protocol" );
-    String host = envConf.getString( channel + ".host" );
+    String host = getEnvHost( channel );
     String port = envConf.getString( channel + ".port" );
 
     return protocol + "://" + host + ":" + port;
+  }
+
+
+  /**
+   * Gets Env base hostname
+   *
+   * @param channel the channel to query
+   *
+   * @return the Env based host channel
+   */
+  public String getEnvHost(Channels channel) {
+    Config envConf = getEnvironmentConfiguration( getEnvironment() );
+    return envConf.getString( channel + ".host" );
   }
 
 
