@@ -50,5 +50,5 @@ public  java.lang.String getUserAgent() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getApplicationName() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getVersion() { throw new RuntimeException("Stub!"); }
 public synchronized  fm.audiobox.core.exceptions.ExceptionHandler getExceptionHandler() { throw new RuntimeException("Stub!"); }
-public  void checkConfiguration() throws javax.naming.ConfigurationException { throw new RuntimeException("Stub!"); }
+public  void checkConfiguration() throws fm.audiobox.core.config.ConfigurationException { throw new RuntimeException("Stub!"); }
 }

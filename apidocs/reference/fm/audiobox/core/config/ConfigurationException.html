@@ -58,7 +58,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico" />
 <title>
 
-  Configuration.Env
+  ConfigurationException
 
 
 </title>
@@ -181,13 +181,13 @@
     <li><h2>Enums</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a></li>
-          <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a></li>
       </ul>
     </li>
               
     <li><h2>Exceptions</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/config/ConfigurationException.html">ConfigurationException</a></li>
+          <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/config/ConfigurationException.html">ConfigurationException</a></li>
       </ul>
     </li>
               
@@ -229,6 +229,11 @@
 
 
   
+  
+  
+  
+
+  
    
   
   
@@ -242,13 +247,6 @@
   
   
 
-  
-  
-  
-  
-
-  
-   
   
   
   
@@ -263,18 +261,15 @@ Summary:
 
 
 
-  <a href="#enumconstants">Enums</a>
+
+
+
+
+
+  <a href="#pubctors">Ctors</a>
   
 
 
-
-
-
-
-
-
-  &#124; <a href="#pubmethods">Methods</a>
-  
 
 
 
@@ -298,11 +293,11 @@ Summary:
 
 <div id="jd-header">
     public
-    static 
-    final 
+     
+     
     
-    enum
-<h1>Configuration.Env</h1>
+    class
+<h1>ConfigurationException</h1>
 
 
 
@@ -311,7 +306,11 @@ Summary:
   
 
   
-    extends Enum&lt;E&nbsp;extends&nbsp;Enum&lt;E&gt;&gt;<br/>
+  
+  
+
+  
+    extends Exception<br/>
   
   
   
@@ -331,7 +330,7 @@ Summary:
 
     <tr>
          	
-        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="4" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -339,7 +338,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Enum&lt;E&nbsp;extends&nbsp;java.lang.Enum&lt;E&gt;&gt;</td>
+        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Throwable</td>
     </tr>
     
 
@@ -349,7 +348,19 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.config.Configuration.Env</td>
+        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Exception</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+         	
+        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.config.ConfigurationException</td>
     </tr>
     
 
@@ -365,7 +376,10 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>AudioBox environments.
+<p>This exception is thrown when there is a configuration problem.
+ This can arise if there are configuration problems with the
+ client, or if configuration information required to access
+ AudioBox is malformed or missing.
 </p>
 
 
@@ -404,32 +418,6 @@ Summary:
 
 
 
-<!-- =========== ENUM CONSTANT SUMMARY =========== -->
-<table id="enumconstants" class="jd-sumtable"><tr><th colspan="12">Enum Values</th></tr>
-
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>&nbsp;</td>
-        <td class="jd-linkcol">development&nbsp;</td>
-        <td class="jd-descrcol" width="100%">The test and the development environment.&nbsp;</td>
-    </tr>
-    
-    
-    <tr class=" api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>&nbsp;</td>
-        <td class="jd-linkcol">production&nbsp;</td>
-        <td class="jd-descrcol" width="100%">The AudioBox production environment, use this as default or in release builds.&nbsp;</td>
-    </tr>
-    
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>&nbsp;</td>
-        <td class="jd-linkcol">staging&nbsp;</td>
-        <td class="jd-descrcol" width="100%">The environment to use for experimental features and future APIs.&nbsp;</td>
-    </tr>
-    
-    
-</table>
 
 
 
@@ -442,14 +430,8 @@ Summary:
 
 
 
-
-
-
-
-
-
-<!-- ========== METHOD SUMMARY =========== -->
-<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<table id="pubctors" class="jd-sumtable"><tr><th colspan="12">Public Constructors</th></tr>
 
 
 
@@ -459,34 +441,25 @@ Summary:
             
             
             
-            static
             
-            <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
+            
+            
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html#valueOf(java.lang.String)">valueOf</a></span>(String name)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/ConfigurationException.html#ConfigurationException(java.lang.String)">ConfigurationException</a></span>(String explanation)
         
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            final
-            static
-            
-            <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Env[]</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.Env.html#values()">values</a></span>()
-        
+        <div class="jd-descrdiv">Constructs a new instance of ConfigurationException using an
+ explanation.</div>
+  
   </td></tr>
 
 
 
 </table>
+
+
+
+
 
 
 
@@ -500,21 +473,23 @@ Summary:
   <div style="clear:left;">Inherited Methods</div></th></tr>
 
 
+
+
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Enum" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-java.lang.Enum-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Throwable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-java.lang.Throwable-trigger"
           src="../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From class
 
-  java.lang.Enum
+  java.lang.Throwable
 
-<div id="inherited-methods-java.lang.Enum">
-  <div id="inherited-methods-java.lang.Enum-list"
+<div id="inherited-methods-java.lang.Throwable">
+  <div id="inherited-methods-java.lang.Throwable-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-java.lang.Enum-summary" style="display: none;">
+  <div id="inherited-methods-java.lang.Throwable-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -523,78 +498,14 @@ From class
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
-            
-            final
-            
-            
-            Object
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad">clone</span>()
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            int
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad">compareTo</span>(Object arg0)
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            final
-            
-            
-            int
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad">compareTo</span>(E arg0)
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            final
-            
-            
-            boolean
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad">equals</span>(Object arg0)
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
+            synchronized
             final
             
             
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">finalize</span>()
+        <span class="sympad">addSuppressed</span>(Throwable arg0)
         
   </td></tr>
 
@@ -603,14 +514,14 @@ From class
     <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
+            synchronized
             
-            final
             
             
-            Class&lt;E&gt;
+            Throwable
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">getDeclaringClass</span>()
+        <span class="sympad">fillInStackTrace</span>()
         
   </td></tr>
 
@@ -619,14 +530,14 @@ From class
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
+            synchronized
             
-            final
             
             
-            int
+            Throwable
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">hashCode</span>()
+        <span class="sympad">getCause</span>()
         
   </td></tr>
 
@@ -636,13 +547,13 @@ From class
         <td class="jd-typecol">
             
             
-            final
+            
             
             
             String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">name</span>()
+        <span class="sympad">getLocalizedMessage</span>()
         
   </td></tr>
 
@@ -652,19 +563,131 @@ From class
         <td class="jd-typecol">
             
             
-            final
             
             
-            int
+            
+            String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad">ordinal</span>()
+        <span class="sympad">getMessage</span>()
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            StackTraceElement[]
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">getStackTrace</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            final
+            
+            
+            Throwable[]
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">getSuppressed</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            Throwable
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">initCause</span>(Throwable arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">printStackTrace</span>(PrintStream arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">printStackTrace</span>(PrintWriter arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">printStackTrace</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">setStackTrace</span>(StackTraceElement[] arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -675,22 +698,6 @@ From class
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad">toString</span>()
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            static
-            &lt;T&nbsp;extends&nbsp;Enum&lt;T&gt;&gt;
-            T
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad">valueOf</span>(Class&lt;T&gt; arg0, String arg1)
         
   </td></tr>
 
@@ -905,48 +912,6 @@ From class
 
 
 
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Comparable" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-java.lang.Comparable-trigger"
-          src="../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  java.lang.Comparable
-
-<div id="inherited-methods-java.lang.Comparable">
-  <div id="inherited-methods-java.lang.Comparable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-java.lang.Comparable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            abstract
-            
-            
-            
-            
-            int
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad">compareTo</span>(T arg0)
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
 </table>
 
 
@@ -967,106 +932,6 @@ From interface
 <!-- Enum Values -->
 
 
-<!-- ========= ENUM CONSTANTS DETAIL ======== -->
-<h2>Enum Values</h2>
-
-
-
-
-<a id="development"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
-      </span>
-        development
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The test and the development environment.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<a id="production"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
-      </span>
-        production
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The AudioBox production environment, use this as default or in release builds.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<a id="staging"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
-      </span>
-        staging
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The environment to use for experimental features and future APIs.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-
 <!-- Constants -->
 
 
@@ -1074,6 +939,59 @@ From interface
 
 
 <!-- Public ctors -->
+
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<h2>Public Constructors</h2>
+
+
+
+<a id="ConfigurationException(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        
+      </span>
+      <span class="sympad">ConfigurationException</span>
+      <span class="normal">(String explanation)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Constructs a new instance of ConfigurationException using an
+ explanation. All other fields default to null.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>explanation</th>
+          <td>A possibly null string containing additional detail about this exception.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../null#getMessage()">getMessage()</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
 
 
 
@@ -1084,73 +1002,6 @@ From interface
 
 <!-- ========= METHOD DETAIL ======== -->
 <!-- Public methdos -->
-
-<h2>Public Methods</h2>
-
-
-
-<a id="valueOf(java.lang.String)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Configuration.Env</a>
-      </span>
-      <span class="sympad">valueOf</span>
-      <span class="normal">(String name)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<a id="values()"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-         
-         
-        <a href="../../../../fm/audiobox/core/config/Configuration.Env.html">Env[]</a>
-      </span>
-      <span class="sympad">values</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
 
 
 

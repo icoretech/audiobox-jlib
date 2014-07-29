@@ -58,7 +58,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.ico" />
 <title>
 
-  EventedModelList.Event
+  ModelEvent
 
 
 </title>
@@ -174,7 +174,7 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a>&lt;T&gt;</li>
-          <li class="selected api apilevel-"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html">EventedModelList.Event</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html">ModelEvent</a>&lt;E&gt;</li>
       </ul>
     </li>
               
@@ -250,6 +250,9 @@ Summary:
 
 
 
+  &#124; <a href="#pubmethods">Methods</a>
+  
+
 
 
   &#124; <a href="#inhmethods">Inherited Methods</a>
@@ -276,7 +279,7 @@ Summary:
      
     
     class
-<h1>EventedModelList.Event</h1>
+<h1>ModelEvent</h1>
 
 
 
@@ -309,7 +312,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.models.collections.EventedModelList.Event</td>
+        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.models.collections.ModelEvent&lt;E&gt;</td>
     </tr>
     
 
@@ -377,21 +380,21 @@ Summary:
     
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">int</td>
-        <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#ADD">ADD</a></td>
+        <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#ADD">ADD</a></td>
         <td class="jd-descrcol" width="100%">An item is added to the collection.</td>
     </tr>
     
     
     <tr class=" api apilevel-" >
         <td class="jd-typecol">int</td>
-        <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#CLEAR">CLEAR</a></td>
+        <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#CLEAR">CLEAR</a></td>
         <td class="jd-descrcol" width="100%">The collection is cleared.</td>
     </tr>
     
     
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">int</td>
-        <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#REMOVE">REMOVE</a></td>
+        <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#REMOVE">REMOVE</a></td>
         <td class="jd-descrcol" width="100%">An item is removed from the collection.</td>
     </tr>
     
@@ -415,8 +418,8 @@ Summary:
           public
           
           
-          T</td>
-          <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#source">source</a></td>
+          E</td>
+          <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#source">source</a></td>
           <td class="jd-descrcol" width="100%">The item that triggered the event.</td>
       </tr>
       
@@ -427,8 +430,8 @@ Summary:
           
           
           <a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a></td>
-          <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#target">target</a></td>
-          <td class="jd-descrcol" width="100%">The list where the event is originated.</td>
+          <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#target">target</a></td>
+          <td class="jd-descrcol" width="100%">The object where the event is originated.</td>
       </tr>
       
     
@@ -438,8 +441,8 @@ Summary:
           
           
           int</td>
-          <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#what">what</a></td>
-          <td class="jd-descrcol" width="100%">The type of the event (see <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#ADD">ADD</a></code>, <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#REMOVE">REMOVE</a></code> and <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#CLEAR">CLEAR</a></code>).</td>
+          <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#what">what</a></td>
+          <td class="jd-descrcol" width="100%">The type of the event (see <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#ADD">ADD</a></code>, <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#REMOVE">REMOVE</a></code> and <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#CLEAR">CLEAR</a></code>).</td>
       </tr>
       
     
@@ -468,7 +471,7 @@ Summary:
             
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#EventedModelList.Event(int, T, fm.audiobox.core.models.collections.EventedModelList)">EventedModelList.Event</a></span>(int what, T source, <a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a> target)
+        <span class="sympad"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#ModelEvent(int, E, fm.audiobox.core.models.collections.EventedModelList, fm.audiobox.core.models.Model)">ModelEvent</a></span>(int what, E source, <a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a> target, <a href="../../../../../fm/audiobox/core/models/Model.html">Model</a> notifiers)
         
         <div class="jd-descrdiv">Instantiates a new Event.</div>
   
@@ -481,6 +484,34 @@ Summary:
 
 
 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#trigger()">trigger</a></span>()
+        
+        <div class="jd-descrdiv">Notifies parents observers
+</div>
+  
+  </td></tr>
+
+
+
+</table>
 
 
 
@@ -865,7 +896,7 @@ From class
         public 
          
          
-        T
+        E
       </span>
         source
     </h4>
@@ -910,7 +941,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The list where the event is originated.
+  <div class="jd-tagdata jd-tagdescr"><p>The object where the event is originated.
 </p></div>
 
     
@@ -941,7 +972,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The type of the event (see <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#ADD">ADD</a></code>, <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#REMOVE">REMOVE</a></code> and <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#CLEAR">CLEAR</a></code>).
+  <div class="jd-tagdata jd-tagdescr"><p>The type of the event (see <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#ADD">ADD</a></code>, <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#REMOVE">REMOVE</a></code> and <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#CLEAR">CLEAR</a></code>).
 </p></div>
 
     
@@ -959,7 +990,7 @@ From class
 
 
 
-<a id="EventedModelList.Event(int, T, fm.audiobox.core.models.collections.EventedModelList)"></a>
+<a id="ModelEvent(int, E, fm.audiobox.core.models.collections.EventedModelList, fm.audiobox.core.models.Model)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -971,8 +1002,8 @@ From class
          
         
       </span>
-      <span class="sympad">EventedModelList.Event</span>
-      <span class="normal">(int what, T source, <a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a> target)</span>
+      <span class="sympad">ModelEvent</span>
+      <span class="normal">(int what, E source, <a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a> target, <a href="../../../../../fm/audiobox/core/models/Model.html">Model</a> notifiers)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -990,15 +1021,19 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>what</th>
-          <td>the what</td>
+          <td>the type of the event (see <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#ADD">ADD</a></code>, <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#REMOVE">REMOVE</a></code> and <code><a href="../../../../../fm/audiobox/core/models/collections/ModelEvent.html#CLEAR">CLEAR</a></code>).</td>
         </tr>
         <tr>
           <th>source</th>
-          <td>the target</td>
+          <td>the item that triggered the event.</td>
         </tr>
         <tr>
           <th>target</th>
-          <td>the target
+          <td>the object where the event is originated (can be null).</td>
+        </tr>
+        <tr>
+          <th>notifiers</th>
+          <td>the model to notify the event to.
 </td>
         </tr>
       </table>
@@ -1018,6 +1053,43 @@ From class
 
 <!-- ========= METHOD DETAIL ======== -->
 <!-- Public methdos -->
+
+<h2>Public Methods</h2>
+
+
+
+<a id="trigger()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">trigger</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Notifies parents observers
+</p></div>
+
+    </div>
+</div>
+
+
 
 
 

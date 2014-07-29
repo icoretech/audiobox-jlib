@@ -2,16 +2,6 @@ package fm.audiobox.core.models.collections;
 public class EventedModelList<T>
   extends java.util.LinkedList<T>
 {
-public class Event
-{
-public  Event(int what, T source, fm.audiobox.core.models.collections.EventedModelList target) { throw new RuntimeException("Stub!"); }
-public static final int ADD = 1;
-public static final int REMOVE = -1;
-public static final int CLEAR = 0;
-public int what;
-public T source;
-public fm.audiobox.core.models.collections.EventedModelList target;
-}
 public  EventedModelList() { throw new RuntimeException("Stub!"); }
 public  EventedModelList(fm.audiobox.core.models.Model parent) { throw new RuntimeException("Stub!"); }
 public  boolean add(T t) { throw new RuntimeException("Stub!"); }

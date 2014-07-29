@@ -90,7 +90,7 @@
 >
 <parameter name="conf" type="fm.audiobox.core.config.Configuration">
 </parameter>
-<exception name="ConfigurationException" type="javax.naming.ConfigurationException">
+<exception name="ConfigurationException" type="fm.audiobox.core.config.ConfigurationException">
 </exception>
 <exception name="IOException" type="java.io.IOException">
 </exception>
@@ -488,7 +488,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<exception name="ConfigurationException" type="javax.naming.ConfigurationException">
+<exception name="ConfigurationException" type="fm.audiobox.core.config.ConfigurationException">
 </exception>
 </method>
 <method name="getAlbumsWrapperClass"
@@ -978,6 +978,25 @@
  visibility="public"
 >
 </method>
+</class>
+<class name="ConfigurationException"
+ extends="java.lang.Exception"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ConfigurationException"
+ type="fm.audiobox.core.config.ConfigurationException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="explanation" type="java.lang.String">
+</parameter>
+</constructor>
 </class>
 </package>
 <package name="fm.audiobox.core.exceptions"
@@ -3421,6 +3440,17 @@
 <parameter name="context" type="java.lang.Object">
 </parameter>
 </method>
+<field name="JSON_TOKEN"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;media_files&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 <field name="PARAM_SET"
  type="java.lang.String"
  transient="false"
@@ -6063,7 +6093,7 @@
 </parameter>
 </method>
 </class>
-<class name="EventedModelList.Event"
+<class name="ModelEvent"
  extends="java.lang.Object"
  abstract="false"
  static="false"
@@ -6071,8 +6101,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<constructor name="EventedModelList.Event"
- type="fm.audiobox.core.models.collections.EventedModelList.Event"
+<constructor name="ModelEvent"
+ type="fm.audiobox.core.models.collections.ModelEvent"
  static="false"
  final="false"
  deprecated="not deprecated"
@@ -6080,11 +6110,24 @@
 >
 <parameter name="what" type="int">
 </parameter>
-<parameter name="source" type="T">
+<parameter name="source" type="E">
 </parameter>
 <parameter name="target" type="fm.audiobox.core.models.collections.EventedModelList">
 </parameter>
+<parameter name="notifiers" type="fm.audiobox.core.models.Model">
+</parameter>
 </constructor>
+<method name="trigger"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <field name="ADD"
  type="int"
  transient="false"
@@ -6119,7 +6162,7 @@
 >
 </field>
 <field name="source"
- type="T"
+ type="E"
  transient="false"
  volatile="false"
  static="false"
