@@ -16,13 +16,16 @@
 
 package fm.audiobox.core.models;
 
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+
 
 /**
  * This class is the prototype of each model and defines model's common behaviors.
  */
-public abstract class Model {
+public abstract class Model extends Observable {
 
   private final Map<String, Object> PROPS = new HashMap<>( 4 );
 
@@ -46,5 +49,12 @@ public abstract class Model {
    */
   public final Object getProp(String key) {
     return PROPS.get( key );
+  }
+
+
+  @Override
+  public void notifyObservers(Object arg) {
+    this.setChanged();
+    super.notifyObservers( arg );
   }
 }

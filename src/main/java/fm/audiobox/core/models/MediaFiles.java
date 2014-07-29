@@ -17,10 +17,14 @@
 package fm.audiobox.core.models;
 
 
+import com.google.api.client.json.CustomizeJsonParser;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
+import fm.audiobox.core.models.collections.EventedModelList;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -33,6 +37,7 @@ public class MediaFiles extends Model {
    TODO: PUT /api/v1/media_files/multiupdate.json?tokens[]=
    */
 
+  private static final String JSON_TOKEN = "media_files";
 
   /**
    * The constant PARAM_SET.
@@ -62,8 +67,8 @@ public class MediaFiles extends Model {
   /**
    * The parsed media files list
    */
-  @Key("media_files")
-  protected List<MediaFile> media_files;
+  @Key(JSON_TOKEN)
+  protected EventedModelList<MediaFile> media_files;
 
 
   /**
@@ -71,7 +76,7 @@ public class MediaFiles extends Model {
    *
    * @return the playlists collection.
    */
-  public List<MediaFile> getMediaFiles() {
+  public EventedModelList<MediaFile> getMediaFiles() {
     return media_files;
   }
 
@@ -83,18 +88,49 @@ public class MediaFiles extends Model {
    *
    * @param client the client
    * @param tokens the tokens
-   *
    * @return the boolean
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @throws java.io.IOException                           if any connection problem occurs.
-   * @see fm.audiobox.core.exceptions.AudioBoxException
+   * @see
    */
   public static boolean destroyAll(Client client, List<String> tokens) throws IOException {
     String url = DESTROY_MEDIA_FILES_PATH + "?utf8=true";
     for (String tk : tokens) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
     client.doDELETE( url );
     return true;
+  }
+
+
+  /**
+   * New list.
+   *
+   * @param context the context
+   * @param field the field
+   * @return the collection
+   */
+  public static Collection<Object> newList(Object context, Field field) {
+    return new EventedModelList<>( (Model) context );
+  }
+
+
+  /**
+   * The type Media collection cutom parser.
+   */
+  public static class MediaCollectionCutomParser extends CustomizeJsonParser {
+
+    private Model parent;
+
+    public MediaCollectionCutomParser(Model observable) {
+      this.parent = observable;
+    }
+
+    @Override
+    public Collection<Object> newInstanceForArray(Object context, Field field) {
+      if (JSON_TOKEN.equals( field.getName() ) ) {
+        return MediaFiles.newList( this.parent, field );
+      } else {
+        return super.newInstanceForArray( context, field );
+      }
+    }
   }
 
 }

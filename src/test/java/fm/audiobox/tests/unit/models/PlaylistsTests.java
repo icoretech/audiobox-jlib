@@ -19,6 +19,7 @@ package fm.audiobox.tests.unit.models;
 
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
+import fm.audiobox.core.models.collections.EventedModelList;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.tests.mocks.MockHttp;
@@ -29,8 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -842,7 +842,21 @@ public class PlaylistsTests extends AudioBoxTests {
    */
   @Test
   public void testFingerprintsSucceedOnLocalPlaylist() throws IOException {
-    Playlist pls = Playlists.getLocalPlaylist( c );
+    final Playlist pls = Playlists.getLocalPlaylist( c );
+
+    pls.addObserver( new Observer() {
+
+      @Override
+      public void update(Observable o, Object arg) {
+        assertSame( o, pls );
+        assertTrue(arg instanceof EventedModelList.Event);
+        EventedModelList.Event e = ( EventedModelList.Event ) arg;
+        assertTrue( e.source instanceof MediaFile );
+        assertTrue( e.target instanceof EventedModelList);
+      }
+
+    });
+
     List<? extends MediaFile> mfs = pls.getFingerprints( c );
     assertNotNull( mfs );
     assertFalse( mfs.isEmpty() );

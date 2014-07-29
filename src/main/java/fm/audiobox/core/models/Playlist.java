@@ -19,11 +19,13 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
+import com.google.api.client.json.CustomizeJsonParser;
 import com.google.api.client.util.GenericData;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.exceptions.SyncException;
+import fm.audiobox.core.parsers.AudioBoxObjectParser;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -395,7 +397,7 @@ public class Playlist extends Model {
       url += setParam;
     }
 
-    HttpResponse rsp = client.doGET( url );
+    HttpResponse rsp = client.doGET( url, new AudioBoxObjectParser( client, new MediaFiles.MediaCollectionCutomParser(this) ) );
     return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
@@ -546,7 +548,7 @@ public class Playlist extends Model {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getFingerprints(Client client) throws IOException {
-    HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ) );
+    HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ), new AudioBoxObjectParser( client, new MediaFiles.MediaCollectionCutomParser(this) ) );
     return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
@@ -824,7 +826,7 @@ public class Playlist extends Model {
 
     Playlist o = ( Playlist ) other;
 
-    boolean eq = false;
+    boolean eq;
     if ( this.token != null ) {
       eq = this.token.equals( o.getToken() );
     } else {
