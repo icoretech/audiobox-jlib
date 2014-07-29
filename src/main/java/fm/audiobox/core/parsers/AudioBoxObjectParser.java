@@ -55,6 +55,9 @@ public class AudioBoxObjectParser extends JsonObjectParser {
   }
 
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @SuppressWarnings("unchecked")
   public <T> T parseAndClose(InputStream in, Charset charset, Class<T> dataClass) throws IOException {
@@ -62,6 +65,9 @@ public class AudioBoxObjectParser extends JsonObjectParser {
   }
 
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Object parseAndClose(InputStream in, Charset charset, Type dataType) throws IOException {
     JsonParser parser = getJsonFactory().createJsonParser( in, charset );
@@ -70,6 +76,9 @@ public class AudioBoxObjectParser extends JsonObjectParser {
   }
 
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @SuppressWarnings("unchecked")
   public <T> T parseAndClose(Reader reader, Class<T> dataClass) throws IOException {
@@ -77,6 +86,9 @@ public class AudioBoxObjectParser extends JsonObjectParser {
   }
 
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Object parseAndClose(Reader reader, Type dataType) throws IOException {
     JsonParser parser = getJsonFactory().createJsonParser( reader );

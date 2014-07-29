@@ -20,6 +20,7 @@ package fm.audiobox.core.models;
 import com.google.api.client.util.Key;
 
 import java.util.List;
+
 /**
  * Container class for a collection of {@link MediaFile} grouped by album.
  * <p/>

@@ -33,8 +33,9 @@ public class UserWrapper extends Model {
   /**
    * Instantiates a new User wrapper.
    */
-  @SuppressWarnings( "unused" )
-  public UserWrapper() { }
+  @SuppressWarnings("unused")
+  public UserWrapper() {
+  }
 
 
   /**

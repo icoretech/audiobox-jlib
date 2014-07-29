@@ -40,6 +40,7 @@ public interface ExceptionHandler {
    * If the {@link fm.audiobox.core.exceptions.AudioBoxException} was not handled then the exception is thrown to
    * the next level.
    * </p>
+   *
    * @return true if the exception is handled, false otherwise.
    */
   public boolean onException(AudioBoxException e);

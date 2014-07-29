@@ -81,7 +81,7 @@ public class Playlists extends Model {
    */
   public static final String PLAYLIST_OFFLINE = "offline";
 
-  @Key( "playlists" )
+  @Key("playlists")
   private List<Playlist> playlists;
 
 

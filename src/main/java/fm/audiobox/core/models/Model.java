@@ -33,11 +33,11 @@ public abstract class Model extends Observable {
   /**
    * Sets a property to the model
    *
-   * @param key the key to store the value to.
+   * @param key   the key to store the value to.
    * @param value the value to set.
    */
   public final void setProp(String key, Object value) {
-    PROPS.put(key, value);
+    PROPS.put( key, value );
   }
 
 
@@ -45,6 +45,7 @@ public abstract class Model extends Observable {
    * Gets the requested property or null.
    *
    * @param key the key where the value was previously stored.
+   *
    * @return the requested object.
    */
   public final Object getProp(String key) {

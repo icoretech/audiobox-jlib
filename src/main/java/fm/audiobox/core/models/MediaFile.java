@@ -194,7 +194,7 @@ public class MediaFile extends Model {
   /**
    * The Release year.
    */
-  @Key( "release_year" )
+  @Key("release_year")
   protected int releaseYear;
 
   /**
@@ -206,13 +206,13 @@ public class MediaFile extends Model {
   /**
    * The duration string formatted.
    */
-  @Key( "len_str" )
+  @Key("len_str")
   protected String lenStr;
 
   /**
    * The duration in seconds.
    */
-  @Key( "len_int" )
+  @Key("len_int")
   protected int lenInt;
 
   /**
@@ -230,7 +230,7 @@ public class MediaFile extends Model {
   /**
    * The Media file name.
    */
-  @Key( "media_file_name" )
+  @Key("media_file_name")
   protected String mediaFileName; // Used when upload succeeds.
 
   /**
@@ -242,7 +242,7 @@ public class MediaFile extends Model {
   /**
    * The Disc number.
    */
-  @Key( "disc_number" )
+  @Key("disc_number")
   protected int discNumber;
 
   /**
@@ -254,7 +254,7 @@ public class MediaFile extends Model {
   /**
    * The Remote path.
    */
-  @Key( "remote_path" )
+  @Key("remote_path")
   protected String remotePath;
 
   /**
@@ -266,7 +266,7 @@ public class MediaFile extends Model {
   /**
    * The Share token.
    */
-  @Key( "share_token" )
+  @Key("share_token")
   protected String shareToken;
 
   /**
@@ -284,7 +284,7 @@ public class MediaFile extends Model {
   /**
    * The Album artist.
    */
-  @Key( "album_artist" )
+  @Key("album_artist")
   protected String albumArtist;
 
   /**
@@ -308,55 +308,55 @@ public class MediaFile extends Model {
   /**
    * The Video bitrate.
    */
-  @Key( "video_bitrate" )
+  @Key("video_bitrate")
   protected String videoBitrate;
 
   /**
    * The Video codec.
    */
-  @Key( "video_codec" )
+  @Key("video_codec")
   protected String videoCodec;
 
   /**
    * The Video resolution.
    */
-  @Key( "video_resolution" )
+  @Key("video_resolution")
   protected String videoResolution;
 
   /**
    * The Video FPS.
    */
-  @Key( "video_fps" )
+  @Key("video_fps")
   protected String videoFps;
 
   /**
    * The Video aspect ratio.
    */
-  @Key( "video_aspect" )
+  @Key("video_aspect")
   protected String videoAspect;
 
   /**
    * The Video container.
    */
-  @Key( "video_container" )
+  @Key("video_container")
   protected String videoContainer;
 
   /**
    * The Audio bitrate.
    */
-  @Key( "audio_bitrate" )
+  @Key("audio_bitrate")
   protected String audioBitrate;
 
   /**
    * The Audio codec.
    */
-  @Key( "audio_codec" )
+  @Key("audio_codec")
   protected String audioCodec;
 
   /**
    * The Audio sample rate.
    */
-  @Key( "audio_sample_rate" )
+  @Key("audio_sample_rate")
   protected String audioSampleRate;
 
   /**
@@ -371,7 +371,7 @@ public class MediaFile extends Model {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public MediaFile() {
   }
 

@@ -24,9 +24,11 @@ import java.util.LinkedList;
 
 /**
  * A {@link java.util.LinkedList} extension that triggers events on:
- * - add an item {@link Event#ADD}
- * - remove an item {@link Event#REMOVE}
- * - clear the list {@link Event#CLEAR}
+ * <ul>
+ * <li>add an item {@link Event#ADD}</li>
+ * <li>remove an item {@link Event#REMOVE}</li>
+ * <li>clear the list {@link Event#CLEAR}</li>
+ * </ul>
  *
  * @param <T> the type parameter
  */

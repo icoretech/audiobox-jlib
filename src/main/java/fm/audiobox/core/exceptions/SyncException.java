@@ -38,6 +38,7 @@ public class SyncException extends AudioBoxException {
 
   private static final Map<Integer, String> MESSAGES = new HashMap<>( 4 );
 
+
   static {
     MESSAGES.put( HttpStatus.SC_PAYMENT_REQUIRED, "Action requires a valid subscription." );
     MESSAGES.put( HttpStatus.SC_FORBIDDEN, "Playlist requires a valid account link to the remote service." );
@@ -62,7 +63,7 @@ public class SyncException extends AudioBoxException {
    * @param statusCode the status code
    */
   public SyncException(int statusCode) {
-    super(MESSAGES.get( statusCode ));
+    super( MESSAGES.get( statusCode ) );
     this.statusCode = statusCode;
   }
 

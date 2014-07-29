@@ -39,7 +39,7 @@ public class Notifications extends Model {
   @Key
   private long page;
 
-  @Key( "notifications" )
+  @Key("notifications")
   private List<Notification> notifications;
 
 

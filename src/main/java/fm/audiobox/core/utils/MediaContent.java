@@ -50,7 +50,7 @@ public class MediaContent extends AbstractInputStreamContent {
   public MediaContent(String type, File file) throws FileNotFoundException {
     super( type );
     this.file = Preconditions.checkNotNull( file );
-    this.pis = new ProgressInputStream(  file , file.length() );
+    this.pis = new ProgressInputStream( file, file.length() );
   }
 
 

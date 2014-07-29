@@ -86,7 +86,11 @@ import java.util.List;
  * <dt><strong>visible:</strong></dt>
  * <dd>boolean identifying if this playlist should be hidden from the user interface.</dd>
  * <dt><strong>syncable:</strong></dt>
- * <dd>
+ * <dd>boolean identifying if this playlist supports syncing with remote content, usually valid for external storage services.</dd>
+ * <dt><strong>system_name:</strong></dt>
+ * <dd>a code friendly name identifying playlist's type.</dd>
+ * <dt><strong>position</strong></dt>
+ * <dd>integer identifying the order of which playlists should be shown, this is a user's preference. The most important playlists has this attribute unchangeable.</dd>
  * </dl>
  */
 public class Playlist extends Model {
@@ -137,9 +141,6 @@ public class Playlist extends Model {
 
   @Key
   private long position;
-
-  @Key
-  private boolean offline;
 
   @Key
   private boolean embeddable;
@@ -875,16 +876,6 @@ public class Playlist extends Model {
    */
   public void setMediaFilesCount(long mediaFilesCount) {
     this.mediaFilesCount = mediaFilesCount;
-  }
-
-
-  /**
-   * Sets offline.
-   *
-   * @param offline the offline
-   */
-  public void setOffline(boolean offline) {
-    this.offline = offline;
   }
 
 

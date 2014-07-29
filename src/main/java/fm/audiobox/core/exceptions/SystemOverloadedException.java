@@ -36,7 +36,7 @@ public class SystemOverloadedException extends RemoteMessageException {
    */
   public SystemOverloadedException(HttpResponse response) {
     super( response );
-    if (response != null) {
+    if ( response != null ) {
       this.retryAfter = response.getHeaders().getRetryAfter();
     }
   }

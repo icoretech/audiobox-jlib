@@ -36,6 +36,7 @@ public class Io {
    * Content to string.
    *
    * @param inputStream the input stream
+   *
    * @return the string
    */
   public static String contentToString(InputStream inputStream) {
