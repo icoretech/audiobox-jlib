@@ -3420,8 +3420,6 @@
 >
 <parameter name="context" type="java.lang.Object">
 </parameter>
-<parameter name="field" type="java.lang.reflect.Field">
-</parameter>
 </method>
 <field name="PARAM_SET"
  type="java.lang.String"
@@ -3467,7 +3465,7 @@
 >
 </field>
 </class>
-<class name="MediaFiles.MediaCollectionCutomParser"
+<class name="MediaFiles.MediaCollectionCustomParser"
  extends="com.google.api.client.json.CustomizeJsonParser"
  abstract="false"
  static="true"
@@ -3475,8 +3473,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<constructor name="MediaFiles.MediaCollectionCutomParser"
- type="fm.audiobox.core.models.MediaFiles.MediaCollectionCutomParser"
+<constructor name="MediaFiles.MediaCollectionCustomParser"
+ type="fm.audiobox.core.models.MediaFiles.MediaCollectionCustomParser"
  static="false"
  final="false"
  deprecated="not deprecated"
@@ -4179,6 +4177,23 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<method name="getFingerprints"
+ return="java.util.List&lt;? extends fm.audiobox.core.models.MediaFile&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+<parameter name="parser" type="com.google.api.client.json.JsonObjectParser">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
 <method name="getGenres"
  return="fm.audiobox.core.models.Genres"
  abstract="false"
@@ -4221,6 +4236,23 @@
 >
 <parameter name="client" type="fm.audiobox.core.Client">
 </parameter>
+<parameter name="parser" type="com.google.api.client.json.JsonObjectParser">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getMediaFiles"
+ return="java.util.List&lt;fm.audiobox.core.models.MediaFile&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
 <parameter name="since" type="long">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
@@ -4241,6 +4273,27 @@
 <parameter name="since" type="long">
 </parameter>
 <parameter name="set" type="java.lang.String">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getMediaFiles"
+ return="java.util.List&lt;fm.audiobox.core.models.MediaFile&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+<parameter name="since" type="long">
+</parameter>
+<parameter name="set" type="java.lang.String">
+</parameter>
+<parameter name="parser" type="com.google.api.client.json.JsonObjectParser">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
 </exception>
@@ -4455,19 +4508,6 @@
  visibility="public"
 >
 <parameter name="name" type="java.lang.String">
-</parameter>
-</method>
-<method name="setOffline"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="offline" type="boolean">
 </parameter>
 </method>
 <method name="setPosition"
@@ -5957,6 +5997,14 @@
  deprecated="not deprecated"
  visibility="public"
 >
+</constructor>
+<constructor name="EventedModelList"
+ type="fm.audiobox.core.models.collections.EventedModelList"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
 <parameter name="parent" type="fm.audiobox.core.models.Model">
 </parameter>
 </constructor>
@@ -6261,16 +6309,6 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<constructor name="AudioBoxObjectParser"
- type="fm.audiobox.core.parsers.AudioBoxObjectParser"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="client" type="fm.audiobox.core.Client">
-</parameter>
-</constructor>
 <constructor name="AudioBoxObjectParser"
  type="fm.audiobox.core.parsers.AudioBoxObjectParser"
  static="false"

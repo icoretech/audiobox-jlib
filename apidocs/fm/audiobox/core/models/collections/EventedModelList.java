@@ -12,6 +12,7 @@ public int what;
 public T source;
 public fm.audiobox.core.models.collections.EventedModelList target;
 }
+public  EventedModelList() { throw new RuntimeException("Stub!"); }
 public  EventedModelList(fm.audiobox.core.models.Model parent) { throw new RuntimeException("Stub!"); }
 public  boolean add(T t) { throw new RuntimeException("Stub!"); }
 public  void add(int index, T element) { throw new RuntimeException("Stub!"); }

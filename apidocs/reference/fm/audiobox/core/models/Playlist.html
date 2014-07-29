@@ -182,7 +182,7 @@
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Genres.html">Genres</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.html">MediaFiles</a></li>
-          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCutomParser.html">MediaFiles.MediaCollectionCutomParser</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCustomParser.html">MediaFiles.MediaCollectionCustomParser</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFileWrapper.html">MediaFileWrapper</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Model.html">Model</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Notification.html">Notification</a></li>
@@ -438,7 +438,11 @@ Summary:
  <dt><strong>visible:</strong></dt>
  <dd>boolean identifying if this playlist should be hidden from the user interface.</dd>
  <dt><strong>syncable:</strong></dt>
- <dd>
+ <dd>boolean identifying if this playlist supports syncing with remote content, usually valid for external storage services.</dd>
+ <dt><strong>system_name:</strong></dt>
+ <dd>a code friendly name identifying playlist's type.</dd>
+ <dt><strong>position</strong></dt>
+ <dd>integer identifying the order of which playlists should be shown, this is a user's preference. The most important playlists has this attribute unchangeable.</dd>
  </dl>
 </p>
 
@@ -676,12 +680,49 @@ Summary:
             
             
             
+            List&lt;?&nbsp;extends&nbsp;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlist.html#getFingerprints(fm.audiobox.core.Client, com.google.api.client.json.JsonObjectParser)">getFingerprints</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, JsonObjectParser parser)
+        
+        <div class="jd-descrdiv">Returns known file fingerprints for this playlist.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             <a href="../../../../fm/audiobox/core/models/Genres.html">Genres</a>
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlist.html#getGenres(fm.audiobox.core.Client)">getGenres</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
         
         <div class="jd-descrdiv">Gets media files grouped by albums.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlist.html#getMediaFiles(fm.audiobox.core.Client)">getMediaFiles</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        
+        <div class="jd-descrdiv">Same as <code><a href="../../../../fm/audiobox/core/models/Playlist.html#getMediaFiles(fm.audiobox.core.Client, long, java.lang.String)">getMediaFiles(fm.audiobox.core.Client, long, String)</a></code> but
+ all media file fields are returned and *no* time filter is applied.</div>
   
   </td></tr>
 
@@ -697,10 +738,10 @@ Summary:
             List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlist.html#getMediaFiles(fm.audiobox.core.Client)">getMediaFiles</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlist.html#getMediaFiles(fm.audiobox.core.Client, com.google.api.client.json.JsonObjectParser)">getMediaFiles</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, JsonObjectParser parser)
         
-        <div class="jd-descrdiv">Same as <code><a href="../../../../fm/audiobox/core/models/Playlist.html#getMediaFiles(fm.audiobox.core.Client, long, java.lang.String)">getMediaFiles(fm.audiobox.core.Client, long, String)</a></code> but
- all media file fields are returned and *no* time filter is applied.</div>
+        <div class="jd-descrdiv"><p>
+ Returns media files linked to the specified playlist token along with primary information.</div>
   
   </td></tr>
 
@@ -751,6 +792,25 @@ Summary:
             
             
             
+            List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlist.html#getMediaFiles(fm.audiobox.core.Client, long, java.lang.String, com.google.api.client.json.JsonObjectParser)">getMediaFiles</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, long since, String set, JsonObjectParser parser)
+        
+        <div class="jd-descrdiv"><p>
+ Returns media files linked to the specified playlist token along with primary information.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             long
         </td>
         <td class="jd-linkcol" width="100%">
@@ -762,7 +822,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -780,7 +840,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -799,7 +859,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -817,7 +877,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -835,7 +895,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -853,7 +913,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -871,7 +931,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -889,7 +949,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -905,7 +965,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -923,7 +983,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -941,7 +1001,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -959,7 +1019,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -977,7 +1037,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -995,7 +1055,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1015,7 +1075,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1033,7 +1093,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1051,7 +1111,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1066,24 +1126,6 @@ Summary:
         <div class="jd-descrdiv">Changes playlist name, if you want to persist the change
  remember to call <code><a href="../../../../fm/audiobox/core/models/Playlist.html#update(fm.audiobox.core.Client)">update(fm.audiobox.core.Client)</a></code>
  method.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlist.html#setOffline(boolean)">setOffline</a></span>(boolean offline)
-        
-        <div class="jd-descrdiv">Sets offline.</div>
   
   </td></tr>
 
@@ -2269,6 +2311,83 @@ From class
  <p/>
  Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.</p></div>
   <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>client</th>
+          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A list of <code><a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></code> elements</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getFingerprints(fm.audiobox.core.Client, com.google.api.client.json.JsonObjectParser)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        List&lt;?&nbsp;extends&nbsp;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+      </span>
+      <span class="sympad">getFingerprints</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, JsonObjectParser parser)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns known file fingerprints for this playlist. Available only for local and cloud playlist tokens.
+ <p/>
+ Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>client</th>
+          <td>the <code><a href="../../../../fm/audiobox/core/Client.html">Client</a></code> to use for the request</td>
+        </tr>
+        <tr>
+          <th>parser</th>
+          <td>the parser to use to parse the response</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>A list of <code><a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></code> elements</li></ul>
   </div>
@@ -2397,6 +2516,94 @@ From class
         <tr>
           <th>client</th>
           <td>the client to use for the request</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A list of <code><a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></code> elements</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getMediaFiles(fm.audiobox.core.Client, com.google.api.client.json.JsonObjectParser)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+      </span>
+      <span class="sympad">getMediaFiles</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, JsonObjectParser parser)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Returns media files linked to the specified playlist token along with primary information.
+ </p>
+ <p>
+ This does not return all the attributes for a MediaFile, instead it returns an optimized JSON for fast view-level
+ rendering and parsing purposes. Full details about a particular MediaFile can be obtained by calling the dedicated
+ show endpoint.
+ </p>
+ <p>
+ Supports a comma separated 'set' parameter which indicates which attributes to render, like 'type,token' so a
+ developer can just ask the needed attributes.
+ </p>
+ <p>
+ Supports a datetime 'since' parameter that filters the collection and returns records modified since the specified
+ date.
+ </p>
+ <p>
+ Remote and third party Cloud Storage services' content can be accessed through this endpoint, however an error will
+ be returned if the user has no valid authentication information stored towards the service in question or has an
+ invalid subscription. For example if the user tries to access the Dropbox playlist but he has not the related account
+ linked a ForbiddenException will be thrown, along with the subscription status. Valid subscription statuses are
+ active and trialing.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>client</th>
+          <td>the client to use for the request</td>
+        </tr>
+        <tr>
+          <th>parser</th>
+          <td>the parser to use to parse the response</td>
         </tr>
       </table>
   </div>
@@ -2558,6 +2765,102 @@ From class
         <tr>
           <th>since</th>
           <td>unix timestamp that filters the collection and returns records modified since the specified date.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A list of <code><a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></code> elements</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getMediaFiles(fm.audiobox.core.Client, long, java.lang.String, com.google.api.client.json.JsonObjectParser)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+      </span>
+      <span class="sympad">getMediaFiles</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, long since, String set, JsonObjectParser parser)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Returns media files linked to the specified playlist token along with primary information.
+ </p>
+ <p>
+ This does not return all the attributes for a MediaFile, instead it returns an optimized JSON for fast view-level
+ rendering and parsing purposes. Full details about a particular MediaFile can be obtained by calling the dedicated
+ show endpoint.
+ </p>
+ <p>
+ Supports a comma separated 'set' parameter which indicates which attributes to render, like 'type,token' so a
+ developer can just ask the needed attributes.
+ </p>
+ <p>
+ Supports a datetime 'since' parameter that filters the collection and returns records modified since the specified
+ date.
+ </p>
+ <p>
+ Remote and third party Cloud Storage services' content can be accessed through this endpoint, however an error will
+ be returned if the user has no valid authentication information stored towards the service in question or has an
+ invalid subscription. For example if the user tries to access the Dropbox playlist but he has not the related account
+ linked a ForbiddenException will be thrown, along with the subscription status. Valid subscription statuses are
+ active and trialing.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>client</th>
+          <td>the client to use for the request</td>
+        </tr>
+        <tr>
+          <th>since</th>
+          <td>unix timestamp that filters the collection and returns records modified since the specified date.</td>
+        </tr>
+        <tr>
+          <th>set</th>
+          <td>comma separated 'set' parameter which indicates which attributes to render, like 'type,token', null will return all available fields.</td>
+        </tr>
+        <tr>
+          <th>parser</th>
+          <td>the parser to use to parse the response</td>
         </tr>
       </table>
   </div>
@@ -3305,47 +3608,6 @@ From class
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the playlist instance in order to chain other methods.
 </li></ul>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="setOffline(boolean)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setOffline</span>
-      <span class="normal">(boolean offline)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets offline.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>offline</th>
-          <td>the offline
-</td>
-        </tr>
-      </table>
   </div>
 
     </div>

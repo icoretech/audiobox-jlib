@@ -472,9 +472,11 @@ Summary:
 
 <h2>Class Overview</h2>
 <p>A java.util.LinkedList extension that triggers events on:
- - add an item
- - remove an item
- - clear the list</p>
+ <ul>
+ <li>add an item <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#ADD">ADD</a></code></li>
+ <li>remove an item <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#REMOVE">REMOVE</a></code></li>
+ <li>clear the list <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#CLEAR">CLEAR</a></code></li>
+ </ul></p>
 
 
 
@@ -517,7 +519,7 @@ Summary:
         
         class</td>
       <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html">EventedModelList.Event</a></td>
-      <td class="jd-descrcol" width="100%">The type Event.&nbsp;</td>
+      <td class="jd-descrcol" width="100%">This is the wrapper object sent to the observers.&nbsp;</td>
     </tr>
     
     
@@ -617,6 +619,24 @@ java.util.AbstractList
 
 	 
     <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.html#EventedModelList()">EventedModelList</a></span>()
+        
+        <div class="jd-descrdiv">Instantiates a new Evented model list.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -3692,6 +3712,42 @@ From interface
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <h2>Public Constructors</h2>
 
+
+
+<a id="EventedModelList()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        
+      </span>
+      <span class="sympad">EventedModelList</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Instantiates a new Evented model list.
+ <p>
+ This default constructor is used by the parser when a com.google.api.client.json.CustomizeJsonParser is
+ not provided. In this last case no <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html">EventedModelList.Event</a></code> are triggered.
+ </p>
+</p></div>
+
+    </div>
+</div>
 
 
 <a id="EventedModelList(fm.audiobox.core.models.Model)"></a>

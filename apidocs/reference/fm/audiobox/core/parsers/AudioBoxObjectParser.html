@@ -350,6 +350,10 @@ Summary:
 
 <h2>Class Overview</h2>
 <p>A customizable JSON object parser.
+ <p>
+ The use of this class will allow custom collection <code><a href="../../../../fm/audiobox/core/models/Model.html">Model</a></code> to behave according
+ to the specified com.google.api.client.json.CustomizeJsonParser object passed as constructor argument.
+ </p>
 </p>
 
 
@@ -416,24 +420,6 @@ Summary:
             
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/parsers/AudioBoxObjectParser.html#AudioBoxObjectParser(fm.audiobox.core.Client)">AudioBoxObjectParser</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
-        
-        <div class="jd-descrdiv">Instantiates a new Audio box object parser.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            
-        </td>
-        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/parsers/AudioBoxObjectParser.html#AudioBoxObjectParser(fm.audiobox.core.Client, com.google.api.client.json.CustomizeJsonParser)">AudioBoxObjectParser</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, CustomizeJsonParser customParser)
         
         <div class="jd-descrdiv">Instantiates a new Audio box object parser.</div>
@@ -467,6 +453,9 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/parsers/AudioBoxObjectParser.html#parseAndClose(java.io.InputStream, java.nio.charset.Charset, java.lang.Class<T>)">parseAndClose</a></span>(InputStream in, Charset charset, Class&lt;T&gt; dataClass)
         
+        <div class="jd-descrdiv">
+</div>
+  
   </td></tr>
 
 
@@ -483,6 +472,9 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/parsers/AudioBoxObjectParser.html#parseAndClose(java.io.Reader, java.lang.Class<T>)">parseAndClose</a></span>(Reader reader, Class&lt;T&gt; dataClass)
         
+        <div class="jd-descrdiv">
+</div>
+  
   </td></tr>
 
 
@@ -499,6 +491,9 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/parsers/AudioBoxObjectParser.html#parseAndClose(java.io.Reader, java.lang.reflect.Type)">parseAndClose</a></span>(Reader reader, Type dataType)
         
+        <div class="jd-descrdiv">
+</div>
+  
   </td></tr>
 
 
@@ -515,6 +510,9 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/parsers/AudioBoxObjectParser.html#parseAndClose(java.io.InputStream, java.nio.charset.Charset, java.lang.reflect.Type)">parseAndClose</a></span>(InputStream in, Charset charset, Type dataType)
         
+        <div class="jd-descrdiv">
+</div>
+  
   </td></tr>
 
 
@@ -980,47 +978,6 @@ From interface
 
 
 
-<a id="AudioBoxObjectParser(fm.audiobox.core.Client)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        
-      </span>
-      <span class="sympad">AudioBoxObjectParser</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Instantiates a new Audio box object parser.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>client</th>
-          <td>the client
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <a id="AudioBoxObjectParser(fm.audiobox.core.Client, com.google.api.client.json.CustomizeJsonParser)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1106,7 +1063,8 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>
+</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
@@ -1146,7 +1104,8 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>
+</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
@@ -1186,7 +1145,8 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>
+</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
@@ -1226,7 +1186,8 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>
+</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  

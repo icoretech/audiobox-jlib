@@ -388,16 +388,16 @@ Summary:
 <p>Serializes MIME "multipart/form-data" content as specified by <a
  href="http://tools.ietf.org/html/rfc2388">RFC 2388: Returning Values from
  Forms: multipart/form-data</a>
-
+ <p/>
  The implementation is a subclass of MultipartContent that sets the
  media type to <code>"multipart/form-data"</code> and defaults to
  <code><a href="../../../../../com/google/api/client/http/MultipartFormDataContent.html#DEFAULT_BOUNDARY">DEFAULT_BOUNDARY</a></code> as a boundary string.
-
+ <p/>
  The generated content output differs from the superclass one to specifically
  meet the <code>"multipart/form-data"</code> RFC specifications, for example
  omitting redundant headers in the content parts (except for nested
  "multipart" parts).
-
+ <p/>
  <p>
  Shortcut method <code><a href="../../../../../com/google/api/client/http/MultipartFormDataContent.html#addPart(com.google.api.client.http.MultipartContent.Part, java.lang.String, java.lang.String)">addPart(Part, String, String)</a></code> is provided in order
  to easily set name and file name for the mandatory header
@@ -405,14 +405,14 @@ Summary:
  part's headers using the following format (but in this case no consistency
  checks are made and the request will most likely fail):
  </p>
-
+ <p/>
  <code>Content-Disposition: form-data; name="user"</code>
-
+ <p/>
  <p>
  Specifications on the "content-disposition" header (RFC 2183):<br>
  http://tools.ietf.org/html/rfc2183
  </p>
-
+ <p/>
  For a reference on how to build a multipart/form-data request see:
  <ul>
  <li>http://chxo.com/be2/20050724_93bf.html</li>
@@ -567,7 +567,7 @@ Summary:
         <span class="sympad"><a href="../../../../../com/google/api/client/http/MultipartFormDataContent.html#setBoundary(java.lang.String)">setBoundary</a></span>(String boundary)
         
         <div class="jd-descrdiv">Sets the boundary string to use (must be not null)
-
+ <p/>
  If this is not called, the boundary defaults to <code><a href="../../../../../com/google/api/client/http/MultipartFormDataContent.html#DEFAULT_BOUNDARY">DEFAULT_BOUNDARY</a></code></div>
   
   </td></tr>
@@ -1522,7 +1522,7 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Adds an HTTP multipart part.
-
+ <p/>
  This is a shortcut method to allow adding the specified name and
  (optional) filename are added in the <code>"content-disposition"</code>
  headers for the content (as per RFC 2183 par. 2). If the header is
@@ -1541,7 +1541,7 @@ From interface
         <tr>
           <th>dispositionFilename</th>
           <td>The optional filename of the part (usually for adding a
-            FileContent part)
+                            FileContent part)
 </td>
         </tr>
       </table>
@@ -1577,7 +1577,7 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets the boundary string to use (must be not null)
-
+ <p/>
  If this is not called, the boundary defaults to <code><a href="../../../../../com/google/api/client/http/MultipartFormDataContent.html#DEFAULT_BOUNDARY">DEFAULT_BOUNDARY</a></code></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>

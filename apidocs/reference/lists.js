@@ -30,7 +30,7 @@ var DATA = [
       { id:28, label:"fm.audiobox.core.models.MediaFile", link:"fm/audiobox/core/models/MediaFile.html", type:"class" },
       { id:29, label:"fm.audiobox.core.models.MediaFileWrapper", link:"fm/audiobox/core/models/MediaFileWrapper.html", type:"class" },
       { id:30, label:"fm.audiobox.core.models.MediaFiles", link:"fm/audiobox/core/models/MediaFiles.html", type:"class" },
-      { id:31, label:"fm.audiobox.core.models.MediaFiles.MediaCollectionCutomParser", link:"fm/audiobox/core/models/MediaFiles.MediaCollectionCutomParser.html", type:"class" },
+      { id:31, label:"fm.audiobox.core.models.MediaFiles.MediaCollectionCustomParser", link:"fm/audiobox/core/models/MediaFiles.MediaCollectionCustomParser.html", type:"class" },
       { id:32, label:"fm.audiobox.core.models.Model", link:"fm/audiobox/core/models/Model.html", type:"class" },
       { id:33, label:"fm.audiobox.core.models.Notification", link:"fm/audiobox/core/models/Notification.html", type:"class" },
       { id:34, label:"fm.audiobox.core.models.Notifications", link:"fm/audiobox/core/models/Notifications.html", type:"class" },

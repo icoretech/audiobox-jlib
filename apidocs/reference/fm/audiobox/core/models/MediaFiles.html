@@ -182,7 +182,7 @@
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Genres.html">Genres</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></li>
           <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.html">MediaFiles</a></li>
-          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCutomParser.html">MediaFiles.MediaCollectionCutomParser</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCustomParser.html">MediaFiles.MediaCollectionCustomParser</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFileWrapper.html">MediaFileWrapper</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Model.html">Model</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Notification.html">Notification</a></li>
@@ -438,8 +438,8 @@ Summary:
          
         
         class</td>
-      <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCutomParser.html">MediaFiles.MediaCollectionCutomParser</a></td>
-      <td class="jd-descrcol" width="100%">The type Media collection cutom parser.&nbsp;</td>
+      <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCustomParser.html">MediaFiles.MediaCollectionCustomParser</a></td>
+      <td class="jd-descrcol" width="100%">The Media collection custom parser.&nbsp;</td>
     </tr>
     
     
@@ -599,9 +599,9 @@ Summary:
             Collection&lt;Object&gt;
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFiles.html#newList(java.lang.Object, java.lang.reflect.Field)">newList</a></span>(Object context, Field field)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFiles.html#newList(java.lang.Object)">newList</a></span>(Object context)
         
-        <div class="jd-descrdiv">New list.</div>
+        <div class="jd-descrdiv">This method is not intended to be used directly, it exists for parsing technical reason.</div>
   
   </td></tr>
 
@@ -1365,18 +1365,14 @@ From class
       <table class="jd-tagtable">  
         <tr>
             <th><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
-            <td>if any of the remote error exception is detected.</td>
+            <td>if any of the remote error exception is detected.
+</td>
         </tr>  
         <tr>
             <th>IOException</td>
             <td></td>
         </tr>
       </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li></li>
-      </ul>
   </div>
 
     </div>
@@ -1419,7 +1415,7 @@ From class
 </div>
 
 
-<a id="newList(java.lang.Object, java.lang.reflect.Field)"></a>
+<a id="newList(java.lang.Object)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1432,7 +1428,7 @@ From class
         Collection&lt;Object&gt;
       </span>
       <span class="sympad">newList</span>
-      <span class="normal">(Object context, Field field)</span>
+      <span class="normal">(Object context)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1444,17 +1440,20 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>New list.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>This method is not intended to be used directly, it exists for parsing technical reason.
+ <p>
+ It builds a new <code><a href="../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a></code> that is used
+ by the parser and assigned to the underlying list of the instance of this very class.
+ </p>
+ <p>
+ ...yes, black magic happens! :P
+ </p></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>context</th>
-          <td>the context</td>
-        </tr>
-        <tr>
-          <th>field</th>
-          <td>the field</td>
+          <td>the observable parent object (typically a <code><a href="../../../../fm/audiobox/core/models/Playlist.html">Playlist</a></code>).</td>
         </tr>
       </table>
   </div>

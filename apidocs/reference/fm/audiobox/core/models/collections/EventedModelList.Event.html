@@ -325,7 +325,11 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>The type Event.
+<p>This is the wrapper object sent to the observers.
+ <p>
+ It contains information about what happened, the item that triggered the event
+ and the item the event impacted (i.e. the list).
+ </p>
 </p>
 
 
@@ -374,21 +378,21 @@ Summary:
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">int</td>
         <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#ADD">ADD</a></td>
-        <td class="jd-descrcol" width="100%">The constant ADD.</td>
+        <td class="jd-descrcol" width="100%">An item is added to the collection.</td>
     </tr>
     
     
     <tr class=" api apilevel-" >
         <td class="jd-typecol">int</td>
         <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#CLEAR">CLEAR</a></td>
-        <td class="jd-descrcol" width="100%">The constant CLEAR.</td>
+        <td class="jd-descrcol" width="100%">The collection is cleared.</td>
     </tr>
     
     
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">int</td>
         <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#REMOVE">REMOVE</a></td>
-        <td class="jd-descrcol" width="100%">The constant REMOVE.</td>
+        <td class="jd-descrcol" width="100%">An item is removed from the collection.</td>
     </tr>
     
     
@@ -413,7 +417,7 @@ Summary:
           
           T</td>
           <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#source">source</a></td>
-          <td class="jd-descrcol" width="100%">The Source.</td>
+          <td class="jd-descrcol" width="100%">The item that triggered the event.</td>
       </tr>
       
     
@@ -424,7 +428,7 @@ Summary:
           
           <a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a></td>
           <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#target">target</a></td>
-          <td class="jd-descrcol" width="100%">The Target.</td>
+          <td class="jd-descrcol" width="100%">The list where the event is originated.</td>
       </tr>
       
     
@@ -435,7 +439,7 @@ Summary:
           
           int</td>
           <td class="jd-linkcol"><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#what">what</a></td>
-          <td class="jd-descrcol" width="100%">The What.</td>
+          <td class="jd-descrcol" width="100%">The type of the event (see <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#ADD">ADD</a></code>, <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#REMOVE">REMOVE</a></code> and <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#CLEAR">CLEAR</a></code>).</td>
       </tr>
       
     
@@ -742,7 +746,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The constant ADD.
+  <div class="jd-tagdata jd-tagdescr"><p>An item is added to the collection.
 </p></div>
 
     
@@ -783,7 +787,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The constant CLEAR.
+  <div class="jd-tagdata jd-tagdescr"><p>The collection is cleared.
 </p></div>
 
     
@@ -824,7 +828,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The constant REMOVE.
+  <div class="jd-tagdata jd-tagdescr"><p>An item is removed from the collection.
 </p></div>
 
     
@@ -875,7 +879,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The Source.
+  <div class="jd-tagdata jd-tagdescr"><p>The item that triggered the event.
 </p></div>
 
     
@@ -906,7 +910,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The Target.
+  <div class="jd-tagdata jd-tagdescr"><p>The list where the event is originated.
 </p></div>
 
     
@@ -937,7 +941,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The What.
+  <div class="jd-tagdata jd-tagdescr"><p>The type of the event (see <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#ADD">ADD</a></code>, <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#REMOVE">REMOVE</a></code> and <code><a href="../../../../../fm/audiobox/core/models/collections/EventedModelList.Event.html#CLEAR">CLEAR</a></code>).
 </p></div>
 
     
