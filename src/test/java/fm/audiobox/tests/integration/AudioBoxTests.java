@@ -25,6 +25,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.config.ConfigurationException;
 import fm.audiobox.tests.support.FileCredentialStore;
 import org.junit.After;
 import org.junit.Before;
@@ -34,7 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
 

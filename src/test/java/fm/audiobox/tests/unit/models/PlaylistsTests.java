@@ -20,6 +20,7 @@ package fm.audiobox.tests.unit.models;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.models.collections.EventedModelList;
+import fm.audiobox.core.models.collections.ModelEvent;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import fm.audiobox.tests.mocks.MockHttp;
@@ -852,8 +853,8 @@ public class PlaylistsTests extends AudioBoxTests {
       @Override
       public void update(Observable o, Object arg) {
         assertSame( o, pls );
-        assertTrue(arg instanceof EventedModelList.Event);
-        EventedModelList.Event e = ( EventedModelList.Event ) arg;
+        assertTrue(arg instanceof ModelEvent );
+        ModelEvent e = ( ModelEvent ) arg;
         assertTrue( e.source instanceof MediaFile );
         assertTrue( e.target instanceof EventedModelList);
       }

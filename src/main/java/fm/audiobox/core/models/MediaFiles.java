@@ -37,7 +37,10 @@ public class MediaFiles extends Model {
    TODO: PUT /api/v1/media_files/multiupdate.json?tokens[]=
    */
 
-  private static final String JSON_TOKEN = "media_files";
+  /**
+   * The JSON token of the objects collection.
+   */
+  public static final String JSON_TOKEN = "media_files";
 
   /**
    * The constant PARAM_SET.

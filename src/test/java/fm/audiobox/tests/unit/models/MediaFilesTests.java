@@ -25,6 +25,7 @@ import fm.audiobox.core.models.MediaFiles;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
 import fm.audiobox.core.models.collections.EventedModelList;
+import fm.audiobox.core.models.collections.ModelEvent;
 import fm.audiobox.core.net.Upload;
 import fm.audiobox.core.parsers.AudioBoxObjectParser;
 import fm.audiobox.tests.mocks.MockHttp;
@@ -144,8 +145,8 @@ public class MediaFilesTests extends AudioBoxTests {
       @Override
       public void update(Observable o, Object arg) {
         assertSame( o, p );
-        assertTrue(arg instanceof EventedModelList.Event);
-        EventedModelList.Event e = ( EventedModelList.Event ) arg;
+        assertTrue(arg instanceof ModelEvent );
+        ModelEvent e = ( ModelEvent ) arg;
         assertTrue( e.source instanceof MediaFile );
         assertTrue( e.target instanceof EventedModelList);
       }

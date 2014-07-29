@@ -25,9 +25,9 @@ import java.util.LinkedList;
 /**
  * A {@link java.util.LinkedList} extension that triggers events on:
  * <ul>
- * <li>add an item {@link Event#ADD}</li>
- * <li>remove an item {@link Event#REMOVE}</li>
- * <li>clear the list {@link Event#CLEAR}</li>
+ * <li>add an item {@link ModelEvent#ADD}</li>
+ * <li>remove an item {@link ModelEvent#REMOVE}</li>
+ * <li>clear the list {@link ModelEvent#CLEAR}</li>
  * </ul>
  *
  * @param <T> the type parameter
@@ -41,7 +41,7 @@ public class EventedModelList<T> extends LinkedList<T> {
    * Instantiates a new Evented model list.
    * <p>
    * This default constructor is used by the parser when a {@link com.google.api.client.json.CustomizeJsonParser} is
-   * not provided. In this last case no {@link fm.audiobox.core.models.collections.EventedModelList.Event} are triggered.
+   * not provided. In this last case no {@link ModelEvent} are triggered.
    * </p>
    */
   public EventedModelList() {
@@ -61,28 +61,28 @@ public class EventedModelList<T> extends LinkedList<T> {
 
   @Override
   public boolean add(T t) {
-    trigger( Event.ADD, t );
+    trigger( ModelEvent.ADD, t );
     return super.add( t );
   }
 
 
   @Override
   public void add(int index, T element) {
-    trigger( Event.ADD, element );
+    trigger( ModelEvent.ADD, element );
     super.add( index, element );
   }
 
 
   @Override
   public void addFirst(T t) {
-    trigger( Event.ADD, t );
+    trigger( ModelEvent.ADD, t );
     super.addFirst( t );
   }
 
 
   @Override
   public void addLast(T t) {
-    trigger( Event.ADD, t );
+    trigger( ModelEvent.ADD, t );
     super.addLast( t );
   }
 
@@ -90,38 +90,38 @@ public class EventedModelList<T> extends LinkedList<T> {
   @Override
   @SuppressWarnings("unchecked")
   public boolean remove(Object o) {
-    trigger( Event.REMOVE, ( T ) o );
+    trigger( ModelEvent.REMOVE, ( T ) o );
     return super.remove( o );
   }
 
 
   @Override
   public T remove(int index) {
-    return trigger( Event.REMOVE, super.remove( index ) );
+    return trigger( ModelEvent.REMOVE, super.remove( index ) );
   }
 
 
   @Override
   public T remove() {
-    return trigger( Event.REMOVE, super.remove() );
+    return trigger( ModelEvent.REMOVE, super.remove() );
   }
 
 
   @Override
   public T removeFirst() {
-    return trigger( Event.REMOVE, super.removeFirst() );
+    return trigger( ModelEvent.REMOVE, super.removeFirst() );
   }
 
 
   @Override
   public T removeLast() {
-    return trigger( Event.REMOVE, super.removeLast() );
+    return trigger( ModelEvent.REMOVE, super.removeLast() );
   }
 
 
   @Override
   public void clear() {
-    trigger( Event.CLEAR, null );
+    trigger( ModelEvent.CLEAR, null );
     super.clear();
   }
 
@@ -140,73 +140,10 @@ public class EventedModelList<T> extends LinkedList<T> {
    */
   private T trigger(int what, T item) {
     if ( this.parent != null ) {
-      new Event( what, item, this ).trigger();
+      new ModelEvent<>( what, item, this, this.parent ).trigger();
     }
 
     return item;
-  }
-
-
-  /**
-   * This is the wrapper object sent to the observers.
-   * <p>
-   * It contains information about what happened, the item that triggered the event
-   * and the item the event impacted (i.e. the list).
-   * </p>
-   */
-  public class Event {
-
-    /**
-     * An item is added to the collection.
-     */
-    public static final int ADD = 1;
-
-    /**
-     * An item is removed from the collection.
-     */
-    public static final int REMOVE = -1;
-
-    /**
-     * The collection is cleared.
-     */
-    public static final int CLEAR = 0;
-
-    /**
-     * The type of the event (see {@link Event#ADD}, {@link Event#REMOVE} and {@link Event#CLEAR}).
-     */
-    public int what;
-
-    /**
-     * The item that triggered the event.
-     */
-    public T source;
-
-    /**
-     * The list where the event is originated.
-     */
-    public EventedModelList target;
-
-
-    /**
-     * Instantiates a new Event.
-     *
-     * @param what   the what
-     * @param source the target
-     * @param target the target
-     */
-    public Event(int what, T source, EventedModelList target) {
-      this.what = what;
-      this.source = source;
-      this.target = target;
-    }
-
-
-    /**
-     * Notifies parents observers
-     */
-    private void trigger() {
-      parent.notifyObservers( this );
-    }
   }
 
 }

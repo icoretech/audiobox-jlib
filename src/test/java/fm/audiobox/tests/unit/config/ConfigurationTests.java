@@ -22,11 +22,11 @@ import com.google.api.client.auth.oauth2.DataStoreCredentialRefreshListener;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.config.ConfigurationException;
 import fm.audiobox.tests.support.FileCredentialStore;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
 
-import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
 

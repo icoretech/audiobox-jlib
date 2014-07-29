@@ -21,6 +21,7 @@ import com.google.api.client.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.json.JsonObjectParser;
 import fm.audiobox.core.config.Configuration;
+import fm.audiobox.core.config.ConfigurationException;
 import fm.audiobox.core.exceptions.*;
 import fm.audiobox.core.models.*;
 import fm.audiobox.core.net.NetworkProgressListener;
@@ -31,7 +32,6 @@ import fm.audiobox.core.utils.Io;
 import fm.audiobox.core.utils.ModelUtil;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.naming.ConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;

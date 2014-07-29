@@ -28,9 +28,6 @@ import fm.audiobox.core.models.*;
 import fm.audiobox.core.store.CredentialDataStore;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.naming.ConfigurationException;
-
-
 /**
  * Through this class you can control several behavior of the client such as HTTP client or JSON parser libraries.
  * <p/>
