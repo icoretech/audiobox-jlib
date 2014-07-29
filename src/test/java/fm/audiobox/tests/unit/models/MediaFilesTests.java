@@ -16,6 +16,7 @@
 
 package fm.audiobox.tests.unit.models;
 
+import com.google.api.client.json.JsonObjectParser;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.exceptions.FileAlreadyUploaded;
 import fm.audiobox.core.exceptions.ResourceNotFoundException;
@@ -23,7 +24,9 @@ import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.models.MediaFiles;
 import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
+import fm.audiobox.core.models.collections.EventedModelList;
 import fm.audiobox.core.net.Upload;
+import fm.audiobox.core.parsers.AudioBoxObjectParser;
 import fm.audiobox.tests.mocks.MockHttp;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;
@@ -32,6 +35,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import static org.junit.Assert.*;
 
@@ -132,8 +137,23 @@ public class MediaFilesTests extends AudioBoxTests {
    */
   @Test
   public void testMediaFiles() throws IOException {
-    Playlist p = Playlists.getDropboxPlaylist( c );
-    List<? extends MediaFile> m = p.getMediaFiles( c );
+    final Playlist p = Playlists.getDropboxPlaylist( c );
+
+    p.addObserver( new Observer() {
+
+      @Override
+      public void update(Observable o, Object arg) {
+        assertSame( o, p );
+        assertTrue(arg instanceof EventedModelList.Event);
+        EventedModelList.Event e = ( EventedModelList.Event ) arg;
+        assertTrue( e.source instanceof MediaFile );
+        assertTrue( e.target instanceof EventedModelList);
+      }
+
+    });
+
+    JsonObjectParser parser = new AudioBoxObjectParser( c, new MediaFiles.MediaCollectionCustomParser( p ) );
+    List<? extends MediaFile> m = p.getMediaFiles( c, parser );
     assertNotNull( m );
   }
 

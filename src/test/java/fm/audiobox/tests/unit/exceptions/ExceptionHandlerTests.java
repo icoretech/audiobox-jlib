@@ -20,7 +20,6 @@ package fm.audiobox.tests.unit.exceptions;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.exceptions.ExceptionHandler;
 import fm.audiobox.core.models.Playlist;
-import fm.audiobox.core.models.Playlists;
 import fm.audiobox.tests.mocks.MockHttp;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
 import org.junit.Test;

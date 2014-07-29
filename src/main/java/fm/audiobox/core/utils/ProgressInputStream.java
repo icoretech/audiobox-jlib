@@ -18,7 +18,10 @@ package fm.audiobox.core.utils;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Created based on http://stackoverflow.com/questions/1339437/inputstream-or-reader-wrapper-for-progress-reporting

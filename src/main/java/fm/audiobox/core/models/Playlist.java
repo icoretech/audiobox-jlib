@@ -19,13 +19,12 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
-import com.google.api.client.json.CustomizeJsonParser;
+import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.util.GenericData;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
 import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.exceptions.SyncException;
-import fm.audiobox.core.parsers.AudioBoxObjectParser;
 import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.ModelUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -163,7 +162,7 @@ public class Playlist extends Model {
    * <p/>
    * Default empty constructor.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings("unused")
   public Playlist() {
   }
 
@@ -329,6 +328,45 @@ public class Playlist extends Model {
 
 
   /**
+   * <p>
+   * Returns media files linked to the specified playlist token along with primary information.
+   * </p>
+   * <p>
+   * This does not return all the attributes for a MediaFile, instead it returns an optimized JSON for fast view-level
+   * rendering and parsing purposes. Full details about a particular MediaFile can be obtained by calling the dedicated
+   * show endpoint.
+   * </p>
+   * <p>
+   * Supports a comma separated 'set' parameter which indicates which attributes to render, like 'type,token' so a
+   * developer can just ask the needed attributes.
+   * </p>
+   * <p>
+   * Supports a datetime 'since' parameter that filters the collection and returns records modified since the specified
+   * date.
+   * </p>
+   * <p>
+   * Remote and third party Cloud Storage services' content can be accessed through this endpoint, however an error will
+   * be returned if the user has no valid authentication information stored towards the service in question or has an
+   * invalid subscription. For example if the user tries to access the Dropbox playlist but he has not the related account
+   * linked a ForbiddenException will be thrown, along with the subscription status. Valid subscription statuses are
+   * active and trialing.
+   * </p>
+   *
+   * @param client the client to use for the request
+   * @param parser the parser to use to parse the response
+   *
+   * @return A list of {@link MediaFile} elements
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
+   */
+  public List<MediaFile> getMediaFiles(Client client, JsonObjectParser parser) throws IOException {
+    return getMediaFiles( client, 0, null, parser );
+  }
+
+
+  /**
    * Same as {@link fm.audiobox.core.models.Playlist#getMediaFiles(fm.audiobox.core.Client, long, String)} but
    * all media file fields are returned.
    * <br/>
@@ -384,6 +422,47 @@ public class Playlist extends Model {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<MediaFile> getMediaFiles(Client client, long since, String set) throws IOException {
+    return getMediaFiles( client, since, null, null );
+  }
+
+
+  /**
+   * <p>
+   * Returns media files linked to the specified playlist token along with primary information.
+   * </p>
+   * <p>
+   * This does not return all the attributes for a MediaFile, instead it returns an optimized JSON for fast view-level
+   * rendering and parsing purposes. Full details about a particular MediaFile can be obtained by calling the dedicated
+   * show endpoint.
+   * </p>
+   * <p>
+   * Supports a comma separated 'set' parameter which indicates which attributes to render, like 'type,token' so a
+   * developer can just ask the needed attributes.
+   * </p>
+   * <p>
+   * Supports a datetime 'since' parameter that filters the collection and returns records modified since the specified
+   * date.
+   * </p>
+   * <p>
+   * Remote and third party Cloud Storage services' content can be accessed through this endpoint, however an error will
+   * be returned if the user has no valid authentication information stored towards the service in question or has an
+   * invalid subscription. For example if the user tries to access the Dropbox playlist but he has not the related account
+   * linked a ForbiddenException will be thrown, along with the subscription status. Valid subscription statuses are
+   * active and trialing.
+   * </p>
+   *
+   * @param client the client to use for the request
+   * @param since  unix timestamp that filters the collection and returns records modified since the specified date.
+   * @param set    comma separated 'set' parameter which indicates which attributes to render, like 'type,token', null will return all available fields.
+   * @param parser the parser to use to parse the response
+   *
+   * @return A list of {@link MediaFile} elements
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
+   */
+  public List<MediaFile> getMediaFiles(Client client, long since, String set, JsonObjectParser parser) throws IOException {
     ensurePlaylistForRequest();
 
     String url = getMediaFilesPath();
@@ -397,7 +476,7 @@ public class Playlist extends Model {
       url += setParam;
     }
 
-    HttpResponse rsp = client.doGET( url, new AudioBoxObjectParser( client, new MediaFiles.MediaCollectionCutomParser(this) ) );
+    HttpResponse rsp = client.doGET( url, parser );
     return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
@@ -541,6 +620,8 @@ public class Playlist extends Model {
    * <p/>
    * Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.
    *
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   *
    * @return A list of {@link MediaFile} elements
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
@@ -548,7 +629,26 @@ public class Playlist extends Model {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getFingerprints(Client client) throws IOException {
-    HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ), new AudioBoxObjectParser( client, new MediaFiles.MediaCollectionCutomParser(this) ) );
+    return getFingerprints( client, null );
+  }
+
+
+  /**
+   * Returns known file fingerprints for this playlist. Available only for local and cloud playlist tokens.
+   * <p/>
+   * Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.
+   *
+   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param parser the parser to use to parse the response
+   *
+   * @return A list of {@link MediaFile} elements
+   *
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
+   */
+  public List<? extends MediaFile> getFingerprints(Client client, JsonObjectParser parser) throws IOException {
+    HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ), parser );
     return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 

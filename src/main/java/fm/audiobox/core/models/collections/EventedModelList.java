@@ -24,9 +24,9 @@ import java.util.LinkedList;
 
 /**
  * A {@link java.util.LinkedList} extension that triggers events on:
- * - add an item
- * - remove an item
- * - clear the list
+ * - add an item {@link Event#ADD}
+ * - remove an item {@link Event#REMOVE}
+ * - clear the list {@link Event#CLEAR}
  *
  * @param <T> the type parameter
  */
@@ -37,10 +37,22 @@ public class EventedModelList<T> extends LinkedList<T> {
 
   /**
    * Instantiates a new Evented model list.
+   * <p>
+   * This default constructor is used by the parser when a {@link com.google.api.client.json.CustomizeJsonParser} is
+   * not provided. In this last case no {@link fm.audiobox.core.models.collections.EventedModelList.Event} are triggered.
+   * </p>
+   */
+  public EventedModelList() {
+  }
+
+
+  /**
+   * Instantiates a new Evented model list.
    *
    * @param parent the parent
    */
   public EventedModelList(Model parent) {
+    this();
     this.parent = parent;
   }
 
@@ -112,6 +124,18 @@ public class EventedModelList<T> extends LinkedList<T> {
   }
 
 
+
+  /* =============== */
+  /* Private methods */
+  /* =============== */
+
+
+  /**
+   * Creates a new event and notifies the observers.
+   *
+   * @param what the occurred event
+   * @param item the object that triggered the event
+   */
   private T trigger(int what, T item) {
     if ( this.parent != null ) {
       new Event( what, item, this ).trigger();
@@ -122,37 +146,41 @@ public class EventedModelList<T> extends LinkedList<T> {
 
 
   /**
-   * The type Event.
+   * This is the wrapper object sent to the observers.
+   * <p>
+   * It contains information about what happened, the item that triggered the event
+   * and the item the event impacted (i.e. the list).
+   * </p>
    */
   public class Event {
 
     /**
-     * The constant ADD.
+     * An item is added to the collection.
      */
     public static final int ADD = 1;
 
     /**
-     * The constant REMOVE.
+     * An item is removed from the collection.
      */
     public static final int REMOVE = -1;
 
     /**
-     * The constant CLEAR.
+     * The collection is cleared.
      */
     public static final int CLEAR = 0;
 
     /**
-     * The What.
+     * The type of the event (see {@link Event#ADD}, {@link Event#REMOVE} and {@link Event#CLEAR}).
      */
     public int what;
 
     /**
-     * The Source.
+     * The item that triggered the event.
      */
     public T source;
 
     /**
-     * The Target.
+     * The list where the event is originated.
      */
     public EventedModelList target;
 
@@ -171,6 +199,9 @@ public class EventedModelList<T> extends LinkedList<T> {
     }
 
 
+    /**
+     * Notifies parents observers
+     */
     private void trigger() {
       parent.notifyObservers( this );
     }

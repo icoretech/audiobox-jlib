@@ -18,8 +18,6 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.util.Key;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;

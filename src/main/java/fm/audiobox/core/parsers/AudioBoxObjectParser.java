@@ -17,7 +17,10 @@
 package fm.audiobox.core.parsers;
 
 
-import com.google.api.client.json.*;
+import com.google.api.client.json.CustomizeJsonParser;
+import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.json.JsonParser;
+import com.google.api.client.json.JsonToken;
 import com.google.api.client.util.Preconditions;
 import fm.audiobox.core.Client;
 
@@ -30,6 +33,10 @@ import java.nio.charset.Charset;
 
 /**
  * A customizable JSON object parser.
+ * <p>
+ * The use of this class will allow custom collection {@link fm.audiobox.core.models.Model} to behave according
+ * to the specified {@link com.google.api.client.json.CustomizeJsonParser} object passed as constructor argument.
+ * </p>
  */
 public class AudioBoxObjectParser extends JsonObjectParser {
 
@@ -39,31 +46,23 @@ public class AudioBoxObjectParser extends JsonObjectParser {
   /**
    * Instantiates a new Audio box object parser.
    *
-   * @param client the client
-   */
-  public AudioBoxObjectParser(Client client) {
-    this( client, null );
-  }
-
-
-  /**
-   * Instantiates a new Audio box object parser.
-   *
    * @param client       the client
    * @param customParser the custom parser
    */
   public AudioBoxObjectParser(Client client, CustomizeJsonParser customParser) {
-    super( (new Builder( client.getConf().getJsonFactory() )) );
+    super( ( new Builder( client.getConf().getJsonFactory() ) ) );
     this.customParser = customParser;
   }
 
 
+  @Override
   @SuppressWarnings("unchecked")
   public <T> T parseAndClose(InputStream in, Charset charset, Class<T> dataClass) throws IOException {
     return ( T ) parseAndClose( in, charset, ( Type ) dataClass );
   }
 
 
+  @Override
   public Object parseAndClose(InputStream in, Charset charset, Type dataType) throws IOException {
     JsonParser parser = getJsonFactory().createJsonParser( in, charset );
     initializeParser( parser );
@@ -71,12 +70,14 @@ public class AudioBoxObjectParser extends JsonObjectParser {
   }
 
 
+  @Override
   @SuppressWarnings("unchecked")
   public <T> T parseAndClose(Reader reader, Class<T> dataClass) throws IOException {
     return ( T ) parseAndClose( reader, ( Type ) dataClass );
   }
 
 
+  @Override
   public Object parseAndClose(Reader reader, Type dataType) throws IOException {
     JsonParser parser = getJsonFactory().createJsonParser( reader );
     initializeParser( parser );

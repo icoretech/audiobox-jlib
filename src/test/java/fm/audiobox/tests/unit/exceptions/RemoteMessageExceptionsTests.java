@@ -19,7 +19,6 @@ package fm.audiobox.tests.unit.exceptions;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.google.api.client.http.HttpResponse;
-import fm.audiobox.core.exceptions.Errors;
 import fm.audiobox.core.exceptions.RemoteMessageException;
 import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.tests.mocks.MockHttp;

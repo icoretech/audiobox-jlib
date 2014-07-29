@@ -17,8 +17,6 @@
 package fm.audiobox.core.utils;
 
 import com.google.api.client.util.Preconditions;
-import fm.audiobox.core.Client;
-import fm.audiobox.core.exceptions.AudioBoxException;
 import fm.audiobox.core.models.Playlist;
 import org.apache.commons.lang3.StringUtils;
 

@@ -15,19 +15,18 @@
  */
 package com.google.api.client.http;
 
+import com.google.api.client.util.Beta;
+import com.google.api.client.util.Preconditions;
+import com.google.api.client.util.StreamingContent;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Collection;
 import java.util.Locale;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.google.api.client.util.Beta;
-import com.google.api.client.util.Preconditions;
-import com.google.api.client.util.StreamingContent;
 
 /**
  * Serializes MIME "multipart/form-data" content as specified by <a

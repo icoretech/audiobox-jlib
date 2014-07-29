@@ -27,7 +27,8 @@ import fm.audiobox.core.net.Download;
 import fm.audiobox.core.net.NetworkProgressListener;
 import fm.audiobox.core.utils.ModelUtil;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**

@@ -30,7 +30,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import static org.junit.Assert.*;
 

@@ -67,7 +67,7 @@ public class MediaFiles extends Model {
   /**
    * The parsed media files list
    */
-  @Key(JSON_TOKEN)
+  @Key( JSON_TOKEN )
   protected EventedModelList<MediaFile> media_files;
 
 
@@ -88,45 +88,64 @@ public class MediaFiles extends Model {
    *
    * @param client the client
    * @param tokens the tokens
+   *
    * @return the boolean
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
    */
   public static boolean destroyAll(Client client, List<String> tokens) throws IOException {
     String url = DESTROY_MEDIA_FILES_PATH + "?utf8=true";
-    for (String tk : tokens) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
+    for ( String tk : tokens ) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
     client.doDELETE( url );
     return true;
   }
 
 
   /**
-   * New list.
+   * This method is not intended to be used directly, it exists for parsing technical reason.
+   * <p>
+   * It builds a new {@link fm.audiobox.core.models.collections.EventedModelList} that is used
+   * by the parser and assigned to the underlying list of the instance of this very class.
+   * </p>
+   * <p>
+   * ...yes, black magic happens! :P
+   * </p>
    *
-   * @param context the context
-   * @param field the field
+   * @param context the observable parent object (typically a {@link fm.audiobox.core.models.Playlist}).
+   *
    * @return the collection
    */
-  public static Collection<Object> newList(Object context, Field field) {
-    return new EventedModelList<>( (Model) context );
+  public static Collection<Object> newList(Object context) {
+    return new EventedModelList<>( ( Model ) context );
   }
 
 
   /**
-   * The type Media collection cutom parser.
+   * The Media collection custom parser.
+   * <p>
+   * This object, used together with {@link fm.audiobox.core.parsers.AudioBoxObjectParser}, allow to customize some
+   * aspects of the parser. See {@link com.google.api.client.json.CustomizeJsonParser} for more information.
+   * </p>
    */
-  public static class MediaCollectionCutomParser extends CustomizeJsonParser {
+  public static class MediaCollectionCustomParser extends CustomizeJsonParser {
 
     private Model parent;
 
-    public MediaCollectionCutomParser(Model observable) {
+
+    /**
+     * Instantiates a new Media collection custom parser.
+     *
+     * @param observable the observable
+     */
+    public MediaCollectionCustomParser(Model observable) {
       this.parent = observable;
     }
 
+
     @Override
     public Collection<Object> newInstanceForArray(Object context, Field field) {
-      if (JSON_TOKEN.equals( field.getName() ) ) {
-        return MediaFiles.newList( this.parent, field );
+      if ( JSON_TOKEN.equals( field.getName() ) ) {
+        return MediaFiles.newList( this.parent );
       } else {
         return super.newInstanceForArray( context, field );
       }

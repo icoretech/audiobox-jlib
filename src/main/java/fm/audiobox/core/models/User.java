@@ -16,12 +16,9 @@
 
 package fm.audiobox.core.models;
 
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
-import fm.audiobox.core.exceptions.AudioBoxException;
-import fm.audiobox.core.utils.HttpStatus;
 
 import java.io.IOException;
 
