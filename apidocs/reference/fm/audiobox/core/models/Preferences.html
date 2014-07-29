@@ -155,7 +155,11 @@
     <li class="selected api apilevel-">
   <a href="../../../../fm/audiobox/core/models/package-summary.html">fm.audiobox.core.models</a></li>
     <li class="api apilevel-">
+  <a href="../../../../fm/audiobox/core/models/collections/package-summary.html">fm.audiobox.core.models.collections</a></li>
+    <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/net/package-summary.html">fm.audiobox.core.net</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../fm/audiobox/core/parsers/package-summary.html">fm.audiobox.core.parsers</a></li>
     <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/store/package-summary.html">fm.audiobox.core.store</a></li>
     <li class="api apilevel-">
@@ -178,6 +182,7 @@
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Genres.html">Genres</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.html">MediaFiles</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCutomParser.html">MediaFiles.MediaCollectionCutomParser</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFileWrapper.html">MediaFileWrapper</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Model.html">Model</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Notification.html">Notification</a></li>
@@ -232,6 +237,13 @@
 <div id="api-info-block">
 
 
+
+  
+   
+  
+  
+  
+  
 
   
    
@@ -310,6 +322,10 @@ Summary:
   
 
   
+  
+  
+
+  
     extends <a href="../../../../fm/audiobox/core/models/Model.html">Model</a><br/>
   
   
@@ -330,11 +346,21 @@ Summary:
 
     <tr>
          	
-        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="4" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
     <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+         	
+        <td colspan="3" class="jd-inheritance-class-cell">java.util.Observable</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
@@ -343,6 +369,8 @@ Summary:
     
 
     <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;</td>
         
@@ -920,6 +948,22 @@ From class
         <td class="jd-typecol">
             
             
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Model.html#notifyObservers(java.lang.Object)">notifyObservers</a></span>(Object arg)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
             final
             
             
@@ -930,6 +974,176 @@ From class
         
         <div class="jd-descrdiv">Sets a property to the model</div>
   
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.util.Observable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-java.util.Observable-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  java.util.Observable
+
+<div id="inherited-methods-java.util.Observable">
+  <div id="inherited-methods-java.util.Observable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-java.util.Observable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">addObserver</span>(Observer arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">clearChanged</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            int
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">countObservers</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">deleteObserver</span>(Observer arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">deleteObservers</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            boolean
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">hasChanged</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">notifyObservers</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">notifyObservers</span>(Object arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">setChanged</span>()
+        
   </td></tr>
 
 

@@ -155,7 +155,11 @@
     <li class="selected api apilevel-">
   <a href="../../../../fm/audiobox/core/models/package-summary.html">fm.audiobox.core.models</a></li>
     <li class="api apilevel-">
+  <a href="../../../../fm/audiobox/core/models/collections/package-summary.html">fm.audiobox.core.models.collections</a></li>
+    <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/net/package-summary.html">fm.audiobox.core.net</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../fm/audiobox/core/parsers/package-summary.html">fm.audiobox.core.parsers</a></li>
     <li class="api apilevel-">
   <a href="../../../../fm/audiobox/core/store/package-summary.html">fm.audiobox.core.store</a></li>
     <li class="api apilevel-">
@@ -178,6 +182,7 @@
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Genres.html">Genres</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a></li>
           <li class="selected api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.html">MediaFiles</a></li>
+          <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCutomParser.html">MediaFiles.MediaCollectionCutomParser</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/MediaFileWrapper.html">MediaFileWrapper</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Model.html">Model</a></li>
           <li class="api apilevel-"><a href="../../../../fm/audiobox/core/models/Notification.html">Notification</a></li>
@@ -247,17 +252,27 @@
   
   
 
+  
+   
+  
+  
+  
+  
+
 
 <div class="sum-details-links">
 
 
 Summary:
 
+  <a href="#nestedclasses">Nested Classes</a>
+  
 
 
 
 
-  <a href="#constants">Constants</a>
+
+  &#124; <a href="#constants">Constants</a>
   
 
 
@@ -310,6 +325,10 @@ Summary:
   
 
   
+  
+  
+
+  
     extends <a href="../../../../fm/audiobox/core/models/Model.html">Model</a><br/>
   
   
@@ -330,11 +349,21 @@ Summary:
 
     <tr>
          	
-        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="4" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
     <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+         	
+        <td colspan="3" class="jd-inheritance-class-cell">java.util.Observable</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
@@ -343,6 +372,8 @@ Summary:
     
 
     <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;</td>
         
@@ -393,6 +424,27 @@ Summary:
 
 <h2>Summary</h2>
 
+
+
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<table id="nestedclasses" class="jd-sumtable"><tr><th colspan="12">Nested Classes</th></tr>
+
+
+  
+    <tr class="alt-color api apilevel-" >
+      <td class="jd-typecol">
+        
+         
+         
+        
+        class</td>
+      <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFiles.MediaCollectionCutomParser.html">MediaFiles.MediaCollectionCutomParser</a></td>
+      <td class="jd-descrcol" width="100%">The type Media collection cutom parser.&nbsp;</td>
+    </tr>
+    
+    
+
+</table>
 
 
 
@@ -450,7 +502,7 @@ Summary:
           protected
           
           
-          List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;</td>
+          <a href="../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a>&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;</td>
           <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/MediaFiles.html#media_files">media_files</a></td>
           <td class="jd-descrcol" width="100%">The parsed media files list
 </td>
@@ -526,12 +578,30 @@ Summary:
             
             
             
-            List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+            <a href="../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a>&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
         </td>
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFiles.html#getMediaFiles()">getMediaFiles</a></span>()
         
         <div class="jd-descrdiv">Gets playlists.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            static
+            
+            Collection&lt;Object&gt;
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFiles.html#newList(java.lang.Object, java.lang.reflect.Field)">newList</a></span>(Object context, Field field)
+        
+        <div class="jd-descrdiv">New list.</div>
   
   </td></tr>
 
@@ -593,6 +663,22 @@ From class
         <td class="jd-typecol">
             
             
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Model.html#notifyObservers(java.lang.Object)">notifyObservers</a></span>(Object arg)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
             final
             
             
@@ -603,6 +689,176 @@ From class
         
         <div class="jd-descrdiv">Sets a property to the model</div>
   
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.util.Observable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-java.util.Observable-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  java.util.Observable
+
+<div id="inherited-methods-java.util.Observable">
+  <div id="inherited-methods-java.util.Observable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-java.util.Observable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">addObserver</span>(Observer arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">clearChanged</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            int
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">countObservers</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">deleteObserver</span>(Observer arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">deleteObservers</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            boolean
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">hasChanged</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">notifyObservers</span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">notifyObservers</span>(Object arg0)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            synchronized
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad">setChanged</span>()
+        
   </td></tr>
 
 
@@ -981,7 +1237,7 @@ From class
         protected 
          
          
-        List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+        <a href="../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a>&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
       </span>
         media_files
     </h4>
@@ -1113,13 +1369,13 @@ From class
         </tr>  
         <tr>
             <th>IOException</td>
-            <td>if any connection problem occurs.</td>
+            <td></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      <ul class="nolist"><li></li>
       </ul>
   </div>
 
@@ -1137,7 +1393,7 @@ From class
          
          
          
-        List&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
+        <a href="../../../../fm/audiobox/core/models/collections/EventedModelList.html">EventedModelList</a>&lt;<a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>&gt;
       </span>
       <span class="sympad">getMediaFiles</span>
       <span class="normal">()</span>
@@ -1156,6 +1412,55 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the playlists collection.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="newList(java.lang.Object, java.lang.reflect.Field)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        Collection&lt;Object&gt;
+      </span>
+      <span class="sympad">newList</span>
+      <span class="normal">(Object context, Field field)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>New list.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>context</th>
+          <td>the context</td>
+        </tr>
+        <tr>
+          <th>field</th>
+          <td>the field</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the collection
 </li></ul>
   </div>
 

@@ -3,7 +3,9 @@ fm.audiobox.core
 fm.audiobox.core.config
 fm.audiobox.core.exceptions
 fm.audiobox.core.models
+fm.audiobox.core.models.collections
 fm.audiobox.core.net
+fm.audiobox.core.parsers
 fm.audiobox.core.store
 fm.audiobox.core.utils
 

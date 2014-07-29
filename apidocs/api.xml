@@ -3398,7 +3398,7 @@
 </exception>
 </method>
 <method name="getMediaFiles"
- return="java.util.List&lt;fm.audiobox.core.models.MediaFile&gt;"
+ return="fm.audiobox.core.models.collections.EventedModelList&lt;fm.audiobox.core.models.MediaFile&gt;"
  abstract="false"
  native="false"
  synchronized="false"
@@ -3407,6 +3407,21 @@
  deprecated="not deprecated"
  visibility="public"
 >
+</method>
+<method name="newList"
+ return="java.util.Collection&lt;java.lang.Object&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="context" type="java.lang.Object">
+</parameter>
+<parameter name="field" type="java.lang.reflect.Field">
+</parameter>
 </method>
 <field name="PARAM_SET"
  type="java.lang.String"
@@ -3442,7 +3457,7 @@
 >
 </field>
 <field name="media_files"
- type="java.util.List"
+ type="fm.audiobox.core.models.collections.EventedModelList"
  transient="false"
  volatile="false"
  static="false"
@@ -3452,8 +3467,27 @@
 >
 </field>
 </class>
+<class name="MediaFiles.MediaCollectionCutomParser"
+ extends="com.google.api.client.json.CustomizeJsonParser"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="MediaFiles.MediaCollectionCutomParser"
+ type="fm.audiobox.core.models.MediaFiles.MediaCollectionCutomParser"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="observable" type="fm.audiobox.core.models.Model">
+</parameter>
+</constructor>
+</class>
 <class name="Model"
- extends="java.lang.Object"
+ extends="java.util.Observable"
  abstract="true"
  static="false"
  final="false"
@@ -5906,6 +5940,168 @@
 </method>
 </class>
 </package>
+<package name="fm.audiobox.core.models.collections"
+>
+<class name="EventedModelList"
+ extends="java.util.LinkedList"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="EventedModelList"
+ type="fm.audiobox.core.models.collections.EventedModelList"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="parent" type="fm.audiobox.core.models.Model">
+</parameter>
+</constructor>
+<method name="add"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+</method>
+<method name="add"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="index" type="int">
+</parameter>
+<parameter name="element" type="T">
+</parameter>
+</method>
+<method name="addFirst"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+</method>
+<method name="addLast"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+</method>
+</class>
+<class name="EventedModelList.Event"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="EventedModelList.Event"
+ type="fm.audiobox.core.models.collections.EventedModelList.Event"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="what" type="int">
+</parameter>
+<parameter name="source" type="T">
+</parameter>
+<parameter name="target" type="fm.audiobox.core.models.collections.EventedModelList">
+</parameter>
+</constructor>
+<field name="ADD"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="1"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="CLEAR"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="0"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="REMOVE"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="-1"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="source"
+ type="T"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="target"
+ type="fm.audiobox.core.models.collections.EventedModelList"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="what"
+ type="int"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+</package>
 <package name="fm.audiobox.core.net"
 >
 <class name="Download"
@@ -6053,6 +6249,40 @@
 <exception name="IllegalStateException" type="java.lang.IllegalStateException">
 </exception>
 </method>
+</class>
+</package>
+<package name="fm.audiobox.core.parsers"
+>
+<class name="AudioBoxObjectParser"
+ extends="com.google.api.client.json.JsonObjectParser"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="AudioBoxObjectParser"
+ type="fm.audiobox.core.parsers.AudioBoxObjectParser"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+</constructor>
+<constructor name="AudioBoxObjectParser"
+ type="fm.audiobox.core.parsers.AudioBoxObjectParser"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+<parameter name="customParser" type="com.google.api.client.json.CustomizeJsonParser">
+</parameter>
+</constructor>
 </class>
 </package>
 <package name="fm.audiobox.core.store"
