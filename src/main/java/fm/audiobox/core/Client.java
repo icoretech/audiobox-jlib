@@ -200,6 +200,26 @@ public class Client {
    * @throws java.io.IOException    if any connection or configured data store problems occurs.
    */
   public TokenResponse authorize(String username, String password) throws IOException {
+    return authorize( username, password, false );
+  }
+
+
+  /**
+   * Starts the authorization flow.
+   * <p/>
+   * Given a username and a password if the request succeed this method will store the
+   * grant token for future requests and return the response.
+   *
+   * @param username           the username
+   * @param password           the password
+   * @param relaunchExceptions whether or not relaunch possible exceptions.
+   *
+   * @return the token response, may be null
+   *
+   * @throws AuthorizationException in case the authorization fails.
+   * @throws java.io.IOException    if any connection or configured data store problems occurs.
+   */
+  public TokenResponse authorize(String username, String password, boolean relaunchExceptions) throws IOException {
     try {
       PasswordTokenRequest ptr = new PasswordTokenRequest(
           getConf().getHttpTransport(),
@@ -222,7 +242,10 @@ public class Client {
 
       return response;
     } catch ( TokenResponseException e ) {
-      handleException( new AuthorizationException( e ) );
+      AudioBoxException up = handleException( new AuthorizationException( e ) );
+      if ( relaunchExceptions ) {
+        throw up; // Deh eh eh... :-P
+      }
       return null;
     }
   }
@@ -696,10 +719,10 @@ public class Client {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if exception is not handled by an ExceptionHandler
    */
-  private void handleException(AudioBoxException e) throws AudioBoxException {
+  private AudioBoxException handleException(AudioBoxException e) throws AudioBoxException {
     ExceptionHandler eh = this.getConf().getExceptionHandler();
     if ( eh != null && eh.onException( e ) ) {
-      return;
+      return e;
     }
     throw e;
   }

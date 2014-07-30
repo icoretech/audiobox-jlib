@@ -392,7 +392,7 @@ public class MediaFile extends Model {
    * @return the stream path
    */
   public String getStreamPath() {
-    return ModelUtil.interpolate( STREAM_PATH, getToken() );
+    return ModelUtil.interpolate( STREAM_PATH, getFilename() );
   }
 
 
