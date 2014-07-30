@@ -604,12 +604,12 @@ Summary:
             
             
             
-            <a href="../../../../fm/audiobox/core/store/CredentialDataStore.html">CredentialDataStore</a>
+            String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getCredentialDataStore()">getCredentialDataStore</a></span>()
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getBaseUrl(fm.audiobox.core.config.Configuration.Channels, boolean)">getBaseUrl</a></span>(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel, boolean secure)
         
-        <div class="jd-descrdiv">Gets data store factory.</div>
+        <div class="jd-descrdiv">Gets env base url based on the queried channel.</div>
   
   </td></tr>
 
@@ -625,9 +625,45 @@ Summary:
             String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getEnvBaseUrl(fm.audiobox.core.config.Configuration.Channels)">getEnvBaseUrl</a></span>(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getBaseUrl(fm.audiobox.core.config.Configuration.Channels)">getBaseUrl</a></span>(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)
         
         <div class="jd-descrdiv">Gets env base url based on the queried channel.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            String
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getBaseUrl()">getBaseUrl</a></span>()
+        
+        <div class="jd-descrdiv">Gets API base url.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../fm/audiobox/core/store/CredentialDataStore.html">CredentialDataStore</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getCredentialDataStore()">getCredentialDataStore</a></span>()
+        
+        <div class="jd-descrdiv">Gets data store factory.</div>
   
   </td></tr>
 
@@ -841,6 +877,24 @@ Summary:
             String
         </td>
         <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getUnsecureBaseUrl(fm.audiobox.core.config.Configuration.Channels)">getUnsecureBaseUrl</a></span>(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)
+        
+        <div class="jd-descrdiv">Gets env base url based on the queried channel.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            String
+        </td>
+        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/config/Configuration.html#getUserAgent()">getUserAgent</a></span>()
         
         <div class="jd-descrdiv">Gets the user agent.</div>
@@ -849,7 +903,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -867,7 +921,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -885,7 +939,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -903,7 +957,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -921,7 +975,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -939,7 +993,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -957,7 +1011,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -975,7 +1029,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -993,7 +1047,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1011,7 +1065,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             synchronized
@@ -1029,7 +1083,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1047,7 +1101,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1065,7 +1119,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1083,7 +1137,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1101,7 +1155,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1119,7 +1173,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1695,6 +1749,136 @@ From class
 </div>
 
 
+<a id="getBaseUrl(fm.audiobox.core.config.Configuration.Channels, boolean)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getBaseUrl</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel, boolean secure)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets env base url based on the queried channel.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>channel</th>
+          <td>the channel to query</td>
+        </tr>
+        <tr>
+          <th>secure</th>
+          <td>whether to serve SSL protocol (if available for configured Environment) or not.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the env base url (no trailing slash)
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getBaseUrl(fm.audiobox.core.config.Configuration.Channels)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getBaseUrl</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets env base url based on the queried channel.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>channel</th>
+          <td>the channel to query</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the env base url (no trailing slash)
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getBaseUrl()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getBaseUrl</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets API base url.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the env base url (no trailing slash)
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="getCredentialDataStore()"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1724,51 +1908,6 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the data store factory
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="getEnvBaseUrl(fm.audiobox.core.config.Configuration.Channels)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getEnvBaseUrl</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Gets env base url based on the queried channel.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>channel</th>
-          <td>the channel to query</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the env base url (no trailing slash)
 </li></ul>
   </div>
 
@@ -2183,6 +2322,51 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the configured com.google.api.client.auth.oauth2.CredentialRefreshListener
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getUnsecureBaseUrl(fm.audiobox.core.config.Configuration.Channels)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getUnsecureBaseUrl</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets env base url based on the queried channel.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>channel</th>
+          <td>the channel to query</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the env base url (no trailing slash)
 </li></ul>
   </div>
 

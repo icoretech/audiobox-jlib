@@ -546,8 +546,8 @@
  visibility="public"
 >
 </method>
-<method name="getCredentialDataStore"
- return="fm.audiobox.core.store.CredentialDataStore"
+<method name="getBaseUrl"
+ return="java.lang.String"
  abstract="false"
  native="false"
  synchronized="false"
@@ -557,7 +557,7 @@
  visibility="public"
 >
 </method>
-<method name="getEnvBaseUrl"
+<method name="getBaseUrl"
  return="java.lang.String"
  abstract="false"
  native="false"
@@ -569,6 +569,32 @@
 >
 <parameter name="channel" type="fm.audiobox.core.config.Configuration.Channels">
 </parameter>
+</method>
+<method name="getBaseUrl"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="channel" type="fm.audiobox.core.config.Configuration.Channels">
+</parameter>
+<parameter name="secure" type="boolean">
+</parameter>
+</method>
+<method name="getCredentialDataStore"
+ return="fm.audiobox.core.store.CredentialDataStore"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
 </method>
 <method name="getEnvHost"
  return="java.lang.String"
@@ -694,6 +720,19 @@
  deprecated="not deprecated"
  visibility="public"
 >
+</method>
+<method name="getUnsecureBaseUrl"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="channel" type="fm.audiobox.core.config.Configuration.Channels">
+</parameter>
 </method>
 <method name="getUserAgent"
  return="java.lang.String"
@@ -2186,6 +2225,19 @@
  visibility="public"
 >
 </method>
+<method name="getDownloadUrl"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+</method>
 <method name="getFilename"
  return="java.lang.String"
  abstract="false"
@@ -2354,6 +2406,21 @@
  deprecated="not deprecated"
  visibility="public"
 >
+</method>
+<method name="getStreamUrl"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="client" type="fm.audiobox.core.Client">
+</parameter>
+<parameter name="secure" type="boolean">
+</parameter>
 </method>
 <method name="getTitle"
  return="java.lang.String"

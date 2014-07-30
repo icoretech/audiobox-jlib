@@ -5,7 +5,9 @@ public class MediaFile
 public  MediaFile() { throw new RuntimeException("Stub!"); }
 public static  java.lang.String getPath() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getStreamPath() { throw new RuntimeException("Stub!"); }
+public  java.lang.String getStreamUrl(fm.audiobox.core.Client client, boolean secure) { throw new RuntimeException("Stub!"); }
 public  java.lang.String getDownloadPath() { throw new RuntimeException("Stub!"); }
+public  java.lang.String getDownloadUrl(fm.audiobox.core.Client client) { throw new RuntimeException("Stub!"); }
 public static  fm.audiobox.core.models.MediaFile load(fm.audiobox.core.Client client, java.lang.String token) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.MediaFile reload(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  java.io.OutputStream download(fm.audiobox.core.Client client, java.io.OutputStream out) throws java.io.IOException { throw new RuntimeException("Stub!"); }
