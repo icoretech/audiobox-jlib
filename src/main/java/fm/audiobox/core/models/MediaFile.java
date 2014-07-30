@@ -397,12 +397,41 @@ public class MediaFile extends Model {
 
 
   /**
+   * Gets stream url for this media file.
+   * <p>
+   * Some device does not support SSL streaming (such as old Android), in this case
+   * you are forced to serve via canonical HTTP protocol (<code>secure = false</code>).
+   * </p>
+   *
+   * @param client the Client instance to grab env configuration from
+   * @param secure whether to serve the SSL protected stream url or not
+   *
+   * @return the stream path
+   */
+  public String getStreamUrl(Client client, boolean secure) {
+    return client.getConf().getBaseUrl( Configuration.Channels.api, secure ) + getStreamPath();
+  }
+
+
+  /**
    * Gets download path for this media file.
    *
    * @return the download path
    */
   public String getDownloadPath() {
     return ModelUtil.interpolate( DOWNLOAD_PATH, getFilename() );
+  }
+
+
+  /**
+   * Gets download url for this media file.
+   *
+   * @param client the Client instance to grab env configuration from
+   *
+   * @return the stream path
+   */
+  public String getDownloadUrl(Client client) {
+    return client.getConf().getBaseUrl( Configuration.Channels.api ) + getDownloadPath();
   }
 
 

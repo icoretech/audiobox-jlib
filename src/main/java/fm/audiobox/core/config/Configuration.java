@@ -22,6 +22,7 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
 import com.typesafe.config.ConfigFactory;
 import fm.audiobox.core.exceptions.ExceptionHandler;
 import fm.audiobox.core.models.*;
@@ -448,21 +449,62 @@ public class Configuration {
 
 
   /**
+   * Gets API base url.
+   *
+   * @return the env base url (no trailing slash)
+   */
+  public String getBaseUrl() {
+    return getBaseUrl( Channels.api );
+  }
+
+
+  /**
    * Gets env base url based on the queried channel.
    *
    * @param channel the channel to query
    *
    * @return the env base url (no trailing slash)
    */
-  public String getEnvBaseUrl(Channels channel) {
+  public String getBaseUrl(Channels channel) {
+    return getBaseUrl( channel, true );
+  }
+
+
+  /**
+   * Gets env base url based on the queried channel.
+   *
+   * @param channel the channel to query
+   *
+   * @return the env base url (no trailing slash)
+   */
+  public String getUnsecureBaseUrl(Channels channel) {
+    return getBaseUrl( channel, false );
+  }
+
+
+  /**
+   * Gets env base url based on the queried channel.
+   *
+   * @param channel the channel to query
+   * @param secure  whether to serve SSL protocol (if available for configured Environment) or not.
+   *
+   * @return the env base url (no trailing slash)
+   */
+  public String getBaseUrl(Channels channel, boolean secure) {
 
     Config envConf = getEnvironmentConfiguration( getEnvironment() );
 
-    String protocol = envConf.getString( channel + ".protocol" );
+    String protocol = secure ? envConf.getString( channel + ".protocol" ) : "http";
     String host = getEnvHost( channel );
-    String port = envConf.getString( channel + ".port" );
 
-    return protocol + "://" + host + ":" + port;
+    String port = "";
+    try {
+      port = ":" + envConf.getString( channel + ".port" );
+    } catch ( ConfigException.Missing e ) {
+      // Silent fail, default service port will be used
+    }
+
+    return protocol + "://" + host + port;
   }
 
 
@@ -486,7 +528,7 @@ public class Configuration {
    */
   public GenericUrl getEnvTokenUrl() {
     if ( tokenUrl == null ) {
-      tokenUrl = new GenericUrl( getEnvBaseUrl( Channels.api ) + getEnvironmentConfiguration( getEnvironment() ).getString( "api.oauth.tokenPath" ) );
+      tokenUrl = new GenericUrl( getBaseUrl( Channels.api ) + getEnvironmentConfiguration( getEnvironment() ).getString( "api.oauth.tokenPath" ) );
     }
     return tokenUrl;
   }

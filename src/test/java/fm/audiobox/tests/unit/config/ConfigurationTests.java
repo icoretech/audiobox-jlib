@@ -195,7 +195,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeProdInProd() {
     Configuration c = new Configuration( Configuration.Env.production );
     assertSame( c.getEnvironment(), Configuration.Env.production );
-    assertEquals( "https://audiobox.fm:443", c.getEnvBaseUrl( Configuration.Channels.api ) );
+    assertEquals( "https://audiobox.fm", c.getBaseUrl( Configuration.Channels.api ) );
   }
 
 
@@ -206,7 +206,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeStagingInStaging() {
     Configuration c = new Configuration( Configuration.Env.staging );
     assertSame( c.getEnvironment(), Configuration.Env.staging );
-    assertEquals( "https://staging.audiobox.fm:443", c.getEnvBaseUrl( Configuration.Channels.api ) );
+    assertEquals( "https://staging.audiobox.fm", c.getBaseUrl( Configuration.Channels.api ) );
   }
 
 
@@ -217,7 +217,7 @@ public class ConfigurationTests extends AudioBoxTests {
   public void testAudioBoxUrlShouldBeDevInDev() {
     Configuration c = new Configuration( Configuration.Env.development );
     assertSame( c.getEnvironment(), Configuration.Env.development );
-    assertEquals( "http://dev.audiobox.fm:5000", c.getEnvBaseUrl( Configuration.Channels.api ) );
+    assertEquals( "http://dev.audiobox.fm:5000", c.getBaseUrl( Configuration.Channels.api ) );
   }
 
 
@@ -230,5 +230,22 @@ public class ConfigurationTests extends AudioBoxTests {
     assertEquals( Configuration.Env.development, Configuration.Env.valueOf( "development" ) );
     assertEquals( Configuration.Env.staging, Configuration.Env.valueOf( "staging" ) );
     assertEquals( Configuration.Env.production, Configuration.Env.valueOf( "production" ) );
+  }
+
+
+  /**
+   * Test base host.
+   */
+  @Test
+  public void testBaseHost() {
+    Configuration c = new Configuration( Configuration.Env.production );
+    assertEquals( "https://audiobox.fm", c.getBaseUrl() );
+    assertEquals( "https://audiobox.fm", c.getBaseUrl( Configuration.Channels.api ) );
+    assertEquals( "https://audiobox.fm:8082", c.getBaseUrl( Configuration.Channels.daemon ) );
+    assertEquals( "https://audiobox.fm", c.getBaseUrl( Configuration.Channels.upload ) );
+    assertEquals( "http://audiobox.fm", c.getBaseUrl( Configuration.Channels.api, false ) );
+    assertEquals( "http://audiobox.fm:8082", c.getBaseUrl( Configuration.Channels.daemon, false ) );
+    assertEquals( "http://audiobox.fm", c.getBaseUrl( Configuration.Channels.upload, false ) );
+    assertEquals( "http://audiobox.fm", c.getUnsecureBaseUrl( Configuration.Channels.api ) );
   }
 }

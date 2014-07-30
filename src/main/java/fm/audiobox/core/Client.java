@@ -543,7 +543,7 @@ public class Client {
     if ( channel == null ) {
       channel = Configuration.Channels.api;
     }
-    HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getEnvBaseUrl( channel ) + path ), data ).execute();
+    HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getBaseUrl( channel ) + path ), data ).execute();
     validateResponse( response );
     return response;
   }
