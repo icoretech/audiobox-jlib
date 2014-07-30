@@ -112,6 +112,25 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<method name="authorize"
+ return="com.google.api.client.auth.oauth2.TokenResponse"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="username" type="java.lang.String">
+</parameter>
+<parameter name="password" type="java.lang.String">
+</parameter>
+<parameter name="relaunchExceptions" type="boolean">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
 <method name="doDELETE"
  return="com.google.api.client.http.HttpResponse"
  abstract="false"

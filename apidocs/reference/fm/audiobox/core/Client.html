@@ -527,7 +527,7 @@ Summary:
             TokenResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">authorize</a></span>(String username, String password)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String, boolean)">authorize</a></span>(String username, String password, boolean relaunchExceptions)
         
         <div class="jd-descrdiv">Starts the authorization flow.</div>
   
@@ -536,6 +536,24 @@ Summary:
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            TokenResponse
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">authorize</a></span>(String username, String password)
+        
+        <div class="jd-descrdiv">Starts the authorization flow.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -553,7 +571,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -571,7 +589,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -589,7 +607,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -607,7 +625,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -625,7 +643,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -643,7 +661,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -661,7 +679,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -679,7 +697,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -697,7 +715,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -715,7 +733,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -733,7 +751,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -751,7 +769,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -769,7 +787,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -787,7 +805,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -805,7 +823,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -823,7 +841,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -841,7 +859,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -859,7 +877,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -877,7 +895,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -895,7 +913,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1276,6 +1294,75 @@ From class
 
 <h2>Public Methods</h2>
 
+
+
+<a id="authorize(java.lang.String, java.lang.String, boolean)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        TokenResponse
+      </span>
+      <span class="sympad">authorize</span>
+      <span class="normal">(String username, String password, boolean relaunchExceptions)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Starts the authorization flow.
+ <p/>
+ Given a username and a password if the request succeed this method will store the
+ grant token for future requests and return the response.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>username</th>
+          <td>the username</td>
+        </tr>
+        <tr>
+          <th>password</th>
+          <td>the password</td>
+        </tr>
+        <tr>
+          <th>relaunchExceptions</th>
+          <td>whether or not relaunch possible exceptions.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the token response, may be null</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../fm/audiobox/core/exceptions/AuthorizationException.html">AuthorizationException</a></td>
+            <td>in case the authorization fails.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection or configured data store problems occurs.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
 
 
 <a id="authorize(java.lang.String, java.lang.String)"></a>

@@ -5,6 +5,7 @@ public  Client(fm.audiobox.core.config.Configuration conf) throws fm.audiobox.co
 public  fm.audiobox.core.config.Configuration getConf() { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpHeaders getDefaultHeaders() { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.auth.oauth2.TokenResponse authorize(java.lang.String username, java.lang.String password) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  com.google.api.client.auth.oauth2.TokenResponse authorize(java.lang.String username, java.lang.String password, boolean relaunchExceptions) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  boolean isDaemonRunning() throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  java.lang.String remoteDaemonIp() throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.User getUser() throws java.io.IOException { throw new RuntimeException("Stub!"); }
