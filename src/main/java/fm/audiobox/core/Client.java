@@ -650,13 +650,14 @@ public class Client {
    *
    * @param response the response to validate
    *
-   * @throws AudioBoxException in case of 400, 402, 403, 404, 409, 422, 500 or 503 response codes.
+   * @throws AudioBoxException in case of 400, 401, 402, 403, 404, 409, 422, 500 or 503 response codes.
    */
   private void validateResponse(HttpResponse response) throws IOException {
     try {
 
       switch ( response.getStatusCode() ) {
         case HttpStatus.SC_BAD_REQUEST: // 400
+        case HttpStatus.SC_UNAUTHORIZED: // 401
           throw new AuthorizationException( response );
 
         case HttpStatus.SC_PAYMENT_REQUIRED: // 402
