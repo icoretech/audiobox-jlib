@@ -6,6 +6,8 @@ branches:
 env:
   global:
   - secure: "lI2jvbi6nCIkSV8cIgDWOd/Bne5POOc2HYutHs3SBFsbQNUFIzltQfQsGoYJz4PtPGCPTNWOM9KrMshj8y2n1Yw9q3XU0Wa1SSHn37RNNvvdEhjkbh7UIhgA4RI8dGJ4XZoQ6sGN+kb3Zegv+3ODyP3L8M7+wYfKt/pbRzh28Xg="
+  - secure: "dsJe1JqnGwSUrUDcaen5fCzI6Qli2ZCc71HktQ9vgmDzwDHFFQ5jPJhkeJX5pTtccgTEc7R0Rh7TldTql1jUiPkU1RSq6LFiWuLwf8CcsWSIqPSpHKvkx7jMDY9cZjZ4Ev4sqgzex7dqFV3oi0OcrKYkb24Yha6leUgdxpVOj7Y="
+  - secure: "G+e5lP4DTXiPz3CYRj47QKcGq+qQhmhaTcgIH3O4zl3QLwyfVvUZkeEu2AbjfxSK+IyvzBVYpc8HyK8JyBML/BSPoFjZsBRH9zfs7Jh1/65gadS9nunHMOGUNsw+bquXLS255bnApT8yCKtz/snbCvr3qs8+sBavLLvweqI7PiM="
 
 install:
   - TERM=dumb ./gradlew assemble
@@ -13,6 +15,7 @@ script:
   - TERM=dumb ./gradlew check javadoc
 
 after_success:
+- .utility/push-jars-to-maven-central.sh
 - .utility/push-docs-to-gh-pages.sh
 
 notifications:
