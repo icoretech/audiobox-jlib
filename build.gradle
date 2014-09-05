@@ -15,7 +15,7 @@ repositories {
     mavenCentral()
 }
 
-if (hasProperty('nexusUsername')) {
+if (hasProperty('sonatypeUsername')) {
     apply from: 'gradle/publish.gradle'
 }
 
