@@ -6372,18 +6372,6 @@
 </parameter>
 <parameter name="file" type="java.io.File">
 </parameter>
-</constructor>
-<constructor name="Upload"
- type="fm.audiobox.core.net.Upload"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="client" type="fm.audiobox.core.Client">
-</parameter>
-<parameter name="file" type="java.io.File">
-</parameter>
 <parameter name="listener" type="fm.audiobox.core.net.NetworkProgressListener">
 </parameter>
 </constructor>
