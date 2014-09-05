@@ -24,6 +24,8 @@ package fm.audiobox.core.config;
  */
 public class ConfigurationException extends Exception {
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * Constructs a new instance of ConfigurationException using an
    * explanation. All other fields default to null.
@@ -36,6 +38,4 @@ public class ConfigurationException extends Exception {
     super( explanation );
   }
 
-
-  private static final long serialVersionUID = 1L;
 }

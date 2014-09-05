@@ -24,7 +24,7 @@ import java.io.IOException;
 
 /**
  * <p>
- * Generic AudioBox exceptions.
+ * Generic AudioBox service exceptions.
  * </p>
  * <p>
  * This kind of exceptions are typically thrown when a problem with the remote service occurs.

@@ -32,7 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Through this class you can control several behavior of the client such as HTTP client or JSON parser libraries.
  * <p/>
- * There are the mandatory fields that must be set in order to set up the client:
+ * Here a list of mandatory fields that must be set in order to set up the client:
  * <ul>
  * <li>{@link Configuration#setApiKey(String) API Key}</li>
  * <li>{@link Configuration#setApiSecret(String) API Secret}</li>
@@ -42,7 +42,7 @@ import org.apache.commons.lang3.StringUtils;
  * <li>{@link Configuration#setJsonFactory(com.google.api.client.json.JsonFactory) JSON Factory}</li>
  * </ul>
  * <p/>
- * Not configuring these parameters will result in a {@link javax.naming.ConfigurationException}.
+ * Not configuring these parameters will result in a {@link fm.audiobox.core.config.ConfigurationException}.
  * <p/>
  * <strong>TIP:</strong> Setter methods of this class are chainable.
  */

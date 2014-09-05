@@ -121,6 +121,9 @@ import java.util.List;
  * {@link fm.audiobox.core.exceptions.AuthorizationException AuthorizationException}.
  * Your application should be ready to trap it in order to present a new login form.
  * <p/>
+ * <strong>NOTE:</strong> most of the methods of this library performs requests against
+ * AudioBox services. In order to avoid too many requests is highly recommended to implement
+ * some sort of caching system (memory or persisted).
  * <br/>
  * <br/>
  * For a complete list of API endpoints you can consult the AudioBox API handbook at this address:

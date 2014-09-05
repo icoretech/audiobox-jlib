@@ -16,8 +16,17 @@
 
 package fm.audiobox.core.net;
 
+/**
+ * This interface is intended to be used together with the {@link fm.audiobox.core.net.Download}
+ * and or {@link fm.audiobox.core.utils.MediaContent} objects in order to monitor
+ * upload/download progress.
+ */
 public interface NetworkProgressListener {
 
+  /**
+   * The implementation of this method will receive the total amount and the current
+   * bytes being pulled/pushed from/to the socket stream.
+   */
   public void onProgressUpdate(long total, long current);
 
 }

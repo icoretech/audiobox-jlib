@@ -405,7 +405,6 @@ public class MediaFile extends Model {
    *
    * @param client the Client instance to grab env configuration from
    * @param secure whether to serve the SSL protected stream url or not
-   *
    * @return the stream path
    */
   public String getStreamUrl(Client client, boolean secure) {
@@ -427,7 +426,6 @@ public class MediaFile extends Model {
    * Gets download url for this media file.
    *
    * @param client the Client instance to grab env configuration from
-   *
    * @return the stream path
    */
   public String getDownloadUrl(Client client) {
@@ -438,12 +436,9 @@ public class MediaFile extends Model {
   /**
    * Load a single media file.
    *
-   * @param client the
-   *               to use for the request
+   * @param client client the to use for the request
    * @param token  the token that uniquely identify the media file
-   *
    * @return the requested media file
-   *
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
    * @see
    */
@@ -456,11 +451,8 @@ public class MediaFile extends Model {
   /**
    * (Re)load a new instance of the same media file.
    *
-   * @param client the
-   *               to use for the request
-   *
+   * @param client client the to use for the request
    * @return the requested media file
-   *
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
    * @see
    */
@@ -472,12 +464,10 @@ public class MediaFile extends Model {
   /**
    * Downloads the media to specified {@link java.io.OutputStream}
    *
-   * @param client the client
-   * @param out    the out
-   *
+   * @param client client the to use for the request
+   * @param out    the desired OutputStream where to store the downloaded data
    * @return the same given
    * instance with downloaded data
-   *
    * @throws IOException if any network communication or IO occurs
    */
   public OutputStream download(Client client, OutputStream out) throws IOException {
@@ -488,15 +478,11 @@ public class MediaFile extends Model {
   /**
    * Downloads the media to specified {@link java.io.OutputStream}
    *
-   * @param client   the to use for the request
-   * @param out      the desired
-   *                 where to store the downloaded data
-   * @param listener a
-   *                 for monitoring download progress
-   *
+   * @param client   client the to use for the request
+   * @param out      the desired OutputStream where to store the downloaded data
+   * @param listener a NetworkProgressListener for monitoring download progress
    * @return the same given
    * instance with downloaded data
-   *
    * @throws IOException if any network communication or IO occurs
    */
   public OutputStream download(Client client, OutputStream out, NetworkProgressListener listener) throws IOException {
@@ -509,11 +495,8 @@ public class MediaFile extends Model {
   /**
    * Handle a single media file update.
    *
-   * @param client the
-   *               to use for the request
-   *
+   * @param client the client to use for the request
    * @return the media file in order to chain other calls.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
@@ -535,11 +518,8 @@ public class MediaFile extends Model {
    * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
    * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
    *
-   * @param client the
-   *               to use for the request
-   *
+   * @param client the client to use for the request
    * @return true if the operation succeeds.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
@@ -556,11 +536,8 @@ public class MediaFile extends Model {
    * <p/>
    * Triggers different actions in the system, such as Scrobbling to Last.fm and much more.
    *
-   * @param client the
-   *               to use for the request
-   *
+   * @param client client the to use for the request
    * @return the media file in order to chain other calls.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
@@ -573,11 +550,8 @@ public class MediaFile extends Model {
   /**
    * Loads the media file lyrics from AudioBox.
    *
-   * @param client the
-   *               to use for the request
-   *
+   * @param client client the to use for the request
    * @return the lyrics or null
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
@@ -605,11 +579,8 @@ public class MediaFile extends Model {
    * <p/>
    * Last.fm will see a track as loved, Facebook as liked, Google Drive as starred, and so on.
    *
-   * @param client the
-   *               to use for the request
-   *
+   * @param client client the to use for the request
    * @return the media file in order to chain other calls.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
@@ -630,11 +601,8 @@ public class MediaFile extends Model {
    * <p/>
    * Last.fm will see a track as unloved, Facebook as unliked, Google Drive as not starred, and so on.
    *
-   * @param client the
-   *               to use for the request
-   *
+   * @param client client the to use for the request
    * @return the media file in order to chain other calls.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
@@ -652,11 +620,8 @@ public class MediaFile extends Model {
    * <p/>
    * Preserve all the features of the love and unlove endpoints.
    *
-   * @param client the
-   *               to use for the request
-   *
+   * @param client client the to use for the request
    * @return the media file in order to chain other calls.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
@@ -1330,7 +1295,7 @@ public class MediaFile extends Model {
   }
 
 
-/* =============== */
+  /* =============== */
   /* Private methods */
   /* =============== */
 
@@ -1349,9 +1314,7 @@ public class MediaFile extends Model {
    * Sets and remotely stores the loved preferences on this media file
    *
    * @param client the {@link fm.audiobox.core.Client} to use for the request
-   *
    * @return true if the operation succeeds.
-   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException

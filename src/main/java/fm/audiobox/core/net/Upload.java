@@ -60,17 +60,6 @@ public class Upload {
   /**
    * Instantiates a new Upload.
    *
-   * @param client the client
-   * @param file   the file to upload on AudioBox
-   */
-  public Upload(Client client, File file) {
-    this( client, file, null );
-  }
-
-
-  /**
-   * Instantiates a new Upload.
-   *
    * @param client   the client
    * @param file     the file to upload on AudioBox
    * @param listener the listener

@@ -27,7 +27,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * The type Media content.
+ * A wrapper content type for MediaFile.
+ * Used for upload purpose.
  */
 public class MediaContent extends AbstractInputStreamContent {
 
