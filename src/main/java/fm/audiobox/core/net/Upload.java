@@ -130,9 +130,11 @@ public class Upload {
         fileContent.setUploadProgressListener( getListener() );
       }
 
+      HttpHeaders headers = null;
       try {
         String md5 = MD5Checksum.checkSum( new FileInputStream( file ) );
-        client.getDefaultHeaders().set( MAGIC_UPLOAD_HEADER, md5 );
+        headers = new HttpHeaders();
+        headers.set(MAGIC_UPLOAD_HEADER, md5 );
       } catch ( NoSuchAlgorithmException e ) {
         logger.warn( "Unable to perform magic upload due to lack of MD5 algorithm. Proceeding with whole upload process." );
       }
@@ -143,11 +145,10 @@ public class Upload {
       multipart.addPart( new MultipartContent.Part( pathContent ), "remotePath", null );
       multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
 
-      HttpResponse rsp = client.doRequestToChannel( HttpMethods.POST, UPLOAD_PATH, multipart, null, Configuration.Channels.upload );
+      HttpResponse rsp = client.doRequestToChannel( HttpMethods.POST, UPLOAD_PATH, multipart, null, Configuration.Channels.upload, headers );
       return rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
 
     } finally {
-      client.getDefaultHeaders().remove( MAGIC_UPLOAD_HEADER );
       this.state = State.completed;
     }
 

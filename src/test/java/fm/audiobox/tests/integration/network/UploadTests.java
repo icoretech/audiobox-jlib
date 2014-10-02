@@ -22,6 +22,7 @@ import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.net.NetworkProgressListener;
 import fm.audiobox.core.net.Upload;
 import fm.audiobox.tests.integration.AudioBoxTests;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -37,6 +38,7 @@ import static org.junit.Assert.*;
  */
 public class UploadTests extends AudioBoxTests {
 
+
   /**
    * Test upload success.
    *
@@ -45,12 +47,13 @@ public class UploadTests extends AudioBoxTests {
   @Test
   @Ignore
   public void testUploadSuccess() throws IOException {
-
     File file = new File( this.getClass().getResource( "/mpthreetest.mp3" ).getFile() );
     assertNotNull( file );
     assertTrue( file.exists() );
 
-    c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    prepareForStaging();
+    //c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+
     c.getConf().setHttpTransport( new NetHttpTransport() );
     Upload u = c.newUpload( file );
     u.setListener( new NetworkProgressListener() {
@@ -62,8 +65,11 @@ public class UploadTests extends AudioBoxTests {
     } );
 
     MediaFile m = u.start();
-    assertEquals( file.getAbsolutePath(), m.getRemotePath() );
-    assertTrue( "File must be destroyed", m.destroy( c ) );
+    try {
+      assertEquals( StringUtils.EMPTY, m.getRemotePath() );
+    } finally {
+      assertTrue( "File must be destroyed", m.destroy( c ) );
+    }
 
   }
 
@@ -81,7 +87,8 @@ public class UploadTests extends AudioBoxTests {
     assertNotNull( file );
     assertTrue( file.exists() );
 
-    c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    prepareForStaging();
+    //c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
     c.getConf().setHttpTransport( new NetHttpTransport() );
     Upload u = c.newUpload( file );
     u.setListener( new NetworkProgressListener() {
@@ -125,7 +132,8 @@ public class UploadTests extends AudioBoxTests {
     assertNotNull( file );
     assertTrue( file.exists() );
 
-    c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    prepareForStaging();
+    //c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
     c.getConf().setHttpTransport( new NetHttpTransport() );
     Upload u = c.newUpload( file );
     u.setListener( new NetworkProgressListener() {

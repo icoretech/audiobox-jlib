@@ -278,7 +278,7 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public String remoteDaemonIp() throws IOException {
-    HttpResponse rsp = doRequestToChannel( HttpMethods.GET, "/daemon/keepalive", null, null, Configuration.Channels.daemon );
+    HttpResponse rsp = doRequestToChannel( HttpMethods.GET, "/daemon/keepalive", null, null, Configuration.Channels.daemon, null );
     return rsp.isSuccessStatusCode() ? Io.contentToString( rsp.getContent() ) : StringUtils.EMPTY;
   }
 
@@ -391,7 +391,7 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doGET(String path) throws IOException {
-    return doGET( path, null );
+    return doGET( path, null, null );
   }
 
 
@@ -400,6 +400,7 @@ public class Client {
    *
    * @param path   the AudioBox API path where to make the request to.
    * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
+   * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
    *
@@ -407,8 +408,8 @@ public class Client {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public HttpResponse doGET(String path, JsonObjectParser parser) throws IOException {
-    return doRequest( HttpMethods.GET, path, null, parser );
+  public HttpResponse doGET(String path, JsonObjectParser parser, HttpHeaders headers) throws IOException {
+    return doRequest( HttpMethods.GET, path, null, parser, headers );
   }
 
 
@@ -425,7 +426,7 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doPUT(String path, HttpContent data) throws IOException {
-    return doPUT( path, data, null );
+    return doPUT( path, data, null, null );
   }
 
 
@@ -435,6 +436,7 @@ public class Client {
    * @param path   the AudioBox API path where to make the request to.
    * @param data   the data to send with the request
    * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
+   * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
    *
@@ -442,8 +444,8 @@ public class Client {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser) throws IOException {
-    return doRequest( HttpMethods.PUT, path, data, parser );
+  public HttpResponse doPUT(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers) throws IOException {
+    return doRequest( HttpMethods.PUT, path, data, parser, headers );
   }
 
 
@@ -459,7 +461,7 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doDELETE(String path) throws IOException {
-    return doDELETE( path, null );
+    return doDELETE( path, null, null );
   }
 
 
@@ -468,6 +470,7 @@ public class Client {
    *
    * @param path   the AudioBox API path where to make the request to.
    * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
+   * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
    *
@@ -475,8 +478,8 @@ public class Client {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public HttpResponse doDELETE(String path, JsonObjectParser parser) throws IOException {
-    return doRequest( HttpMethods.DELETE, path, null, parser );
+  public HttpResponse doDELETE(String path, JsonObjectParser parser, HttpHeaders headers) throws IOException {
+    return doRequest( HttpMethods.DELETE, path, null, parser, headers );
   }
 
 
@@ -492,7 +495,7 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doPOST(String path) throws IOException {
-    return doPOST( path, null, null );
+    return doPOST( path, null, null, null );
   }
 
 
@@ -509,7 +512,7 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doPOST(String path, HttpContent data) throws IOException {
-    return doPOST( path, data, null );
+    return doPOST( path, data, null, null );
   }
 
 
@@ -519,6 +522,7 @@ public class Client {
    * @param path   the AudioBox API path where to make the request to.
    * @param data   the data to send with the request
    * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
+   * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
    *
@@ -526,8 +530,8 @@ public class Client {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser) throws IOException {
-    return doRequest( HttpMethods.POST, path, data, parser );
+  public HttpResponse doPOST(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers) throws IOException {
+    return doRequest( HttpMethods.POST, path, data, parser, headers );
   }
 
 
@@ -538,6 +542,7 @@ public class Client {
    * @param path   the AudioBox API path where to make the request to.
    * @param data   the data to send with the request
    * @param parser the parser to use for the resulting object
+   * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
    *
@@ -545,8 +550,8 @@ public class Client {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser) throws IOException {
-    return doRequestToChannel( method, path, data, parser, null );
+  public HttpResponse doRequest(String method, String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers) throws IOException {
+    return doRequestToChannel( method, path, data, parser, null, headers );
   }
 
 
@@ -558,6 +563,7 @@ public class Client {
    * @param data    the data to send with the request
    * @param parser  the parser to use for the resulting object
    * @param channel the {@link fm.audiobox.core.config.Configuration.Channels Channel} to query
+   * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
    *
@@ -565,11 +571,11 @@ public class Client {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public HttpResponse doRequestToChannel(String method, String path, HttpContent data, JsonObjectParser parser, Configuration.Channels channel) throws IOException {
+  public HttpResponse doRequestToChannel(String method, String path, HttpContent data, JsonObjectParser parser, Configuration.Channels channel, HttpHeaders headers) throws IOException {
     if ( channel == null ) {
       channel = Configuration.Channels.api;
     }
-    HttpResponse response = getRequestFactory( parser ).buildRequest( method, new GenericUrl( getConf().getBaseUrl( channel ) + path ), data ).execute();
+    HttpResponse response = getRequestFactory( parser, headers ).buildRequest( method, new GenericUrl( getConf().getBaseUrl( channel ) + path ), data ).execute();
     validateResponse( response );
     return response;
   }
@@ -585,10 +591,12 @@ public class Client {
    * Gets request factory.
    *
    * @param parser the parser to use for the resulting object
+   * @param headers additional request headers
    *
    * @return the request factory
    */
-  private HttpRequestFactory getRequestFactory(final JsonObjectParser parser) {
+  private HttpRequestFactory getRequestFactory(final JsonObjectParser parser, final HttpHeaders headers) {
+
     return getConf().getHttpTransport().createRequestFactory( new HttpRequestInitializer() {
 
       @Override
@@ -598,7 +606,16 @@ public class Client {
         request.setParser( parser == null ? jsonObjectParser : parser );
         request.setThrowExceptionOnExecuteError( false );
         request.setSuppressUserAgentSuffix( true );
-        request.setHeaders( defaultHeaders );
+
+        HttpHeaders head = getDefaultHeaders();
+        if (headers != null) {
+          if (head != null) {
+            headers.fromHttpHeaders( head );
+          }
+          head = headers;
+        }
+
+        request.setHeaders( head );
       }
     } );
   }

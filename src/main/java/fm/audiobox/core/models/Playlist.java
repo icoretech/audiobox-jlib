@@ -477,7 +477,7 @@ public class Playlist extends Model {
       url += setParam;
     }
 
-    HttpResponse rsp = client.doGET( url, parser );
+    HttpResponse rsp = client.doGET( url, parser, null );
     return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
@@ -577,7 +577,7 @@ public class Playlist extends Model {
       d.put( MediaFiles.PARAM_TOKENS, token );
     }
     JsonHttpContent data = new JsonHttpContent( client.getConf().getJsonFactory(), d );
-    client.doPOST( ModelUtil.interpolate( ADD_MEDIA_FILES_PATH, getToken() ), data, null );
+    client.doPOST( ModelUtil.interpolate( ADD_MEDIA_FILES_PATH, getToken() ), data, null, null );
     return this;
   }
 
@@ -649,7 +649,7 @@ public class Playlist extends Model {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getFingerprints(Client client, JsonObjectParser parser) throws IOException {
-    HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ), parser );
+    HttpResponse rsp = client.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ), parser, null );
     return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
