@@ -27,7 +27,6 @@ Temporary Items
 ### Eclipse ###
 *.pydevproject
 .metadata
-.gradle
 bin/
 tmp/
 *.tmp
