@@ -584,7 +584,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doDELETE(java.lang.String, com.google.api.client.json.JsonObjectParser)">doDELETE</a></span>(String path, JsonObjectParser parser)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doDELETE(java.lang.String, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doDELETE</a></span>(String path, JsonObjectParser parser, HttpHeaders headers)
         
         <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</div>
   
@@ -602,7 +602,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doGET(java.lang.String, com.google.api.client.json.JsonObjectParser)">doGET</a></span>(String path, JsonObjectParser parser)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doGET(java.lang.String)">doGET</a></span>(String path)
         
         <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</div>
   
@@ -620,7 +620,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doGET(java.lang.String)">doGET</a></span>(String path)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doGET(java.lang.String, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doGET</a></span>(String path, JsonObjectParser parser, HttpHeaders headers)
         
         <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</div>
   
@@ -674,7 +674,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPOST(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)">doPOST</a></span>(String path, HttpContent data, JsonObjectParser parser)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPOST(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doPOST</a></span>(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
         
         <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</div>
   
@@ -692,7 +692,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)">doPUT</a></span>(String path, HttpContent data, JsonObjectParser parser)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doPUT</a></span>(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
         
         <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</div>
   
@@ -728,7 +728,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doRequest(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)">doRequest</a></span>(String method, String path, HttpContent data, JsonObjectParser parser)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doRequest(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doRequest</a></span>(String method, String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
         
         <div class="jd-descrdiv">Executes the configured request by calling AudioBox API services.</div>
   
@@ -746,7 +746,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doRequestToChannel(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, fm.audiobox.core.config.Configuration.Channels)">doRequestToChannel</a></span>(String method, String path, HttpContent data, JsonObjectParser parser, <a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)
+        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doRequestToChannel(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, fm.audiobox.core.config.Configuration.Channels, com.google.api.client.http.HttpHeaders)">doRequestToChannel</a></span>(String method, String path, HttpContent data, JsonObjectParser parser, <a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel, HttpHeaders headers)
         
         <div class="jd-descrdiv">Executes the configured request by calling AudioBox API services.</div>
   
@@ -1495,7 +1495,7 @@ From class
 </div>
 
 
-<a id="doDELETE(java.lang.String, com.google.api.client.json.JsonObjectParser)"></a>
+<a id="doDELETE(java.lang.String, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1508,7 +1508,7 @@ From class
         HttpResponse
       </span>
       <span class="sympad">doDELETE</span>
-      <span class="normal">(String path, JsonObjectParser parser)</span>
+      <span class="normal">(String path, JsonObjectParser parser, HttpHeaders headers)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1532,71 +1532,9 @@ From class
           <th>parser</th>
           <td>the com.google.api.client.json.JsonObjectParser to use to parse the response.</td>
         </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the http response, may be null if any error occurs during the request.</li></ul>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
         <tr>
-            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
-            <td>if any of the remote error exception is detected.</td>
-        </tr>  
-        <tr>
-            <th>IOException</td>
-            <td>if any connection problem occurs.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
-      </ul>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="doGET(java.lang.String, com.google.api.client.json.JsonObjectParser)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        HttpResponse
-      </span>
-      <span class="sympad">doGET</span>
-      <span class="normal">(String path, JsonObjectParser parser)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>path</th>
-          <td>the AudioBox API path where to make the request to.</td>
-        </tr>
-        <tr>
-          <th>parser</th>
-          <td>the com.google.api.client.json.JsonObjectParser to use to parse the response.</td>
+          <th>headers</th>
+          <td>additional request headers</td>
         </tr>
       </table>
   </div>
@@ -1659,6 +1597,76 @@ From class
         <tr>
           <th>path</th>
           <td>the AudioBox API path where to make the request to.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the http response, may be null if any error occurs during the request.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="doGET(java.lang.String, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        HttpResponse
+      </span>
+      <span class="sympad">doGET</span>
+      <span class="normal">(String path, JsonObjectParser parser, HttpHeaders headers)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>path</th>
+          <td>the AudioBox API path where to make the request to.</td>
+        </tr>
+        <tr>
+          <th>parser</th>
+          <td>the com.google.api.client.json.JsonObjectParser to use to parse the response.</td>
+        </tr>
+        <tr>
+          <th>headers</th>
+          <td>additional request headers</td>
         </tr>
       </table>
   </div>
@@ -1817,7 +1825,7 @@ From class
 </div>
 
 
-<a id="doPOST(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)"></a>
+<a id="doPOST(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1830,7 +1838,7 @@ From class
         HttpResponse
       </span>
       <span class="sympad">doPOST</span>
-      <span class="normal">(String path, HttpContent data, JsonObjectParser parser)</span>
+      <span class="normal">(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1857,6 +1865,10 @@ From class
         <tr>
           <th>parser</th>
           <td>the com.google.api.client.json.JsonObjectParser to use to parse the response.</td>
+        </tr>
+        <tr>
+          <th>headers</th>
+          <td>additional request headers</td>
         </tr>
       </table>
   </div>
@@ -1887,7 +1899,7 @@ From class
 </div>
 
 
-<a id="doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)"></a>
+<a id="doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1900,7 +1912,7 @@ From class
         HttpResponse
       </span>
       <span class="sympad">doPUT</span>
-      <span class="normal">(String path, HttpContent data, JsonObjectParser parser)</span>
+      <span class="normal">(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1927,6 +1939,10 @@ From class
         <tr>
           <th>parser</th>
           <td>the com.google.api.client.json.JsonObjectParser to use to parse the response.</td>
+        </tr>
+        <tr>
+          <th>headers</th>
+          <td>additional request headers</td>
         </tr>
       </table>
   </div>
@@ -2023,7 +2039,7 @@ From class
 </div>
 
 
-<a id="doRequest(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser)"></a>
+<a id="doRequest(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2036,7 +2052,7 @@ From class
         HttpResponse
       </span>
       <span class="sympad">doRequest</span>
-      <span class="normal">(String method, String path, HttpContent data, JsonObjectParser parser)</span>
+      <span class="normal">(String method, String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2068,6 +2084,10 @@ From class
           <th>parser</th>
           <td>the parser to use for the resulting object</td>
         </tr>
+        <tr>
+          <th>headers</th>
+          <td>additional request headers</td>
+        </tr>
       </table>
   </div>
   <div class="jd-tagdata">
@@ -2097,7 +2117,7 @@ From class
 </div>
 
 
-<a id="doRequestToChannel(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, fm.audiobox.core.config.Configuration.Channels)"></a>
+<a id="doRequestToChannel(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, fm.audiobox.core.config.Configuration.Channels, com.google.api.client.http.HttpHeaders)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2110,7 +2130,7 @@ From class
         HttpResponse
       </span>
       <span class="sympad">doRequestToChannel</span>
-      <span class="normal">(String method, String path, HttpContent data, JsonObjectParser parser, <a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel)</span>
+      <span class="normal">(String method, String path, HttpContent data, JsonObjectParser parser, <a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel, HttpHeaders headers)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2145,6 +2165,10 @@ From class
         <tr>
           <th>channel</th>
           <td>the <code><a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Channel</a></code> to query</td>
+        </tr>
+        <tr>
+          <th>headers</th>
+          <td>additional request headers</td>
         </tr>
       </table>
   </div>
