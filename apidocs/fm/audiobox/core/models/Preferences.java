@@ -26,5 +26,15 @@ public  void setAcceptEmails(boolean accept_emails) { throw new RuntimeException
 public  void setHideTooltips(boolean hide_tooltips) { throw new RuntimeException("Stub!"); }
 public static final java.lang.String PATH = "/api/v1/preferences.json";
 public static final java.util.Map<java.lang.String, java.lang.String> COLORS;
+protected java.lang.String color;
+protected boolean repeat;
+protected boolean shuffle;
+protected boolean autoplay;
+protected boolean prebuffer;
+protected boolean js_demuxer;
+protected java.lang.String top_bar_bg;
+protected java.lang.String volume_level;
+protected boolean accept_emails;
+protected boolean hide_tooltips;
 static { COLORS = null; }
 }
