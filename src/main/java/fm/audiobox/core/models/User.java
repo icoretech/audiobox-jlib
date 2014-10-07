@@ -19,8 +19,16 @@ package fm.audiobox.core.models;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A User can interact with his own files in different ways, depending on the remote storage in play.
@@ -72,6 +80,7 @@ import java.io.IOException;
  */
 public class User extends Model {
 
+  private static final Logger log = LoggerFactory.getLogger( User.class );
 
   public static final String REAL_NAME = "real_name";
 
@@ -389,10 +398,16 @@ public class User extends Model {
 
   /**
    * Gets the user's {@link fm.audiobox.core.models.Preferences}
+   * <br/>
+   * Preferences are never null
    *
    * @return the preferences
    */
   public Preferences getPreferences() {
+    if (preferences == null) {
+      preferences = new Preferences();
+    }
+
     return preferences;
   }
 
@@ -409,7 +424,58 @@ public class User extends Model {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean savePreferences(Client client) throws IOException {
-    client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), new UserWrapper( this ) ) );
+
+    // 'api/v1/preference.json' endpoint accepts a user object that inherit
+    // Preferences.class fields like this:
+    //
+    // {"user"=>{"prebuffer"=>"1", "accept_emails"=>"0", "js_demuxer"=>"1"}}
+    //
+    // This is why we need a custom crafted JSON and that's why we create a map.
+
+    Map<String, Object> prefs = new HashMap<>();
+
+    // Since preferences are an open set of fields that may
+    // vary in space and time (:D) and we don't want to
+    // update a map each time a preference is added or removed,
+    // we proceed with reflection. This may reduce maintenance
+    // hassles.
+    Field[] fs = getPreferences().getClass().getDeclaredFields();
+
+    for (Field f : fs ){
+
+      // @Key annotated fields are the fields that we want to keep in sync
+      if (f.isAnnotationPresent( Key.class ) ) {
+        try {
+
+          Object value = f.get( getPreferences() );
+
+          // Drop null values
+          if (value == null) {
+            continue;
+          }
+
+          // Boolean values are transformed into 1 and 0 strings
+          // because of some technical issue with the backend.
+          if (f.getType() == boolean.class) {
+            value = (Boolean) value ? "1" : "0";
+          }
+
+          prefs.put( f.getName(), value.toString() );
+
+        } catch ( IllegalAccessException e ) {
+
+          // Erroneous or problematic fields are just discarded,
+          // but we don't want to abort the request, thus we catch
+          // the exception and keep it going.
+          log.error( "Preference field is not readable due to some unsupported state: " + e.getMessage() );
+        }
+      }
+    }
+
+    Map<String, Object> u = new HashMap<>();
+    u.put("user", prefs);
+
+    client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), u ) );
     return true;
   }
 

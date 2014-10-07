@@ -49,34 +49,34 @@ public class Preferences extends Model {
 
 
   @Key
-  private String color;
+  protected String color;
 
   @Key
-  private boolean repeat;
+  protected boolean repeat;
 
   @Key
-  private boolean shuffle;
+  protected boolean shuffle;
 
   @Key
-  private boolean autoplay;
+  protected boolean autoplay;
 
   @Key
-  private boolean prebuffer;
+  protected boolean prebuffer;
 
   @Key
-  private boolean js_demuxer;
+  protected boolean js_demuxer;
 
   @Key
-  private String top_bar_bg;
+  protected String top_bar_bg;
 
   @Key
-  private String volume_level;
+  protected String volume_level;
 
   @Key
-  private boolean accept_emails;
+  protected boolean accept_emails;
 
   @Key
-  private boolean hide_tooltips;
+  protected boolean hide_tooltips;
 
 
   /**
