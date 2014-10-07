@@ -486,7 +486,7 @@ public class MediaFile extends Model {
    * @throws IOException if any network communication or IO occurs
    */
   public OutputStream download(Client client, OutputStream out, NetworkProgressListener listener) throws IOException {
-    HttpResponse rsp = client.doRequestToChannel( HttpMethods.GET, ModelUtil.interpolate( getDownloadPath(), token ), null, null, Configuration.Channels.upload );
+    HttpResponse rsp = client.doRequestToChannel( HttpMethods.GET, ModelUtil.interpolate( getDownloadPath(), token ), null, null, Configuration.Channels.upload, null );
     Download d = new Download( rsp.getContent(), out, listener, rsp.getHeaders().getContentLength() );
     return d.start();
   }

@@ -53,7 +53,7 @@ public class AudioBoxTests {
 
   protected Logger logger = LoggerFactory.getLogger( this.getClass().getSimpleName() );
 
-  protected Config fixtures = ConfigFactory.load( "travis" );
+  protected Config fixtures = ConfigFactory.load( "fixtures" );
 
   protected Client c;
 
@@ -61,7 +61,7 @@ public class AudioBoxTests {
 
   private boolean printTimingLog = true;
 
-  public static final Configuration.Env env = Configuration.Env.staging;
+  public static final Configuration.Env env = Configuration.Env.production;
 
 
   /**
@@ -121,6 +121,44 @@ public class AudioBoxTests {
     if ( printTimingLog ) {
       logger.debug( "*** Test completed in " + seconds_taken + " seconds" );
     }
+  }
+
+  /* ================= */
+  /* Protected methods */
+  /* ================= */
+
+
+  /**
+   * Use this method if you need to make requests against real AudioBox
+   * staging environment.
+   * <p/>
+   * This is useful only to register a real API transaction. Use with cautions.
+   */
+  @SuppressWarnings( "unused" )
+  protected void prepareForStaging() throws IOException {
+    fixtures = ConfigFactory.load( "fixtures" );
+    c.getConf().setEnvironment( Configuration.Env.staging );
+    c.getConf().setHttpTransport( new NetHttpTransport() );
+    c.getConf().setApiKey( fixtures.getString( "authentication.staging.client_id" ) );
+    c.getConf().setApiSecret( fixtures.getString( "authentication.staging.client_secret" ) );
+    c.authorize( fixtures.getString( "authentication.staging.email" ), fixtures.getString( "authentication.staging.password" ) );
+  }
+
+
+  /**
+   * Use this method if you need to make requests against real AudioBox
+   * staging environment.
+   * <p/>
+   * This is useful only to register a real API transaction. Use with cautions.
+   */
+  @SuppressWarnings( "unused" )
+  protected void prepareForLocalDevelopment() throws IOException {
+    fixtures = ConfigFactory.load( "fixtures" );
+    c.getConf().setEnvironment( Configuration.Env.development );
+    c.getConf().setHttpTransport( new NetHttpTransport() );
+    c.getConf().setApiKey( fixtures.getString( "authentication.local.client_id" ) );
+    c.getConf().setApiSecret( fixtures.getString( "authentication.local.client_secret" ) );
+    c.authorize( fixtures.getString( "authentication.local.email" ), fixtures.getString( "authentication.local.password" ) );
   }
 
 
