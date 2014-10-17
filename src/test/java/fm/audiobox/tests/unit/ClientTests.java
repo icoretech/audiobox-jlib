@@ -41,7 +41,7 @@ public class ClientTests extends AudioBoxTests {
   @Test( expected = AuthorizationException.class )
   public void testWrongAuthorization() throws IOException {
     c.getConf().setHttpTransport( MockHttp.getWrongAccountHttpTransport() );
-    c.authorize( "wrong@email.com", "fakepasswd" );
+    c.authorize( "wrong@email.com", "fakepasswd", true );
   }
 
 
@@ -92,7 +92,7 @@ public class ClientTests extends AudioBoxTests {
   @Test( expected = AuthorizationException.class )
   public void testMalformedRequest() throws IOException {
     c.getConf().setHttpTransport( MockHttp.getMalformedHttpTransport() );
-    c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ) );
+    c.authorize( fixtures.getString( "authentication.email" ), fixtures.getString( "authentication.password" ), true );
   }
 
 

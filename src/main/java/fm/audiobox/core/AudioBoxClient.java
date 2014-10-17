@@ -245,18 +245,20 @@ public class AudioBoxClient {
         }
       } );
 
-      logger.info("Authorizing: " + username);
+      logger.info( "Authorizing: " + username );
       TokenResponse response = ptr.execute();
 
-      logger.info(username + " authorized, save credentials.");
+      logger.info( username + " authorized, save credentials." );
       userDb.saveCredentials( ACCOUNT_TOKENS, ( Credential ) createCredentialWithRefreshToken( response ) );
 
       return response;
     } catch ( TokenResponseException e ) {
-      AudioBoxException up = handleException( new AuthorizationException( e ) );
-      if ( relaunchExceptions ) {
+
+      AudioBoxException up = new AuthorizationException( e );
+      if ( !isExceptionHandled( up ) && relaunchExceptions ) {
         throw up; // Deh eh eh... :-P
       }
+
       return null;
     }
   }
@@ -406,8 +408,8 @@ public class AudioBoxClient {
   /**
    * Performs {@link AudioBoxClient#authorize(String, String) signed} GET requests and returns the response.
    *
-   * @param path   the AudioBox API path where to make the request to.
-   * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
+   * @param path    the AudioBox API path where to make the request to.
+   * @param parser  the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
    * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
@@ -441,9 +443,9 @@ public class AudioBoxClient {
   /**
    * Performs {@link AudioBoxClient#authorize(String, String) signed} PUT requests and returns the response.
    *
-   * @param path   the AudioBox API path where to make the request to.
-   * @param data   the data to send with the request
-   * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
+   * @param path    the AudioBox API path where to make the request to.
+   * @param data    the data to send with the request
+   * @param parser  the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
    * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
@@ -476,8 +478,8 @@ public class AudioBoxClient {
   /**
    * Performs {@link AudioBoxClient#authorize(String, String) signed} DELETE requests to the given path.
    *
-   * @param path   the AudioBox API path where to make the request to.
-   * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
+   * @param path    the AudioBox API path where to make the request to.
+   * @param parser  the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
    * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
@@ -527,9 +529,9 @@ public class AudioBoxClient {
   /**
    * Performs {@link AudioBoxClient#authorize(String, String) signed} POST requests and returns the response.
    *
-   * @param path   the AudioBox API path where to make the request to.
-   * @param data   the data to send with the request
-   * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
+   * @param path    the AudioBox API path where to make the request to.
+   * @param data    the data to send with the request
+   * @param parser  the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
    * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
@@ -546,10 +548,10 @@ public class AudioBoxClient {
   /**
    * Executes the configured request by calling AudioBox API services.
    *
-   * @param method the method to use
-   * @param path   the AudioBox API path where to make the request to.
-   * @param data   the data to send with the request
-   * @param parser the parser to use for the resulting object
+   * @param method  the method to use
+   * @param path    the AudioBox API path where to make the request to.
+   * @param data    the data to send with the request
+   * @param parser  the parser to use for the resulting object
    * @param headers additional request headers
    *
    * @return the http response, may be null if any error occurs during the request.
@@ -587,7 +589,7 @@ public class AudioBoxClient {
       }
 
       GenericUrl url = new GenericUrl( getConf().getBaseUrl( channel ) + path );
-      logger.info( method + " " + url);
+      logger.info( method + " " + url );
 
       HttpResponse response = getRequestFactory( parser, headers ).buildRequest( method, url, data ).execute();
       validateResponse( response );
@@ -595,7 +597,11 @@ public class AudioBoxClient {
 
     } catch ( TokenResponseException e ) {
       logger.error( "Token error occurred: " + e.getMessage() );
-      handleException( new AuthorizationException( e ) );
+
+      AudioBoxException ex = new AuthorizationException( e );
+      if ( !isExceptionHandled( ex ) ) {
+        throw ex;
+      }
 
     }
 
@@ -612,7 +618,7 @@ public class AudioBoxClient {
   /**
    * Gets request factory.
    *
-   * @param parser the parser to use for the resulting object
+   * @param parser  the parser to use for the resulting object
    * @param headers additional request headers
    *
    * @return the request factory
@@ -630,8 +636,8 @@ public class AudioBoxClient {
         request.setSuppressUserAgentSuffix( true );
 
         HttpHeaders head = getDefaultHeaders();
-        if (headers != null) {
-          if (head != null) {
+        if ( headers != null ) {
+          if ( head != null ) {
             headers.fromHttpHeaders( head );
           }
           head = headers;
@@ -668,7 +674,7 @@ public class AudioBoxClient {
    */
   private HttpRequestInitializer createCredentialWithRefreshToken() throws IOException {
     StoredCredential c = getStoredCredential();
-    logger.debug( "Signing request method with access_token: " + StringUtils.abbreviate( c.getAccessToken(), 8 ) );
+    logger.trace( "Signing request method with access_token: " + StringUtils.abbreviate( c.getAccessToken(), 8 ) );
 
     return createCredentialWithRefreshToken( c );
   }
@@ -751,7 +757,9 @@ public class AudioBoxClient {
       }
 
     } catch ( AudioBoxException e ) {
-      handleException( e );
+      if ( !isExceptionHandled( e ) ) {
+        throw e;
+      }
     }
   }
 
@@ -764,12 +772,9 @@ public class AudioBoxClient {
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if exception is not handled by an ExceptionHandler
    */
-  private AudioBoxException handleException(AudioBoxException e) throws AudioBoxException {
+  private boolean isExceptionHandled(AudioBoxException e) throws AudioBoxException {
     ExceptionHandler eh = this.getConf().getExceptionHandler();
-    if ( eh != null && eh.onException( e ) ) {
-      return e;
-    }
-    throw e;
+    return eh != null && eh.onException( e );
   }
 
 
