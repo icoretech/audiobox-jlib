@@ -20,7 +20,7 @@ package fm.audiobox.tests.unit.config;
 import com.google.api.client.auth.oauth2.CredentialRefreshListener;
 import com.google.api.client.auth.oauth2.DataStoreCredentialRefreshListener;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.config.ConfigurationException;
 import fm.audiobox.tests.support.FileCredentialStore;
@@ -149,7 +149,7 @@ public class ConfigurationTests extends AudioBoxTests {
       c.setApiKey( fixtures.getString( "authentication.client_id" ) );
       c.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
       c.setCredentialDataStore( new FileCredentialStore( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
-      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ( ( FileCredentialStore ) c.getCredentialDataStore() ).getDB() );
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( AudioBoxClient.ACCOUNT_TOKENS, ( ( FileCredentialStore ) c.getCredentialDataStore() ).getDB() );
       c.setCredentialRefreshListener( crl );
       c.checkConfiguration();
     } catch ( ConfigurationException e ) {
@@ -175,7 +175,7 @@ public class ConfigurationTests extends AudioBoxTests {
       c.setApiSecret( fixtures.getString( "authentication.client_secret" ) );
       c.setCredentialDataStore( new FileCredentialStore( new File( System.getProperty( "user.home" ), ".audiobox/abx" ) ) );
       c.setHttpTransport( new NetHttpTransport() );
-      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ( ( FileCredentialStore ) c.getCredentialDataStore() ).getDB() );
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( AudioBoxClient.ACCOUNT_TOKENS, ( ( FileCredentialStore ) c.getCredentialDataStore() ).getDB() );
       c.setCredentialRefreshListener( crl );
       c.checkConfiguration();
     } catch ( ConfigurationException e ) {

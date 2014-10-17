@@ -23,7 +23,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.integralblue.httpresponsecache.HttpResponseCache;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.config.ConfigurationException;
 import fm.audiobox.tests.mocks.MockHttp;
@@ -55,7 +55,7 @@ public class AudioBoxTests {
 
   protected Config fixtures = ConfigFactory.load( "travis" );
 
-  protected Client c;
+  protected AudioBoxClient c;
 
   private long time_start = 0;
 
@@ -100,11 +100,11 @@ public class AudioBoxTests {
           .setApplicationName( "Tests" )
           .setVersion( "1.0" );
 
-      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( Client.ACCOUNT_TOKENS, ((FileCredentialStore)config.getCredentialDataStore()).getDB());
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( AudioBoxClient.ACCOUNT_TOKENS, ((FileCredentialStore)config.getCredentialDataStore()).getDB());
       config.setCredentialRefreshListener( crl );
 
       config.setEnvironment( env );
-      c = new Client( config );
+      c = new AudioBoxClient( config );
     } catch ( ConfigurationException | IOException e ) {
       fail( e.getMessage() );
     }

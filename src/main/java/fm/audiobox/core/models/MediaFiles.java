@@ -19,7 +19,7 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.json.CustomizeJsonParser;
 import com.google.api.client.util.Key;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 import fm.audiobox.core.models.collections.EventedModelList;
 
 import java.io.IOException;
@@ -89,17 +89,17 @@ public class MediaFiles extends Model {
    * <p/>
    * NOTE: this action is irreversible.
    *
-   * @param client the client
+   * @param audioBoxClient the client
    * @param tokens the tokens
    *
    * @return the boolean
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    */
-  public static boolean destroyAll(Client client, List<String> tokens) throws IOException {
+  public static boolean destroyAll(AudioBoxClient audioBoxClient, List<String> tokens) throws IOException {
     String url = DESTROY_MEDIA_FILES_PATH + "?utf8=true";
     for ( String tk : tokens ) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
-    client.doDELETE( url );
+    audioBoxClient.doDELETE( url );
     return true;
   }
 

@@ -18,16 +18,13 @@ package fm.audiobox.core.models;
 
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -415,7 +412,7 @@ public class User extends Model {
   /**
    * Saves user preferences
    *
-   * @param client the client
+   * @param audioBoxClient the client
    *
    * @return true if operation succeed throws an exception if something goes wrong
    *
@@ -423,7 +420,7 @@ public class User extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public boolean savePreferences(Client client) throws IOException {
+  public boolean savePreferences(AudioBoxClient audioBoxClient) throws IOException {
 
     // 'api/v1/preference.json' endpoint accepts a user object that inherit
     // Preferences.class fields like this:
@@ -475,7 +472,7 @@ public class User extends Model {
     Map<String, Object> u = new HashMap<>();
     u.put("user", prefs);
 
-    client.doPUT( Preferences.PATH, new JsonHttpContent( client.getConf().getJsonFactory(), u ) );
+    audioBoxClient.doPUT( Preferences.PATH, new JsonHttpContent( audioBoxClient.getConf().getJsonFactory(), u ) );
     return true;
   }
 

@@ -18,7 +18,7 @@ package fm.audiobox.core.net;
 
 
 import com.google.api.client.http.*;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.models.MediaFileWrapper;
@@ -52,7 +52,7 @@ public class Upload {
 
   private NetworkProgressListener listener;
 
-  private Client client;
+  private AudioBoxClient audioBoxClient;
 
   private State state = State.ready;
 
@@ -60,14 +60,14 @@ public class Upload {
   /**
    * Instantiates a new Upload.
    *
-   * @param client   the client
+   * @param audioBoxClient   the client
    * @param file     the file to upload on AudioBox
    * @param listener the listener
    */
-  public Upload(Client client, File file, NetworkProgressListener listener) {
+  public Upload(AudioBoxClient audioBoxClient, File file, NetworkProgressListener listener) {
     this.file = file;
     this.listener = listener;
-    this.client = client;
+    this.audioBoxClient = audioBoxClient;
   }
 
 
@@ -145,7 +145,7 @@ public class Upload {
       multipart.addPart( new MultipartContent.Part( pathContent ), "remotePath", null );
       multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
 
-      HttpResponse rsp = client.doRequestToChannel( HttpMethods.POST, UPLOAD_PATH, multipart, null, Configuration.Channels.upload, headers );
+      HttpResponse rsp = audioBoxClient.doRequestToChannel( HttpMethods.POST, UPLOAD_PATH, multipart, null, Configuration.Channels.upload, headers );
       return rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
 
     } finally {

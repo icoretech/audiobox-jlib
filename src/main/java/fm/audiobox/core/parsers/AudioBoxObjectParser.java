@@ -22,7 +22,7 @@ import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.JsonParser;
 import com.google.api.client.json.JsonToken;
 import com.google.api.client.util.Preconditions;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,11 +46,11 @@ public class AudioBoxObjectParser extends JsonObjectParser {
   /**
    * Instantiates a new Audio box object parser.
    *
-   * @param client       the client
+   * @param audioBoxClient       the client
    * @param customParser the custom parser
    */
-  public AudioBoxObjectParser(Client client, CustomizeJsonParser customParser) {
-    super( ( new Builder( client.getConf().getJsonFactory() ) ) );
+  public AudioBoxObjectParser(AudioBoxClient audioBoxClient, CustomizeJsonParser customParser) {
+    super( ( new Builder( audioBoxClient.getConf().getJsonFactory() ) ) );
     this.customParser = customParser;
   }
 

@@ -17,7 +17,7 @@
 package fm.audiobox.core.models;
 
 import com.google.api.client.util.Key;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 import fm.audiobox.core.utils.ModelUtil;
 
 import java.io.IOException;
@@ -104,8 +104,8 @@ public class Notification extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public Notification delete(Client client) throws IOException {
-    client.doDELETE( ModelUtil.interpolate( Notification.getPath(), getId() ) );
+  public Notification delete(AudioBoxClient audioBoxClient) throws IOException {
+    audioBoxClient.doDELETE( ModelUtil.interpolate( Notification.getPath(), getId() ) );
     return this;
   }
 }

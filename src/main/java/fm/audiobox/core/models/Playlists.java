@@ -17,7 +17,7 @@
 package fm.audiobox.core.models;
 
 import com.google.api.client.util.Key;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 import fm.audiobox.core.utils.ModelUtil;
 
 import java.io.IOException;
@@ -116,7 +116,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the local playlist
    *
@@ -124,8 +124,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getLocalPlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_LOCAL );
+  public static Playlist getLocalPlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_LOCAL );
   }
 
 
@@ -140,7 +140,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the cloud playlist
    *
@@ -148,8 +148,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getCloudPlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_CLOUD );
+  public static Playlist getCloudPlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_CLOUD );
   }
 
 
@@ -164,7 +164,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the dropbox playlist
    *
@@ -172,8 +172,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getDropboxPlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_DROPBOX );
+  public static Playlist getDropboxPlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_DROPBOX );
   }
 
 
@@ -188,7 +188,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the one drive playlist
    *
@@ -196,8 +196,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getOneDrivePlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_ONERIVE );
+  public static Playlist getOneDrivePlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_ONERIVE );
   }
 
 
@@ -212,7 +212,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the box playlist
    *
@@ -220,8 +220,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getBoxPlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_BOX );
+  public static Playlist getBoxPlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_BOX );
   }
 
 
@@ -236,7 +236,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the google drive playlist
    *
@@ -244,8 +244,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getGdrivePlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_GDRIVE );
+  public static Playlist getGdrivePlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_GDRIVE );
   }
 
 
@@ -260,7 +260,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the youtube playlist
    *
@@ -268,8 +268,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getYoutubePlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_YOUTUBE );
+  public static Playlist getYoutubePlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_YOUTUBE );
   }
 
 
@@ -284,7 +284,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the soundcloud playlist
    *
@@ -292,8 +292,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getSoundcloudPlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_SOUNDCLOUD );
+  public static Playlist getSoundcloudPlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_SOUNDCLOUD );
   }
 
 
@@ -308,7 +308,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the ubuntu one music playlist
    *
@@ -316,8 +316,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getUbuntuPlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_UBUNTU );
+  public static Playlist getUbuntuPlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_UBUNTU );
   }
 
 
@@ -332,7 +332,7 @@ public class Playlists extends Model {
    * in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
    * </p>
    *
-   * @param client the {@link Client} to use to make the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
    * @return the offline playlist
    *
@@ -340,8 +340,8 @@ public class Playlists extends Model {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getOfflinePlaylist(Client client) throws IOException {
-    return getPlaylistOfType( client, PLAYLIST_OFFLINE );
+  public static Playlist getOfflinePlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_OFFLINE );
   }
 
 
@@ -356,15 +356,15 @@ public class Playlists extends Model {
    * <br/>
    * If the playlist is not found null is returned.
    *
-   * @param client the user's {@link Client} to use to make the request
+   * @param audioBoxClient the user's {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    * @param type   the Playlists#PLAYLIST_* type to if any problem occurs
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  private static Playlist getPlaylistOfType(Client client, String type) throws IOException {
-    return ModelUtil.findPlaylistByType( client.getPlaylists(), type );
+  private static Playlist getPlaylistOfType(AudioBoxClient audioBoxClient, String type) throws IOException {
+    return ModelUtil.findPlaylistByType( audioBoxClient.getPlaylists(), type );
   }
 
 }

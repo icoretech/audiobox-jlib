@@ -21,7 +21,7 @@ import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
-import fm.audiobox.core.Client;
+import fm.audiobox.core.AudioBoxClient;
 import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.net.Download;
 import fm.audiobox.core.net.NetworkProgressListener;
@@ -403,12 +403,12 @@ public class MediaFile extends Model {
    * you are forced to serve via canonical HTTP protocol (<code>secure = false</code>).
    * </p>
    *
-   * @param client the Client instance to grab env configuration from
+   * @param audioBoxClient the Client instance to grab env configuration from
    * @param secure whether to serve the SSL protected stream url or not
    * @return the stream path
    */
-  public String getStreamUrl(Client client, boolean secure) {
-    return client.getConf().getBaseUrl( Configuration.Channels.api, secure ) + getStreamPath();
+  public String getStreamUrl(AudioBoxClient audioBoxClient, boolean secure) {
+    return audioBoxClient.getConf().getBaseUrl( Configuration.Channels.api, secure ) + getStreamPath();
   }
 
 
@@ -425,68 +425,68 @@ public class MediaFile extends Model {
   /**
    * Gets download url for this media file.
    *
-   * @param client the Client instance to grab env configuration from
+   * @param audioBoxClient the Client instance to grab env configuration from
    * @return the stream path
    */
-  public String getDownloadUrl(Client client) {
-    return client.getConf().getBaseUrl( Configuration.Channels.api ) + getDownloadPath();
+  public String getDownloadUrl(AudioBoxClient audioBoxClient) {
+    return audioBoxClient.getConf().getBaseUrl( Configuration.Channels.api ) + getDownloadPath();
   }
 
 
   /**
    * Load a single media file.
    *
-   * @param client client the to use for the request
+   * @param audioBoxClient client the to use for the request
    * @param token  the token that uniquely identify the media file
    * @return the requested media file
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
    * @see
    */
-  public static MediaFile load(Client client, String token) throws IOException {
-    HttpResponse rsp = client.doGET( ModelUtil.interpolate( PATH, token ) );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( client.getConf().getMediaFileWrapperClass() ).getMediaFile() : null;
+  public static MediaFile load(AudioBoxClient audioBoxClient, String token) throws IOException {
+    HttpResponse rsp = audioBoxClient.doGET( ModelUtil.interpolate( PATH, token ) );
+    return rsp.isSuccessStatusCode() ? rsp.parseAs( audioBoxClient.getConf().getMediaFileWrapperClass() ).getMediaFile() : null;
   }
 
 
   /**
    * (Re)load a new instance of the same media file.
    *
-   * @param client client the to use for the request
+   * @param audioBoxClient client the to use for the request
    * @return the requested media file
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
    * @see
    */
-  public MediaFile reload(Client client) throws IOException {
-    return MediaFile.load( client, getToken() );
+  public MediaFile reload(AudioBoxClient audioBoxClient) throws IOException {
+    return MediaFile.load( audioBoxClient, getToken() );
   }
 
 
   /**
    * Downloads the media to specified {@link java.io.OutputStream}
    *
-   * @param client client the to use for the request
+   * @param audioBoxClient client the to use for the request
    * @param out    the desired OutputStream where to store the downloaded data
    * @return the same given
    * instance with downloaded data
    * @throws IOException if any network communication or IO occurs
    */
-  public OutputStream download(Client client, OutputStream out) throws IOException {
-    return this.download( client, out, null );
+  public OutputStream download(AudioBoxClient audioBoxClient, OutputStream out) throws IOException {
+    return this.download( audioBoxClient, out, null );
   }
 
 
   /**
    * Downloads the media to specified {@link java.io.OutputStream}
    *
-   * @param client   client the to use for the request
+   * @param audioBoxClient   client the to use for the request
    * @param out      the desired OutputStream where to store the downloaded data
    * @param listener a NetworkProgressListener for monitoring download progress
    * @return the same given
    * instance with downloaded data
    * @throws IOException if any network communication or IO occurs
    */
-  public OutputStream download(Client client, OutputStream out, NetworkProgressListener listener) throws IOException {
-    HttpResponse rsp = client.doRequestToChannel( HttpMethods.GET, ModelUtil.interpolate( getDownloadPath(), token ), null, null, Configuration.Channels.upload, null );
+  public OutputStream download(AudioBoxClient audioBoxClient, OutputStream out, NetworkProgressListener listener) throws IOException {
+    HttpResponse rsp = audioBoxClient.doRequestToChannel( HttpMethods.GET, ModelUtil.interpolate( getDownloadPath(), token ), null, null, Configuration.Channels.upload, null );
     Download d = new Download( rsp.getContent(), out, listener, rsp.getHeaders().getContentLength() );
     return d.start();
   }
@@ -495,13 +495,13 @@ public class MediaFile extends Model {
   /**
    * Handle a single media file update.
    *
-   * @param client the client to use for the request
+   * @param audioBoxClient the client to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
-  public MediaFile update(Client client) throws IOException {
-    client.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( client.getConf().getJsonFactory(), this ) );
+  public MediaFile update(AudioBoxClient audioBoxClient) throws IOException {
+    audioBoxClient.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( audioBoxClient.getConf().getJsonFactory(), this ) );
     return this;
   }
 
@@ -510,7 +510,7 @@ public class MediaFile extends Model {
    * Handle a single media file destruction synchronously.
    * <p/>
    * If you need to permanently destroy more than one single media file in one sweep use
-   * {@link MediaFiles#destroyAll(fm.audiobox.core.Client, java.util.List)}
+   * {@link MediaFiles#destroyAll(fm.audiobox.core.AudioBoxClient, java.util.List)}
    * <p/>
    * Do not attempt to call this endpoint for single tracks the user selected to destroy.
    * <p/>
@@ -518,13 +518,13 @@ public class MediaFile extends Model {
    * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
    * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
    *
-   * @param client the client to use for the request
+   * @param audioBoxClient the client to use for the request
    * @return true if the operation succeeds.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
-  public boolean destroy(Client client) throws IOException {
-    HttpResponse rsp = client.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
+  public boolean destroy(AudioBoxClient audioBoxClient) throws IOException {
+    HttpResponse rsp = audioBoxClient.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
     return rsp.isSuccessStatusCode();
   }
 
@@ -536,13 +536,13 @@ public class MediaFile extends Model {
    * <p/>
    * Triggers different actions in the system, such as Scrobbling to Last.fm and much more.
    *
-   * @param client client the to use for the request
+   * @param audioBoxClient client the to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
-  public MediaFile scrobble(Client client) throws IOException {
-    client.doPOST( ModelUtil.interpolate( SCROBBLE_PATH, getToken() ) );
+  public MediaFile scrobble(AudioBoxClient audioBoxClient) throws IOException {
+    audioBoxClient.doPOST( ModelUtil.interpolate( SCROBBLE_PATH, getToken() ) );
     return this;
   }
 
@@ -550,18 +550,18 @@ public class MediaFile extends Model {
   /**
    * Loads the media file lyrics from AudioBox.
    *
-   * @param client client the to use for the request
+   * @param audioBoxClient client the to use for the request
    * @return the lyrics or null
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
-  public String getLyrics(Client client) throws IOException {
+  public String getLyrics(AudioBoxClient audioBoxClient) throws IOException {
 
     if ( getLyricsField() != null ) {
       return getLyricsField();
     }
 
-    HttpResponse rsp = client.doGET( ModelUtil.interpolate( LYRICS_PATH, getToken() ) );
+    HttpResponse rsp = audioBoxClient.doGET( ModelUtil.interpolate( LYRICS_PATH, getToken() ) );
     MediaFile m = rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
     this.lyrics = m != null ? m.getLyricsField() : null;
 
@@ -579,13 +579,13 @@ public class MediaFile extends Model {
    * <p/>
    * Last.fm will see a track as loved, Facebook as liked, Google Drive as starred, and so on.
    *
-   * @param client client the to use for the request
+   * @param audioBoxClient client the to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
-  public MediaFile love(Client client) throws IOException {
-    setPreferred( client, LOVE_PATH );
+  public MediaFile love(AudioBoxClient audioBoxClient) throws IOException {
+    setPreferred( audioBoxClient, LOVE_PATH );
     this.loved = true;
     return this;
   }
@@ -601,13 +601,13 @@ public class MediaFile extends Model {
    * <p/>
    * Last.fm will see a track as unloved, Facebook as unliked, Google Drive as not starred, and so on.
    *
-   * @param client client the to use for the request
+   * @param audioBoxClient client the to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
-  public MediaFile unlove(Client client) throws IOException {
-    setPreferred( client, UNLOVE_PATH );
+  public MediaFile unlove(AudioBoxClient audioBoxClient) throws IOException {
+    setPreferred( audioBoxClient, UNLOVE_PATH );
     this.loved = false;
     return this;
   }
@@ -620,13 +620,13 @@ public class MediaFile extends Model {
    * <p/>
    * Preserve all the features of the love and unlove endpoints.
    *
-   * @param client client the to use for the request
+   * @param audioBoxClient client the to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @see
    */
-  public MediaFile toggleLove(Client client) throws IOException {
-    setPreferred( client, TOGGLE_LOVE_PATH );
+  public MediaFile toggleLove(AudioBoxClient audioBoxClient) throws IOException {
+    setPreferred( audioBoxClient, TOGGLE_LOVE_PATH );
     this.loved = !this.loved;
     return this;
   }
@@ -1313,14 +1313,14 @@ public class MediaFile extends Model {
   /**
    * Sets and remotely stores the loved preferences on this media file
    *
-   * @param client the {@link fm.audiobox.core.Client} to use for the request
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
    * @return true if the operation succeeds.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  private boolean setPreferred(Client client, String path) throws IOException {
-    client.doPOST( ModelUtil.interpolate( path, getToken() ) );
+  private boolean setPreferred(AudioBoxClient audioBoxClient, String path) throws IOException {
+    audioBoxClient.doPOST( ModelUtil.interpolate( path, getToken() ) );
     return true;
   }
 

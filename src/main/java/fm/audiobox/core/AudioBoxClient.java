@@ -31,6 +31,8 @@ import fm.audiobox.core.utils.HttpStatus;
 import fm.audiobox.core.utils.Io;
 import fm.audiobox.core.utils.ModelUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +40,7 @@ import java.util.List;
 
 
 /**
- * {@link Client} is the main object of this library and allows you to perform requests and
+ * {@link AudioBoxClient} is the main object of this library and allows you to perform requests and
  * operations on AudioBox.
  * <p/>
  * AudioBox let developers access to API in order to build any kind of modern applications,
@@ -113,7 +115,7 @@ import java.util.List;
  *   ...
  * </pre></code>
  * <p/>
- * <strong>NOTE:</strong> {@link Client#authorize(String, String)} is only needed once
+ * <strong>NOTE:</strong> {@link AudioBoxClient#authorize(String, String)} is only needed once
  * to get and store the OAuth2 grant token; password is never (and it never should be) stored.
  * <p/>
  * <strong>NOTE:</strong> grant tokens may expires at any time. A request against AudioBox with
@@ -131,7 +133,7 @@ import java.util.List;
  * <a href="http://audiobox.fm/apidocs">http://audiobox.fm/apidocs</a>
  * <p/>
  */
-public class Client {
+public class AudioBoxClient {
 
   private Configuration conf;
 
@@ -148,6 +150,8 @@ public class Client {
 
   private HttpHeaders defaultHeaders;
 
+  private static Logger logger = LoggerFactory.getLogger( "[ " + AudioBoxClient.class.getSimpleName() + " ]" );
+
 
   /**
    * Instantiates a new Client.
@@ -157,7 +161,7 @@ public class Client {
    * @throws ConfigurationException the configuration exception
    * @throws java.io.IOException    if any problem occurs with the configured data store factory
    */
-  public Client(Configuration conf) throws ConfigurationException, IOException {
+  public AudioBoxClient(Configuration conf) throws ConfigurationException, IOException {
     conf.checkConfiguration();
     this.conf = conf;
     this.userDb = conf.getCredentialDataStore();
@@ -240,7 +244,11 @@ public class Client {
           request.setHeaders( defaultHeaders );
         }
       } );
+
+      logger.info("Authorizing: " + username);
       TokenResponse response = ptr.execute();
+
+      logger.info(username + " authorized, save credentials.");
       userDb.saveCredentials( ACCOUNT_TOKENS, ( Credential ) createCredentialWithRefreshToken( response ) );
 
       return response;
@@ -380,7 +388,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} GET requests and returns the response.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} GET requests and returns the response.
    *
    * @param path the AudioBox API path where to make the request to.
    *
@@ -396,7 +404,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} GET requests and returns the response.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} GET requests and returns the response.
    *
    * @param path   the AudioBox API path where to make the request to.
    * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
@@ -414,7 +422,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} PUT requests and returns the response.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} PUT requests and returns the response.
    *
    * @param path the AudioBox API path where to make the request to.
    * @param data the data to send with the request
@@ -431,7 +439,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} PUT requests and returns the response.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} PUT requests and returns the response.
    *
    * @param path   the AudioBox API path where to make the request to.
    * @param data   the data to send with the request
@@ -450,7 +458,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} DELETE requests to the given path.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} DELETE requests to the given path.
    *
    * @param path the AudioBox API path where to make the request to.
    *
@@ -466,7 +474,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} DELETE requests to the given path.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} DELETE requests to the given path.
    *
    * @param path   the AudioBox API path where to make the request to.
    * @param parser the {@link com.google.api.client.json.JsonObjectParser} to use to parse the response.
@@ -484,7 +492,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} POST requests and returns the response.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} POST requests and returns the response.
    *
    * @param path the AudioBox API path where to make the request to.
    *
@@ -500,7 +508,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} POST requests and returns the response.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} POST requests and returns the response.
    *
    * @param path the AudioBox API path where to make the request to.
    * @param data the data to send with the request
@@ -517,7 +525,7 @@ public class Client {
 
 
   /**
-   * Performs {@link Client#authorize(String, String) signed} POST requests and returns the response.
+   * Performs {@link AudioBoxClient#authorize(String, String) signed} POST requests and returns the response.
    *
    * @param path   the AudioBox API path where to make the request to.
    * @param data   the data to send with the request
@@ -572,12 +580,26 @@ public class Client {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public HttpResponse doRequestToChannel(String method, String path, HttpContent data, JsonObjectParser parser, Configuration.Channels channel, HttpHeaders headers) throws IOException {
-    if ( channel == null ) {
-      channel = Configuration.Channels.api;
+    try {
+
+      if ( channel == null ) {
+        channel = Configuration.Channels.api;
+      }
+
+      GenericUrl url = new GenericUrl( getConf().getBaseUrl( channel ) + path );
+      logger.info( method + " " + url);
+
+      HttpResponse response = getRequestFactory( parser, headers ).buildRequest( method, url, data ).execute();
+      validateResponse( response );
+      return response;
+
+    } catch ( TokenResponseException e ) {
+      logger.error( "Token error occurred: " + e.getMessage() );
+      handleException( new AuthorizationException( e ) );
+
     }
-    HttpResponse response = getRequestFactory( parser, headers ).buildRequest( method, new GenericUrl( getConf().getBaseUrl( channel ) + path ), data ).execute();
-    validateResponse( response );
-    return response;
+
+    return null;
   }
 
 
@@ -645,7 +667,10 @@ public class Client {
    * @throws java.io.IOException if any problem occurs with the configured data store.
    */
   private HttpRequestInitializer createCredentialWithRefreshToken() throws IOException {
-    return createCredentialWithRefreshToken( getStoredCredential() );
+    StoredCredential c = getStoredCredential();
+    logger.debug( "Signing request method with access_token: " + StringUtils.abbreviate( c.getAccessToken(), 8 ) );
+
+    return createCredentialWithRefreshToken( c );
   }
 
 
