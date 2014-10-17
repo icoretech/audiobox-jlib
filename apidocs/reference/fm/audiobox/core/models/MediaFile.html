@@ -955,7 +955,7 @@ Summary:
             boolean
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#destroy(fm.audiobox.core.Client)">destroy</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#destroy(fm.audiobox.core.AudioBoxClient)">destroy</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">Handle a single media file destruction synchronously.</div>
   
@@ -973,7 +973,7 @@ Summary:
             OutputStream
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#download(fm.audiobox.core.Client, java.io.OutputStream, fm.audiobox.core.net.NetworkProgressListener)">download</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, OutputStream out, <a href="../../../../fm/audiobox/core/net/NetworkProgressListener.html">NetworkProgressListener</a> listener)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#download(fm.audiobox.core.AudioBoxClient, java.io.OutputStream)">download</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient, OutputStream out)
         
         <div class="jd-descrdiv">Downloads the media to specified java.io.OutputStream</div>
   
@@ -991,7 +991,7 @@ Summary:
             OutputStream
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#download(fm.audiobox.core.Client, java.io.OutputStream)">download</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, OutputStream out)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#download(fm.audiobox.core.AudioBoxClient, java.io.OutputStream, fm.audiobox.core.net.NetworkProgressListener)">download</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient, OutputStream out, <a href="../../../../fm/audiobox/core/net/NetworkProgressListener.html">NetworkProgressListener</a> listener)
         
         <div class="jd-descrdiv">Downloads the media to specified java.io.OutputStream</div>
   
@@ -1207,7 +1207,7 @@ Summary:
             String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#getDownloadUrl(fm.audiobox.core.Client)">getDownloadUrl</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#getDownloadUrl(fm.audiobox.core.AudioBoxClient)">getDownloadUrl</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">Gets download url for this media file.</div>
   
@@ -1315,7 +1315,7 @@ Summary:
             String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#getLyrics(fm.audiobox.core.Client)">getLyrics</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#getLyrics(fm.audiobox.core.AudioBoxClient)">getLyrics</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">Loads the media file lyrics from AudioBox.</div>
   
@@ -1496,7 +1496,7 @@ Summary:
             String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#getStreamUrl(fm.audiobox.core.Client, boolean)">getStreamUrl</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, boolean secure)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#getStreamUrl(fm.audiobox.core.AudioBoxClient, boolean)">getStreamUrl</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient, boolean secure)
         
         <div class="jd-descrdiv">Gets stream url for this media file.</div>
   
@@ -1694,7 +1694,7 @@ Summary:
             <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#load(fm.audiobox.core.Client, java.lang.String)">load</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, String token)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#load(fm.audiobox.core.AudioBoxClient, java.lang.String)">load</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient, String token)
         
         <div class="jd-descrdiv">Load a single media file.</div>
   
@@ -1712,7 +1712,7 @@ Summary:
             <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#love(fm.audiobox.core.Client)">love</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#love(fm.audiobox.core.AudioBoxClient)">love</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">Manually 'love' a Media File
  <p/>
@@ -1732,7 +1732,7 @@ Summary:
             <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#reload(fm.audiobox.core.Client)">reload</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#reload(fm.audiobox.core.AudioBoxClient)">reload</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">(Re)load a new instance of the same media file.</div>
   
@@ -1750,7 +1750,7 @@ Summary:
             <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#scrobble(fm.audiobox.core.Client)">scrobble</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#scrobble(fm.audiobox.core.AudioBoxClient)">scrobble</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">Notify the system that this media file finished playing.</div>
   
@@ -2380,7 +2380,7 @@ Summary:
             <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#toggleLove(fm.audiobox.core.Client)">toggleLove</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#toggleLove(fm.audiobox.core.AudioBoxClient)">toggleLove</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">Switch the loved attribute to true/false and fire off remote services notifications.</div>
   
@@ -2398,7 +2398,7 @@ Summary:
             <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#unlove(fm.audiobox.core.Client)">unlove</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#unlove(fm.audiobox.core.AudioBoxClient)">unlove</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">Manually 'unlove' a Media File
  <p/>
@@ -2418,7 +2418,7 @@ Summary:
             <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#update(fm.audiobox.core.Client)">update</a></span>(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/MediaFile.html#update(fm.audiobox.core.AudioBoxClient)">update</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv">Handle a single media file update.</div>
   
@@ -4033,7 +4033,7 @@ From class
 
 
 
-<a id="destroy(fm.audiobox.core.Client)"></a>
+<a id="destroy(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4046,7 +4046,7 @@ From class
         boolean
       </span>
       <span class="sympad">destroy</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4061,7 +4061,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Handle a single media file destruction synchronously.
  <p/>
  If you need to permanently destroy more than one single media file in one sweep use
- <code><a href="../../../../fm/audiobox/core/models/MediaFiles.html#destroyAll(fm.audiobox.core.Client, java.util.List<java.lang.String>)">destroyAll(fm.audiobox.core.Client, java.util.List)</a></code>
+ <code><a href="../../../../fm/audiobox/core/models/MediaFiles.html#destroyAll(fm.audiobox.core.AudioBoxClient, java.util.List<java.lang.String>)">destroyAll(fm.audiobox.core.AudioBoxClient, java.util.List)</a></code>
  <p/>
  Do not attempt to call this endpoint for single tracks the user selected to destroy.
  <p/>
@@ -4072,7 +4072,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>the client to use for the request</td>
         </tr>
       </table>
@@ -4104,7 +4104,7 @@ From class
 </div>
 
 
-<a id="download(fm.audiobox.core.Client, java.io.OutputStream, fm.audiobox.core.net.NetworkProgressListener)"></a>
+<a id="download(fm.audiobox.core.AudioBoxClient, java.io.OutputStream)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4117,7 +4117,7 @@ From class
         OutputStream
       </span>
       <span class="sympad">download</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, OutputStream out, <a href="../../../../fm/audiobox/core/net/NetworkProgressListener.html">NetworkProgressListener</a> listener)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient, OutputStream out)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4134,16 +4134,12 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
         <tr>
           <th>out</th>
           <td>the desired OutputStream where to store the downloaded data</td>
-        </tr>
-        <tr>
-          <th>listener</th>
-          <td>a NetworkProgressListener for monitoring download progress</td>
         </tr>
       </table>
   </div>
@@ -4167,7 +4163,7 @@ From class
 </div>
 
 
-<a id="download(fm.audiobox.core.Client, java.io.OutputStream)"></a>
+<a id="download(fm.audiobox.core.AudioBoxClient, java.io.OutputStream, fm.audiobox.core.net.NetworkProgressListener)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4180,7 +4176,7 @@ From class
         OutputStream
       </span>
       <span class="sympad">download</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, OutputStream out)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient, OutputStream out, <a href="../../../../fm/audiobox/core/net/NetworkProgressListener.html">NetworkProgressListener</a> listener)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4197,12 +4193,16 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
         <tr>
           <th>out</th>
           <td>the desired OutputStream where to store the downloaded data</td>
+        </tr>
+        <tr>
+          <th>listener</th>
+          <td>a NetworkProgressListener for monitoring download progress</td>
         </tr>
       </table>
   </div>
@@ -4622,7 +4622,7 @@ From class
 </div>
 
 
-<a id="getDownloadUrl(fm.audiobox.core.Client)"></a>
+<a id="getDownloadUrl(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4635,7 +4635,7 @@ From class
         String
       </span>
       <span class="sympad">getDownloadUrl</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4652,7 +4652,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>the Client instance to grab env configuration from</td>
         </tr>
       </table>
@@ -4847,7 +4847,7 @@ From class
 </div>
 
 
-<a id="getLyrics(fm.audiobox.core.Client)"></a>
+<a id="getLyrics(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4860,7 +4860,7 @@ From class
         String
       </span>
       <span class="sympad">getLyrics</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4877,7 +4877,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
       </table>
@@ -5236,7 +5236,7 @@ From class
 </div>
 
 
-<a id="getStreamUrl(fm.audiobox.core.Client, boolean)"></a>
+<a id="getStreamUrl(fm.audiobox.core.AudioBoxClient, boolean)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -5249,7 +5249,7 @@ From class
         String
       </span>
       <span class="sympad">getStreamUrl</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, boolean secure)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient, boolean secure)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -5270,7 +5270,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>the Client instance to grab env configuration from</td>
         </tr>
         <tr>
@@ -5649,7 +5649,7 @@ From class
 </div>
 
 
-<a id="load(fm.audiobox.core.Client, java.lang.String)"></a>
+<a id="load(fm.audiobox.core.AudioBoxClient, java.lang.String)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -5662,7 +5662,7 @@ From class
         <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
       </span>
       <span class="sympad">load</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client, String token)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient, String token)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -5679,7 +5679,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
         <tr>
@@ -5715,7 +5715,7 @@ From class
 </div>
 
 
-<a id="love(fm.audiobox.core.Client)"></a>
+<a id="love(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -5728,7 +5728,7 @@ From class
         <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
       </span>
       <span class="sympad">love</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -5752,7 +5752,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
       </table>
@@ -5784,7 +5784,7 @@ From class
 </div>
 
 
-<a id="reload(fm.audiobox.core.Client)"></a>
+<a id="reload(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -5797,7 +5797,7 @@ From class
         <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
       </span>
       <span class="sympad">reload</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -5814,7 +5814,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
       </table>
@@ -5846,7 +5846,7 @@ From class
 </div>
 
 
-<a id="scrobble(fm.audiobox.core.Client)"></a>
+<a id="scrobble(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -5859,7 +5859,7 @@ From class
         <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
       </span>
       <span class="sympad">scrobble</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -5880,7 +5880,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
       </table>
@@ -7306,7 +7306,7 @@ From class
 </div>
 
 
-<a id="toggleLove(fm.audiobox.core.Client)"></a>
+<a id="toggleLove(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -7319,7 +7319,7 @@ From class
         <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
       </span>
       <span class="sympad">toggleLove</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -7340,7 +7340,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
       </table>
@@ -7372,7 +7372,7 @@ From class
 </div>
 
 
-<a id="unlove(fm.audiobox.core.Client)"></a>
+<a id="unlove(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -7385,7 +7385,7 @@ From class
         <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
       </span>
       <span class="sympad">unlove</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -7409,7 +7409,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>client the to use for the request</td>
         </tr>
       </table>
@@ -7441,7 +7441,7 @@ From class
 </div>
 
 
-<a id="update(fm.audiobox.core.Client)"></a>
+<a id="update(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -7454,7 +7454,7 @@ From class
         <a href="../../../../fm/audiobox/core/models/MediaFile.html">MediaFile</a>
       </span>
       <span class="sympad">update</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/Client.html">Client</a> client)</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -7471,7 +7471,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>client</th>
+          <th>audioBoxClient</th>
           <td>the client to use for the request</td>
         </tr>
       </table>

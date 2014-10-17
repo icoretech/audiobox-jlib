@@ -2,7 +2,7 @@ var DATA = [
       { id:0, label:"com.google.api.client.http", link:"com/google/api/client/http/package-summary.html", type:"package" },
       { id:1, label:"com.google.api.client.http.MultipartFormDataContent", link:"com/google/api/client/http/MultipartFormDataContent.html", type:"class" },
       { id:2, label:"fm.audiobox.core", link:"fm/audiobox/core/package-summary.html", type:"package" },
-      { id:3, label:"fm.audiobox.core.Client", link:"fm/audiobox/core/Client.html", type:"class" },
+      { id:3, label:"fm.audiobox.core.AudioBoxClient", link:"fm/audiobox/core/AudioBoxClient.html", type:"class" },
       { id:4, label:"fm.audiobox.core.config", link:"fm/audiobox/core/config/package-summary.html", type:"package" },
       { id:5, label:"fm.audiobox.core.config.Configuration", link:"fm/audiobox/core/config/Configuration.html", type:"class" },
       { id:6, label:"fm.audiobox.core.config.Configuration.Channels", link:"fm/audiobox/core/config/Configuration.Channels.html", type:"class" },

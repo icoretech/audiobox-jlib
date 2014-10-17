@@ -5,16 +5,16 @@ public class Playlists
 public  Playlists() { throw new RuntimeException("Stub!"); }
 public static  java.lang.String getPath() { throw new RuntimeException("Stub!"); }
 public  java.util.List<fm.audiobox.core.models.Playlist> getPlaylists() { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getLocalPlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getCloudPlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getDropboxPlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getOneDrivePlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getBoxPlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getGdrivePlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getYoutubePlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getSoundcloudPlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getUbuntuPlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public static  fm.audiobox.core.models.Playlist getOfflinePlaylist(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getLocalPlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getCloudPlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getDropboxPlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getOneDrivePlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getBoxPlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getGdrivePlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getYoutubePlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getSoundcloudPlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getUbuntuPlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public static  fm.audiobox.core.models.Playlist getOfflinePlaylist(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public static final java.lang.String PLAYLIST_LOCAL = "local";
 public static final java.lang.String PLAYLIST_CLOUD = "cloud";
 public static final java.lang.String PLAYLIST_DROPBOX = "dropbox";

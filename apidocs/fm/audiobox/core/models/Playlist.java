@@ -4,23 +4,23 @@ public class Playlist
 {
 public  Playlist() { throw new RuntimeException("Stub!"); }
 public  Playlist(java.lang.String name) { throw new RuntimeException("Stub!"); }
-public  fm.audiobox.core.models.Playlist create(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  fm.audiobox.core.models.Playlist update(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  boolean destroy(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  boolean sync(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  boolean toggleVisibility(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client, long since) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client, long since, java.lang.String set) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.Client client, long since, java.lang.String set, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  fm.audiobox.core.models.Albums getAlbums(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  fm.audiobox.core.models.Genres getGenres(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  fm.audiobox.core.models.Artists getArtists(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  fm.audiobox.core.models.Playlist addMediaFiles(fm.audiobox.core.Client client, java.util.List<java.lang.String> tokens) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  fm.audiobox.core.models.Playlist removeMediaFiles(fm.audiobox.core.Client client, java.util.List<java.lang.String> tokens) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<? extends fm.audiobox.core.models.MediaFile> getFingerprints(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  java.util.List<? extends fm.audiobox.core.models.MediaFile> getFingerprints(fm.audiobox.core.Client client, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.models.Playlist create(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.models.Playlist update(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  boolean destroy(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  boolean sync(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  boolean toggleVisibility(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.AudioBoxClient audioBoxClient, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.AudioBoxClient audioBoxClient, long since) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.AudioBoxClient audioBoxClient, long since, java.lang.String set) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<fm.audiobox.core.models.MediaFile> getMediaFiles(fm.audiobox.core.AudioBoxClient audioBoxClient, long since, java.lang.String set, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.models.Albums getAlbums(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.models.Genres getGenres(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.models.Artists getArtists(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.models.Playlist addMediaFiles(fm.audiobox.core.AudioBoxClient audioBoxClient, java.util.List<java.lang.String> tokens) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.models.Playlist removeMediaFiles(fm.audiobox.core.AudioBoxClient audioBoxClient, java.util.List<java.lang.String> tokens) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<? extends fm.audiobox.core.models.MediaFile> getFingerprints(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  java.util.List<? extends fm.audiobox.core.models.MediaFile> getFingerprints(fm.audiobox.core.AudioBoxClient audioBoxClient, com.google.api.client.json.JsonObjectParser parser) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public static  java.lang.String getPath() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getToken() { throw new RuntimeException("Stub!"); }
 public  java.lang.String getName() { throw new RuntimeException("Stub!"); }

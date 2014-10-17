@@ -1,7 +1,7 @@
 var NAVTREE_DATA =
 [ [ "com.google.api.client.http", "com/google/api/client/http/package-summary.html", [ [ "Classes", null, [ [ "MultipartFormDataContent", "com/google/api/client/http/MultipartFormDataContent.html", null, "" ] ]
 , "" ] ]
-, "" ], [ "fm.audiobox.core", "fm/audiobox/core/package-summary.html", [ [ "Classes", null, [ [ "Client", "fm/audiobox/core/Client.html", null, "" ] ]
+, "" ], [ "fm.audiobox.core", "fm/audiobox/core/package-summary.html", [ [ "Classes", null, [ [ "AudioBoxClient", "fm/audiobox/core/AudioBoxClient.html", null, "" ] ]
 , "" ] ]
 , "" ], [ "fm.audiobox.core.config", "fm/audiobox/core/config/package-summary.html", [ [ "Classes", null, [ [ "Configuration", "fm/audiobox/core/config/Configuration.html", null, "" ] ]
 , "" ], [ "Enums", null, [ [ "Configuration.Channels", "fm/audiobox/core/config/Configuration.Channels.html", null, "" ], [ "Configuration.Env", "fm/audiobox/core/config/Configuration.Env.html", null, "" ] ]

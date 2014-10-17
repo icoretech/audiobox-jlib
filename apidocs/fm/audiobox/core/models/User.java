@@ -24,7 +24,7 @@ public  fm.audiobox.core.models.Permissions getPermissions() { throw new Runtime
 public  fm.audiobox.core.models.ExternalTokens getExternalTokens() { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.Stats getStats() { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.Preferences getPreferences() { throw new RuntimeException("Stub!"); }
-public  boolean savePreferences(fm.audiobox.core.Client client) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public  boolean savePreferences(fm.audiobox.core.AudioBoxClient audioBoxClient) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public static final java.lang.String REAL_NAME = "real_name";
 public static final java.lang.String TIME_ZONE = "time_zone";
 public static final java.lang.String ACCEPTED_EXTENSIONS = "accepted_extensions";

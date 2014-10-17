@@ -58,7 +58,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico" />
 <title>
 
-  Client
+  AudioBoxClient
 
 
 </title>
@@ -173,7 +173,7 @@
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="selected api apilevel-"><a href="../../../fm/audiobox/core/Client.html">Client</a></li>
+          <li class="selected api apilevel-"><a href="../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a></li>
       </ul>
     </li>
               
@@ -275,7 +275,7 @@ Summary:
      
     
     class
-<h1>Client</h1>
+<h1>AudioBoxClient</h1>
 
 
 
@@ -308,7 +308,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.Client</td>
+        <td colspan="1" class="jd-inheritance-class-cell">fm.audiobox.core.AudioBoxClient</td>
     </tr>
     
 
@@ -324,7 +324,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p><code><a href="../../../fm/audiobox/core/Client.html">Client</a></code> is the main object of this library and allows you to perform requests and
+<p><code><a href="../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a></code> is the main object of this library and allows you to perform requests and
  operations on AudioBox.
  <p/>
  AudioBox let developers access to API in order to build any kind of modern applications,
@@ -399,7 +399,7 @@ Summary:
    ...
  </pre></code>
  <p/>
- <strong>NOTE:</strong> <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">authorize(String, String)</a></code> is only needed once
+ <strong>NOTE:</strong> <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">authorize(String, String)</a></code> is only needed once
  to get and store the OAuth2 grant token; password is never (and it never should be) stored.
  <p/>
  <strong>NOTE:</strong> grant tokens may expires at any time. A request against AudioBox with
@@ -463,7 +463,7 @@ Summary:
     
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">String</td>
-        <td class="jd-linkcol"><a href="../../../fm/audiobox/core/Client.html#ACCOUNT_TOKENS">ACCOUNT_TOKENS</a></td>
+        <td class="jd-linkcol"><a href="../../../fm/audiobox/core/AudioBoxClient.html#ACCOUNT_TOKENS">ACCOUNT_TOKENS</a></td>
         <td class="jd-descrcol" width="100%">The key under which tokens are stored in the DataStore
 </td>
     </tr>
@@ -499,7 +499,7 @@ Summary:
             
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#Client(fm.audiobox.core.config.Configuration)">Client</a></span>(<a href="../../../fm/audiobox/core/config/Configuration.html">Configuration</a> conf)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#AudioBoxClient(fm.audiobox.core.config.Configuration)">AudioBoxClient</a></span>(<a href="../../../fm/audiobox/core/config/Configuration.html">Configuration</a> conf)
         
         <div class="jd-descrdiv">Instantiates a new Client.</div>
   
@@ -530,7 +530,7 @@ Summary:
             TokenResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String, boolean)">authorize</a></span>(String username, String password, boolean relaunchExceptions)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String, boolean)">authorize</a></span>(String username, String password, boolean relaunchExceptions)
         
         <div class="jd-descrdiv">Starts the authorization flow.</div>
   
@@ -548,7 +548,7 @@ Summary:
             TokenResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">authorize</a></span>(String username, String password)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">authorize</a></span>(String username, String password)
         
         <div class="jd-descrdiv">Starts the authorization flow.</div>
   
@@ -566,9 +566,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doDELETE(java.lang.String)">doDELETE</a></span>(String path)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doDELETE(java.lang.String)">doDELETE</a></span>(String path)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</div>
   
   </td></tr>
 
@@ -584,9 +584,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doDELETE(java.lang.String, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doDELETE</a></span>(String path, JsonObjectParser parser, HttpHeaders headers)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doDELETE(java.lang.String, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doDELETE</a></span>(String path, JsonObjectParser parser, HttpHeaders headers)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</div>
   
   </td></tr>
 
@@ -602,9 +602,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doGET(java.lang.String)">doGET</a></span>(String path)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doGET(java.lang.String)">doGET</a></span>(String path)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</div>
   
   </td></tr>
 
@@ -620,9 +620,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doGET(java.lang.String, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doGET</a></span>(String path, JsonObjectParser parser, HttpHeaders headers)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doGET(java.lang.String, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doGET</a></span>(String path, JsonObjectParser parser, HttpHeaders headers)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</div>
   
   </td></tr>
 
@@ -638,9 +638,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPOST(java.lang.String, com.google.api.client.http.HttpContent)">doPOST</a></span>(String path, HttpContent data)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doPOST(java.lang.String, com.google.api.client.http.HttpContent)">doPOST</a></span>(String path, HttpContent data)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</div>
   
   </td></tr>
 
@@ -656,9 +656,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPOST(java.lang.String)">doPOST</a></span>(String path)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doPOST(java.lang.String)">doPOST</a></span>(String path)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</div>
   
   </td></tr>
 
@@ -674,9 +674,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPOST(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doPOST</a></span>(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doPOST(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doPOST</a></span>(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</div>
   
   </td></tr>
 
@@ -692,9 +692,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doPUT</a></span>(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doPUT</a></span>(String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</div>
   
   </td></tr>
 
@@ -710,9 +710,9 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent)">doPUT</a></span>(String path, HttpContent data)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doPUT(java.lang.String, com.google.api.client.http.HttpContent)">doPUT</a></span>(String path, HttpContent data)
         
-        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</div>
+        <div class="jd-descrdiv">Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</div>
   
   </td></tr>
 
@@ -728,7 +728,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doRequest(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doRequest</a></span>(String method, String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doRequest(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, com.google.api.client.http.HttpHeaders)">doRequest</a></span>(String method, String path, HttpContent data, JsonObjectParser parser, HttpHeaders headers)
         
         <div class="jd-descrdiv">Executes the configured request by calling AudioBox API services.</div>
   
@@ -746,7 +746,7 @@ Summary:
             HttpResponse
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#doRequestToChannel(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, fm.audiobox.core.config.Configuration.Channels, com.google.api.client.http.HttpHeaders)">doRequestToChannel</a></span>(String method, String path, HttpContent data, JsonObjectParser parser, <a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel, HttpHeaders headers)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#doRequestToChannel(java.lang.String, java.lang.String, com.google.api.client.http.HttpContent, com.google.api.client.json.JsonObjectParser, fm.audiobox.core.config.Configuration.Channels, com.google.api.client.http.HttpHeaders)">doRequestToChannel</a></span>(String method, String path, HttpContent data, JsonObjectParser parser, <a href="../../../fm/audiobox/core/config/Configuration.Channels.html">Configuration.Channels</a> channel, HttpHeaders headers)
         
         <div class="jd-descrdiv">Executes the configured request by calling AudioBox API services.</div>
   
@@ -764,7 +764,7 @@ Summary:
             <a href="../../../fm/audiobox/core/config/Configuration.html">Configuration</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#getConf()">getConf</a></span>()
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#getConf()">getConf</a></span>()
         
         <div class="jd-descrdiv">Gets the global client configuration.</div>
   
@@ -782,7 +782,7 @@ Summary:
             HttpHeaders
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#getDefaultHeaders()">getDefaultHeaders</a></span>()
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#getDefaultHeaders()">getDefaultHeaders</a></span>()
         
         <div class="jd-descrdiv">Gets global request headers</div>
   
@@ -800,7 +800,7 @@ Summary:
             <a href="../../../fm/audiobox/core/models/Notifications.html">Notifications</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#getNotifications()">getNotifications</a></span>()
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#getNotifications()">getNotifications</a></span>()
         
         <div class="jd-descrdiv">Gets user's notifications.</div>
   
@@ -818,7 +818,7 @@ Summary:
             <a href="../../../fm/audiobox/core/models/Playlist.html">Playlist</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#getPlaylist(java.lang.String)">getPlaylist</a></span>(String token)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#getPlaylist(java.lang.String)">getPlaylist</a></span>(String token)
         
         <div class="jd-descrdiv">Gets the token-specified playlist.</div>
   
@@ -836,7 +836,7 @@ Summary:
             List&lt;<a href="../../../fm/audiobox/core/models/Playlist.html">Playlist</a>&gt;
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#getPlaylists()">getPlaylists</a></span>()
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#getPlaylists()">getPlaylists</a></span>()
         
         <div class="jd-descrdiv">Gets user's playlists.</div>
   
@@ -854,7 +854,7 @@ Summary:
             <a href="../../../fm/audiobox/core/models/User.html">User</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#getUser()">getUser</a></span>()
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#getUser()">getUser</a></span>()
         
         <div class="jd-descrdiv">Returns information about the authorized user.</div>
   
@@ -872,7 +872,7 @@ Summary:
             boolean
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#isDaemonRunning()">isDaemonRunning</a></span>()
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#isDaemonRunning()">isDaemonRunning</a></span>()
         
         <div class="jd-descrdiv">This method returns <code>true</code> if AudioBox Desktop application is active on any computer.</div>
   
@@ -890,7 +890,7 @@ Summary:
             <a href="../../../fm/audiobox/core/net/Upload.html">Upload</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#newUpload(java.io.File, fm.audiobox.core.net.NetworkProgressListener)">newUpload</a></span>(File file, <a href="../../../fm/audiobox/core/net/NetworkProgressListener.html">NetworkProgressListener</a> listener)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#newUpload(java.io.File, fm.audiobox.core.net.NetworkProgressListener)">newUpload</a></span>(File file, <a href="../../../fm/audiobox/core/net/NetworkProgressListener.html">NetworkProgressListener</a> listener)
         
         <div class="jd-descrdiv">Builds a new <code><a href="../../../fm/audiobox/core/net/Upload.html">Upload</a></code> ready to start.</div>
   
@@ -908,7 +908,7 @@ Summary:
             <a href="../../../fm/audiobox/core/net/Upload.html">Upload</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#newUpload(java.io.File)">newUpload</a></span>(File file)
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#newUpload(java.io.File)">newUpload</a></span>(File file)
         
         <div class="jd-descrdiv">Builds a new <code><a href="../../../fm/audiobox/core/net/Upload.html">Upload</a></code> ready to start.</div>
   
@@ -926,7 +926,7 @@ Summary:
             String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../fm/audiobox/core/Client.html#remoteDaemonIp()">remoteDaemonIp</a></span>()
+        <span class="sympad"><a href="../../../fm/audiobox/core/AudioBoxClient.html#remoteDaemonIp()">remoteDaemonIp</a></span>()
         
         <div class="jd-descrdiv">This methods returns the <code>remote ip address</code> of AudioBox Desktop application</div>
   
@@ -1230,7 +1230,7 @@ From class
 
 
 
-<a id="Client(fm.audiobox.core.config.Configuration)"></a>
+<a id="AudioBoxClient(fm.audiobox.core.config.Configuration)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1242,7 +1242,7 @@ From class
          
         
       </span>
-      <span class="sympad">Client</span>
+      <span class="sympad">AudioBoxClient</span>
       <span class="normal">(<a href="../../../fm/audiobox/core/config/Configuration.html">Configuration</a> conf)</span>
     </h4>
       <div class="api-level">
@@ -1458,7 +1458,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -1520,7 +1520,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> DELETE requests to the given path.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -1590,7 +1590,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -1652,7 +1652,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> GET requests and returns the response.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -1722,7 +1722,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -1788,7 +1788,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -1850,7 +1850,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> POST requests and returns the response.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -1924,7 +1924,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -1998,7 +1998,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/Client.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Performs <code><a href="../../../fm/audiobox/core/AudioBoxClient.html#authorize(java.lang.String, java.lang.String)">signed</a></code> PUT requests and returns the response.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
