@@ -200,7 +200,7 @@ public class Playlist extends Model {
   public Playlist create(AudioBoxClient audioBoxClient) throws IOException {
     validateForRequest( false );
     HttpResponse rsp = audioBoxClient.doPOST( Playlists.getPath(), new JsonHttpContent( audioBoxClient.getConf().getJsonFactory(), this ) );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( PlaylistWrapper.class ).getPlaylist() : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( PlaylistWrapper.class ).getPlaylist() : null;
   }
 
 
@@ -248,8 +248,8 @@ public class Playlist extends Model {
    */
   public boolean destroy(AudioBoxClient audioBoxClient) throws IOException {
     ensurePlaylistForRequest();
-    audioBoxClient.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
-    return true;
+    HttpResponse rsp = audioBoxClient.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
+    return rsp != null && rsp.isSuccessStatusCode();
   }
 
 
@@ -274,13 +274,14 @@ public class Playlist extends Model {
     ensurePlaylistForRequest();
     if ( !this.isSyncable() ) // Well...
       throw new SyncException( HttpStatus.SC_UNPROCESSABLE_ENTITY );
+    HttpResponse rsp;
     try {
-      audioBoxClient.doPUT( getSyncPath(), new JsonHttpContent( audioBoxClient.getConf().getJsonFactory(), this ) );
+      rsp = audioBoxClient.doPUT( getSyncPath(), new JsonHttpContent( audioBoxClient.getConf().getJsonFactory(), this ) );
     } catch ( AudioBoxException e ) {
       throw new SyncException( e.getResponse() );
     }
 
-    return true;
+    return rsp != null && rsp.isSuccessStatusCode();
   }
 
 
@@ -478,7 +479,7 @@ public class Playlist extends Model {
     }
 
     HttpResponse rsp = audioBoxClient.doGET( url, parser, null );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( audioBoxClient.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( audioBoxClient.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
 
@@ -650,7 +651,7 @@ public class Playlist extends Model {
    */
   public List<? extends MediaFile> getFingerprints(AudioBoxClient audioBoxClient, JsonObjectParser parser) throws IOException {
     HttpResponse rsp = audioBoxClient.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ), parser, null );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( audioBoxClient.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( audioBoxClient.getConf().getMediaFilesWrapperClass() ).getMediaFiles() : null;
   }
 
 
@@ -1035,7 +1036,7 @@ public class Playlist extends Model {
   private <T> T getGroupedCollection(AudioBoxClient audioBoxClient, Class<T> klass, String path) throws IOException {
     ensurePlaylistForRequest();
     HttpResponse rsp = audioBoxClient.doGET( path );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( klass ) : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( klass ) : null;
   }
 
 

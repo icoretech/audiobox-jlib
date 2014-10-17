@@ -444,7 +444,7 @@ public class MediaFile extends Model {
    */
   public static MediaFile load(AudioBoxClient audioBoxClient, String token) throws IOException {
     HttpResponse rsp = audioBoxClient.doGET( ModelUtil.interpolate( PATH, token ) );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( audioBoxClient.getConf().getMediaFileWrapperClass() ).getMediaFile() : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( audioBoxClient.getConf().getMediaFileWrapperClass() ).getMediaFile() : null;
   }
 
 
@@ -525,7 +525,7 @@ public class MediaFile extends Model {
    */
   public boolean destroy(AudioBoxClient audioBoxClient) throws IOException {
     HttpResponse rsp = audioBoxClient.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
-    return rsp.isSuccessStatusCode();
+    return rsp != null && rsp.isSuccessStatusCode();
   }
 
 
@@ -562,7 +562,7 @@ public class MediaFile extends Model {
     }
 
     HttpResponse rsp = audioBoxClient.doGET( ModelUtil.interpolate( LYRICS_PATH, getToken() ) );
-    MediaFile m = rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
+    MediaFile m = rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
     this.lyrics = m != null ? m.getLyricsField() : null;
 
     return this.lyrics;
@@ -1320,8 +1320,8 @@ public class MediaFile extends Model {
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   private boolean setPreferred(AudioBoxClient audioBoxClient, String path) throws IOException {
-    audioBoxClient.doPOST( ModelUtil.interpolate( path, getToken() ) );
-    return true;
+    HttpResponse rsp = audioBoxClient.doPOST( ModelUtil.interpolate( path, getToken() ) );
+    return rsp != null && rsp.isSuccessStatusCode();
   }
 
 }

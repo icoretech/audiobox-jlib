@@ -17,6 +17,7 @@
 package fm.audiobox.core.models;
 
 
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.json.CustomizeJsonParser;
 import com.google.api.client.util.Key;
 import fm.audiobox.core.AudioBoxClient;
@@ -99,8 +100,8 @@ public class MediaFiles extends Model {
   public static boolean destroyAll(AudioBoxClient audioBoxClient, List<String> tokens) throws IOException {
     String url = DESTROY_MEDIA_FILES_PATH + "?utf8=true";
     for ( String tk : tokens ) url += "&" + MediaFiles.PARAM_TOKENS + "=" + tk;
-    audioBoxClient.doDELETE( url );
-    return true;
+    HttpResponse rsp = audioBoxClient.doDELETE( url );
+    return rsp != null && rsp.isSuccessStatusCode();
   }
 
 

@@ -146,7 +146,7 @@ public class Upload {
       multipart.addPart( new MultipartContent.Part( fileContent ), "files[]", file.getName() );
 
       HttpResponse rsp = audioBoxClient.doRequestToChannel( HttpMethods.POST, UPLOAD_PATH, multipart, null, Configuration.Channels.upload, headers );
-      return rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
+      return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( MediaFileWrapper.class ).getMediaFile() : null;
 
     } finally {
       this.state = State.completed;

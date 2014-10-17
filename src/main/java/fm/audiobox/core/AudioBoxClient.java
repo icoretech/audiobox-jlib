@@ -252,6 +252,7 @@ public class AudioBoxClient {
       userDb.saveCredentials( ACCOUNT_TOKENS, ( Credential ) createCredentialWithRefreshToken( response ) );
 
       return response;
+
     } catch ( TokenResponseException e ) {
 
       AudioBoxException up = new AuthorizationException( e );
@@ -289,7 +290,7 @@ public class AudioBoxClient {
    */
   public String remoteDaemonIp() throws IOException {
     HttpResponse rsp = doRequestToChannel( HttpMethods.GET, "/daemon/keepalive", null, null, Configuration.Channels.daemon, null );
-    return rsp.isSuccessStatusCode() ? Io.contentToString( rsp.getContent() ) : StringUtils.EMPTY;
+    return rsp != null && rsp.isSuccessStatusCode() ? Io.contentToString( rsp.getContent() ) : StringUtils.EMPTY;
   }
 
 
@@ -306,7 +307,7 @@ public class AudioBoxClient {
    */
   public User getUser() throws IOException {
     HttpResponse rsp = doGET( UserWrapper.getPath() );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( UserWrapper.class ).getUser() : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( UserWrapper.class ).getUser() : null;
   }
 
 
@@ -321,7 +322,7 @@ public class AudioBoxClient {
    */
   public List<Playlist> getPlaylists() throws IOException {
     HttpResponse rsp = doGET( Playlists.getPath() );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( Playlists.class ).getPlaylists() : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( Playlists.class ).getPlaylists() : null;
   }
 
 
@@ -342,7 +343,7 @@ public class AudioBoxClient {
    */
   public Playlist getPlaylist(String token) throws IOException {
     HttpResponse rsp = doGET( ModelUtil.interpolate( Playlist.getPath(), token ) );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( PlaylistWrapper.class ).getPlaylist() : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( PlaylistWrapper.class ).getPlaylist() : null;
   }
 
 
@@ -357,7 +358,7 @@ public class AudioBoxClient {
    */
   public Notifications getNotifications() throws IOException {
     HttpResponse rsp = doGET( Notifications.getPath() );
-    return rsp.isSuccessStatusCode() ? rsp.parseAs( Notifications.class ) : null;
+    return rsp != null && rsp.isSuccessStatusCode() ? rsp.parseAs( Notifications.class ) : null;
   }
 
 
@@ -596,7 +597,7 @@ public class AudioBoxClient {
       return response;
 
     } catch ( TokenResponseException e ) {
-      logger.error( "Token error occurred: " + e.getMessage() );
+      logger.warn( "Token error occurred: " + e.getDetails().getError() );
 
       AudioBoxException ex = new AuthorizationException( e );
       if ( !isExceptionHandled( ex ) ) {
