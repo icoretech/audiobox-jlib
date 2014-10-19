@@ -5,7 +5,7 @@ public  AudioBoxClient(fm.audiobox.core.config.Configuration conf) throws fm.aud
 public  fm.audiobox.core.config.Configuration getConf() { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpHeaders getDefaultHeaders() { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.auth.oauth2.TokenResponse authorize(java.lang.String username, java.lang.String password) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  com.google.api.client.auth.oauth2.TokenResponse authorize(java.lang.String username, java.lang.String password, boolean relaunchExceptions) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public synchronized  com.google.api.client.auth.oauth2.TokenResponse authorize(java.lang.String username, java.lang.String password, boolean relaunchExceptions) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  boolean isDaemonRunning() throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  java.lang.String remoteDaemonIp() throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  fm.audiobox.core.models.User getUser() throws java.io.IOException { throw new RuntimeException("Stub!"); }
@@ -24,6 +24,6 @@ public  com.google.api.client.http.HttpResponse doPOST(java.lang.String path) th
 public  com.google.api.client.http.HttpResponse doPOST(java.lang.String path, com.google.api.client.http.HttpContent data) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doPOST(java.lang.String path, com.google.api.client.http.HttpContent data, com.google.api.client.json.JsonObjectParser parser, com.google.api.client.http.HttpHeaders headers) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public  com.google.api.client.http.HttpResponse doRequest(java.lang.String method, java.lang.String path, com.google.api.client.http.HttpContent data, com.google.api.client.json.JsonObjectParser parser, com.google.api.client.http.HttpHeaders headers) throws java.io.IOException { throw new RuntimeException("Stub!"); }
-public  com.google.api.client.http.HttpResponse doRequestToChannel(java.lang.String method, java.lang.String path, com.google.api.client.http.HttpContent data, com.google.api.client.json.JsonObjectParser parser, fm.audiobox.core.config.Configuration.Channels channel, com.google.api.client.http.HttpHeaders headers) throws java.io.IOException { throw new RuntimeException("Stub!"); }
+public synchronized  com.google.api.client.http.HttpResponse doRequestToChannel(java.lang.String method, java.lang.String path, com.google.api.client.http.HttpContent data, com.google.api.client.json.JsonObjectParser parser, fm.audiobox.core.config.Configuration.Channels channel, com.google.api.client.http.HttpHeaders headers) throws java.io.IOException { throw new RuntimeException("Stub!"); }
 public static final java.lang.String ACCOUNT_TOKENS = "_audiobox_account_tokens";
 }
