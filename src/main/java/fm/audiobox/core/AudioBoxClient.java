@@ -37,6 +37,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
@@ -152,6 +154,11 @@ public class AudioBoxClient {
 
   private static Logger logger = LoggerFactory.getLogger( "[ " + AudioBoxClient.class.getSimpleName() + " ]" );
 
+  /**
+   * Lock on access to the store.
+   */
+  private final Lock lock = new ReentrantLock();
+
 
   /**
    * Instantiates a new Client.
@@ -226,8 +233,10 @@ public class AudioBoxClient {
    * @throws AuthorizationException in case the authorization fails.
    * @throws java.io.IOException    if any connection or configured data store problems occurs.
    */
-  public TokenResponse authorize(String username, String password, boolean relaunchExceptions) throws IOException {
+  public synchronized TokenResponse authorize(String username, String password, boolean relaunchExceptions) throws IOException {
+    lock.lock();
     try {
+
       PasswordTokenRequest ptr = new PasswordTokenRequest(
           getConf().getHttpTransport(),
           getConf().getJsonFactory(),
@@ -261,6 +270,9 @@ public class AudioBoxClient {
       }
 
       return null;
+
+    } finally {
+      lock.unlock();
     }
   }
 
@@ -582,7 +594,8 @@ public class AudioBoxClient {
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public HttpResponse doRequestToChannel(String method, String path, HttpContent data, JsonObjectParser parser, Configuration.Channels channel, HttpHeaders headers) throws IOException {
+  public synchronized HttpResponse doRequestToChannel(String method, String path, HttpContent data, JsonObjectParser parser, Configuration.Channels channel, HttpHeaders headers) throws IOException {
+    lock.lock();
     try {
 
       if ( channel == null ) {
@@ -604,6 +617,8 @@ public class AudioBoxClient {
         throw ex;
       }
 
+    } finally {
+      lock.unlock();
     }
 
     return null;
