@@ -123,11 +123,11 @@ config
 
 ### 4. Authorize the user account
 
-We just gone through the basic configuration and once the setup is completed you can create your Client,
+We just gone through the basic configuration and once the setup is completed you can create your AudioBoxClient,
 but we still need to authorize the application to start performing any kind of operation supported by AudioBox API:
 
 ```java
-Client client = new Client( config );
+AudioBoxClient client = new AudioBoxClient( config );
 client.authorize( "username", "password" );
 ...
 ```
