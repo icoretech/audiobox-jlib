@@ -11,14 +11,14 @@ public  long getCloudDataStoredOverall() { throw new RuntimeException("Stub!"); 
 public  long getLocalDataStoredOverall() { throw new RuntimeException("Stub!"); }
 public  long getBoxDataStoredThisMonth() { throw new RuntimeException("Stub!"); }
 public  long getGdriveDataStoredOverall() { throw new RuntimeException("Stub!"); }
-public  long getUbuntuDataStoredOverall() { throw new RuntimeException("Stub!"); }
+public  long getMegaDataStoredOverall() { throw new RuntimeException("Stub!"); }
 public  long getDropboxDataStoredOverall() { throw new RuntimeException("Stub!"); }
 public  long getYoutubeDataStoredOverall() { throw new RuntimeException("Stub!"); }
 public  long getCloudDataStoredThisMonth() { throw new RuntimeException("Stub!"); }
 public  long getLocalDataStoredThisMonth() { throw new RuntimeException("Stub!"); }
 public  long getSkydriveDataStoredOverall() { throw new RuntimeException("Stub!"); }
 public  long getGdriveDataStoredThisMonth() { throw new RuntimeException("Stub!"); }
-public  long getUbuntuDataStoredThisMonth() { throw new RuntimeException("Stub!"); }
+public  long getMegaDataStoredThisMonth() { throw new RuntimeException("Stub!"); }
 public  long getDropboxDataStoredThisMonth() { throw new RuntimeException("Stub!"); }
 public  long getSoundcloudDataStoredOverall() { throw new RuntimeException("Stub!"); }
 public  long getYoutubeDataStoredThisMonth() { throw new RuntimeException("Stub!"); }

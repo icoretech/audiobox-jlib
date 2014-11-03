@@ -472,29 +472,29 @@ Summary:
     
     <tr class=" api apilevel-" >
         <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/Playlists.html#PLAYLIST_MEGA">PLAYLIST_MEGA</a></td>
+        <td class="jd-descrcol" width="100%">The constant that identifies the "mega" playlist.</td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
         <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/Playlists.html#PLAYLIST_OFFLINE">PLAYLIST_OFFLINE</a></td>
         <td class="jd-descrcol" width="100%">The constant that identifies the "offline" playlist.</td>
     </tr>
     
     
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">String</td>
         <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/Playlists.html#PLAYLIST_ONERIVE">PLAYLIST_ONERIVE</a></td>
         <td class="jd-descrcol" width="100%">The constant that identifies the "onedrive" playlist.</td>
     </tr>
     
     
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">String</td>
         <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/Playlists.html#PLAYLIST_SOUNDCLOUD">PLAYLIST_SOUNDCLOUD</a></td>
         <td class="jd-descrcol" width="100%">The constant that identifies the "soundcloud" playlist.</td>
-    </tr>
-    
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">String</td>
-        <td class="jd-linkcol"><a href="../../../../fm/audiobox/core/models/Playlists.html#PLAYLIST_UBUNTU">PLAYLIST_UBUNTU</a></td>
-        <td class="jd-descrcol" width="100%">The constant that identifies the "ubuntu" playlist.</td>
     </tr>
     
     
@@ -659,6 +659,27 @@ Summary:
             <a href="../../../../fm/audiobox/core/models/Playlist.html">Playlist</a>
         </td>
         <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlists.html#getMegaPlaylist(fm.audiobox.core.AudioBoxClient)">getMegaPlaylist</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
+        
+        <div class="jd-descrdiv"><p>
+ Gets the mega playlist
+ </p>
+ <p>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            static
+            
+            <a href="../../../../fm/audiobox/core/models/Playlist.html">Playlist</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlists.html#getOfflinePlaylist(fm.audiobox.core.AudioBoxClient)">getOfflinePlaylist</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
         
         <div class="jd-descrdiv"><p>
@@ -668,7 +689,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -687,7 +708,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -705,7 +726,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -723,7 +744,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -737,27 +758,6 @@ Summary:
         
         <div class="jd-descrdiv"><p>
  Gets the soundcloud playlist.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            static
-            
-            <a href="../../../../fm/audiobox/core/models/Playlist.html">Playlist</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../fm/audiobox/core/models/Playlists.html#getUbuntuPlaylist(fm.audiobox.core.AudioBoxClient)">getUbuntuPlaylist</a></span>(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)
-        
-        <div class="jd-descrdiv"><p>
- Gets the ubuntu playlist
- </p>
- <p>.</div>
   
   </td></tr>
 
@@ -1474,6 +1474,46 @@ From class
 
 
 
+<a id="PLAYLIST_MEGA"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        String
+      </span>
+        PLAYLIST_MEGA
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The constant that identifies the "mega" playlist.
+</p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                "mega"
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
 <a id="PLAYLIST_OFFLINE"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1585,46 +1625,6 @@ From class
         <span>
             
                 "soundcloud"
-            
-        </span>
-        </div>
-    
-    </div>
-</div>
-
-
-
-<a id="PLAYLIST_UBUNTU"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        String
-      </span>
-        PLAYLIST_UBUNTU
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The constant that identifies the "ubuntu" playlist.
-</p></div>
-
-    
-        <div class="jd-tagdata">
-        <span class="jd-tagtitle">Constant Value: </span>
-        <span>
-            
-                "ubuntu"
             
         </span>
         </div>
@@ -2082,6 +2082,76 @@ From class
 </div>
 
 
+<a id="getMegaPlaylist(fm.audiobox.core.AudioBoxClient)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="../../../../fm/audiobox/core/models/Playlist.html">Playlist</a>
+      </span>
+      <span class="sympad">getMegaPlaylist</span>
+      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ Gets the mega playlist
+ </p>
+ <p>.
+ NOTE: this method will always make a request against AudioBox, use carefully.
+ If you want to avoid this behavior consider storing the playlist collection
+ within your application and use <code><a href="../../../../fm/audiobox/core/utils/ModelUtil.html#findPlaylistByType(java.util.List<fm.audiobox.core.models.Playlist>, java.lang.String)">findPlaylistByType(java.util.List, String)</a></code>
+ in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
+ </p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>audioBoxClient</th>
+          <td>the <code><a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a></code> to use to make the request</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the mega playlist</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
+            <td>if any of the remote error exception is detected.</td>
+        </tr>  
+        <tr>
+            <th>IOException</td>
+            <td>if any connection problem occurs.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="getOfflinePlaylist(fm.audiobox.core.AudioBoxClient)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -2340,76 +2410,6 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the soundcloud playlist</li></ul>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></td>
-            <td>if any of the remote error exception is detected.</td>
-        </tr>  
-        <tr>
-            <th>IOException</td>
-            <td>if any connection problem occurs.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../fm/audiobox/core/exceptions/AudioBoxException.html">AudioBoxException</a></code></li>
-      </ul>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="getUbuntuPlaylist(fm.audiobox.core.AudioBoxClient)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../../../fm/audiobox/core/models/Playlist.html">Playlist</a>
-      </span>
-      <span class="sympad">getUbuntuPlaylist</span>
-      <span class="normal">(<a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a> audioBoxClient)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p><p>
- Gets the ubuntu playlist
- </p>
- <p>.
- NOTE: this method will always make a request against AudioBox, use carefully.
- If you want to avoid this behavior consider storing the playlist collection
- within your application and use <code><a href="../../../../fm/audiobox/core/utils/ModelUtil.html#findPlaylistByType(java.util.List<fm.audiobox.core.models.Playlist>, java.lang.String)">findPlaylistByType(java.util.List, String)</a></code>
- in combination with the Playlists#PLAYLIST_* constants to get the right playlist from the memory.
- </p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>audioBoxClient</th>
-          <td>the <code><a href="../../../../fm/audiobox/core/AudioBoxClient.html">AudioBoxClient</a></code> to use to make the request</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the ubuntu one music playlist</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>

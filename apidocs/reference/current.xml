@@ -4894,6 +4894,21 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<method name="getMegaPlaylist"
+ return="fm.audiobox.core.models.Playlist"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="audioBoxClient" type="fm.audiobox.core.AudioBoxClient">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
 <method name="getOfflinePlaylist"
  return="fm.audiobox.core.models.Playlist"
  abstract="false"
@@ -4947,21 +4962,6 @@
 >
 </method>
 <method name="getSoundcloudPlaylist"
- return="fm.audiobox.core.models.Playlist"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="audioBoxClient" type="fm.audiobox.core.AudioBoxClient">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="getUbuntuPlaylist"
  return="fm.audiobox.core.models.Playlist"
  abstract="false"
  native="false"
@@ -5046,6 +5046,17 @@
  visibility="public"
 >
 </field>
+<field name="PLAYLIST_MEGA"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;mega&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 <field name="PLAYLIST_OFFLINE"
  type="java.lang.String"
  transient="false"
@@ -5073,17 +5084,6 @@
  transient="false"
  volatile="false"
  value="&quot;soundcloud&quot;"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="PLAYLIST_UBUNTU"
- type="java.lang.String"
- transient="false"
- volatile="false"
- value="&quot;ubuntu&quot;"
  static="true"
  final="true"
  deprecated="not deprecated"
@@ -5641,6 +5641,28 @@
  visibility="public"
 >
 </method>
+<method name="getMegaDataStoredOverall"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getMegaDataStoredThisMonth"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="getSkydriveDataStoredOverall"
  return="long"
  abstract="false"
@@ -5686,28 +5708,6 @@
 >
 </method>
 <method name="getTotalPlayCount"
- return="long"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="getUbuntuDataStoredOverall"
- return="long"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="getUbuntuDataStoredThisMonth"
  return="long"
  abstract="false"
  native="false"
