@@ -9,7 +9,7 @@ public  boolean hasCloud() { throw new RuntimeException("Stub!"); }
 public  boolean hasDropbox() { throw new RuntimeException("Stub!"); }
 public  boolean hasGdrive() { throw new RuntimeException("Stub!"); }
 public  boolean hasSkydrive() { throw new RuntimeException("Stub!"); }
-public  boolean hasUbuntu() { throw new RuntimeException("Stub!"); }
+public  boolean hasMega() { throw new RuntimeException("Stub!"); }
 public  boolean hasSoundcloud() { throw new RuntimeException("Stub!"); }
 public  boolean hasYoutube() { throw new RuntimeException("Stub!"); }
 public  boolean hasBox() { throw new RuntimeException("Stub!"); }
@@ -34,5 +34,5 @@ public static final java.lang.String FACEBOOK = "facebook";
 public static final java.lang.String TWITTER = "twitter";
 public static final java.lang.String LYRICS = "lyrics";
 public static final java.lang.String SONGKICK = "songkick";
-public static final java.lang.String UBUNTU = "ubuntu";
+public static final java.lang.String MEGA = "mega";
 }

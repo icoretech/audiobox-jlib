@@ -1779,6 +1779,17 @@
  visibility="public"
 >
 </method>
+<method name="isMegaEnabled"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="isSkydriveEnabled"
  return="boolean"
  abstract="false"
@@ -1813,17 +1824,6 @@
 >
 </method>
 <method name="isTwitterEnabled"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="isUbuntuEnabled"
  return="boolean"
  abstract="false"
  native="false"
@@ -1900,6 +1900,17 @@
  visibility="public"
 >
 </field>
+<field name="MEGA"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;mega&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 <field name="SKYDRIVE"
  type="java.lang.String"
  transient="false"
@@ -1938,17 +1949,6 @@
  transient="false"
  volatile="false"
  value="&quot;twitter&quot;"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="UBUNTU"
- type="java.lang.String"
- transient="false"
- volatile="false"
- value="&quot;ubuntu&quot;"
  static="true"
  final="true"
  deprecated="not deprecated"
@@ -3909,6 +3909,17 @@
  visibility="public"
 >
 </method>
+<method name="hasMega"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="hasPlayer"
  return="boolean"
  abstract="false"
@@ -3965,17 +3976,6 @@
 >
 </method>
 <method name="hasTwitter"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="hasUbuntu"
  return="boolean"
  abstract="false"
  native="false"
@@ -4085,6 +4085,17 @@
  visibility="public"
 >
 </field>
+<field name="MEGA"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;mega&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 <field name="PLAYER"
  type="java.lang.String"
  transient="false"
@@ -4145,17 +4156,6 @@
  transient="false"
  volatile="false"
  value="&quot;twitter&quot;"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="UBUNTU"
- type="java.lang.String"
- transient="false"
- volatile="false"
- value="&quot;ubuntu&quot;"
  static="true"
  final="true"
  deprecated="not deprecated"
