@@ -79,7 +79,7 @@ public class UserTests extends AudioBoxTests {
     assertTrue( perms.hasDropbox() );
     assertTrue( perms.hasGdrive() );
     assertTrue( perms.hasSkydrive() );
-    assertTrue( perms.hasUbuntu() );
+    assertTrue( perms.hasMega() );
     assertTrue( perms.hasBox() );
     assertTrue( perms.hasSoundcloud() );
     assertTrue( perms.hasYoutube() );
@@ -96,7 +96,7 @@ public class UserTests extends AudioBoxTests {
     assertFalse( tks.isDropboxEnabled() );
     assertTrue( tks.isGdriveEnabled() );
     assertTrue( tks.isSkydriveEnabled() );
-    assertFalse( tks.isUbuntuEnabled() );
+    assertFalse( tks.isMegaEnabled() );
     assertFalse( tks.isSoundcloudEnabled() );
     assertTrue( tks.isYoutubeEnabled() );
     assertTrue( tks.isBoxEnabled() );

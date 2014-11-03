@@ -45,7 +45,7 @@ public class ExternalTokens extends Model {
 
   public static final String TWITTER = "twitter";
 
-  public static final String UBUNTU = "ubuntu";
+  public static final String MEGA = "mega";
 
 
   @Key
@@ -58,7 +58,7 @@ public class ExternalTokens extends Model {
   private boolean skydrive;
 
   @Key
-  private boolean ubuntu;
+  private boolean mega;
 
   @Key
   private boolean soundcloud;
@@ -117,8 +117,8 @@ public class ExternalTokens extends Model {
    *
    * @return the true if a Ubuntu One Music account is linked, false otherwise
    */
-  public boolean isUbuntuEnabled() {
-    return ubuntu;
+  public boolean isMegaEnabled() {
+    return mega;
   }
 
 

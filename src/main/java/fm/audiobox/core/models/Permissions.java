@@ -61,7 +61,7 @@ public class Permissions extends Model {
 
   public static final String SONGKICK = "songkick";
 
-  public static final String UBUNTU = "ubuntu";
+  public static final String MEGA = "mega";
 
 
   @Key
@@ -83,7 +83,7 @@ public class Permissions extends Model {
   private boolean skydrive;
 
   @Key
-  private boolean ubuntu;
+  private boolean mega;
 
   @Key
   private boolean soundcloud;
@@ -178,8 +178,8 @@ public class Permissions extends Model {
    *
    * @return the true if access is granted, false otherwise.
    */
-  public boolean hasUbuntu() {
-    return ubuntu;
+  public boolean hasMega() {
+    return mega;
   }
 
 
