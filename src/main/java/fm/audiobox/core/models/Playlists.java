@@ -72,9 +72,9 @@ public class Playlists extends Model {
   public static final String PLAYLIST_SOUNDCLOUD = "soundcloud";
 
   /**
-   * The constant that identifies the "ubuntu" playlist.
+   * The constant that identifies the "mega" playlist.
    */
-  public static final String PLAYLIST_UBUNTU = "ubuntu";
+  public static final String PLAYLIST_MEGA = "mega";
 
   /**
    * The constant that identifies the "offline" playlist.
@@ -299,7 +299,7 @@ public class Playlists extends Model {
 
   /**
    * <p>
-   * Gets the ubuntu playlist
+   * Gets the mega playlist
    * </p>
    * <p>.
    * NOTE: this method will always make a request against AudioBox, use carefully.
@@ -310,14 +310,14 @@ public class Playlists extends Model {
    *
    * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use to make the request
    *
-   * @return the ubuntu one music playlist
+   * @return the mega playlist
    *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
    * @throws java.io.IOException                           if any connection problem occurs.
    * @see fm.audiobox.core.exceptions.AudioBoxException
    */
-  public static Playlist getUbuntuPlaylist(AudioBoxClient audioBoxClient) throws IOException {
-    return getPlaylistOfType( audioBoxClient, PLAYLIST_UBUNTU );
+  public static Playlist getMegaPlaylist(AudioBoxClient audioBoxClient) throws IOException {
+    return getPlaylistOfType( audioBoxClient, PLAYLIST_MEGA );
   }
 
 

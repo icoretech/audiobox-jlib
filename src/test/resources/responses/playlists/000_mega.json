@@ -1,9 +1,9 @@
 {
 "playlist": {
-"token":"000_ubuntu",
-"name":"Ubuntu One Music",
-"system_name":"ubuntu",
-"type":"UbuntuPlaylist",
+"token":"000_mega",
+"name":"Mega",
+"system_name":"mega",
+"type":"MegaPlaylist",
 "media_files_count":0,
 "position":8,
 "offline":false,

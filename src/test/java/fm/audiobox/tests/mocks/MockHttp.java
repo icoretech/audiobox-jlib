@@ -108,7 +108,7 @@ public class MockHttp {
             }
 
             if ( url.endsWith( "sync.json" ) ) {
-              Pattern p = Pattern.compile( "000_(dropbox|ubuntu|soundcloud)" );
+              Pattern p = Pattern.compile( "000_(dropbox|mega|soundcloud)" );
               Matcher m = p.matcher( url );
               if ( m.find() ) {
                 result.setStatusCode( HttpStatus.SC_FORBIDDEN );

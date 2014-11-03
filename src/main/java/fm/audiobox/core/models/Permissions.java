@@ -174,7 +174,7 @@ public class Permissions extends Model {
 
 
   /**
-   * Checks if user can access the Ubuntu One Music feature.
+   * Checks if user can access the Mega feature.
    *
    * @return the true if access is granted, false otherwise.
    */

@@ -46,7 +46,7 @@ public class NotificationsTest extends AudioBoxTests {
 
     Notification noty = n.getNotifications().get( 0 );
     assertEquals( 84, noty.getId() );
-    assertEquals( "[Ubuntu One Music] Credentials are missing. Please authenticate with the service.", noty.getBody() );
+    assertEquals( "[Mega] Credentials are missing. Please authenticate with the service.", noty.getBody() );
     assertEquals( "error", noty.getLevel() );
     assertEquals( "2014-01-16T13:39:49.038Z", noty.getCreatedAt() );
   }

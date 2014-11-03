@@ -113,9 +113,9 @@ public class ExternalTokens extends Model {
 
 
   /**
-   * Checks if Ubuntu One Music is enabled.
+   * Checks if Mega is enabled.
    *
-   * @return the true if a Ubuntu One Music account is linked, false otherwise
+   * @return the true if a Mega account is linked, false otherwise
    */
   public boolean isMegaEnabled() {
     return mega;

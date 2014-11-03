@@ -86,7 +86,7 @@ import java.io.OutputStream;
  * <dt><strong>remotePath:</strong></dt>
  * <dd>string, readonly. Used along with some Cloud Drives to help the platform identifying where this file is stored for retrieval.</dd>
  * <dt><strong>source:</strong></dt>
- * <dd>string, readonly. Represents where this Media File comes from. Possible values are: 'cloud', 'local', 'dropbox', 'skydrive', 'box', 'gdrive', 'youtube', 'soundcloud', 'ubuntu'.</dd>
+ * <dd>string, readonly. Represents where this Media File comes from. Possible values are: 'cloud', 'local', 'dropbox', 'skydrive', 'box', 'gdrive', 'youtube', 'soundcloud', 'mega'.</dd>
  * <dt><strong>shareToken:</strong></dt>
  * <dd>string, readonly. Shared token across multiple Media Files with the same artist/album combo that builds up a Share URL, such as: http://audiobox.fm/share/cfa4b55e1736415b491147f041b95392.</dd>
  * <dt><strong>artwork:</strong></dt>
@@ -865,7 +865,7 @@ public class MediaFile extends Model {
 
   /**
    * Represents where this Media File comes from. Possible values are: 'cloud', 'local', 'dropbox', 'skydrive', 'box',
-   * 'gdrive', 'youtube', 'soundcloud', 'ubuntu'.
+   * 'gdrive', 'youtube', 'soundcloud', 'mega'.
    *
    * @return the source
    */

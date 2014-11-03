@@ -59,7 +59,7 @@ import java.util.List;
  * make sure that the permissions: cloud is true in the /api/v1/user.json call.
  * </dd>
  * <dt><strong>
- * DropboxPlaylist, SkydrivePlaylist, BoxPlaylist, GdrivePlaylist, YouTubePlaylist, SoundcloudPlaylist, UbuntuPlaylist
+ * DropboxPlaylist, SkydrivePlaylist, BoxPlaylist, GdrivePlaylist, YouTubePlaylist, SoundcloudPlaylist, MegaPlaylist
  * </strong></dt>
  * <dd>
  * Contains media files synced from the relative remote storage. Accessible when a valid subscription exists,

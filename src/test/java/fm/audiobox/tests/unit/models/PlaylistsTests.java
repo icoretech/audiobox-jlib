@@ -412,16 +412,16 @@ public class PlaylistsTests extends AudioBoxTests {
 
 
   /**
-   * Test ubuntu playlist sync.
+   * Test mega playlist sync.
    *
    * @throws AudioBoxException the audio box exception
    */
   @Test
-  public void testUbuntuPlaylistSync() throws IOException {
-    Playlist ubuntu = c.getPlaylist( "000_ubuntu" );
+  public void testMegaPlaylistSync() throws IOException {
+    Playlist mega = c.getPlaylist( "000_mega" );
     try {
-      ubuntu.sync( c );
-      fail( "ubuntu should not be syncable because it's not authenticated" );
+      mega.sync( c );
+      fail( "mega should not be syncable because it's not authenticated" );
     } catch ( SyncException e ) {
       assertEquals( e.getErrorCode(), HttpStatus.SC_FORBIDDEN );
     }
@@ -534,9 +534,9 @@ public class PlaylistsTests extends AudioBoxTests {
           assertEquals( p, p2 );
           break;
 
-        case "ubuntu":
+        case "mega":
           assertNotEquals( p, p2 );
-          p2 = Playlists.getUbuntuPlaylist( c );
+          p2 = Playlists.getMegaPlaylist( c );
           assertEquals( p, p2 );
           break;
 

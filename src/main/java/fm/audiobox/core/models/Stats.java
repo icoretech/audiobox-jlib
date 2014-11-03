@@ -50,7 +50,7 @@ public class Stats extends Model {
   private long gdrive_data_stored_overall;
 
   @Key
-  private long ubuntu_data_stored_overall;
+  private long mega_data_stored_overall;
 
   @Key
   private long dropbox_data_stored_overall;
@@ -71,7 +71,7 @@ public class Stats extends Model {
   private long gdrive_data_stored_this_month;
 
   @Key
-  private long ubuntu_data_stored_this_month;
+  private long mega_data_stored_this_month;
 
   @Key
   private long dropbox_data_stored_this_month;
@@ -170,12 +170,12 @@ public class Stats extends Model {
 
 
   /**
-   * Gets ubuntu data stored overall.
+   * Gets mega data stored overall.
    *
-   * @return the ubuntu data stored overall in bytes
+   * @return the mega data stored overall in bytes
    */
-  public long getUbuntuDataStoredOverall() {
-    return ubuntu_data_stored_overall;
+  public long getMegaDataStoredOverall() {
+    return mega_data_stored_overall;
   }
 
 
@@ -240,12 +240,12 @@ public class Stats extends Model {
 
 
   /**
-   * Gets ubuntu data stored this month.
+   * Gets mega data stored this month.
    *
-   * @return the ubuntu data stored this month in bytes
+   * @return the mega data stored this month in bytes
    */
-  public long getUbuntuDataStoredThisMonth() {
-    return ubuntu_data_stored_this_month;
+  public long getMegaDataStoredThisMonth() {
+    return mega_data_stored_this_month;
   }
 
 

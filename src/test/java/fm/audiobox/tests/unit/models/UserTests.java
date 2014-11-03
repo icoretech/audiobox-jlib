@@ -116,14 +116,14 @@ public class UserTests extends AudioBoxTests {
     assertEquals( 0, stats.getLocalDataStoredOverall() );
     assertEquals( 5533908, stats.getBoxDataStoredThisMonth() );
     assertEquals( 170368034, stats.getGdriveDataStoredOverall() );
-    assertEquals( 0, stats.getUbuntuDataStoredOverall() );
+    assertEquals( 0, stats.getMegaDataStoredOverall() );
     assertEquals( 110981727, stats.getDropboxDataStoredOverall() );
     assertEquals( 1500, stats.getYoutubeDataStoredOverall() );
     assertEquals( 2175615, stats.getCloudDataStoredThisMonth() );
     assertEquals( 0, stats.getLocalDataStoredThisMonth() );
     assertEquals( 95088577, stats.getSkydriveDataStoredOverall() );
     assertEquals( 170368034, stats.getGdriveDataStoredThisMonth() );
-    assertEquals( 0, stats.getUbuntuDataStoredThisMonth() );
+    assertEquals( 0, stats.getMegaDataStoredThisMonth() );
     assertEquals( 110981727, stats.getDropboxDataStoredThisMonth() );
     assertEquals( 0, stats.getSoundcloudDataStoredOverall() );
     assertEquals( 1500, stats.getYoutubeDataStoredThisMonth() );
