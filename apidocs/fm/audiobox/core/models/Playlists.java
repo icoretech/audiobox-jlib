@@ -25,4 +25,6 @@ public static final java.lang.String PLAYLIST_YOUTUBE = "youtube";
 public static final java.lang.String PLAYLIST_SOUNDCLOUD = "soundcloud";
 public static final java.lang.String PLAYLIST_MEGA = "mega";
 public static final java.lang.String PLAYLIST_OFFLINE = "offline";
+public static final java.lang.String PLAYLIST_CUSTOM = "custom";
+public static final java.lang.String PLAYLIST_SMART = "smart";
 }

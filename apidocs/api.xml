@@ -4525,6 +4525,28 @@
  visibility="public"
 >
 </method>
+<method name="isCustom"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isDrive"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="isEmbeddable"
  return="boolean"
  abstract="false"
@@ -4537,6 +4559,28 @@
 >
 </method>
 <method name="isLastAccessed"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isOffline"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isSmart"
  return="boolean"
  abstract="false"
  native="false"
@@ -5013,6 +5057,17 @@
  visibility="public"
 >
 </field>
+<field name="PLAYLIST_CUSTOM"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;custom&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 <field name="PLAYLIST_DROPBOX"
  type="java.lang.String"
  transient="false"
@@ -5073,6 +5128,17 @@
  transient="false"
  volatile="false"
  value="&quot;skydrive&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="PLAYLIST_SMART"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;smart&quot;"
  static="true"
  final="true"
  deprecated="not deprecated"

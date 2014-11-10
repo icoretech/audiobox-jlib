@@ -44,6 +44,10 @@ public  void setMediaFilesCount(long mediaFilesCount) { throw new RuntimeExcepti
 public  void setLastAccessed(boolean lastAccessed) { throw new RuntimeException("Stub!"); }
 public  void setUpdatedAt(java.lang.String updatedAt) { throw new RuntimeException("Stub!"); }
 public  void setSyncable(boolean syncable) { throw new RuntimeException("Stub!"); }
+public  boolean isCustom() { throw new RuntimeException("Stub!"); }
+public  boolean isSmart() { throw new RuntimeException("Stub!"); }
+public  boolean isOffline() { throw new RuntimeException("Stub!"); }
+public  boolean isDrive() { throw new RuntimeException("Stub!"); }
 public final  boolean equals(java.lang.Object other) { throw new RuntimeException("Stub!"); }
 public final  int hashCode() { throw new RuntimeException("Stub!"); }
 }
