@@ -86,7 +86,10 @@ public class PlaylistsTests extends AudioBoxTests {
     assertEquals( false, p.isLastAccessed() );
     assertEquals( "2013-08-29T18:25:53.517Z", p.getUpdatedAt() );
     assertEquals( false, p.isSyncable() );
-
+    assertTrue( p.isDrive() );
+    assertFalse( p.isCustom() );
+    assertFalse( p.isSmart() );
+    assertFalse( p.isOffline() );
   }
 
 
@@ -153,7 +156,7 @@ public class PlaylistsTests extends AudioBoxTests {
     Playlist p = new Playlist( "Dropbox" );
     try {
       p.create( c );
-      fail("Should raise exception");
+      fail( "Should raise exception" );
     } catch ( ValidationException e ) {
 
       assertEquals( e.toString(), e.getMessage() );
@@ -179,7 +182,7 @@ public class PlaylistsTests extends AudioBoxTests {
     try {
       c.getConf().setHttpTransport( MockHttp.getTransport( 404, "" ) );
       p.create( c );
-      fail("Should raise exception");
+      fail( "Should raise exception" );
     } catch ( ResourceNotFoundException e ) {
       assertEquals( HttpStatus.SC_NOT_FOUND, e.getErrorCode() );
 
@@ -506,62 +509,116 @@ public class PlaylistsTests extends AudioBoxTests {
 
         case "box":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getBoxPlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "dropbox":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getDropboxPlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "local":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getLocalPlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "cloud":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getCloudPlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "gdrive":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getGdrivePlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "mega":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getMegaPlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "skydrive":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getOneDrivePlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "offline":
           assertNotEquals( p, p2 );
+          assertTrue( p.isOffline() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isDrive() );
           p2 = Playlists.getOfflinePlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "youtube":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getYoutubePlaylist( c );
           assertEquals( p, p2 );
           break;
 
         case "soundcloud":
           assertNotEquals( p, p2 );
+          assertTrue( p.isDrive() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           p2 = Playlists.getSoundcloudPlaylist( c );
           assertEquals( p, p2 );
+          break;
+
+        case "smart":
+          assertTrue( p.isSmart() );
+          assertFalse( p.isCustom() );
+          assertFalse( p.isDrive() );
+          assertFalse( p.isOffline() );
+          break;
+
+        case "custom":
+          assertTrue( p.isCustom() );
+          assertFalse( p.isDrive() );
+          assertFalse( p.isSmart() );
+          assertFalse( p.isOffline() );
           break;
       }
 
@@ -661,7 +718,7 @@ public class PlaylistsTests extends AudioBoxTests {
     t.add( "c_ddcf6876debeb3cb365bcc" );
     try {
       p.removeMediaFiles( c, t );
-      fail("Should raise exception");
+      fail( "Should raise exception" );
     } catch ( Exception e ) {
       assertTrue( e instanceof IllegalStateException );
       assertEquals( "Playlist must be remotely created before performing the requested action.", e.getMessage() );
@@ -853,13 +910,13 @@ public class PlaylistsTests extends AudioBoxTests {
       @Override
       public void update(Observable o, Object arg) {
         assertSame( o, pls );
-        assertTrue(arg instanceof ModelEvent );
+        assertTrue( arg instanceof ModelEvent );
         ModelEvent e = ( ModelEvent ) arg;
         assertTrue( e.source instanceof MediaFile );
-        assertTrue( e.target instanceof EventedModelList);
+        assertTrue( e.target instanceof EventedModelList );
       }
 
-    });
+    } );
 
     List<? extends MediaFile> mfs = pls.getFingerprints( c );
     assertNotNull( mfs );
