@@ -190,9 +190,12 @@ public class Playlist extends Model {
    * restricted to the Cloud Web Player, we'll open up the possibility for developers to create them as well.
    *
    * @param audioBoxClient the client
+   *
    * @return a new instance of the saved Playlist if success or null if any error occurs
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist create(AudioBoxClient audioBoxClient) throws IOException {
     validateForRequest( false );
@@ -212,9 +215,16 @@ public class Playlist extends Model {
    * Since SmartPlaylist are compiled on demand, just destroy the old and create a new one.
    *
    * @param audioBoxClient the client
+   *
    * @return the playlist
-   * @throws IllegalStateException if the playlist is not persisted yet.
-   * @see
+   *
+   * @throws java.lang.IllegalStateException                       if the playlist is not persisted yet.
+   * @throws fm.audiobox.core.exceptions.ForbiddenException        if no valid subscription found
+   * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if playlist is not found or immutable
+   * @throws fm.audiobox.core.exceptions.ValidationException       if playlist data is not valid (ex: name already taken)
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
+   * @throws java.io.IOException                                   if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist update(AudioBoxClient audioBoxClient) throws IOException {
     ensurePlaylistForRequest();
@@ -229,9 +239,12 @@ public class Playlist extends Model {
    * Only Custom and Smart playlists can be destroyed.
    *
    * @param audioBoxClient the client to use for the request
+   *
    * @return true if operation succeeds
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean destroy(AudioBoxClient audioBoxClient) throws IOException {
     ensurePlaylistForRequest();
@@ -249,9 +262,13 @@ public class Playlist extends Model {
    * Playlists supporting official storage such as AudioBox Cloud or AudioBox Desktop does not require syncing.
    *
    * @param audioBoxClient the client to use for the request
+   *
    * @return true if operation succeeds.
-   * @throws SyncException if any problem occurs.
-   * @see
+   *
+   * @throws SyncException                                 if any problem occurs.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean sync(AudioBoxClient audioBoxClient) throws IOException {
     ensurePlaylistForRequest();
@@ -281,9 +298,12 @@ public class Playlist extends Model {
    * </p>
    *
    * @param audioBoxClient the client to use for the request
+   *
    * @return true if operation succeeds.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public boolean toggleVisibility(AudioBoxClient audioBoxClient) throws IOException {
     ensurePlaylistForRequest();
@@ -293,14 +313,16 @@ public class Playlist extends Model {
 
 
   /**
-   * Same as {@link Playlist#getMediaFiles(fm.audiobox.core.AudioBoxClient, long, String)} but
+   * Same as {@link fm.audiobox.core.models.Playlist#getMediaFiles(fm.audiobox.core.AudioBoxClient, long, String)} but
    * all media file fields are returned and *no* time filter is applied.
    *
    * @param audioBoxClient the client to use for the request
-   * @return A list of
-   * elements
+   *
+   * @return A list of {@link MediaFile} elements
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<MediaFile> getMediaFiles(AudioBoxClient audioBoxClient) throws IOException {
     return getMediaFiles( audioBoxClient, 0 );
@@ -333,11 +355,13 @@ public class Playlist extends Model {
    * </p>
    *
    * @param audioBoxClient the client to use for the request
-   * @param parser the parser to use to parse the response
-   * @return A list of
-   * elements
+   * @param parser         the parser to use to parse the response
+   *
+   * @return A list of {@link MediaFile} elements
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<MediaFile> getMediaFiles(AudioBoxClient audioBoxClient, JsonObjectParser parser) throws IOException {
     return getMediaFiles( audioBoxClient, 0, null, parser );
@@ -345,17 +369,19 @@ public class Playlist extends Model {
 
 
   /**
-   * Same as {@link Playlist#getMediaFiles(fm.audiobox.core.AudioBoxClient, long, String)} but
+   * Same as {@link fm.audiobox.core.models.Playlist#getMediaFiles(fm.audiobox.core.AudioBoxClient, long, String)} but
    * all media file fields are returned.
    * <br/>
    * Time filter is applied.
    *
    * @param audioBoxClient the client to use for the request
-   * @param since unix timestamp that filters the collection and returns records modified since the specified date.
-   * @return A list of
-   * elements
+   * @param since          unix timestamp that filters the collection and returns records modified since the specified date.
+   *
+   * @return A list of {@link MediaFile} elements
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<MediaFile> getMediaFiles(AudioBoxClient audioBoxClient, long since) throws IOException {
     return getMediaFiles( audioBoxClient, since, null );
@@ -388,12 +414,14 @@ public class Playlist extends Model {
    * </p>
    *
    * @param audioBoxClient the client to use for the request
-   * @param since unix timestamp that filters the collection and returns records modified since the specified date.
-   * @param set comma separated 'set' parameter which indicates which attributes to render, like 'type,token', null will return all available fields.
-   * @return A list of
-   * elements
+   * @param since          unix timestamp that filters the collection and returns records modified since the specified date.
+   * @param set            comma separated 'set' parameter which indicates which attributes to render, like 'type,token', null will return all available fields.
+   *
+   * @return A list of {@link MediaFile} elements
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<MediaFile> getMediaFiles(AudioBoxClient audioBoxClient, long since, String set) throws IOException {
     return getMediaFiles( audioBoxClient, since, null, null );
@@ -426,13 +454,15 @@ public class Playlist extends Model {
    * </p>
    *
    * @param audioBoxClient the client to use for the request
-   * @param since unix timestamp that filters the collection and returns records modified since the specified date.
-   * @param set comma separated 'set' parameter which indicates which attributes to render, like 'type,token', null will return all available fields.
-   * @param parser the parser to use to parse the response
-   * @return A list of
-   * elements
+   * @param since          unix timestamp that filters the collection and returns records modified since the specified date.
+   * @param set            comma separated 'set' parameter which indicates which attributes to render, like 'type,token', null will return all available fields.
+   * @param parser         the parser to use to parse the response
+   *
+   * @return A list of {@link MediaFile} elements
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<MediaFile> getMediaFiles(AudioBoxClient audioBoxClient, long since, String set, JsonObjectParser parser) throws IOException {
     ensurePlaylistForRequest();
@@ -463,11 +493,13 @@ public class Playlist extends Model {
    * <p/>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
    *
-   * @param audioBoxClient the
-   * to use for the request
-   * @return grouped  data.
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
+   *
+   * @return grouped {@link fm.audiobox.core.models.Albums} data.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Albums getAlbums(AudioBoxClient audioBoxClient) throws IOException {
     return getGroupedCollection( audioBoxClient, audioBoxClient.getConf().getAlbumsWrapperClass(), Albums.getPath( this.token ) );
@@ -484,11 +516,13 @@ public class Playlist extends Model {
    * <p/>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
    *
-   * @param audioBoxClient the
-   * to use for the request
-   * @return grouped  data.
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
+   *
+   * @return grouped {@link fm.audiobox.core.models.Albums} data.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Genres getGenres(AudioBoxClient audioBoxClient) throws IOException {
     return getGroupedCollection( audioBoxClient, audioBoxClient.getConf().getGenresWrapperClass(), Genres.getPath( this.token ) );
@@ -505,11 +539,13 @@ public class Playlist extends Model {
    * <p/>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
    *
-   * @param audioBoxClient the
-   * to use for the request
-   * @return grouped  data.
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
+   *
+   * @return grouped {@link fm.audiobox.core.models.Albums} data.
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Artists getArtists(AudioBoxClient audioBoxClient) throws IOException {
     return getGroupedCollection( audioBoxClient, audioBoxClient.getConf().getArtistsWrapperClass(), Artists.getPath( this.token ) );
@@ -522,12 +558,16 @@ public class Playlist extends Model {
    * Shallow action that requires a list of media files tokens to be added to this custom playlist.
    * Media files can be added manually only to custom playlists.
    *
-   * @param audioBoxClient the
-   * to use for the request
-   * @param tokens the list of the tokens string to add to this playlist
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
+   * @param tokens         the list of the tokens string to add to this playlist
+   *
    * @return the playlist instance in order to chain other operations on it if needed.
-   * @throws IllegalStateException if the playlist is not persisted yet.
-   * @see
+   *
+   * @throws java.lang.IllegalStateException                       if the playlist is not persisted yet.
+   * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the playlist not found or not of type CustomPlaylist.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
+   * @throws java.io.IOException                                   if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist addMediaFiles(AudioBoxClient audioBoxClient, List<String> tokens) throws IOException {
 
@@ -551,12 +591,16 @@ public class Playlist extends Model {
    * <br/>
    * AudioBox will not remove media files not present in the destination playlist.
    *
-   * @param audioBoxClient the
-   * to use for the request
-   * @param tokens the list of the tokens string to add to this playlist
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
+   * @param tokens         the list of the tokens string to add to this playlist
+   *
    * @return the playlist instance in order to chain other operations on it if needed.
-   * @throws IllegalStateException if the playlist is not persisted yet.
-   * @see
+   *
+   * @throws java.lang.IllegalStateException                       if the playlist is not persisted yet.
+   * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the playlist not found or not of type CustomPlaylist.
+   * @throws fm.audiobox.core.exceptions.AudioBoxException         if any of the remote error exception is detected.
+   * @throws java.io.IOException                                   if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public Playlist removeMediaFiles(AudioBoxClient audioBoxClient, List<String> tokens) throws IOException {
 
@@ -578,12 +622,13 @@ public class Playlist extends Model {
    * <p/>
    * Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.
    *
-   * @param audioBoxClient the
-   * to use for the request
-   * @return A list of
-   * elements
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
+   *
+   * @return A list of {@link MediaFile} elements
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getFingerprints(AudioBoxClient audioBoxClient) throws IOException {
     return getFingerprints( audioBoxClient, null );
@@ -595,13 +640,14 @@ public class Playlist extends Model {
    * <p/>
    * Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.
    *
-   * @param audioBoxClient the
-   * to use for the request
-   * @param parser the parser to use to parse the response
-   * @return A list of
-   * elements
+   * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
+   * @param parser         the parser to use to parse the response
+   *
+   * @return A list of {@link MediaFile} elements
+   *
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
+   * @throws java.io.IOException                           if any connection problem occurs.
+   * @see fm.audiobox.core.exceptions.AudioBoxException
    */
   public List<? extends MediaFile> getFingerprints(AudioBoxClient audioBoxClient, JsonObjectParser parser) throws IOException {
     HttpResponse rsp = audioBoxClient.doGET( ModelUtil.interpolate( FINGERPRINTS_PATH, getToken() ), parser, null );
@@ -646,6 +692,7 @@ public class Playlist extends Model {
    * method.
    *
    * @param name the name
+   *
    * @return the playlist instance in order to chain other methods.
    */
   public Playlist setName(String name) {
@@ -700,6 +747,7 @@ public class Playlist extends Model {
    * method.
    *
    * @param position the position to set
+   *
    * @return the playlist instance in order to chain other methods.
    */
   public Playlist setPosition(long position) {
@@ -724,6 +772,7 @@ public class Playlist extends Model {
    * method.
    *
    * @param embeddable true to mark it as embeddable, false to disable the feature.
+   *
    * @return the playlist instance in order to chain other methods.
    */
   public Playlist setEmbeddable(boolean embeddable) {
@@ -748,6 +797,7 @@ public class Playlist extends Model {
    * method.
    *
    * @param visible true to mark it as visible, false to disable the feature.
+   *
    * @return the playlist instance in order to chain other methods.
    */
   public Playlist setVisible(boolean visible) {
@@ -878,6 +928,7 @@ public class Playlist extends Model {
   public boolean isSmart() {
     return Playlists.PLAYLIST_SMART.equals( getSystemName() );
   }
+
 
   /**
    * Checks if the playlist is the offline items playlist.

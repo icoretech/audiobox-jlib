@@ -82,12 +82,12 @@ public class Playlists extends Model {
   public static final String PLAYLIST_OFFLINE = "offline";
 
   /**
-   * The constant that identifies the "offline" playlist.
+   * The constant that identifies "custom" playlists.
    */
   public static final String PLAYLIST_CUSTOM = "custom";
 
   /**
-   * The constant that identifies the "offline" playlist.
+   * The constant that identifies "smart" playlists.
    */
   public static final String PLAYLIST_SMART = "smart";
 
