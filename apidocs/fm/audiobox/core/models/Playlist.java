@@ -44,6 +44,8 @@ public  void setMediaFilesCount(long mediaFilesCount) { throw new RuntimeExcepti
 public  void setLastAccessed(boolean lastAccessed) { throw new RuntimeException("Stub!"); }
 public  void setUpdatedAt(java.lang.String updatedAt) { throw new RuntimeException("Stub!"); }
 public  void setSyncable(boolean syncable) { throw new RuntimeException("Stub!"); }
+public  fm.audiobox.core.models.Playlist setDescription(java.lang.String description) { throw new RuntimeException("Stub!"); }
+public  java.lang.String getDescription() { throw new RuntimeException("Stub!"); }
 public  boolean isCustom() { throw new RuntimeException("Stub!"); }
 public  boolean isSmart() { throw new RuntimeException("Stub!"); }
 public  boolean isOffline() { throw new RuntimeException("Stub!"); }

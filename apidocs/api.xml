@@ -4290,6 +4290,17 @@
 <exception name="IOException" type="java.io.IOException">
 </exception>
 </method>
+<method name="getDescription"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="getFingerprints"
  return="java.util.List&lt;? extends fm.audiobox.core.models.MediaFile&gt;"
  abstract="false"
@@ -4629,6 +4640,19 @@
 </parameter>
 <exception name="IOException" type="java.io.IOException">
 </exception>
+</method>
+<method name="setDescription"
+ return="fm.audiobox.core.models.Playlist"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="description" type="java.lang.String">
+</parameter>
 </method>
 <method name="setEmbeddable"
  return="fm.audiobox.core.models.Playlist"
