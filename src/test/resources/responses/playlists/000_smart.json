@@ -2,6 +2,7 @@
 "playlist":{
   "token":"000_smart",
   "name":"All Sources",
+  "description":"All Sources",
   "system_name":"smart",
   "type":"SmartPlaylist",
   "media_files_count":32,

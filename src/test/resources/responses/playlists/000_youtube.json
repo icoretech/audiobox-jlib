@@ -2,6 +2,7 @@
 "playlist":{
 "token":"000_youtube",
 "name":"YouTube",
+"description":"YouTube",
 "system_name":"youtube",
 "type":"YoutubePlaylist",
 "media_files_count":15,

@@ -70,7 +70,8 @@ public class PlaylistsTests extends AudioBoxTests {
     assertEquals( "AudioBox Desktop", p.getName() );
     p.setName( "test" );
     assertEquals( "test", p.getName() );
-
+    p.setDescription( "Test description" );
+    assertEquals( "Test description", p.getDescription() );
     assertEquals( "local", p.getSystemName() );
     assertEquals( "LocalPlaylist", p.getType() );
     assertEquals( 0, p.getMediaFilesCount() );
@@ -800,6 +801,7 @@ public class PlaylistsTests extends AudioBoxTests {
 
     cloudPlaylist
         .setName( "Test Rename" )
+        .setDescription( "Test description" )
         .setVisible( false )
         .setEmbeddable( false )
         .setPosition( 100 );
@@ -827,6 +829,7 @@ public class PlaylistsTests extends AudioBoxTests {
     assertNotNull( pls );
     pls
         .setName( "Test 2" )
+        .setDescription( "Test description" )
         .setVisible( true )
         .setEmbeddable( false )
         .setPosition( 100 );

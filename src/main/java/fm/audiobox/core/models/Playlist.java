@@ -157,6 +157,9 @@ public class Playlist extends Model {
   @Key
   private boolean syncable;
 
+  @Key
+  private String description;
+
 
   /**
    * Instantiates a new Playlist.
@@ -843,6 +846,9 @@ public class Playlist extends Model {
   /**
    * Sets token.
    *
+   * Note: this is a readonly field (when saving this value will be discarded) and the meaning of this method is
+   * to populate this object field (i.e. load from persisted playlist).
+   *
    * @param token the token
    */
   public void setToken(String token) {
@@ -852,6 +858,9 @@ public class Playlist extends Model {
 
   /**
    * Sets system name.
+   *
+   * Note: this is a readonly field (when saving this value will be discarded) and the meaning of this method is
+   * to populate this object field (i.e. load from persisted playlist).
    *
    * @param systemName the system name
    */
@@ -863,6 +872,9 @@ public class Playlist extends Model {
   /**
    * Sets type.
    *
+   * Note: this is a readonly field (when saving this value will be discarded) and the meaning of this method is
+   * to populate this object field (i.e. load from persisted playlist).
+   *
    * @param type the type
    */
   public void setType(String type) {
@@ -872,6 +884,9 @@ public class Playlist extends Model {
 
   /**
    * Sets media files count.
+   *
+   * Note: this is a readonly field (when saving this value will be discarded) and the meaning of this method is
+   * to populate this object field (i.e. load from persisted playlist).
    *
    * @param mediaFilesCount the media files count
    */
@@ -883,6 +898,9 @@ public class Playlist extends Model {
   /**
    * Sets as last accessed.
    *
+   * Note: this is a readonly field (when saving this value will be discarded) and the meaning of this method is
+   * to populate this object field (i.e. load from persisted playlist).
+   *
    * @param lastAccessed true if the playlist was the last accessed.
    */
   public void setLastAccessed(boolean lastAccessed) {
@@ -893,6 +911,9 @@ public class Playlist extends Model {
   /**
    * Sets updated at.
    *
+   * Note: this is a readonly field (when saving this value will be discarded) and the meaning of this method is
+   * to populate this object field (i.e. load from persisted playlist).
+   *
    * @param updatedAt last time updated
    */
   public void setUpdatedAt(String updatedAt) {
@@ -901,12 +922,36 @@ public class Playlist extends Model {
 
 
   /**
-   * Sets syncable.
+   * Sets syncable property.
+   *
+   * Note: this is a readonly field (when saving this value will be discarded) and the meaning of this method is
+   * to populate this object field (i.e. load from persisted playlist).
    *
    * @param syncable the syncable
    */
   public void setSyncable(boolean syncable) {
     this.syncable = syncable;
+  }
+
+
+  /**
+   * Sets a brief description of the playlist.
+   *
+   * @param description a brief String to describe this playlist
+   *
+   * @return the playlist instance in order to chain other methods.
+   */
+  public Playlist setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+
+  /**
+   * Gets this playlist brief description.
+   */
+  public String getDescription() {
+    return this.description;
   }
 
 

@@ -2,6 +2,7 @@
 "playlist": {
 "token":"000_dropbox",
 "name":"Dropbox",
+"description":"Dropbox",
 "system_name":"dropbox",
 "type":"DropboxPlaylist",
 "media_files_count":12,

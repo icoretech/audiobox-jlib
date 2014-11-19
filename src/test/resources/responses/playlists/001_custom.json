@@ -2,6 +2,7 @@
 "playlist":{
 "token":"001_custom",
 "name":"My test playlist",
+"description":"My test playlist",
 "system_name":"custom",
 "type":"CustomPlaylist",
 "media_files_count":0,

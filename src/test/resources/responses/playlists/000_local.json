@@ -2,6 +2,7 @@
    "playlist":{
       "token":"000_local",
       "name":"AudioBox Desktop",
+      "description":"AudioBox Desktop",
       "system_name":"local",
       "type":"LocalPlaylist",
       "media_files_count":0,

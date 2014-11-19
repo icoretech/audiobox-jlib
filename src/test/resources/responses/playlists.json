@@ -3,6 +3,7 @@
       {
          "token":"000_local",
          "name":"AudioBox Desktop",
+         "description":"AudioBox Desktop",
          "system_name":"local",
          "type":"LocalPlaylist",
          "media_files_count":0,
@@ -18,6 +19,7 @@
       {
          "token":"000_cloud",
          "name":"AudioBox Cloud",
+         "description":"AudioBox Cloud",
          "system_name":"cloud",
          "type":"CloudPlaylist",
          "media_files_count":0,
@@ -33,6 +35,7 @@
       {
          "token":"000_dropbox",
          "name":"Dropbox",
+         "description":"Dropbox",
          "system_name":"dropbox",
          "type":"DropboxPlaylist",
          "media_files_count":12,
@@ -48,6 +51,7 @@
       {
          "token":"000_skydrive",
          "name":"SkyDrive",
+         "description":"SkyDrive",
          "system_name":"skydrive",
          "type":"SkydrivePlaylist",
          "media_files_count":13,
@@ -63,6 +67,7 @@
       {
          "token":"000_box",
          "name":"Box",
+         "description":"Box",
          "system_name":"box",
          "type":"BoxPlaylist",
          "media_files_count":1,
@@ -78,6 +83,7 @@
       {
          "token":"000_gdrive",
          "name":"Google Drive",
+         "description":"Google Drive",
          "system_name":"gdrive",
          "type":"GdrivePlaylist",
          "media_files_count":19,
@@ -93,6 +99,7 @@
       {
          "token":"000_youtube",
          "name":"YouTube",
+         "description":"YouTube",
          "system_name":"youtube",
          "type":"YoutubePlaylist",
          "media_files_count":15,
@@ -108,6 +115,7 @@
       {
          "token":"000_soundcloud",
          "name":"SoundCloud",
+         "description":"SoundCloud",
          "system_name":"soundcloud",
          "type":"SoundcloudPlaylist",
          "media_files_count":0,
@@ -123,6 +131,7 @@
       {
          "token":"000_mega",
          "name":"Mega",
+         "description":"Mega",
          "system_name":"mega",
          "type":"MegaPlaylist",
          "media_files_count":0,
@@ -138,6 +147,7 @@
       {
          "token":"000_smart",
          "name":"All Sources",
+         "description":"All Sources",
          "system_name":"smart",
          "type":"SmartPlaylist",
          "media_files_count":32,
@@ -213,6 +223,7 @@
       {
          "token":"000_custom",
          "name":"custom",
+         "description":"custom",
          "system_name":"custom",
          "type":"CustomPlaylist",
          "media_files_count":9,
@@ -228,6 +239,7 @@
       {
          "token":"001_custom",
          "name":"My test playlist",
+         "description":"My test playlist",
          "system_name":"custom",
          "type":"CustomPlaylist",
          "media_files_count":0,
@@ -243,6 +255,7 @@
       {
          "token":"000_offline",
          "name":"Offline",
+         "description":"Offline",
          "system_name":"offline",
          "type":"OfflinePlaylist",
          "media_files_count":4,

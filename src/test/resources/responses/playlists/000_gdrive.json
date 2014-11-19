@@ -2,6 +2,7 @@
 "playlist": {
 "token":"000_gdrive",
 "name":"Google Drive",
+"description":"Google Drive",
 "system_name":"gdrive",
 "type":"GdrivePlaylist",
 "media_files_count":19,

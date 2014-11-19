@@ -2,6 +2,7 @@
 "playlist":{
 "token":"000_offline",
 "name":"Offline",
+"description":"Offline",
 "system_name":"offline",
 "type":"OfflinePlaylist",
 "media_files_count":4,

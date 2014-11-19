@@ -2,6 +2,7 @@
 "playlist":{
  "token":"000_box",
  "name":"Box",
+ "description":"Box",
  "system_name":"box",
  "type":"BoxPlaylist",
  "media_files_count":1,

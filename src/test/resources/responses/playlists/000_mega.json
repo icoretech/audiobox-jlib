@@ -2,6 +2,7 @@
 "playlist": {
 "token":"000_mega",
 "name":"Mega",
+"description":"Mega",
 "system_name":"mega",
 "type":"MegaPlaylist",
 "media_files_count":0,

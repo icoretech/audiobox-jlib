@@ -2,6 +2,7 @@
 "playlist":{
 "token":"000_skydrive",
 "name":"SkyDrive",
+"description":"SkyDrive",
 "system_name":"skydrive",
 "type":"SkydrivePlaylist",
 "media_files_count":13,
