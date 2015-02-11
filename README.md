@@ -39,7 +39,7 @@ If your project is under maven add this under the dependency management section:
     <dependency>
       <groupId>fm.audiobox</groupId>
       <artifactId>audiobox-jlib</artifactId>
-      <version>1.0</version>
+      <version>1.0.4</version>
     </dependency>
 
 
@@ -47,7 +47,7 @@ If your project uses gradle add this line in your dependency clojure:
 
     dependencies {
       ...
-      compile 'fm.audiobox:audiobox-jlib:1.0.0'
+      compile 'fm.audiobox:audiobox-jlib:1.0.4'
       ...
     }
 
