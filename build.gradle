@@ -36,39 +36,39 @@ configurations {
 
 dependencies {
     // Logging
-    compile     'org.slf4j:slf4j-api:1.7.+'
+    compile     'org.slf4j:slf4j-api:1.7.10'
 
     // Configuration
-    compile     group: 'com.typesafe', name: 'config', version: '1.2.+'
+    compile     group: 'com.typesafe', name: 'config', version: '1.2.1'
 
     // Http
     compile     'com.google.http-client:google-http-client:1.19.0'
     compile     'com.google.oauth-client:google-oauth-client:1.19.0'
 
     // Common utils
-    compile     'commons-validator:commons-validator:+'
-    compile     'org.apache.commons:commons-lang3:+'
-    compile     'de.danielbechler:java-object-diff:0.13+'
+    compile     'commons-validator:commons-validator:1.4.1'
+    compile     'org.apache.commons:commons-lang3:3.3.2'
+    compile     'de.danielbechler:java-object-diff:0.13.1'
 
 
     // Testing
-    testCompile 'junit:junit:4.11+'
+    testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'com.google.http-client:google-http-client-jackson2:1.19.0'
 
     // Test logging
-    testCompile 'ch.qos.logback:logback-classic:1.+'
-    testCompile 'org.slf4j:jul-to-slf4j:1.7.+'
+    testCompile 'ch.qos.logback:logback-classic:1.1.2'
+    testCompile 'org.slf4j:jul-to-slf4j:1.7.7'
 
     // Cache
-    testCompile  'com.integralblue:httpresponsecache:1.3+'
+    testCompile  'com.integralblue:httpresponsecache:1.3'
 
     // Utils
-    testCompile  'org.apache.commons:commons-io:1.3+'
-    testCompile  'nl.jqno.equalsverifier:equalsverifier:1.4+'
+    testCompile  'org.apache.commons:commons-io:1.3.2'
+    testCompile  'nl.jqno.equalsverifier:equalsverifier:1.4.1'
 
     // JavaDoc
-    jaxDoclet("com.google.doclava:doclava:1.+")
+    jaxDoclet("com.google.doclava:doclava:1.0.6")
 }
 
 task generateDoclava(type: Javadoc) {
