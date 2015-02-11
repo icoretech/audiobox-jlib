@@ -1,3 +1,7 @@
+---
+layout: index
+---
+
 # PLEASE NOTE
 This library is not yet ready for production. It is actually under heavy development and still requires some refactor.
 It does not work on the actual API specifications, if you need a java library that works with the actual API please use
@@ -95,7 +99,7 @@ in order to keep tokens up to date.
 ```java
 config.setCredentialRefreshListener( new MyCredentialRefreshListener() );
 ```
- 
+
 
 Since this library wants to be as much agnostic as possible regarding the HTTP client and
 the JSON parser libraries you should set them at this moment by choosing amongst:
