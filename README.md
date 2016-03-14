@@ -11,7 +11,7 @@ the old [AudioBox.fm-JavaLib](https://github.com/icoretech/AudioBox.fm-JavaLib).
 [![Build Status](https://travis-ci.org/icoretech/audiobox-jlib.svg?branch=master)](https://travis-ci.org/icoretech/audiobox-jlib)
 
 ## Minimum requirements
-* Java 1.7
+* Java 1.8
 * Android Build Tools 19+ (for android projects)
 
 ## Features
@@ -22,12 +22,12 @@ the old [AudioBox.fm-JavaLib](https://github.com/icoretech/AudioBox.fm-JavaLib).
 
 ## Dependencies
 * [SLF4J](http://www.slf4j.org/) 1.7 (logging)
-* [Typesafe Config](https://github.com/typesafehub/config) 1.2.0 (configuration)
-* [Google HTTP Java Client](https://code.google.com/p/google-http-java-client/) 1.18 (HTTP layer)
-* [Google OAuth Java Client](https://code.google.com/p/google-oauth-java-client/) 1.18 (OAuth2 layer)
-* [Apache Common Validator](http://commons.apache.org/proper/commons-validator/) 1.4 (Utils)
-* [Apache Commons Lang](http://commons.apache.org/proper/commons-lang/) 3.3.2 (Utils)
-* [Java Object Diff](https://github.com/SQiShER/java-object-diff) 0.13.1 (Utils)
+* [Typesafe Config](https://github.com/typesafehub/config) 1.3.0 (configuration)
+* [Google HTTP Java Client](https://code.google.com/p/google-http-java-client/) 1.21 (HTTP layer)
+* [Google OAuth Java Client](https://code.google.com/p/google-oauth-java-client/) 1.21 (OAuth2 layer)
+* [Apache Common Validator](http://commons.apache.org/proper/commons-validator/) 1.5 (Utils)
+* [Apache Commons Lang](http://commons.apache.org/proper/commons-lang/) 3.4 (Utils)
+* [Java Object Diff](https://github.com/SQiShER/java-object-diff) 0.93.2 (Utils)
 
 
 ## Getting started
@@ -39,7 +39,7 @@ If your project is under maven add this under the dependency management section:
     <dependency>
       <groupId>fm.audiobox</groupId>
       <artifactId>audiobox-jlib</artifactId>
-      <version>1.0.4</version>
+      <version>1.0.5</version>
     </dependency>
 
 
@@ -47,7 +47,7 @@ If your project uses gradle add this line in your dependency clojure:
 
     dependencies {
       ...
-      compile 'fm.audiobox:audiobox-jlib:1.0.4'
+      compile 'fm.audiobox:audiobox-jlib:1.0.5'
       ...
     }
 

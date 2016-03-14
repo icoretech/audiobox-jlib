@@ -44,16 +44,6 @@ import static org.junit.Assert.*;
  */
 public class PlaylistsTests extends AudioBoxTests {
 
-  /**
-   * Test equality.
-   */
-  @Test
-  public void testEquality() {
-    EqualsVerifier.forClass( Playlist.class )
-        .suppress( Warning.NONFINAL_FIELDS )
-        .verify();
-  }
-
 
   /**
    * Test playlists.
