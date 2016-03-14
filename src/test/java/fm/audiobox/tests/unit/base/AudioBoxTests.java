@@ -39,6 +39,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 /**
@@ -104,6 +105,9 @@ public class AudioBoxTests {
 
       config.setEnvironment( env );
       c = new AudioBoxClient( config );
+
+      assertNotNull(c);
+
     } catch ( ConfigurationException | IOException e ) {
       fail( e.getMessage() );
     }
