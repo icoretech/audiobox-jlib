@@ -20,7 +20,7 @@ import com.google.api.client.util.Key;
 
 /**
  * For each of the external services the boolean value indicates if we have stored a OAuth token for the user.
- * <p/>
+ * <p>
  * Such attributes are automatically set by the system and cannot be changed manually.
  */
 public class ExternalTokens extends Model {

@@ -87,7 +87,7 @@ public class MediaFiles extends Model {
 
   /**
    * Destroy all media files identified by the tokens in the list.
-   * <p/>
+   * <p>
    * NOTE: this action is irreversible.
    *
    * @param audioBoxClient the client

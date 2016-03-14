@@ -363,7 +363,7 @@ public class Playlists extends Model {
 
   /**
    * Given the desired type this method will return the right playlist.
-   * <br/>
+   * <br>
    * If the playlist is not found null is returned.
    *
    * @param audioBoxClient the user's {@link fm.audiobox.core.AudioBoxClient} to use to make the request

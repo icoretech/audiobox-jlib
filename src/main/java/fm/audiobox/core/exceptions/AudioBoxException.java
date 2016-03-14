@@ -29,7 +29,7 @@ import java.io.IOException;
  * <p>
  * This kind of exceptions are typically thrown when a problem with the remote service occurs.
  * </p>
- * <p/>
+ * <p>
  * Handled remote errors are:
  * <dl>
  * <dt>HTTP Status 402:</dt>

@@ -93,19 +93,19 @@ public class Upload {
 
   /**
    * Starts to upload media files to AudioBox Cloud.
-   * <p/>
+   * <p>
    * If the subscription is not valid {@link fm.audiobox.core.exceptions.ForbiddenException} is thrown.
    * If a media file already exists on AudioBox Cloud {@link fm.audiobox.core.exceptions.FileAlreadyUploaded} is thrown.
-   * <p/>
+   * <p>
    * Other errors may include {@link fm.audiobox.core.exceptions.ValidationException},
    * {@link fm.audiobox.core.exceptions.SystemOverloadedException} or {@link fm.audiobox.core.exceptions.RemoteMessageException}
    * with additional information in the exception body.
-   * <p/>
+   * <p>
    * The application should ensure to accept those errors and retry accordingly after few minutes.
-   * <p/>
+   * <p>
    * On successful upload the server returns a new {@link MediaFile} with additional information,
    * including the token assigned to the newly uploaded media file.
-   * <p/>
+   * <p>
    * Files uploaded through this method will go directly into the CloudPlaylist.
    * </p>
    *

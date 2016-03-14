@@ -31,7 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Through this class you can control several behavior of the client such as HTTP client or JSON parser libraries.
- * <p/>
+ * <p>
  * Here a list of mandatory fields that must be set in order to set up the client:
  * <ul>
  * <li>{@link Configuration#setApiKey(String) API Key}</li>
@@ -41,9 +41,9 @@ import org.apache.commons.lang3.StringUtils;
  * <li>{@link Configuration#setHttpTransport(com.google.api.client.http.HttpTransport) HTTP Transport}</li>
  * <li>{@link Configuration#setJsonFactory(com.google.api.client.json.JsonFactory) JSON Factory}</li>
  * </ul>
- * <p/>
+ * <p>
  * Not configuring these parameters will result in a {@link fm.audiobox.core.config.ConfigurationException}.
- * <p/>
+ * <p>
  * <strong>TIP:</strong> Setter methods of this class are chainable.
  */
 public class Configuration {
@@ -179,7 +179,7 @@ public class Configuration {
 
   /**
    * Sets the API Consumer Key.
-   * <p/>
+   * <p>
    * To get one register your application here:
    * <a href="https://audiobox.fm/oauth2/applications">https://audiobox.fm/oauth2/applications</a>
    *
@@ -195,7 +195,7 @@ public class Configuration {
 
   /**
    * Sets the API Consumer Secret.
-   * <p/>
+   * <p>
    * To get one register your application here:
    * <a href="https://audiobox.fm/oauth2/applications">https://audiobox.fm/oauth2/applications</a>
    *
@@ -211,7 +211,7 @@ public class Configuration {
 
   /**
    * Sets the HTTP transport.
-   * <p/>
+   * <p>
    * Should be one of:
    * <ul>
    * <li><strong>NetHttpTransport:</strong> based on HttpURLConnection that is found in all Java SDKs, and thus usually the simplest choice.</li>
@@ -231,7 +231,7 @@ public class Configuration {
 
   /**
    * Sets the JSON factory.
-   * <p/>
+   * <p>
    * Should be one of:
    * <ul>
    * <li><strong>JacksonFactory:</strong> based on the popular Jackson library which is considered the fastest in terms of parsing/serialization speed</li>
@@ -251,7 +251,7 @@ public class Configuration {
 
   /**
    * Sets the data store factory.
-   * <p/>
+   * <p>
    * You should provide one like FileDataStoreFactory, MemoryDataStoreFactory or implementing one
    * by extending the {@link com.google.api.client.util.store.AbstractDataStoreFactory}.
    *
@@ -280,9 +280,9 @@ public class Configuration {
 
   /**
    * Sets the media files wrapper class.
-   * <p/>
+   * <p>
    * Use this configuration method to set your own class to use as media files parser.
-   * <p/>
+   * <p>
    * Default is {@link fm.audiobox.core.models.MediaFiles}.
    *
    * @param klass the class to use for media files parsing.
@@ -297,9 +297,9 @@ public class Configuration {
 
   /**
    * Sets the albums wrapper class.
-   * <p/>
+   * <p>
    * Use this configuration method to set your own class to use as albums parser.
-   * <p/>
+   * <p>
    * Default is {@link fm.audiobox.core.models.Albums}.
    *
    * @param klass the class to use for albums parsing.
@@ -314,9 +314,9 @@ public class Configuration {
 
   /**
    * Sets the genres wrapper class.
-   * <p/>
+   * <p>
    * Use this configuration method to set your own class to use as genres parser.
-   * <p/>
+   * <p>
    * Default is {@link fm.audiobox.core.models.Genres}.
    *
    * @param klass the class to use for genres parsing.
@@ -331,9 +331,9 @@ public class Configuration {
 
   /**
    * Sets the artists wrapper class.
-   * <p/>
+   * <p>
    * Use this configuration method to set your own class to use as artists parser.
-   * <p/>
+   * <p>
    * Default is {@link fm.audiobox.core.models.Artists}.
    *
    * @param klass the class to use for artists parsing.
@@ -348,9 +348,9 @@ public class Configuration {
 
   /**
    * Sets the media file class.
-   * <p/>
+   * <p>
    * Use this configuration method to set your own class to use for media file parsing.
-   * <p/>
+   * <p>
    * Default is {@link fm.audiobox.core.models.MediaFileWrapper}.
    *
    * @param klass the class to use for artists parsing.
@@ -365,7 +365,7 @@ public class Configuration {
 
   /**
    * Changes the AudioBox environment (only useful in API development mode).
-   * <p/>
+   * <p>
    * Do not use this method if you are working on a production application.
    *
    * @return the {@link Configuration}

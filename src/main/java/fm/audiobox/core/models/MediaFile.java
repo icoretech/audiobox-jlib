@@ -34,7 +34,7 @@ import java.io.OutputStream;
 /**
  * <p>
  * Media Files are the most important entity in the platform, has many properties, are editable, deletable and streamable.
- * <br/>
+ * <br>
  * Not every media container is supported by AudioBox, you can find this information in the <code>user.json</code> API
  * call by looking <code>user.accepted_extensions</code> and <code>user.accepted_formats</code>.
  * </p>
@@ -368,7 +368,7 @@ public class MediaFile extends Model {
 
   /**
    * Instantiates a new Playlist.
-   * <p/>
+   * <p>
    * Default empty constructor.
    */
   @SuppressWarnings("unused")
@@ -440,7 +440,6 @@ public class MediaFile extends Model {
    * @param token  the token that uniquely identify the media file
    * @return the requested media file
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
-   * @see
    */
   public static MediaFile load(AudioBoxClient audioBoxClient, String token) throws IOException {
     HttpResponse rsp = audioBoxClient.doGET( ModelUtil.interpolate( PATH, token ) );
@@ -454,7 +453,6 @@ public class MediaFile extends Model {
    * @param audioBoxClient client the to use for the request
    * @return the requested media file
    * @throws fm.audiobox.core.exceptions.ResourceNotFoundException if the requested media was not found on AudioBox.
-   * @see
    */
   public MediaFile reload(AudioBoxClient audioBoxClient) throws IOException {
     return MediaFile.load( audioBoxClient, getToken() );
@@ -466,8 +464,7 @@ public class MediaFile extends Model {
    *
    * @param audioBoxClient client the to use for the request
    * @param out    the desired OutputStream where to store the downloaded data
-   * @return the same given
-   * instance with downloaded data
+   * @return the same given instance with downloaded data
    * @throws IOException if any network communication or IO occurs
    */
   public OutputStream download(AudioBoxClient audioBoxClient, OutputStream out) throws IOException {
@@ -481,8 +478,7 @@ public class MediaFile extends Model {
    * @param audioBoxClient   client the to use for the request
    * @param out      the desired OutputStream where to store the downloaded data
    * @param listener a NetworkProgressListener for monitoring download progress
-   * @return the same given
-   * instance with downloaded data
+   * @return the same given instance with downloaded data
    * @throws IOException if any network communication or IO occurs
    */
   public OutputStream download(AudioBoxClient audioBoxClient, OutputStream out, NetworkProgressListener listener) throws IOException {
@@ -498,7 +494,6 @@ public class MediaFile extends Model {
    * @param audioBoxClient the client to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
    */
   public MediaFile update(AudioBoxClient audioBoxClient) throws IOException {
     audioBoxClient.doPUT( ModelUtil.interpolate( getPath(), getToken() ), new JsonHttpContent( audioBoxClient.getConf().getJsonFactory(), this ) );
@@ -508,12 +503,12 @@ public class MediaFile extends Model {
 
   /**
    * Handle a single media file destruction synchronously.
-   * <p/>
+   * <p>
    * If you need to permanently destroy more than one single media file in one sweep use
    * {@link MediaFiles#destroyAll(fm.audiobox.core.AudioBoxClient, java.util.List)}
-   * <p/>
+   * <p>
    * Do not attempt to call this endpoint for single tracks the user selected to destroy.
-   * <p/>
+   * <p>
    * This will remove the media file from our database. If the media file is stored on AudioBox Cloud it will be
    * physically removed as well. If the media file is stored on a remote storage solution like AudioBox Desktop,
    * Dropbox, SkyDrive, etc. it will not be harmed unless management mode is enabled.
@@ -521,7 +516,6 @@ public class MediaFile extends Model {
    * @param audioBoxClient the client to use for the request
    * @return true if the operation succeeds.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
    */
   public boolean destroy(AudioBoxClient audioBoxClient) throws IOException {
     HttpResponse rsp = audioBoxClient.doDELETE( ModelUtil.interpolate( getPath(), getToken() ) );
@@ -531,15 +525,14 @@ public class MediaFile extends Model {
 
   /**
    * Notify the system that this media file finished playing.
-   * <p/>
+   * <p>
    * This endpoint is highly recommended to be used and should be called when the Media File is approaching the end of the stream.
-   * <p/>
+   * <p>
    * Triggers different actions in the system, such as Scrobbling to Last.fm and much more.
    *
    * @param audioBoxClient client the to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
    */
   public MediaFile scrobble(AudioBoxClient audioBoxClient) throws IOException {
     audioBoxClient.doPOST( ModelUtil.interpolate( SCROBBLE_PATH, getToken() ) );
@@ -553,7 +546,6 @@ public class MediaFile extends Model {
    * @param audioBoxClient client the to use for the request
    * @return the lyrics or null
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
    */
   public String getLyrics(AudioBoxClient audioBoxClient) throws IOException {
 
@@ -571,18 +563,17 @@ public class MediaFile extends Model {
 
   /**
    * Manually 'love' a Media File
-   * <p/>
+   * <p>
    * This will also trigger love/like on all supported and linked remote services, such as Last.fm/Facebook.
-   * <p/>
+   * <p>
    * You can also 'love' the media file by issuing a PUT update request and setting the attribute 'loved' to true,
    * but this will not notifying any remote services.
-   * <p/>
+   * <p>
    * Last.fm will see a track as loved, Facebook as liked, Google Drive as starred, and so on.
    *
    * @param audioBoxClient client the to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
    */
   public MediaFile love(AudioBoxClient audioBoxClient) throws IOException {
     setPreferred( audioBoxClient, LOVE_PATH );
@@ -593,18 +584,17 @@ public class MediaFile extends Model {
 
   /**
    * Manually 'unlove' a Media File
-   * <p/>
+   * <p>
    * This will also trigger 'unlove' on all supported and linked remote services, such as Last.fm/Facebook/Google Drive.
-   * <p/>
+   * <p>
    * You can also 'unlove' the media file by issuing a PUT update request and setting the attribute 'loved' to false,
    * but this will not notifying any remote services.
-   * <p/>
+   * <p>
    * Last.fm will see a track as unloved, Facebook as unliked, Google Drive as not starred, and so on.
    *
    * @param audioBoxClient client the to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
    */
   public MediaFile unlove(AudioBoxClient audioBoxClient) throws IOException {
     setPreferred( audioBoxClient, UNLOVE_PATH );
@@ -615,15 +605,14 @@ public class MediaFile extends Model {
 
   /**
    * Switch the loved attribute to true/false and fire off remote services notifications.
-   * <p/>
+   * <p>
    * This is useful for application that care about the loved attribute after it's being set.
-   * <p/>
+   * <p>
    * Preserve all the features of the love and unlove endpoints.
    *
    * @param audioBoxClient client the to use for the request
    * @return the media file in order to chain other calls.
    * @throws fm.audiobox.core.exceptions.AudioBoxException if any of the remote error exception is detected.
-   * @see
    */
   public MediaFile toggleLove(AudioBoxClient audioBoxClient) throws IOException {
     setPreferred( audioBoxClient, TOGGLE_LOVE_PATH );

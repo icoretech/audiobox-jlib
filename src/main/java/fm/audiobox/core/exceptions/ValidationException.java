@@ -21,7 +21,7 @@ import com.google.api.client.http.HttpResponse;
 
 /**
  * This exception is thrown when a POST or PUT request rise a remote validation error.
- * <p/>
+ * <p>
  * Its main usage is to handle 422 {@link fm.audiobox.core.utils.HttpStatus} messages.
  */
 public class ValidationException extends RemoteMessageException {

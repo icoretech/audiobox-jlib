@@ -86,7 +86,7 @@ public class ModelUtil {
 
   /**
    * Given the user's playlists and the desired type this method will return the right playlist.
-   * <br/>
+   * <br>
    * If the playlist is not found null is returned.
    *
    * @param playlists the user's playlists

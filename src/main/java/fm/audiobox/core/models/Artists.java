@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Artists wrapper model.
- * <p/>
+ * <p>
  * This is a simple wrapper model to handle artist-grouped media files.
  */
 public class Artists extends Model {

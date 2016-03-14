@@ -22,7 +22,7 @@ import com.google.api.client.http.HttpResponse;
  * This exception is thrown when the user tries to access
  * a resource he's not allowed to access, because of ownership
  * or account state.
- * <p/>
+ * <p>
  * Its main usage is to handle 402 and 403 {@link fm.audiobox.core.utils.HttpStatus} messages.
  */
 public class ForbiddenException extends AudioBoxException {

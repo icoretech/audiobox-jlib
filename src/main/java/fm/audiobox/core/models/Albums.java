@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Albums wrapper model.
- * <p/>
+ * <p>
  * This is a simple wrapper model to handle album-grouped media files.
  */
 public class Albums extends Model {

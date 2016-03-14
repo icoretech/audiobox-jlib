@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Returns a paginated collection of user's {@link Notification Notifications}.
- * <p/>
+ * <p>
  * Optional request parameters:
  * <dl>
  * <dt>page</dt>

@@ -29,13 +29,13 @@ import java.util.Map;
 
 /**
  * A User can interact with his own files in different ways, depending on the remote storage in play.
- * <p/>
+ * <p>
  * However AudioBox is built with homogeneity in mind and therefore you will end up
  * calling the same methods for different, powerful actions.
- * <p/>
+ * <p>
  * For the most part the returned attributes are straightforward, such as media_files_count,
  * however there are special attributes to explain:
- * <p/>
+ * <p>
  * <dl>
  * <dt>auth_token:</dt>
  * <dd>
@@ -194,7 +194,7 @@ public class User extends Model {
 
   /**
    * Gets the last time (in form of an UTC String) this account have been changed.
-   * <br/>
+   * <br>
    * NOTE: Since client timezone may differ significantly you are strongly invited
    * to always trust and use this datetime in case you are building a sync tool.
    *
@@ -309,7 +309,7 @@ public class User extends Model {
   /**
    * Gets the unique push engine channel for this user. AudioBox employ push notifications, by making the application
    * subscribe to this channel name it will be able to receive actions to perform in the user interface.
-   * <p/>
+   * <p>
    * Using push messages is a great way to keep all the applications in sync when an action is performed, such as media
    * add. Further documentation on how to connect to the push server will be provided soon.
    *
@@ -324,7 +324,7 @@ public class User extends Model {
    * Gets the string identifying the paid subscription states for this user. Some features cannot be accessed if the
    * subscription is not valid. We suggest to not use logic in your own application against this attribute, but rather
    * query the permissions: {} data to have more fine-grained control over the available actions.
-   * <p/>
+   * <p>
    * Possible values are: active, trialing, past_due, canceled and unpaid.
    *
    * @return the subscription state
@@ -357,10 +357,10 @@ public class User extends Model {
   /**
    * Gets the hash that defines the boolean permissions the user has access to, depending on subscription state if it's
    * a paid feature.
-   * <p/>
+   * <p>
    * In case the User has been created through a Partner it will inherit permissions depending on the Partner requested
    * features.
-   * <p/>
+   * <p>
    * Such attributes are automatically set by the system and cannot be changed manually.
    *
    * @return the user's {@link fm.audiobox.core.models.Permissions}
@@ -373,7 +373,7 @@ public class User extends Model {
   /**
    * Gets the user's {@link fm.audiobox.core.models.ExternalTokens} that indicates if AudioBox have stored an OAuth
    * token for the user.
-   * <p/>
+   * <p>
    * Such attributes are automatically set by the system and cannot be changed manually.
    *
    * @return the external tokens
@@ -395,7 +395,7 @@ public class User extends Model {
 
   /**
    * Gets the user's {@link fm.audiobox.core.models.Preferences}
-   * <br/>
+   * <br>
    * Preferences are never null
    *
    * @return the preferences

@@ -44,96 +44,96 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * {@link AudioBoxClient} is the main object of this library and allows you to perform requests and
  * operations on AudioBox.
- * <p/>
+ * <p>
  * AudioBox let developers access to API in order to build any kind of modern applications,
  * libraries and integrations on top of the platform.
- * <br/>
+ * <br>
  * AudioBox exposes basic and special API endpoints aimed at fast iteration of code and easiness.
- * <p/>
+ * <p>
  * All the HTTP/HTTPS are performed using the JSON data format and content type.
- * <p/>
+ * <p>
  * This library supports the OAuth2 Resource Owner Password Credentials Grant Type, thus, in order to
  * work with it, you first need to register your application here (you need a valid AudioBox account):
- * <p/>
+ * <p>
  * <a href="https://audiobox.fm/oauth2/applications">https://audiobox.fm/oauth2/applications</a>
- * <p/>
+ * <p>
  * Once you registered your application you have to properly configure the client as follows:
- * <code><pre>
+ * <code>
  * Configuration config = new Configuration()
  *   .setApiKey( "[Your Consumer Key]" )
  *   .setApiSecret( "[Your Consumer Secret]" );
- * </pre></code>
+ * </code>
  * Through the {@link fm.audiobox.core.config.Configuration} object you can configure many aspects
  * of the library behaviors; some are trivial such as application name, version, etc. and
  * other are more complex such as HttpTransport or JSON parser.
- * <p/>
+ * <p>
  * This library does not offer a data store for credentials storage out of the box. You should provide
  * an implementation of the {@link fm.audiobox.core.store.CredentialDataStore}.
- * <br/>
+ * <br>
  * This data store should be used to store credentials so you should be really carefully with it.
- * <p/>
+ * <p>
  * To set it use the configuration:
- * <code><pre>
+ * <code>
  *  config.setCredentialDataStore( new MyCredentialDataStore() );
- * </pre></code>
+ * </code>
  * To comply with OAuth standard you also have to provide a {@link com.google.api.client.auth.oauth2.CredentialRefreshListener}
  * in order to keep tokens up to date.
- * <code><pre>
+ * <code>
  *   config.setCredentialRefreshListener( new MyCredentialRefreshListener() );
- * </pre></code>
+ * </code>
  * Since this library wants to be as much agnostic as possible regarding the HTTP client and
  * the JSON parser libraries you should set them at this moment by choosing amongst:
- * <p/>
+ * <p>
  * <ul>
  * <li><strong>NetHttpTransport:</strong> based on HttpURLConnection that is found in all Java SDKs, and thus usually the simplest choice.</li>
  * <li><strong>ApacheHttpTransport:</strong> based on the popular Apache HttpClient that allows for more customization.</li>
  * <li><strong>UrlFetchTransport:</strong> based on URL Fetch Java API in the Google App Engine SDK</li>
  * </ul>
- * <p/>
+ * <p>
  * as HTTP transport, and:
- * <p/>
+ * <p>
  * <ul>
  * <li><strong>JacksonFactory:</strong> based on the popular Jackson library which is considered the fastest in terms of parsing/serialization speed</li>
  * <li><strong>GsonFactory:</strong> based on the Google GSON library which is a lighter-weight option (small size) that is pretty fast also (though not quite as fast as Jackson)</li>
  * <li><strong>AndroidJsonFactory:</strong> based on the JSON library built-in to Android Honeycomb (SDK 3.0) or higher that is identical to the Google GSON library</li>
  * </ul>
- * <p/>
+ * <p>
  * as JSON parser library.
- * <p/>
+ * <p>
  * There are no defaults that's why you must provide them through the configuration:
- * <code><pre>
+ * <code>
  *  config
  *    .setHttpTransport( new NetHttpTransport() )
  *    .setJsonFactory( new JacksonFactory() );
- * </pre></code>
- * <p/>
+ * </code>
+ * <p>
  * This is the basic configuration and once the setup is completed you can create your
  * Client, authorize the application and start performing any kind of operation supported
  * by AudioBox API through it:
- * <code><pre>
+ * <code>
  *   Client client = new Client( config );
  *   client.authorize( "username", "password" );
  *   List&lt;Playlist&gt; playlists = client.getPlaylists();
  *   ...
- * </pre></code>
- * <p/>
+ * </code>
+ * <p>
  * <strong>NOTE:</strong> {@link AudioBoxClient#authorize(String, String)} is only needed once
  * to get and store the OAuth2 grant token; password is never (and it never should be) stored.
- * <p/>
+ * <p>
  * <strong>NOTE:</strong> grant tokens may expires at any time. A request against AudioBox with
  * an expired token will result in an
  * {@link fm.audiobox.core.exceptions.AuthorizationException AuthorizationException}.
  * Your application should be ready to trap it in order to present a new login form.
- * <p/>
+ * <p>
  * <strong>NOTE:</strong> most of the methods of this library performs requests against
  * AudioBox services. In order to avoid too many requests is highly recommended to implement
  * some sort of caching system (memory or persisted).
- * <br/>
- * <br/>
+ * <br>
+ * <br>
  * For a complete list of API endpoints you can consult the AudioBox API handbook at this address:
- * <p/>
+ * <p>
  * <a href="http://audiobox.fm/apidocs">http://audiobox.fm/apidocs</a>
- * <p/>
+ * <p>
  */
 public class AudioBoxClient {
 
@@ -201,7 +201,7 @@ public class AudioBoxClient {
 
   /**
    * Starts the authorization flow.
-   * <p/>
+   * <p>
    * Given a username and a password if the request succeed this method will store the
    * grant token for future requests and return the response.
    *
@@ -220,7 +220,7 @@ public class AudioBoxClient {
 
   /**
    * Starts the authorization flow.
-   * <p/>
+   * <p>
    * Given a username and a password if the request succeed this method will store the
    * grant token for future requests and return the response.
    *
@@ -308,7 +308,7 @@ public class AudioBoxClient {
 
   /**
    * Returns information about the authorized user.
-   * <br/>
+   * <br>
    * <strong>NOTE:</strong> this method always performs a request, use it wisely
    *
    * @return the {@link fm.audiobox.core.models.User user}
@@ -341,7 +341,7 @@ public class AudioBoxClient {
   /**
    * Gets the token-specified playlist.
    * Triggers Smart Playlist compilation if the requested playlist is a SmartPlaylist.
-   * <br/>
+   * <br>
    * <strong>NOTE:</strong> this method will always perform a request against AudioBox servers, for this reason be
    * smart and try to apply some sort of cache strategy.
    *

@@ -20,7 +20,7 @@ import com.google.api.client.http.HttpResponse;
 
 /**
  * This exception is thrown while uploading if a media file already exists on AudioBox Cloud.
- * <p/>
+ * <p>
  * Its main usage is to handle 409 {@link fm.audiobox.core.utils.HttpStatus} messages.
  */
 public class FileAlreadyUploaded extends RemoteMessageException {

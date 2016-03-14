@@ -20,13 +20,13 @@ import com.google.api.client.util.Key;
 
 /**
  * A user can subscribe and manage multiple remote storage services.
- * <p/>
+ * <p>
  * This hash defines the boolean permissions the user has access to, depending on
  * subscription state if it's a paid feature.
- * <p/>
+ * <p>
  * In case the User has been created through a Partner it will inherit permissions
  * depending on the Partner requested features.
- * <p/>
+ * <p>
  * Such attributes are automatically set by the system and cannot be changed manually.
  */
 public class Permissions extends Model {

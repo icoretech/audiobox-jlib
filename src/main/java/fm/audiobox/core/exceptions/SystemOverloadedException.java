@@ -21,7 +21,7 @@ import com.google.api.client.http.HttpResponse;
 /**
  * This exception is thrown when AudioBox servers are overloaded or same job submitted too fast.
  * The application should ensure to accept those errors and retry accordingly after few minutes.
- * <p/>
+ * <p>
  * Its main usage is to handle 503 {@link fm.audiobox.core.utils.HttpStatus} messages.
  */
 public class SystemOverloadedException extends RemoteMessageException {

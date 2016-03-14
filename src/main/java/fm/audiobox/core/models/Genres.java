@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Genres wrapper model.
- * <p/>
+ * <p>
  * This is a simple wrapper model to handle genre-grouped media files.
  */
 public class Genres extends Model {

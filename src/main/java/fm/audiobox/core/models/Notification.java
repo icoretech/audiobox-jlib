@@ -25,7 +25,7 @@ import java.io.IOException;
 /**
  * Notifications are system messages that the AudioBox will send the user, for example when a Cloud Drive needs
  * to be re-authenticated or if some operation fails.
- * <p/>
+ * <p>
  * There are four different notification levels: `error`, `success`, `info` and `warning`.
  */
 public class Notification extends Model {

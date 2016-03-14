@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * This exception is thrown whenever an error occurs while trying to
  * {@link fm.audiobox.core.models.Playlist#sync(fm.audiobox.core.AudioBoxClient) sync a playlist} with the remote service.
- * <p/>
+ * <p>
  * Errors in this case indicates a state with AudioBox account:
  * <ul>
  * <li>Subscription not in a good standing.</li>

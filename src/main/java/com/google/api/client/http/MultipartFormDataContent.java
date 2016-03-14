@@ -33,16 +33,16 @@ import java.util.Locale;
  * Serializes MIME "multipart/form-data" content as specified by <a
  * href="http://tools.ietf.org/html/rfc2388">RFC 2388: Returning Values from
  * Forms: multipart/form-data</a>
- * <p/>
+ * <p>
  * The implementation is a subclass of {@link MultipartContent} that sets the
  * media type to <code>"multipart/form-data"</code> and defaults to
  * {@link #DEFAULT_BOUNDARY} as a boundary string.
- * <p/>
+ * <p>
  * The generated content output differs from the superclass one to specifically
  * meet the <code>"multipart/form-data"</code> RFC specifications, for example
  * omitting redundant headers in the content parts (except for nested
  * "multipart" parts).
- * <p/>
+ * <p>
  * <p>
  * Shortcut method {@link #addPart(Part, String, String)} is provided in order
  * to easily set name and file name for the mandatory header
@@ -50,18 +50,18 @@ import java.util.Locale;
  * part's headers using the following format (but in this case no consistency
  * checks are made and the request will most likely fail):
  * </p>
- * <p/>
+ * <p>
  * <code>Content-Disposition: form-data; name="user"</code>
- * <p/>
+ * <p>
  * <p>
  * Specifications on the "content-disposition" header (RFC 2183):<br>
- * {@link http://tools.ietf.org/html/rfc2183}
+ * http://tools.ietf.org/html/rfc2183
  * </p>
- * <p/>
+ * <p>
  * For a reference on how to build a multipart/form-data request see:
  * <ul>
- * <li>{@link http://chxo.com/be2/20050724_93bf.html}</li>
- * <li>{@link http://www.faqs.org/rfcs/rfc1867.html}</li>
+ * <li>http://chxo.com/be2/20050724_93bf.html</li>
+ * <li>http://www.faqs.org/rfcs/rfc1867.html</li>
  * </ul>
  *
  * @author Marco Salis
@@ -172,7 +172,7 @@ public class MultipartFormDataContent extends MultipartContent {
 
   /**
    * Adds an HTTP multipart part.
-   * <p/>
+   * <p>
    * This is a shortcut method to allow adding the specified name and
    * (optional) filename are added in the <code>"content-disposition"</code>
    * headers for the content (as per RFC 2183 par. 2). If the header is
@@ -231,7 +231,7 @@ public class MultipartFormDataContent extends MultipartContent {
 
   /**
    * Sets the boundary string to use (must be not null)
-   * <p/>
+   * <p>
    * If this is not called, the boundary defaults to {@link #DEFAULT_BOUNDARY}
    *
    * @param boundary The new boundary for the content

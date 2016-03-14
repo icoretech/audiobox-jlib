@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Container class for a collection of {@link MediaFile} grouped by album.
- * <p/>
+ * <p>
  * It includes media file sorted by the media files' artist, album and position attributes.
  */
 public class Genre extends Model {

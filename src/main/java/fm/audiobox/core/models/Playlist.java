@@ -35,9 +35,9 @@ import java.util.List;
 
 /**
  * Playlists are the main containers for Media Files and are represented in the system by an unique token.
- * <br/>
+ * <br>
  * Internally a Cloud Drive is treated as a Playlist.
- * <br/>
+ * <br>
  * There are different types of playlists and each one can represent a particular media storage service, here's a
  * rundown:
  * <dl>
@@ -45,7 +45,7 @@ import java.util.List;
  * <dd>
  * Contains AudioBox Desktop media files. AudioBox Desktop is an application that is able to stream media files
  * directly from the User's pc, without uploading an entire collection first.
- * <br/>
+ * <br>
  * During normal desktop usage and syncing this playlist will be filled with metadata of files found on the user's
  * filesystem in the folder he specified. This playlist is not treated differently, except that media files actions are
  * limited, such as destroy, since it is automatically managed.
@@ -54,7 +54,7 @@ import java.util.List;
  * <dd>
  * Contains AudioBox Cloud media files. AudioBox Cloud is the official AudioBox Cloud Media Storage offering and it's
  * available space is unlimited.
- * <br/>
+ * <br>
  * This playlist can be accessed only when a valid subscription is in place, so in order to perform actions against it
  * make sure that the permissions: cloud is true in the /api/v1/user.json call.
  * </dd>
@@ -76,7 +76,7 @@ import java.util.List;
  * <dt><strong>OfflinePlaylist</strong></dt>
  * <dd>System-created playlist that contains media files the user would like to store on client.</dd>
  * </dl>
- * <p/>
+ * <p>
  * Each playlist supports a set of attributes:
  * <dl>
  * <dt><strong>token:</strong></dt>
@@ -163,7 +163,7 @@ public class Playlist extends Model {
 
   /**
    * Instantiates a new Playlist.
-   * <p/>
+   * <p>
    * Default empty constructor.
    */
   @SuppressWarnings( "unused" )
@@ -184,11 +184,11 @@ public class Playlist extends Model {
 
   /**
    * Creates a new CustomPlaylist or SmartPlaylist depending on the input parameters.
-   * <p/>
+   * <p>
    * The user can create a CustomPlaylist by setting the playlist name.
-   * <p/>
+   * <p>
    * The user can create a SmartPlaylist by setting the playlist name AND playlist search_params.
-   * <p/>
+   * <p>
    * NOTE: Currently the search_params hash construction is complex enough and therefore it's
    * restricted to the Cloud Web Player, we'll open up the possibility for developers to create them as well.
    *
@@ -209,11 +209,11 @@ public class Playlist extends Model {
 
   /**
    * Handle the update of a custom or smart playlist.
-   * <p/>
+   * <p>
    * As a rule of thumb you can have one uniquely named playlist for each type.
-   * <p/>
+   * <p>
    * SmartPlaylist's <code>search_params</code> can be set only on creation and thus cannot be changed, in this action.
-   * <p/>
+   * <p>
    * SmartPlaylist cannot be tweaked in their <code>search_params</code> due to the complexity of their construct.
    * Since SmartPlaylist are compiled on demand, just destroy the old and create a new one.
    *
@@ -238,7 +238,7 @@ public class Playlist extends Model {
 
   /**
    * Permanently destroy a playlist.
-   * <p/>
+   * <p>
    * Only Custom and Smart playlists can be destroyed.
    *
    * @param audioBoxClient the client to use for the request
@@ -258,10 +258,10 @@ public class Playlist extends Model {
 
   /**
    * Begin content sync with the remote platform. Supported only by syncable playlists.
-   * <p/>
+   * <p>
    * Calling this method will initiate a job that will synchronize data with the remote storage,
    * such as Dropbox, SkyDrive and others.
-   * <p/>
+   * <p>
    * Playlists supporting official storage such as AudioBox Cloud or AudioBox Desktop does not require syncing.
    *
    * @param audioBoxClient the client to use for the request
@@ -374,7 +374,7 @@ public class Playlist extends Model {
   /**
    * Same as {@link fm.audiobox.core.models.Playlist#getMediaFiles(fm.audiobox.core.AudioBoxClient, long, String)} but
    * all media file fields are returned.
-   * <br/>
+   * <br>
    * Time filter is applied.
    *
    * @param audioBoxClient the client to use for the request
@@ -488,12 +488,12 @@ public class Playlist extends Model {
 
   /**
    * Gets media files grouped by albums.
-   * <p/>
+   * <p>
    * Also includes the same media file entities in other collection views, sorted by the media files' position attribute.
-   * <p/>
+   * <p>
    * Throws {@link fm.audiobox.core.exceptions.ForbiddenException} if the user is not enabled to view this playlist due
    * to bad subscription state or missing AudioMash link.
-   * <p/>
+   * <p>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
    *
    * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
@@ -511,12 +511,12 @@ public class Playlist extends Model {
 
   /**
    * Gets media files grouped by albums.
-   * <p/>
+   * <p>
    * Also includes the same media file entities in other collection views, sorted by the media files' position attribute.
-   * <p/>
+   * <p>
    * Throws {@link fm.audiobox.core.exceptions.ForbiddenException} if the user is not enabled to view this playlist due
    * to bad subscription state or missing AudioMash link.
-   * <p/>
+   * <p>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
    *
    * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
@@ -534,12 +534,12 @@ public class Playlist extends Model {
 
   /**
    * Gets media files grouped by albums.
-   * <p/>
+   * <p>
    * Also includes the same media file entities in other collection views, sorted by the media files' position attribute.
-   * <p/>
+   * <p>
    * Throws {@link fm.audiobox.core.exceptions.ForbiddenException} if the user is not enabled to view this playlist due
    * to bad subscription state or missing AudioMash link.
-   * <p/>
+   * <p>
    * Throws {@link fm.audiobox.core.exceptions.ResourceNotFoundException} if the playlist does not exists.
    *
    * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
@@ -557,7 +557,7 @@ public class Playlist extends Model {
 
   /**
    * Add Media Files to a CustomPlaylist.
-   * <p/>
+   * <p>
    * Shallow action that requires a list of media files tokens to be added to this custom playlist.
    * Media files can be added manually only to custom playlists.
    *
@@ -588,10 +588,10 @@ public class Playlist extends Model {
 
   /**
    * Remove Media Files from a CustomPlaylist.
-   * <p/>
+   * <p>
    * Shallow action that requires a list of media files tokens to be removed from this playlist.
    * Only custom playlist tokens are allowed, being the only ones for which content can be modified.
-   * <br/>
+   * <br>
    * AudioBox will not remove media files not present in the destination playlist.
    *
    * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
@@ -622,7 +622,7 @@ public class Playlist extends Model {
 
   /**
    * Returns known file fingerprints for this playlist. Available only for local and cloud playlist tokens.
-   * <p/>
+   * <p>
    * Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.
    *
    * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
@@ -640,7 +640,7 @@ public class Playlist extends Model {
 
   /**
    * Returns known file fingerprints for this playlist. Available only for local and cloud playlist tokens.
-   * <p/>
+   * <p>
    * Will return all MD5 fingerprints of the media files on this playlist. Useful to know what has already been uploaded.
    *
    * @param audioBoxClient the {@link fm.audiobox.core.AudioBoxClient} to use for the request
@@ -822,7 +822,7 @@ public class Playlist extends Model {
 
   /**
    * Gets the last time (in form of an UTC String) this playlist have been changed.
-   * <br/>
+   * <br>
    * NOTE: Since client timezone may differ significantly you are strongly invited
    * to always trust and use this datetime in case you are building a sync tool.
    *
@@ -1072,7 +1072,7 @@ public class Playlist extends Model {
 
   /**
    * Checks whether the playlist is ready for requesting remote server.
-   * <p/>
+   * <p>
    * If something is missing or not valid an IllegalStateException is thrown
    */
   private void ensurePlaylistForRequest() {
