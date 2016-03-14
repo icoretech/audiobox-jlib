@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2014 iCoreTech, Inc.
+ * Copyright 2009-2016 iCoreTech, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,6 @@ import static org.junit.Assert.fail;
 /**
  * Generic test case class.
  */
-@SuppressWarnings( "deprecation" )
 public class AudioBoxTests {
 
   protected static final File DATA_STORE_DIR = new File( System.getProperty( "user.home" ), ".audiobox/abx" );

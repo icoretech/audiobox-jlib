@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2014 iCoreTech, Inc.
+ * Copyright 2009-2016 iCoreTech, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,20 @@ idea {
     }
 
     project {
-        jdkName = '1.7'
+        jdkName = '1.8'
 
-        languageLevel = '1.7'
+        languageLevel = '1.8'
     }
 }
 
 task deleteIdeaBuild() {
     delete 'out'
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+    }
 }
 
 clean {
