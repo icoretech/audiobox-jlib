@@ -38,36 +38,36 @@ configurations {
 
 dependencies {
     // Logging
-    compile     'org.slf4j:slf4j-api:1.7.18'
+    compile     'org.slf4j:slf4j-api:1.7.21'
 
     // Configuration
-    compile     group: 'com.typesafe', name: 'config', version: '1.3.0'
+    compile     'com.typesafe:config:1.3.0'
 
     // Http
-    compile     'com.google.http-client:google-http-client:1.21.0'
-    compile     'com.google.oauth-client:google-oauth-client:1.21.0'
+    compile     'com.google.http-client:google-http-client:1.22.0'
+    compile     'com.google.oauth-client:google-oauth-client:1.22.0'
 
     // Common utils
-    compile     'commons-validator:commons-validator:1.5.0'
+    compile     'commons-validator:commons-validator:1.5.1'
     compile     'org.apache.commons:commons-lang3:3.4'
     compile     'de.danielbechler:java-object-diff:0.93.2'
 
 
     // Testing
-    testCompile 'junit:junit:4.11'
-    testCompile 'org.mockito:mockito-core:2.0.44-beta'
-    testCompile 'com.google.http-client:google-http-client-jackson2:1.21.0'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.0.52-beta'
+    testCompile 'com.google.http-client:google-http-client-jackson2:1.22.0'
 
     // Test logging
-    testCompile 'ch.qos.logback:logback-classic:1.1.6'
-    testCompile 'org.slf4j:jul-to-slf4j:1.7.18'
+    testCompile 'ch.qos.logback:logback-classic:1.1.7'
+    testCompile 'org.slf4j:jul-to-slf4j:1.7.21'
 
     // Cache
     testCompile  'com.integralblue:httpresponsecache:1.3'
 
     // Utils
     testCompile  'org.apache.commons:commons-io:1.3.2'
-    testCompile  'nl.jqno.equalsverifier:equalsverifier:2.0.1'
+    testCompile  'nl.jqno.equalsverifier:equalsverifier:2.0.2'
 
     // JavaDoc
     jaxDoclet("com.google.doclava:doclava:1.0.6")
