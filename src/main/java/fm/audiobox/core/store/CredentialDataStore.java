@@ -18,6 +18,7 @@ package fm.audiobox.core.store;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.StoredCredential;
+import com.google.api.client.util.store.DataStore;
 
 import java.io.IOException;
 
@@ -46,4 +47,13 @@ public interface CredentialDataStore {
    * @return must return a {@link com.google.api.client.auth.oauth2.StoredCredential}
    */
   public StoredCredential getCredentials(String label) throws IOException;
+
+
+  /**
+   * The implementation of this method must return the {@link com.google.api.client.util.store.DataStore}
+   * used to save the credentials
+   *
+   * @return must return a valid {@link com.google.api.client.util.store.DataStore} instance.
+   */
+  public DataStore<StoredCredential> getDB();
 }

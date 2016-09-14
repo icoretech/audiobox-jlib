@@ -28,6 +28,7 @@ import fm.audiobox.core.config.Configuration;
 import fm.audiobox.core.config.ConfigurationException;
 import fm.audiobox.tests.mocks.MockHttp;
 import fm.audiobox.tests.support.FileCredentialStore;
+import fm.audiobox.tests.support.MemoryCredentialStore;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -92,7 +93,7 @@ public class AudioBoxTests {
       JacksonFactory jf = new JacksonFactory();
 
       Configuration config = new Configuration()
-          .setCredentialDataStore( new FileCredentialStore( DATA_STORE_DIR ) )
+          .setCredentialDataStore( new MemoryCredentialStore() )
           .setApiKey( fixtures.getString( "authentication.client_id" ) )
           .setApiSecret( fixtures.getString( "authentication.client_secret" ) )
           .setHttpTransport( MockHttp.getTransport() )
@@ -100,7 +101,7 @@ public class AudioBoxTests {
           .setApplicationName( "Tests" )
           .setVersion( "1.0" );
 
-      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( AudioBoxClient.ACCOUNT_TOKENS, ((FileCredentialStore)config.getCredentialDataStore()).getDB());
+      CredentialRefreshListener crl = new DataStoreCredentialRefreshListener( AudioBoxClient.ACCOUNT_TOKENS, config.getCredentialDataStore().getDB());
       config.setCredentialRefreshListener( crl );
 
       config.setEnvironment( env );
