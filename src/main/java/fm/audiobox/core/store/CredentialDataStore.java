@@ -35,7 +35,7 @@ public interface CredentialDataStore {
    * @param credential the credential to store
    * @throws IOException if any
    */
-  public void saveCredentials(String label, Credential credential) throws IOException;
+  void saveCredentials(String label, Credential credential) throws IOException;
 
 
   /**
@@ -46,7 +46,7 @@ public interface CredentialDataStore {
    * @throws IOException if any
    * @return must return a {@link com.google.api.client.auth.oauth2.StoredCredential}
    */
-  public StoredCredential getCredentials(String label) throws IOException;
+  StoredCredential getCredentials(String label) throws IOException;
 
 
   /**
@@ -55,5 +55,5 @@ public interface CredentialDataStore {
    *
    * @return must return a valid {@link com.google.api.client.util.store.DataStore} instance.
    */
-  public DataStore<StoredCredential> getDB();
+  DataStore<StoredCredential> getDB();
 }
