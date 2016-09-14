@@ -51,7 +51,6 @@ public class DesktopTests extends AudioBoxTests {
    * @throws IOException the iO exception
    */
   @Test
-  @Ignore
   public void testDaemonNotRunning() throws IOException {
     c.getConf().setHttpTransport( MockHttp.getDaemonNotRunningTransport() );
     assertFalse( c.isDaemonRunning() );

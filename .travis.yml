@@ -20,6 +20,11 @@ after_success:
 - .utility/push-jars-to-maven-central.sh
 - .utility/push-docs-to-gh-pages.sh
 
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
 notifications:
   slack:
     secure: "mqv8FtSh8J5SuAmMd/DMW7HEEiFwqvpE2EScaLUNP/bHYn5l9MVh/7/tS1D5JeN0a8Nlm29HOrz30bQ+oX3w+HdkIoVhTZz1ILxDhn/F+IEuuzgKuKp+Kx1p+JhxiX43/oOvCplzIJiCCnOSqu7vMfxw/8flu5jEnee4EDbOoUQ="
