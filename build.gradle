@@ -71,7 +71,12 @@ dependencies {
 
     // JavaDoc
     jaxDoclet("com.google.doclava:doclava:1.0.6")
+}
 
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
 }
 
 task generateDoclava(type: Javadoc) {
@@ -86,7 +91,7 @@ task generateDoclava(type: Javadoc) {
 
     options {
         doclet = "com.google.doclava.Doclava"
-        bootClasspath new File(System.getenv('JAVA_HOME') + "/jre/lib/rt.jar")
+        classpath new File(System.getenv('JAVA_HOME') + "/jre/lib/rt.jar")
 
         addStringOption("quiet")
         addStringOption("hdf", "project.name ${project.name}")

@@ -32,6 +32,7 @@ public interface CredentialDataStore {
    *
    * @param label      a string that identifies the given credentials
    * @param credential the credential to store
+   * @throws IOException if any
    */
   public void saveCredentials(String label, Credential credential) throws IOException;
 
@@ -41,6 +42,8 @@ public interface CredentialDataStore {
    * referenced by the label parameter.
    *
    * @param label the identifiers of the previous saved credentials.
+   * @throws IOException if any
+   * @return must return a {@link com.google.api.client.auth.oauth2.StoredCredential}
    */
   public StoredCredential getCredentials(String label) throws IOException;
 }

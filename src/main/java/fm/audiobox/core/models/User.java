@@ -35,7 +35,6 @@ import java.util.Map;
  * <p>
  * For the most part the returned attributes are straightforward, such as media_files_count,
  * however there are special attributes to explain:
- * <p>
  * <dl>
  * <dt>auth_token:</dt>
  * <dd>

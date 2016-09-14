@@ -83,7 +83,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * </code>
  * Since this library wants to be as much agnostic as possible regarding the HTTP client and
  * the JSON parser libraries you should set them at this moment by choosing amongst:
- * <p>
  * <ul>
  * <li><strong>NetHttpTransport:</strong> based on HttpURLConnection that is found in all Java SDKs, and thus usually the simplest choice.</li>
  * <li><strong>ApacheHttpTransport:</strong> based on the popular Apache HttpClient that allows for more customization.</li>
@@ -91,7 +90,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * </ul>
  * <p>
  * as HTTP transport, and:
- * <p>
  * <ul>
  * <li><strong>JacksonFactory:</strong> based on the popular Jackson library which is considered the fastest in terms of parsing/serialization speed</li>
  * <li><strong>GsonFactory:</strong> based on the Google GSON library which is a lighter-weight option (small size) that is pretty fast also (though not quite as fast as Jackson)</li>
@@ -133,7 +131,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * For a complete list of API endpoints you can consult the AudioBox API handbook at this address:
  * <p>
  * <a href="http://audiobox.fm/apidocs">http://audiobox.fm/apidocs</a>
- * <p>
  */
 public class AudioBoxClient {
 

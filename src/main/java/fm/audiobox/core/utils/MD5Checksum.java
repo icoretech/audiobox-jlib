@@ -35,6 +35,10 @@ public class MD5Checksum {
 
   /**
    * Calculate checksum of a File using MD5 algorithm
+   *
+   * @param is the {@link InputStream} from where to read
+   * @return the calculated MD5 checksum
+   * @throws NoSuchAlgorithmException if no Provider supports a MessageDigestSpi implementation for the specified algorithm.
    */
   public static String checkSum(InputStream is) throws NoSuchAlgorithmException {
     String checksum = null;

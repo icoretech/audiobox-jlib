@@ -949,6 +949,8 @@ public class Playlist extends Model {
 
   /**
    * Gets this playlist brief description.
+   * 
+   * @return the Playlist description
    */
   public String getDescription() {
     return this.description;

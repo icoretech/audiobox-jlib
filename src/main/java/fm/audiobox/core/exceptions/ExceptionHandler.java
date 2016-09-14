@@ -41,6 +41,8 @@ public interface ExceptionHandler {
    * the next level.
    * </p>
    *
+   * @param e an {@link AudioBoxException}
+   *
    * @return true if the exception is handled, false otherwise.
    */
   public boolean onException(AudioBoxException e);

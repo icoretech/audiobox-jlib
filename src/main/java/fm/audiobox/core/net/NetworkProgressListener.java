@@ -26,6 +26,9 @@ public interface NetworkProgressListener {
   /**
    * The implementation of this method will receive the total amount and the current
    * bytes being pulled/pushed from/to the socket stream.
+   *
+   * @param total must indicate the total
+   * @param current must indicate the current state
    */
   public void onProgressUpdate(long total, long current);
 

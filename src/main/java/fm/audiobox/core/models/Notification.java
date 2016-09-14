@@ -97,6 +97,7 @@ public class Notification extends Model {
 
   /**
    * Performs a Notification deletion. If deletion cannot be accomplished an exception is thrown.
+   * @param audioBoxClient the {@link AudioBoxClient} instance to use for deletion
    *
    * @return true if deletion succeeds
    *

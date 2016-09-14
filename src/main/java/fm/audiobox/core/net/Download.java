@@ -52,6 +52,7 @@ public class Download {
    * @param inputStream  the input stream
    * @param outputStream the output stream to send data to
    * @param listener     the listener
+   * @param length       the total size
    */
   public Download(InputStream inputStream, OutputStream outputStream, NetworkProgressListener listener, long length) {
     this.inputStream = inputStream;
@@ -73,6 +74,8 @@ public class Download {
 
   /**
    * Start download
+   *
+   * @return an {@link OutputStream}
    */
   public OutputStream start() {
 

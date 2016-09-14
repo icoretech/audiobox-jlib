@@ -34,7 +34,7 @@ import java.util.Locale;
  * href="http://tools.ietf.org/html/rfc2388">RFC 2388: Returning Values from
  * Forms: multipart/form-data</a>
  * <p>
- * The implementation is a subclass of {@link MultipartContent} that sets the
+ * The implementation is a subclass of {@link com.google.api.client.http.MultipartContent} that sets the
  * media type to <code>"multipart/form-data"</code> and defaults to
  * {@link #DEFAULT_BOUNDARY} as a boundary string.
  * <p>
@@ -43,8 +43,7 @@ import java.util.Locale;
  * omitting redundant headers in the content parts (except for nested
  * "multipart" parts).
  * <p>
- * <p>
- * Shortcut method {@link #addPart(Part, String, String)} is provided in order
+ * Shortcut method {@link com.google.api.client.http.MultipartFormDataContent#addPart(Part, String, String)}} is provided in order
  * to easily set name and file name for the mandatory header
  * <code>"Content-Disposition"</code>. This header can be manually set in each
  * part's headers using the following format (but in this case no consistency
@@ -53,12 +52,12 @@ import java.util.Locale;
  * <p>
  * <code>Content-Disposition: form-data; name="user"</code>
  * <p>
- * <p>
  * Specifications on the "content-disposition" header (RFC 2183):<br>
  * http://tools.ietf.org/html/rfc2183
  * </p>
  * <p>
  * For a reference on how to build a multipart/form-data request see:
+ * </p>
  * <ul>
  * <li>http://chxo.com/be2/20050724_93bf.html</li>
  * <li>http://www.faqs.org/rfcs/rfc1867.html</li>
@@ -86,8 +85,9 @@ public class MultipartFormDataContent extends MultipartContent {
 
 
   /**
-   * Factory method to create {@link HttpMediaType} with media type
+   * Factory method to create {@link com.google.api.client.http.HttpMediaType} with media type
    * <code>"multipart/form-data"</code>
+   * @return an HttpMediaType
    */
   protected static final HttpMediaType getMultipartFormDataMediaType() {
     return new HttpMediaType( "multipart/form-data" );
@@ -178,10 +178,12 @@ public class MultipartFormDataContent extends MultipartContent {
    * headers for the content (as per RFC 2183 par. 2). If the header is
    * already specified in the added part, its value is overridden.
    *
-   * @param part                The {@link Part} to add to the content
+   * @param part                The {@link com.google.api.client.http.MultipartContent.Part} to add to the content
    * @param dispositionName     The name of the part (usually the field name in a web form)
    * @param dispositionFilename The optional filename of the part (usually for adding a
-   *                            {@link FileContent} part)
+   *                            {@link com.google.api.client.http.FileContent} part)
+   *
+   * @return a MultipartContent
    */
   public MultipartFormDataContent addPart(@Nonnull Part part, @Nonnull String dispositionName,
                                           @Nullable String dispositionFilename) {

@@ -368,9 +368,10 @@ public class Configuration {
    * <p>
    * Do not use this method if you are working on a production application.
    *
+   * @param environment the {@link Env environment} to set
+   *
    * @return the {@link Configuration}
    */
-  @Deprecated
   public Configuration setEnvironment(Env environment) {
     this.environment = environment;
     return this;

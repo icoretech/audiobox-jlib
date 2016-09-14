@@ -91,6 +91,8 @@ public class ModelUtil {
    *
    * @param playlists the user's playlists
    * @param type      the Playlists#PLAYLIST_* type to find
+   *
+   * @return the matched Playlist or null if not found
    */
   public static Playlist findPlaylistByType(List<Playlist> playlists, String type) {
 
