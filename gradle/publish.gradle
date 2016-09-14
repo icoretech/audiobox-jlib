@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-apply plugin: 'nexus'
+apply plugin: 'com.bmuschko.nexus'
 
 modifyPom {
     project {
@@ -47,11 +47,13 @@ modifyPom {
 
     }
 }
+extraArchive {
+    sources = true
+    tests = false
+    javadoc = true
+}
 
 nexus {
-    attachJavadoc = true
-    attachSources = true
-    attachTests = false
     sign = true
     repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
     snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
