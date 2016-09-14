@@ -21,7 +21,7 @@ import fm.audiobox.core.exceptions.FileAlreadyUploaded;
 import fm.audiobox.core.models.MediaFile;
 import fm.audiobox.core.net.NetworkProgressListener;
 import fm.audiobox.core.net.Upload;
-import fm.audiobox.tests.integration.AudioBoxTests;
+import fm.audiobox.tests.integration.AudioBoxIntegrationTests;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
  * <p/>
  * Created by keytwo on 25/07/14.
  */
-public class UploadTests extends AudioBoxTests {
+public class UploadTests extends AudioBoxIntegrationTests {
 
 
   /**

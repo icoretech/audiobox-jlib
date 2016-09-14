@@ -21,7 +21,7 @@ import fm.audiobox.core.models.Playlist;
 import fm.audiobox.core.models.Playlists;
 import fm.audiobox.core.net.NetworkProgressListener;
 import fm.audiobox.core.utils.ModelUtil;
-import fm.audiobox.tests.integration.AudioBoxTests;
+import fm.audiobox.tests.integration.AudioBoxIntegrationTests;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
  * <p/>
  * Created by keytwo on 25/07/14.
  */
-public class DownloadTests extends AudioBoxTests {
+public class DownloadTests extends AudioBoxIntegrationTests {
 
   /**
    * Test download success.

@@ -45,7 +45,7 @@ import static org.junit.Assert.fail;
  * <p/>
  * Created by keytwo on 16/01/14.
  */
-public class AudioBoxTests {
+public class AudioBoxIntegrationTests {
 
   protected static final File DATA_STORE_DIR = new File( System.getProperty( "user.home" ), ".audiobox/abx" );
 

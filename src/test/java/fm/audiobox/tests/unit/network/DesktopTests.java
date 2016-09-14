@@ -18,6 +18,7 @@ package fm.audiobox.tests.unit.network;
 
 import fm.audiobox.tests.mocks.MockHttp;
 import fm.audiobox.tests.unit.base.AudioBoxTests;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class DesktopTests extends AudioBoxTests {
    * @throws IOException the iO exception
    */
   @Test
+  @Ignore
   public void testDaemonRunning() throws IOException {
     assertTrue( c.isDaemonRunning() );
   }
@@ -49,6 +51,7 @@ public class DesktopTests extends AudioBoxTests {
    * @throws IOException the iO exception
    */
   @Test
+  @Ignore
   public void testDaemonNotRunning() throws IOException {
     c.getConf().setHttpTransport( MockHttp.getDaemonNotRunningTransport() );
     assertFalse( c.isDaemonRunning() );
