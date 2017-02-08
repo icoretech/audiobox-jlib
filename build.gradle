@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
     }
 }
 
@@ -38,10 +38,10 @@ configurations {
 
 dependencies {
     // Logging
-    compile     'org.slf4j:slf4j-api:1.7.21'
+    compile     'org.slf4j:slf4j-api:1.7.22'
 
     // Configuration
-    compile     'com.typesafe:config:1.3.0'
+    compile     'com.typesafe:config:1.3.1'
 
     // Http
     compile     'com.google.http-client:google-http-client:1.22.0'
@@ -49,25 +49,25 @@ dependencies {
 
     // Common utils
     compile     'commons-validator:commons-validator:1.5.1'
-    compile     'org.apache.commons:commons-lang3:3.4'
+    compile     'org.apache.commons:commons-lang3:3.5'
     compile     'de.danielbechler:java-object-diff:0.94'
 
 
     // Testing
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.1.0-RC.1'
+    testCompile 'org.mockito:mockito-core:2.7.5'
     testCompile 'com.google.http-client:google-http-client-jackson2:1.22.0'
 
     // Test logging
-    testCompile 'ch.qos.logback:logback-classic:1.1.7'
-    testCompile 'org.slf4j:jul-to-slf4j:1.7.21'
+    testCompile 'ch.qos.logback:logback-classic:1.1.10'
+    testCompile 'org.slf4j:jul-to-slf4j:1.7.22'
 
     // Cache
     testCompile  'com.integralblue:httpresponsecache:1.3'
 
     // Utils
     testCompile  'org.apache.commons:commons-io:1.3.2'
-    testCompile  'nl.jqno.equalsverifier:equalsverifier:2.1.5'
+    testCompile  'nl.jqno.equalsverifier:equalsverifier:2.2.1'
 
     // JavaDoc
     jaxDoclet("com.google.doclava:doclava:1.0.6")
