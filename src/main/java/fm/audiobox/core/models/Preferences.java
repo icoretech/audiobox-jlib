@@ -70,7 +70,7 @@ public class Preferences extends Model {
   protected String top_bar_bg;
 
   @Key
-  protected String volume_level;
+  protected int volume_level;
 
   @Key
   protected boolean accept_emails;
@@ -164,7 +164,7 @@ public class Preferences extends Model {
    *
    * @return the CWP volume level
    */
-  public String getVolumeLevel() {
+  public int getVolumeLevel() {
     return volume_level;
   }
 
@@ -269,7 +269,7 @@ public class Preferences extends Model {
    *
    * @param volume_level a range from 0 (mute) to 100 (max) in form of a String
    */
-  public void setVolumeLevel(String volume_level) {
+  public void setVolumeLevel(int volume_level) {
     this.volume_level = volume_level;
   }
 

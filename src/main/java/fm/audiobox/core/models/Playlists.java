@@ -91,6 +91,11 @@ public class Playlists extends Model {
    */
   public static final String PLAYLIST_SMART = "smart";
 
+  /**
+   * The constant that identifies "channel" playlists.
+   */
+  public static final String PLAYLIST_CHANNEL = "channel";
+
   @Key("playlists")
   private List<Playlist> playlists;
 

@@ -81,6 +81,7 @@ public class PlaylistsTests extends AudioBoxTests {
     assertFalse( p.isCustom() );
     assertFalse( p.isSmart() );
     assertFalse( p.isOffline() );
+    assertFalse( p.isChannel() );
   }
 
 

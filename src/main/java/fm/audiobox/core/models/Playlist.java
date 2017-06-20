@@ -976,6 +976,14 @@ public class Playlist extends Model {
     return Playlists.PLAYLIST_SMART.equals( getSystemName() );
   }
 
+  /**
+   * Checks if the playlist is a channel one.
+   *
+   * @return true if the playlist is a channel playlist.
+   */
+  public boolean isChannel() {
+    return Playlists.PLAYLIST_CHANNEL.equals( getSystemName() );
+  }
 
   /**
    * Checks if the playlist is the offline items playlist.
@@ -993,7 +1001,7 @@ public class Playlist extends Model {
    * @return true if the playlist is a cloud drive.
    */
   public boolean isDrive() {
-    return !( isCustom() || isSmart() || isOffline() );
+    return !( isCustom() || isSmart() || isChannel() || isOffline() );
   }
 
 
